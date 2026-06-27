@@ -14,41 +14,49 @@
             --warning: #f1c40f;
             --danger: #e74c3c;
             --primary: #3498db;
+            --block-bg: #2c3e50;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); padding: 20px; }
+        body { background-color: var(--bg-color); color: var(--text-color); padding: 15px; }
         
-        header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 2px solid var(--border-color); margin-bottom: 20px; }
-        h1 { font-size: 24px; color: #2c3e50; }
+        header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 15px; border-bottom: 2px solid var(--border-color); margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        h1 { font-size: 22px; color: #2c3e50; }
         
-        .view-toggle { background: #2c3e50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .controls { display: flex; gap: 10px; align-items: center; width: 100%; justify-content: space-between; flex-wrap: wrap; }
+        .search-bar { padding: 10px; font-size: 16px; border: 2px solid var(--border-color); border-radius: 6px; width: 100%; max-width: 400px; }
+        .view-toggle { background: var(--block-bg); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
         
-        /* App Layouts */
+        /* Layouts */
         .container { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        @media(min-width: 900px) {
-            .office-layout { grid-template-columns: 2fr 1fr; }
+        @media(min-width: 1100px) {
+            .office-layout { grid-template-columns: 3fr 1fr; }
         }
 
-        /* Floor Terminal Grid */
-        .terminal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .material-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .material-title { font-size: 20px; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        /* Block-Unterteilung */
+        .block-section { margin-bottom: 25px; }
+        .block-header { background: var(--block-bg); color: white; padding: 10px 15px; border-radius: 6px; margin-bottom: 15px; font-size: 18px; font-weight: bold; }
+
+        /* Grid */
+        .terminal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+        .material-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .material-title { font-size: 15px; font-weight: bold; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 6px; line-height: 1.3; }
+        .material-code { background: #e8f0fe; color: #1a73e8; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-family: monospace; white-space: nowrap; }
         
         /* Status Controls */
-        .status-buttons { display: flex; gap: 10px; margin-bottom: 15px; }
-        .btn-status { flex: 1; padding: 12px 5px; border: 2px solid var(--border-color); border-radius: 6px; background: white; font-weight: bold; cursor: pointer; transition: all 0.2s; }
+        .status-buttons { display: flex; gap: 8px; margin-bottom: 10px; }
+        .btn-status { flex: 1; padding: 10px 5px; border: 1px solid var(--border-color); border-radius: 4px; background: white; font-weight: bold; font-size: 13px; cursor: pointer; transition: all 0.15s; }
         
         .btn-status.empty.active { background: var(--success); color: white; border-color: var(--success); }
         .btn-status.warning.active { background: var(--warning); color: #333; border-color: var(--warning); }
         .btn-status.full.active { background: var(--danger); color: white; border-color: var(--danger); }
 
-        .btn-log { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer; }
+        .btn-log { width: 100%; background: var(--primary); color: white; border: none; padding: 10px; border-radius: 4px; font-weight: bold; font-size: 14px; cursor: pointer; }
         .btn-log:active { transform: scale(0.98); }
 
-        /* Office Dashboard Elements */
-        .office-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
-        .status-monitor-card { background: var(--card-bg); padding: 15px; border-radius: 8px; border-left: 8px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        /* Office Monitor */
+        .office-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+        .status-monitor-card { background: var(--card-bg); padding: 12px; border-radius: 6px; border-left: 6px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; }
         
         .status-monitor-card.status-empty { border-left-color: var(--success); }
         .status-monitor-card.status-warning { border-left-color: var(--warning); }
@@ -56,64 +64,166 @@
 
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+            70% { box-shadow: 0 0 0 8px rgba(231, 76, 60, 0); }
             100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
         }
 
-        .sidebar { background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); max-height: 600px; overflow-y: auto; }
-        .log-item { padding: 10px; border-bottom: 1px solid var(--border-color); font-size: 14px; }
-        .log-time { color: #7f8c8d; font-weight: bold; margin-right: 8px; }
+        .sidebar { background: var(--card-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); max-height: calc(100vh - 120px); overflow-y: auto; position: sticky; top: 15px; }
+        .log-item { padding: 8px 0; border-bottom: 1px solid var(--border-color); font-size: 13px; line-height: 1.4; }
+        .log-time { color: #7f8c8d; font-weight: bold; margin-right: 5px; font-family: monospace; }
 
-        .export-btn { background: #27ae60; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 15px; }
-        
+        .export-btn { background: #27ae60; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-bottom: 15px; font-size: 14px; }
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1 id="app-title">ASZ Asten - Platz-Terminal</h1>
-        <button class="view-toggle" id="viewToggle" onclick="toggleView()">Ansicht wechseln (Büro PC)</button>
+        <div class="controls">
+            <h1 id="app-title">ASZ Asten - Platz-Terminal</h1>
+            <input type="text" id="searchBar" class="search-bar" placeholder="Suchen nach Name oder Code (z.B. 3510)..." oninput="handleSearch()">
+            <button class="view-toggle" id="viewToggle" onclick="toggleView()">Ansicht wechseln (Büro PC)</button>
+        </div>
     </header>
 
+    <!-- VIEW 1: FLOOR TERMINAL -->
     <div id="floor-view" class="container">
-        <div class="terminal-grid" id="terminal-container"></div>
+        <div id="terminal-blocks-container"></div>
     </div>
 
+    <!-- VIEW 2: OFFICE DASHBOARD -->
     <div id="office-view" class="container office-layout hidden">
         <div>
-            <h2 style="margin-bottom: 15px;">Live Container Status</h2>
-            <div class="office-grid" id="office-monitor-container"></div>
+            <div id="office-blocks-container"></div>
         </div>
         <div class="sidebar">
             <h2>Aktivitätsprotokoll</h2>
-            <button class="export-btn" onclick="exportToCSV()">Protokoll als CSV exportieren</button>
-            <div id="log-container" style="margin-top: 15px;"></div>
+            <div style="margin-top: 10px;">
+                <button class="export-btn" onclick="exportToCSV()">Protokoll als CSV exportieren</button>
+            </div>
+            <div id="log-container"></div>
         </div>
     </div>
 
     <script>
-        // Core Data Structure
-        const categories = [
-            { id: 'altholz', name: '🪵 Altholz', status: 'empty' },
-            { id: 'elektro', name: '🖥️ Elektroaltgeräte', status: 'empty' },
-            { id: 'bauschutt', name: '🪟 Bauschutt', status: 'empty' },
-            { id: 'problemstoffe', name: '🛢️ Problemstoffe', status: 'empty' },
-            { id: 'karton', name: '📦 Kartonagen / Papier', status: 'empty' },
-            { id: 'reifen', name: '🛞 Altreifen', status: 'empty' },
-            { id: 'sperrmuell', name: '🗑️ Sperrmüll', status: 'empty' }
+        // Komplett erweiterte Materialdatenstruktur nach Blöcken
+        const materialData = [
+            {
+                block: "Block 1000: ReVital / Wiederverwendung",
+                items: [
+                    { id: "1501", name: "Großmöbel (ReVital)", status: "empty" },
+                    { id: "1506", name: "Hausrat (ReVital)", status: "empty" },
+                    { id: "1510", name: "Elektro-Großgeräte für Wiederverwendung", status: "empty" },
+                    { id: "1511", name: "Elektro-Kleingeräte für Wiederverwendung", status: "empty" }
+                ]
+            },
+            {
+                block: "Block 2000: Altstoffe & Verpackungen (Papier, Glas, Kunststoffe)",
+                items: [
+                    { id: "2110", name: "Altpapier (Zeitungen, Illustrierte)", status: "empty" },
+                    { id: "2120", name: "Kartonagen (Wellpappe, Verpackungskarton)", status: "empty" },
+                    { id: "2210", name: "Verpackungsglas Weiß (Flachglas ausgenommen)", status: "empty" },
+                    { id: "2220", name: "Verpackungsglas Bunt", status: "empty" },
+                    { id: "2310", name: "Flachglas / Fensterglas", status: "empty" },
+                    { id: "2510", name: "PET-Flaschen transparent", status: "empty" },
+                    { id: "2511", name: "PET-Flaschen bunt", status: "empty" },
+                    { id: "2520", name: "Kunststoff-Hohlkörper (Kanister, Kübel > 5 Liter)", status: "empty" },
+                    { id: "2540", name: "PE-Folie transparent (LDPE-Verpackungsfolien)", status: "empty" },
+                    { id: "2541", name: "PE-Folie bunt / Gewerbefolie", status: "empty" },
+                    { id: "2550", name: "Getränkekartons (Milch-/Saftpackerl)", status: "empty" },
+                    { id: "2570", name: "Styropor (EPS) rein (Verpackungen)", status: "empty" },
+                    { id: "2571", name: "Styropor (EPS) Baustelle (Dämmplatten, XPS)", status: "empty" },
+                    { id: "2580", name: "Hartkunststoffe (Nicht-Verpackungen wie Spielzeug, Gartenmöbel)", status: "empty" }
+                ]
+            },
+            {
+                block: "Block 3000: Altholz & Metalle",
+                items: [
+                    { id: "3010", name: "Altholz stofflich (Kategorie A I / A II, unbehandelt, Paletten)", status: "empty" },
+                    { id: "3020", name: "Altholz thermisch (Kategorie A III, beschichtete Platten, Möbel)", status: "empty" },
+                    { id: "3030", name: "Altholz verunreinigt / imprägniert (Kategorie A IV, Außenholz, Zäune)", status: "empty" },
+                    { id: "3510", name: "Alteisen / Mischschrott", status: "empty" },
+                    { id: "3520", name: "Kabelschrott (Kupfer-/Alukabel isoliert)", status: "empty" },
+                    { id: "3530", name: "Aluminium (Profile, Bleche)", status: "empty" },
+                    { id: "3540", name: "Buntmetalle (Kupfer, Messing, Armaturen)", status: "empty" }
+                ]
+            },
+            {
+                block: "Block 4000: Elektroaltgeräte (EAG) & Batterien",
+                items: [
+                    { id: "4010", name: "Elektro-Großgeräte (Waschmaschinen, Herde)", status: "empty" },
+                    { id: "4020", name: "Kühl- und Klimageräte", status: "empty" },
+                    { id: "4030", name: "Bildschirmgeräte (TV, Monitore)", status: "empty" },
+                    { id: "4040", name: "Elektro-Kleingeräte (ohne Akkus, QR-Box)", status: "empty" },
+                    { id: "4041", name: "Elektro-Kleingeräte mit fest verbauten Lithium-Akkus", status: "empty" },
+                    { id: "4050", name: "Gasentladungslampen stabförmig (Leuchtstoffröhren)", status: "empty" },
+                    { id: "4051", name: "Gasentladungslampen Sonderformen (LED, Energiesparlampen)", status: "empty" },
+                    { id: "4110", name: "Gerätebatterien (Fass / Sammelbox)", status: "empty" },
+                    { id: "4120", name: "Lithium-Batterien / Akkus unbeschädigt", status: "empty" },
+                    { id: "4130", name: "Fahrzeugbatterien (KFZ-Starterbatterien)", status: "empty" }
+                ]
+            },
+            {
+                block: "Block 4300 / 4900: Problemstoffe & Bau-Sonderabfälle",
+                items: [
+                    { id: "4310", name: "Altöl mineralisch (Motorenöl)", status: "empty" },
+                    { id: "4315", name: "Speiseöl / Altfett (Öli-System)", status: "empty" },
+                    { id: "4320", name: "Dispersionsfarben (Wandfarben auf Wasserbasis)", status: "empty" },
+                    { id: "4325", name: "Lacke und Lösemittel (lösemittelhaltige Farben, Klebstoffe)", status: "empty" },
+                    { id: "4340", name: "Altmedikamente", status: "empty" },
+                    { id: "4350", name: "Spraydosen mit Restinhalt", status: "empty" },
+                    { id: "4385", name: "Mineralwolle / KMF (Annahme im staubdichten ASZ-Sammelsack)", status: "empty" },
+                    { id: "4390", name: "Asbestzement / Eternit mix (Gefährlicher Abfall)", status: "empty" },
+                    { id: "4963", name: "Kostenpflichtige Annahme Mineralwolle (Säcke inkl. Entsorgungsgebühr)", status: "empty" }
+                ]
+            },
+            {
+                block: "Block 9000: Baurestmassen & Sperrmüll",
+                items: [
+                    { id: "9110", name: "Bauschutt rein (mineralisch: Ziegel, Beton, Fliesen)", status: "empty" },
+                    { id: "9120", name: "Bauschutt sortiert / Leichtbaustoffe (Ytong, Rigips-Reste)", status: "empty" },
+                    { id: "9140", name: "Gipskartonplatten rein", status: "empty" },
+                    { id: "9510", name: "Sperrmüll", status: "empty" },
+                    { id: "9520", name: "Altreifen ohne Felge", status: "empty" },
+                    { id: "9521", name: "Altreifen mit Felge", status: "empty" }
+                ]
+            }
         ];
 
-        let state = JSON.parse(localStorage.getItem('asz_state')) || { categories: categories, logs: [] };
+        // Lade State oder erstelle leeren Default
+        let state = JSON.parse(localStorage.getItem('asz_extended_state'));
+        if (!state) {
+            state = { blocks: materialData, logs: [] };
+        } else {
+            // Abgleich falls neue IDs hinzugefügt wurden
+            materialData.forEach(pBlock => {
+                let sBlock = state.blocks.find(b => b.block === pBlock.block);
+                if (!sBlock) {
+                    state.blocks.push(pBlock);
+                } else {
+                    pBlock.items.forEach(pItem => {
+                        if (!sBlock.items.some(i => i.id === pItem.id)) {
+                            sBlock.items.push(pItem);
+                        }
+                    });
+                }
+            });
+        }
+
         let currentView = 'floor';
+        let searchQuery = '';
 
         function saveData() {
-            localStorage.setItem('asz_state', JSON.stringify(state));
-            // Trigger storage event manually for same-page multi-tab updates
+            localStorage.setItem('asz_extended_state', JSON.stringify(state));
             window.dispatchEvent(new Event('storage'));
         }
 
-        // UI View Switcher
+        function handleSearch() {
+            searchQuery = document.getElementById('searchBar').value.toLowerCase();
+            if (currentView === 'floor') renderTerminal();
+            if (currentView === 'office') renderOffice();
+        }
+
         function toggleView() {
             const floorView = document.getElementById('floor-view');
             const officeView = document.getElementById('office-view');
@@ -137,60 +247,122 @@
             }
         }
 
+        // Hilfsfunktion zum Suchen von Items im verschachtelten State
+        function findItem(id) {
+            for (let b of state.blocks) {
+                let item = b.items.find(i => i.id === id);
+                if (item) return item;
+            }
+            return null;
+        }
+
         // Render Floor Terminal
         function renderTerminal() {
-            const container = document.getElementById('terminal-container');
+            const container = document.getElementById('terminal-blocks-container');
             container.innerHTML = '';
 
-            state.categories.forEach(cat => {
-                const card = document.createElement('div');
-                card.className = 'material-card';
-                card.innerHTML = `
-                    <div class="material-title">${cat.name}</div>
-                    <div>
-                        <div class="status-buttons">
-                            <button class="btn-status empty ${cat.status === 'empty' ? 'active' : ''}" onclick="setStatus('${cat.id}', 'empty')">Leer</button>
-                            <button class="btn-status warning ${cat.status === 'warning' ? 'active' : ''}" onclick="setStatus('${cat.id}', 'warning')">75%</button>
-                            <button class="btn-status full ${cat.status === 'full' ? 'active' : ''}" onclick="setStatus('${cat.id}', 'full')">Voll</button>
+            state.blocks.forEach(blockData => {
+                // Filtere Items nach Suchbegriff
+                const filteredItems = blockData.items.filter(item => 
+                    item.id.toLowerCase().includes(searchQuery) || 
+                    item.name.toLowerCase().includes(searchQuery)
+                );
+
+                if (filteredItems.length === 0) return; // Block ausblenden wenn leer gefiltert
+
+                const blockSection = document.createElement('div');
+                blockSection.className = 'block-section';
+                
+                const header = document.createElement('div');
+                header.className = 'block-header';
+                header.innerText = blockData.block;
+                blockSection.appendChild(header);
+
+                const grid = document.createElement('div');
+                grid.className = 'terminal-grid';
+
+                filteredItems.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'material-card';
+                    card.innerHTML = `
+                        <div class="material-title">
+                            <span class="material-code">${item.id}</span>
+                            <span>${item.name}</span>
                         </div>
-                        <button class="btn-log" onclick="logAction('${cat.id}', 'Einwurf registriert')">+ Einwurf Einloggen</button>
-                    </div>
-                `;
-                container.appendChild(card);
+                        <div>
+                            <div class="status-buttons">
+                                <button class="btn-status empty ${item.status === 'empty' ? 'active' : ''}" onclick="setStatus('${item.id}', 'empty')">Leer</button>
+                                <button class="btn-status warning ${item.status === 'warning' ? 'active' : ''}" onclick="setStatus('${item.id}', 'warning')">75%</button>
+                                <button class="btn-status full ${item.status === 'full' ? 'active' : ''}" onclick="setStatus('${item.id}', 'full')">Voll</button>
+                            </div>
+                            <button class="btn-log" onclick="logAction('${item.id}', 'Einwurf registriert')">+ Einwurf Einloggen</button>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                blockSection.appendChild(grid);
+                container.appendChild(blockSection);
             });
         }
 
         // Render Office Dashboard
         function renderOffice() {
-            const monitorContainer = document.getElementById('office-monitor-container');
-            monitorContainer.innerHTML = '';
+            const container = document.getElementById('office-blocks-container');
+            container.innerHTML = '';
 
-            state.categories.forEach(cat => {
-                const statusText = cat.status === 'empty' ? 'Bereit / Leer' : cat.status === 'warning' ? '75% Voll' : 'KRITISCH (Voll)';
-                const card = document.createElement('div');
-                card.className = `status-monitor-card status-${cat.status}`;
-                card.innerHTML = `
-                    <h3 style="font-size: 16px;">${cat.name}</h3>
-                    <p style="margin-top: 8px; font-weight: bold; font-size: 14px;">Status: ${statusText}</p>
-                `;
-                monitorContainer.appendChild(card);
+            state.blocks.forEach(blockData => {
+                const filteredItems = blockData.items.filter(item => 
+                    item.id.toLowerCase().includes(searchQuery) || 
+                    item.name.toLowerCase().includes(searchQuery)
+                );
+
+                if (filteredItems.length === 0) return;
+
+                const blockSection = document.createElement('div');
+                blockSection.className = 'block-section';
+                
+                const header = document.createElement('div');
+                header.className = 'block-header';
+                header.innerText = blockData.block;
+                blockSection.appendChild(header);
+
+                const grid = document.createElement('div');
+                grid.className = 'office-grid';
+
+                filteredItems.forEach(item => {
+                    const statusText = item.status === 'empty' ? 'Bereit' : item.status === 'warning' ? '75%' : 'VOLL';
+                    const card = document.createElement('div');
+                    card.className = `status-monitor-card status-${item.status}`;
+                    card.innerHTML = `
+                        <div class="material-title" style="margin-bottom:5px;">
+                            <span class="material-code">${item.id}</span>
+                            <span style="font-size:14px;">${item.name}</span>
+                        </div>
+                        <div style="font-weight: bold; font-size: 13px; text-align:right;">Status: ${statusText}</div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                blockSection.appendChild(grid);
+                container.appendChild(blockSection);
             });
 
+            // Protokoll rendern
             const logContainer = document.getElementById('log-container');
             logContainer.innerHTML = '';
             [...state.logs].reverse().forEach(log => {
                 const div = document.createElement('div');
                 div.className = 'log-item';
-                div.innerHTML = `<span class="log-time">${log.time}</span> <strong>${log.category}</strong>: ${log.action}`;
+                div.innerHTML = `<span class="log-time">[${log.time}]</span> <strong>${log.code} - ${log.category}</strong>: ${log.action}`;
                 logContainer.appendChild(div);
             });
         }
 
-        // Actions
         function setStatus(id, targetStatus) {
-            const cat = state.categories.find(c => c.id === id);
-            if (cat.status !== targetStatus) {
-                cat.status = targetStatus;
+            const item = findItem(id);
+            if (item && item.status !== targetStatus) {
+                item.status = targetStatus;
                 logAction(id, `Status geändert auf [${targetStatus.toUpperCase()}]`);
                 saveData();
                 renderTerminal();
@@ -198,45 +370,47 @@
         }
 
         function logAction(id, actionText) {
-            const cat = state.categories.find(c => c.id === id);
+            const item = findItem(id);
+            if (!item) return;
+            
             const now = new Date();
             const timeString = now.toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
             
             state.logs.push({
                 time: timeString,
-                category: cat.name,
+                code: item.id,
+                category: item.name.split('(')[0].trim(), // Kürzt Log-Eintrag für bessere Lesbarkeit
                 action: actionText
             });
 
-            // Keep log size reasonable
-            if(state.logs.length > 200) state.logs.shift();
+            if(state.logs.length > 300) state.logs.shift();
 
             saveData();
             if (currentView === 'office') renderOffice();
         }
 
         function exportToCSV() {
-            let csvContent = "data:text/csv;charset=utf-8,Zeit,Kategorie,Aktion\n";
+            let csvContent = "data:text/csv;charset=utf-8,Zeit,Schluesselnummer,Material,Aktion\n";
             state.logs.forEach(log => {
-                csvContent += `"${log.time}","${log.category}","${log.action}"\n`;
+                csvContent += `"${log.time}","${log.code}","${log.category}","${log.action}"\n`;
             });
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `ASZ_Asten_Log_${new Date().toISOString().slice(0,10)}.csv`);
+            link.setAttribute("download", `ASZ_Asten_Protokoll_${new Date().toISOString().slice(0,10)}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         }
 
-        // Listen for storage changes across different tabs/windows
+        // Echtzeit-Abgleich zwischen den Tabs
         window.addEventListener('storage', () => {
-            state = JSON.parse(localStorage.getItem('asz_state')) || { categories: categories, logs: [] };
+            state = JSON.parse(localStorage.getItem('asz_extended_state'));
             if (currentView === 'floor') renderTerminal();
             if (currentView === 'office') renderOffice();
         });
 
-        // Initial Boot
+        // Erst-Initalisierung
         renderTerminal();
     </script>
 </body>
