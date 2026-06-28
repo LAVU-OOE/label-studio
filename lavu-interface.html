@@ -404,7 +404,36 @@
             white-space: nowrap;
             flex-shrink: 0;
         }
-        .remove-btn {
+        /* ----- Druck-Button in der Frachtliste ----- */
+        .basket-item .print-item-btn {
+            background: rgba(46, 204, 113, 0.15);
+            border: 1px solid #2ecc71;
+            border-radius: 40px;
+            padding: clamp(2px, 0.3vh, 4px) clamp(8px, 0.8vw, 14px);
+            font-weight: 600;
+            color: #5cdb9a;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: clamp(0.6rem, 0.7vw, 0.75rem);
+            display: inline-flex;
+            align-items: center;
+            gap: clamp(3px, 0.4vw, 6px);
+            touch-action: manipulation;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .basket-item .print-item-btn:hover {
+            background: rgba(46, 204, 113, 0.3);
+            border-color: #2ecc71;
+            color: #8ef0b0;
+        }
+        .basket-item .print-item-btn:active {
+            transform: scale(0.93);
+        }
+        .basket-item .print-item-btn i {
+            font-size: clamp(0.5rem, 0.6vw, 0.7rem);
+        }
+        .basket-item .remove-btn {
             background: none;
             border: none;
             color: #6a8a9a;
@@ -415,10 +444,10 @@
             touch-action: manipulation;
             flex-shrink: 0;
         }
-        .remove-btn:hover {
+        .basket-item .remove-btn:hover {
             color: #e06666;
         }
-        .remove-btn:active {
+        .basket-item .remove-btn:active {
             transform: scale(0.85);
         }
 
@@ -538,33 +567,17 @@
             border: 1px solid #1f3a4a;
         }
 
-        /* ----- Card Navigation - Wie im Bild: Pagecount mit Drucken & Shreddern links + rechts ----- */
+        /* ----- Card Navigation ----- */
         .card-nav-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: clamp(6px, 0.8vw, 12px);
+            gap: clamp(8px, 1.2vw, 16px);
             margin-top: clamp(4px, 0.5vh, 8px);
             padding: 2px 0;
             flex-shrink: 0;
             flex-wrap: wrap;
         }
-        .card-nav-wrapper .nav-left {
-            display: flex;
-            align-items: center;
-            gap: clamp(6px, 0.8vw, 12px);
-        }
-        .card-nav-wrapper .nav-center {
-            display: flex;
-            align-items: center;
-            gap: clamp(8px, 1vw, 14px);
-        }
-        .card-nav-wrapper .nav-right {
-            display: flex;
-            align-items: center;
-            gap: clamp(6px, 0.8vw, 12px);
-        }
-
         .card-nav-btn {
             background: rgba(31, 93, 122, 0.2);
             border: 1px solid #2a5a6a;
@@ -593,58 +606,6 @@
             opacity: 0.25;
             cursor: not-allowed;
         }
-
-        /* Pagecount-Stil für Drucken und Shreddern - genau wie im Bild */
-        .pagecount-style {
-            background: rgba(0,0,0,0.2);
-            border: 1px solid #1f3a4a;
-            border-radius: 30px;
-            padding: clamp(4px, 0.5vh, 6px) clamp(10px, 1.2vw, 16px);
-            font-weight: 700;
-            color: #8ac0da;
-            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
-            display: inline-flex;
-            align-items: center;
-            gap: clamp(6px, 0.8vw, 10px);
-            cursor: pointer;
-            transition: 0.2s;
-            touch-action: manipulation;
-            white-space: nowrap;
-            user-select: none;
-        }
-        .pagecount-style:hover:not(:disabled) {
-            background: rgba(31, 93, 122, 0.25);
-            border-color: #3a8aaf;
-            color: #b0e0f0;
-        }
-        .pagecount-style:active:not(:disabled) {
-            transform: scale(0.95);
-        }
-        .pagecount-style:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-        .pagecount-style .pc-icon {
-            font-size: clamp(0.8rem, 1vw, 1rem);
-        }
-        .pagecount-style.print-style {
-            color: #5cdb9a;
-        }
-        .pagecount-style.print-style:hover:not(:disabled) {
-            background: rgba(46, 204, 113, 0.15);
-            border-color: #2ecc71;
-            color: #8ef0b0;
-        }
-        .pagecount-style.shredder-style {
-            color: #dd8888;
-        }
-        .pagecount-style.shredder-style:hover:not(:disabled) {
-            background: rgba(200, 60, 60, 0.15);
-            border-color: #cc5555;
-            color: #ffaaaa;
-        }
-
-        /* Der Pagecount selbst - zentral */
         .card-nav .counter {
             font-weight: 700;
             color: #8ac0da;
@@ -860,12 +821,12 @@
                 line-height: 26px;
                 padding: 0 12px;
             }
+            .basket-item .print-item-btn {
+                font-size: 0.6rem;
+                padding: 2px 8px;
+            }
             .card-nav-wrapper {
                 gap: 6px;
-            }
-            .pagecount-style {
-                font-size: 0.8rem;
-                padding: 3px 10px;
             }
             .card-nav-btn {
                 padding: 4px 10px;
@@ -963,6 +924,8 @@
                 padding: 4px 8px;
                 border-radius: 20px;
                 font-size: 0.7rem;
+                flex-wrap: wrap;
+                gap: 3px;
             }
             .basket-item .b-code {
                 font-size: 0.75rem;
@@ -970,10 +933,19 @@
             }
             .basket-item .b-desc {
                 font-size: 0.65rem;
+                min-width: 40px;
             }
             .basket-item .b-container {
                 font-size: 0.5rem;
                 padding: 1px 6px;
+            }
+            .basket-item .print-item-btn {
+                font-size: 0.5rem;
+                padding: 1px 6px;
+                gap: 2px;
+            }
+            .basket-item .print-item-btn i {
+                font-size: 0.4rem;
             }
             .remove-btn {
                 font-size: 0.9rem;
@@ -1028,14 +1000,6 @@
                 font-size: 0.7rem;
                 min-width: 36px;
                 padding: 2px 6px;
-            }
-            .pagecount-style {
-                font-size: 0.65rem;
-                padding: 2px 8px;
-                gap: 4px;
-            }
-            .pagecount-style .pc-icon {
-                font-size: 0.6rem;
             }
             .basket-actions button {
                 font-size: 0.7rem;
@@ -1128,9 +1092,9 @@
                 padding: 3px 8px;
                 font-size: 0.65rem;
             }
-            .pagecount-style {
-                font-size: 0.7rem;
-                padding: 2px 8px;
+            .basket-item .print-item-btn {
+                font-size: 0.5rem;
+                padding: 1px 6px;
             }
         }
     </style>
@@ -1188,26 +1152,11 @@
 
             <div class="card-dots" id="cardDots"></div>
 
-            <!-- Card Navigation: Pagecount mit Drucken & Shreddern genau wie im Bild -->
+            <!-- Card Navigation -->
             <div class="card-nav-wrapper">
-                <!-- Linke Seite: Drucken Button -->
-                <div class="nav-left">
-                    <button class="pagecount-style print-style" id="printCardBtn" disabled title="Aktuelles Label drucken">
-                        <i class="fas fa-print pc-icon"></i> Drucken
-                    </button>
-                </div>
-                <!-- Mitte: Pagecount + Pfeile -->
-                <div class="nav-center">
-                    <button class="card-nav-btn" id="cardPrevBtn" disabled><i class="fas fa-chevron-left"></i></button>
-                    <span class="counter" id="cardCounter">0 / 0</span>
-                    <button class="card-nav-btn" id="cardNextBtn" disabled><i class="fas fa-chevron-right"></i></button>
-                </div>
-                <!-- Rechte Seite: Shreddern Button -->
-                <div class="nav-right">
-                    <button class="pagecount-style shredder-style" id="shredderBtn" disabled title="Aktuelles Label entfernen">
-                        <i class="fas fa-trash-alt pc-icon"></i> Shreddern
-                    </button>
-                </div>
+                <button class="card-nav-btn" id="cardPrevBtn" disabled><i class="fas fa-chevron-left"></i></button>
+                <span class="counter" id="cardCounter">0 / 0</span>
+                <button class="card-nav-btn" id="cardNextBtn" disabled><i class="fas fa-chevron-right"></i></button>
             </div>
 
             <div class="basket-actions">
@@ -1299,8 +1248,40 @@
         const cardNextBtn = document.getElementById('cardNextBtn');
         const searchInput = document.getElementById('materialSearch');
         const officeStatusText = document.getElementById('officeStatusText');
-        const printCardBtn = document.getElementById('printCardBtn');
-        const shredderBtn = document.getElementById('shredderBtn');
+
+        // ----- Druckfunktion für ein einzelnes Item -----
+        function printSingleItem(item) {
+            const siteLine = 'ASZ Asten · Standort 106';
+            const printWindow = window.open('', '_blank', 'width=400,height=300');
+            if (!printWindow) {
+                alert('Bitte Popups erlauben, um das Label zu drucken.');
+                return;
+            }
+            printWindow.document.write(`
+                <html><head><title>LAVU Frachtlabel</title>
+                <style>
+                    body { font-family: 'Courier New', monospace; padding: 30px 20px; background: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+                    .label { border: 3px solid #003b57; padding: 24px 28px; border-radius: 16px; max-width: 380px; text-align: right; background: white; }
+                    .line1 { font-size: 1.4rem; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 10px; }
+                    .item-line { font-size: 1.1rem; font-weight: 600; }
+                    .desc-line { font-size: 1rem; margin-top: 4px; }
+                    .footer { margin-top: 16px; font-size: 0.7rem; color: #2d5770; border-top: 1px solid #ccc; padding-top: 10px; }
+</style></head><body>
+    <div class="label">
+        <div class="line1">${siteLine}</div>
+        <div class="item-line">${item.code} · ${item.container}</div>
+        <div class="desc-line">${item.desc}</div>
+        <div class="footer">LAVU-Artikel · OÖ LAVU GmbH</div>
+    </div>
+    <script>
+        window.print();
+        setTimeout(() => window.close(), 800);
+    <\/script>
+</body></html>
+`);
+            printWindow.document.close();
+            officeStatusText.textContent = `🖨️ Label ${item.code} gedruckt · ${new Date().toLocaleTimeString('de-DE')}`;
+        }
 
         // ----- Rendering -----
         function renderMaterialList() {
@@ -1358,11 +1339,26 @@
                             <span class="b-code">${item.code}</span>
                             <span class="b-desc">${item.desc}</span>
                             <span class="b-container">${item.container}</span>
+                            <button class="print-item-btn" data-index="${idx}" title="Label drucken">
+                                <i class="fas fa-print"></i> Drucken
+                            </button>
                             <button class="remove-btn" data-index="${idx}"><i class="fas fa-times-circle"></i></button>
                         </div>
                     `;
                 });
                 basketListEl.innerHTML = html;
+
+                // Druck-Buttons in der Frachtliste
+                document.querySelectorAll('.print-item-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const idx = parseInt(this.dataset.index);
+                        if (idx >= 0 && idx < basket.length) {
+                            printSingleItem(basket[idx]);
+                        }
+                    });
+                });
+
+                // Remove-Buttons
                 document.querySelectorAll('.remove-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const idx = parseInt(this.dataset.index);
@@ -1386,8 +1382,6 @@
                 cardCounter.textContent = '0 / 0';
                 cardPrevBtn.disabled = true;
                 cardNextBtn.disabled = true;
-                printCardBtn.disabled = true;
-                shredderBtn.disabled = true;
                 return;
             }
 
@@ -1437,8 +1431,6 @@
             cardCounter.textContent = `${activeIdx + 1} / ${total}`;
             cardPrevBtn.disabled = (activeIdx === 0);
             cardNextBtn.disabled = (activeIdx === total - 1);
-            printCardBtn.disabled = false;
-            shredderBtn.disabled = false;
 
             document.querySelectorAll('.card-item').forEach(card => {
                 card.addEventListener('click', function(e) {
@@ -1581,54 +1573,6 @@
             if (currentCardIndex < basket.length - 1) { currentCardIndex++; renderCardStack(); }
         });
 
-        // ----- Print aktuelles Label -----
-        printCardBtn.addEventListener('click', function() {
-            if (basket.length === 0 || currentCardIndex >= basket.length) return;
-            const item = basket[currentCardIndex];
-            const siteLine = 'ASZ Asten · Standort 106';
-            const printWindow = window.open('', '_blank', 'width=400,height=300');
-            if (!printWindow) {
-                alert('Bitte Popups erlauben, um das Label zu drucken.');
-                return;
-            }
-            printWindow.document.write(`
-                <html><head><title>LAVU Frachtlabel</title>
-                <style>
-                    body { font-family: 'Courier New', monospace; padding: 30px 20px; background: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-                    .label { border: 3px solid #003b57; padding: 24px 28px; border-radius: 16px; max-width: 380px; text-align: right; background: white; }
-                    .line1 { font-size: 1.4rem; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 10px; }
-                    .item-line { font-size: 1.1rem; font-weight: 600; }
-                    .desc-line { font-size: 1rem; margin-top: 4px; }
-                    .footer { margin-top: 16px; font-size: 0.7rem; color: #2d5770; border-top: 1px solid #ccc; padding-top: 10px; }
-</style></head><body>
-    <div class="label">
-        <div class="line1">${siteLine}</div>
-        <div class="item-line">${item.code} · ${item.container}</div>
-        <div class="desc-line">${item.desc}</div>
-        <div class="footer">LAVU-Artikel · OÖ LAVU GmbH</div>
-    </div>
-    <script>
-        window.print();
-        setTimeout(() => window.close(), 800);
-    <\/script>
-</body></html>
-`);
-            printWindow.document.close();
-            officeStatusText.textContent = `🖨️ Label ${item.code} gedruckt · ${new Date().toLocaleTimeString('de-DE')}`;
-        });
-
-        // ----- Shredder: aktuelles Label entfernen -----
-        shredderBtn.addEventListener('click', function() {
-            if (basket.length === 0 || currentCardIndex >= basket.length) return;
-            const removed = basket[currentCardIndex];
-            basket.splice(currentCardIndex, 1);
-            if (currentCardIndex >= basket.length) currentCardIndex = Math.max(0, basket.length - 1);
-            updateBasket();
-            renderMaterialList();
-            sendToOffice('shredder', removed);
-            officeStatusText.textContent = `🗑️ Label ${removed.code} geschreddert · ${new Date().toLocaleTimeString('de-DE')}`;
-        });
-
         document.addEventListener('keydown', function(e) {
             if (basket.length === 0) return;
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
@@ -1636,14 +1580,6 @@
                 e.preventDefault(); currentCardIndex--; renderCardStack();
             } else if (e.key === 'ArrowRight' && currentCardIndex < basket.length - 1) {
                 e.preventDefault(); currentCardIndex++; renderCardStack();
-            } else if (e.key === 'Delete' || e.key === 'Backspace') {
-                if (basket.length > 0 && currentCardIndex < basket.length) {
-                    e.preventDefault();
-                    shredderBtn.click();
-                }
-            } else if (e.key === 'p' && (e.ctrlKey || e.metaKey)) {
-                e.preventDefault();
-                printCardBtn.click();
             }
         });
 
