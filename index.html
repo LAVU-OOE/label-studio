@@ -320,7 +320,7 @@
             background: var(--bg-item-hover);
         }
 
-        /* ----- Main Grid - 50/50 Split ----- */
+        /* ----- Main Grid - 3 Spalten: Karten links, Material mitte, Fracht rechts ----- */
         .app-grid {
             display: flex;
             flex-direction: row;
@@ -330,10 +330,11 @@
             overflow: hidden;
         }
 
-        /* ----- Linke Hälfte: Terminal (Karteikärtchen + Materialauswahl) ----- */
-        .terminal-panel {
+        /* ----- Linke Spalte: Karteikärtchen (nur Karten) ----- */
+        .card-panel {
             flex: 1;
             min-width: 0;
+            max-width: 45%;
             background: var(--bg-secondary);
             border-radius: clamp(14px, 2vw, 20px);
             padding: clamp(10px, 1.5vw, 18px);
@@ -341,24 +342,6 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            transition: background 0.3s ease, border-color 0.3s ease;
-        }
-        .terminal-panel.hidden {
-            display: none;
-        }
-
-        /* Card Panel innerhalb des Terminal-Panels (oben) */
-        .card-panel {
-            flex: 0 0 auto;
-            max-height: 45%;
-            background: var(--bg-card);
-            border-radius: clamp(14px, 2vw, 20px);
-            padding: clamp(10px, 1.5vw, 18px);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            margin-bottom: clamp(8px, 1vw, 12px);
             transition: background 0.3s ease, border-color 0.3s ease;
         }
         .card-panel.hidden {
@@ -603,13 +586,21 @@
             font-size: clamp(0.9rem, 1.1vw, 1.1rem);
         }
 
-        /* ----- Material List (unterhalb der Karten) ----- */
-        .material-list-section {
-            flex: 1;
-            min-height: 0;
+        /* ----- Mittlere Spalte: Materialliste + Terminal-Aktionen ----- */
+        .terminal-panel {
+            flex: 1.2;
+            min-width: 0;
+            background: var(--bg-secondary);
+            border-radius: clamp(14px, 2vw, 20px);
+            padding: clamp(10px, 1.5vw, 18px);
+            border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+        .terminal-panel.hidden {
+            display: none;
         }
 
         .filter-bar {
@@ -857,7 +848,7 @@
             background: rgba(46, 204, 113, 0.2);
         }
 
-        /* ----- Rechte Hälfte: Frachtliste (Office) ----- */
+        /* ----- Rechte Spalte: Frachtliste (Office) ----- */
         .right-panel {
             flex: 1;
             min-width: 0;
@@ -1190,7 +1181,7 @@
                 box-shadow: none !important;
                 background: white !important;
             }
-            .terminal-panel, .card-panel, .office-panel {
+            .card-panel, .terminal-panel, .office-panel {
                 border: none !important;
                 background: white !important;
                 padding: 0 !important;
@@ -1206,24 +1197,20 @@
         }
 
         /* ----- Responsive ----- */
-        @media (max-width: 860px) {
+        @media (max-width: 1000px) {
             .app-grid {
                 flex-direction: column;
                 gap: 10px;
+            }
+            .card-panel {
+                max-width: 100%;
+                max-height: 35%;
+                flex: 0 0 auto;
             }
             .terminal-panel {
                 flex: 1;
                 min-height: 30vh;
                 max-height: 50vh;
-            }
-            .card-panel {
-                max-height: 40%;
-                flex: 0 0 auto;
-                margin-bottom: 8px;
-            }
-            .material-list-section {
-                flex: 1;
-                min-height: 0;
             }
             .right-panel {
                 flex: 1;
@@ -1255,9 +1242,9 @@
             .view-toggle button { font-size: 0.6rem; padding: 3px 8px; }
             .sync-status { font-size: 0.6rem; }
             .sync-status .dot { width: 8px; height: 8px; }
+            .card-panel { max-height: 30%; padding: 8px; }
             .terminal-panel { min-height: 25vh; max-height: 45vh; padding: 8px; }
             .right-panel { min-height: 25vh; max-height: 45vh; }
-            .card-panel { max-height: 35%; padding: 8px; }
             .office-panel { padding: 8px; }
             .office-item .o-time { min-width: 40px; font-size: 0.5rem; }
             .office-item .o-delete { font-size: 0.8rem; }
@@ -1307,44 +1294,41 @@
         </div>
     </div>
 
-    <!-- Main Grid - 50/50 Split -->
+    <!-- Main Grid - 3 Spalten: Karten | Materialliste | Frachtliste -->
     <div class="app-grid">
-        <!-- Linke Hälfte: Karteikärtchen (oben) + Materialauswahl (unten) -->
-        <div class="terminal-panel" id="terminalPanel">
-            <!-- Card Panel (oben im Terminal-Panel) -->
-            <div class="card-panel" id="cardPanel">
-                <div class="card-panel-header">
-                    <h4><i class="fas fa-id-card"></i> Karteikärtchen</h4>
-                    <span class="card-count" id="cardCountLabel">0</span>
-                </div>
-                <div class="card-stack-container" id="cardStackContainer">
-                    <div class="card-empty">Keine Karteikärtchen<br>Füge Materialien hinzu</div>
-                </div>
-                <div class="card-dots" id="cardDots"></div>
-                <div class="card-nav">
-                    <button id="cardPrevBtn" disabled><i class="fas fa-chevron-left"></i></button>
-                    <span class="counter" id="cardCounter">0 / 0</span>
-                    <button id="cardNextBtn" disabled><i class="fas fa-chevron-right"></i></button>
-                </div>
+        <!-- Linke Spalte: Karteikärtchen -->
+        <div class="card-panel" id="cardPanel">
+            <div class="card-panel-header">
+                <h4><i class="fas fa-id-card"></i> Karteikärtchen</h4>
+                <span class="card-count" id="cardCountLabel">0</span>
             </div>
+            <div class="card-stack-container" id="cardStackContainer">
+                <div class="card-empty">Keine Karteikärtchen<br>Füge Materialien hinzu</div>
+            </div>
+            <div class="card-dots" id="cardDots"></div>
+            <div class="card-nav">
+                <button id="cardPrevBtn" disabled><i class="fas fa-chevron-left"></i></button>
+                <span class="counter" id="cardCounter">0 / 0</span>
+                <button id="cardNextBtn" disabled><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
 
-            <!-- Material List Section (unten im Terminal-Panel) -->
-            <div class="material-list-section">
-                <div class="filter-bar">
-                    <input type="text" id="materialSearch" placeholder="🔍 Suchen (Code / Name) ..." inputmode="search">
-                    <div class="block-selector">
-                        <span>Block:</span>
-                        <button class="block-btn active" data-block="all">Alle</button>
-                        <button class="block-btn" data-block="1000">1000</button>
-                        <button class="block-btn" data-block="2000">2000</button>
-                        <button class="block-btn" data-block="3000">3000</button>
-                        <button class="block-btn" data-block="4000">4000</button>
-                        <button class="block-btn" data-block="4300">4300</button>
-                        <button class="block-btn" data-block="9000">9000</button>
-                    </div>
+        <!-- Mittlere Spalte: Materialliste -->
+        <div class="terminal-panel" id="terminalPanel">
+            <div class="filter-bar">
+                <input type="text" id="materialSearch" placeholder="🔍 Suchen (Code / Name) ..." inputmode="search">
+                <div class="block-selector">
+                    <span>Block:</span>
+                    <button class="block-btn active" data-block="all">Alle</button>
+                    <button class="block-btn" data-block="1000">1000</button>
+                    <button class="block-btn" data-block="2000">2000</button>
+                    <button class="block-btn" data-block="3000">3000</button>
+                    <button class="block-btn" data-block="4000">4000</button>
+                    <button class="block-btn" data-block="4300">4300</button>
+                    <button class="block-btn" data-block="9000">9000</button>
                 </div>
-                <div class="material-list" id="materialListContainer"></div>
             </div>
+            <div class="material-list" id="materialListContainer"></div>
 
             <div class="terminal-actions">
                 <button class="clear-btn" id="clearBasketBtn"><i class="fas fa-trash-alt"></i> Alle Leeren</button>
@@ -1353,7 +1337,7 @@
             </div>
         </div>
 
-        <!-- Rechte Hälfte: Frachtliste -->
+        <!-- Rechte Spalte: Frachtliste -->
         <div class="right-panel">
             <div class="office-panel" id="officePanel">
                 <div class="office-header">
@@ -2058,17 +2042,17 @@
             currentView = 'terminal';
             document.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
+            cardPanel.classList.remove('hidden');
             terminalPanel.classList.remove('hidden');
             officePanel.classList.add('hidden');
-            cardPanel.classList.remove('hidden');
         });
         document.getElementById('viewOfficeBtn').addEventListener('click', function() {
             currentView = 'office';
             document.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
+            cardPanel.classList.add('hidden');
             terminalPanel.classList.add('hidden');
             officePanel.classList.remove('hidden');
-            cardPanel.classList.add('hidden');
             updateOfficeDashboard();
         });
 
@@ -2179,6 +2163,5 @@
         init();
     })();
 </script>
-<!-- 071177 -->
 </body>
-</html>
+</html> 
