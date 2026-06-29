@@ -270,27 +270,27 @@
             50% { opacity: 0.4; }
         }
 
+        /* Unauffälligere Theme- & Design-Tools */
         .app-theme-tools {
             display: flex;
             align-items: center;
-            gap: clamp(6px, 1vw, 12px);
+            gap: clamp(4px, 0.6vw, 8px);
+            background: var(--bg-input);
+            padding: 3px 8px;
+            border-radius: 20px;
         }
 
         .design-toggle {
             display: flex;
-            gap: 4px;
-            background: var(--bg-input);
-            border-radius: 40px;
-            padding: 4px;
-            border: 1px solid var(--border-color);
+            gap: 2px;
         }
         .design-toggle button {
             background: transparent;
             border: none;
-            padding: clamp(4px, 0.5vh, 8px) clamp(10px, 1.2vw, 16px);
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: clamp(0.65rem, 0.8vw, 0.85rem);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 0.75rem;
             color: var(--text-muted);
             cursor: pointer;
             transition: 0.2s;
@@ -299,31 +299,31 @@
             font-family: var(--font-family);
         }
         .design-toggle button.active {
-            background: #1f5d7a;
-            color: white;
-            box-shadow: 0 0 20px rgba(31, 93, 122, 0.3);
+            background: rgba(31, 93, 122, 0.25);
+            color: var(--text-secondary);
         }
         .design-toggle button:hover:not(.active) {
             background: var(--bg-item-hover);
         }
 
         .theme-toggle {
-            background: var(--bg-input);
-            border: 1px solid var(--border-light);
-            border-radius: 40px;
-            padding: clamp(4px, 0.5vh, 8px) clamp(10px, 1.2vw, 16px);
-            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            padding: 2px 8px;
+            border-radius: 12px;
+            color: var(--text-muted);
             cursor: pointer;
             transition: 0.2s;
-            font-size: clamp(0.8rem, 1vw, 1rem);
+            font-size: 0.75rem;
             touch-action: manipulation;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             font-family: var(--font-family);
         }
         .theme-toggle:hover {
-            background: var(--btn-hover);
+            background: var(--bg-item-hover);
+            color: var(--text-secondary);
         }
 
         .view-toggle {
@@ -762,9 +762,9 @@
             font-size: 0.7rem;
         }
 
-        /* ----- Card Stack (Karteikärtchen) ----- */
+        /* ----- Card Panel (Karteikärtchen) ----- */
         .card-panel {
-            flex: 1; /* Geändert von flex: 0 0 auto -> nutzt nun dynamisch den Raum aus */
+            flex: 1;
             background: var(--bg-secondary);
             border-radius: clamp(14px, 2vw, 20px);
             padding: clamp(10px, 1.5vw, 18px);
@@ -773,7 +773,7 @@
             flex-direction: column;
             overflow: hidden;
             transition: background 0.3s ease, border-color 0.3s ease;
-            min-height: 0; /* Verhindert das Herausschneiden von Flex-Inhalten */
+            min-height: 0;
         }
         .card-panel.hidden {
             display: none;
@@ -787,6 +787,11 @@
             padding-bottom: clamp(6px, 0.8vh, 10px);
             margin-bottom: clamp(6px, 0.8vh, 10px);
             flex-shrink: 0;
+        }
+        .card-panel-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         .card-panel-header h4 {
             font-weight: 600;
@@ -804,6 +809,21 @@
         .card-panel-header .card-count {
             color: var(--text-muted);
             font-size: clamp(0.8rem, 1vw, 0.95rem);
+        }
+        .print-all-btn {
+            background: var(--btn-bg);
+            border: 1px solid var(--border-light);
+            color: var(--btn-text);
+            border-radius: 20px;
+            padding: 2px 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .print-all-btn:hover {
+            background: var(--btn-hover);
+            color: white;
         }
 
         .card-stack-container {
@@ -917,6 +937,29 @@
             white-space: nowrap;
             pointer-events: none;
             border: 1px solid var(--border-color);
+        }
+        .card-print-standalone-btn {
+            position: absolute;
+            top: clamp(8px, 1vh, 12px);
+            right: clamp(12px, 1.5vw, 18px);
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: 0.15s;
+            z-index: 12;
+        }
+        .card-print-standalone-btn:hover {
+            background: var(--btn-hover);
+            color: white;
+            border-color: var(--card-active-border);
         }
 
         .card-dots {
@@ -1103,80 +1146,92 @@
             font-size: clamp(0.55rem, 0.6vw, 0.7rem);
         }
 
+        /* ----- Drucken Hilfsklasse für Standalone / All Modus ----- */
+        body.print-single-mode .card-item:not(.print-target) {
+            display: none !important;
+        }
+
         /* ----- EC-Card Größe für Druck ----- */
         @media print {
-            .card-item {
-                width: 85.6mm !important;
-                height: 53.98mm !important;
-                border-radius: 4mm !important;
-                padding: 5mm !important;
-                font-size: 2.5mm !important;
-                line-height: 1.6 !important;
-                border: 1px solid #003b57 !important;
-                box-shadow: none !important;
-            }
-            .card-item .card-site {
-                font-size: 3mm !important;
-            }
-            .card-item .card-code {
-                font-size: 4mm !important;
-            }
-            .card-item .card-desc {
-                font-size: 2.8mm !important;
-            }
-            .card-item .card-index {
-                font-size: 2mm !important;
-                padding: 0.5mm 3mm !important;
-            }
-            .card-item .card-select-hint {
-                display: none !important;
-            }
-            .card-stack-container {
-                height: auto !important;
-                min-height: auto !important;
-            }
-            .card-stack {
-                position: relative !important;
-            }
-            .card-item {
-                position: relative !important;
-                transform: none !important;
-                opacity: 1 !important;
-                filter: none !important;
-                margin: 0 auto 4mm auto !important;
-                display: block !important;
-            }
-            .card-item.prev, .card-item.next, .card-item.hidden {
-                display: block !important;
-                transform: none !important;
-                opacity: 1 !important;
-                filter: none !important;
-                position: relative !important;
-            }
-            .card-dots, .card-nav, .terminal-actions, .filter-bar, .material-list, .app-header .app-status, .app-footer {
-                display: none !important;
+            body {
+                background: white !important;
+                padding: 0 !important;
+                overflow: visible !important;
             }
             .app-container {
                 height: auto !important;
                 max-height: none !important;
                 overflow: visible !important;
-                padding: 10mm !important;
+                padding: 0 !important;
                 border: none !important;
                 box-shadow: none !important;
                 background: white !important;
             }
-            .terminal-panel, .card-panel, .office-panel {
-                border: none !important;
-                background: white !important;
-                padding: 0 !important;
+            /* Alles verbergen außer dem rechten Panel und dem Card Stack */
+            .terminal-panel, .office-panel, .app-header, .app-footer, .card-dots, .card-nav, .card-panel-header, .card-select-hint, .card-print-standalone-btn {
+                display: none !important;
             }
-            .right-panel {
-                gap: 0 !important;
-            }
-            body {
-                background: white !important;
-                padding: 0 !important;
+            .right-panel, .card-panel, .card-stack-container, .card-stack {
+                display: block !important;
                 overflow: visible !important;
+                height: auto !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border: none !important;
+                background: transparent !important;
+            }
+            /* Kärtchenstruktur für den Ausdruck überschreiben */
+            .card-item {
+                position: relative !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                width: 85.6mm !important;
+                height: 53.98mm !important;
+                border-radius: 4mm !important;
+                padding: 6mm 8mm !important;
+                font-size: 3.5mm !important;
+                line-height: 1.6 !important;
+                border: 1.5px solid #003b57 !important;
+                box-shadow: none !important;
+                background: white !important;
+                color: #000000 !important;
+                page-break-inside: avoid !important;
+                margin: 0 auto 10mm auto !important;
+                transform: none !important;
+                opacity: 1 !important;
+                filter: none !important;
+            }
+            /* Im Single-Modus das nicht-ausgewählte Element filtern */
+            body.print-single-mode .card-item:not(.print-target) {
+                display: none !important;
+            }
+            /* Im All-Modus alle Kärtchen sichtbar machen, die sonst per Flex verdeckt sind */
+            body:not(.print-single-mode) .card-item {
+                display: flex !important;
+            }
+            .card-item .card-site {
+                font-size: 3.8mm !important;
+                color: #333333 !important;
+            }
+            .card-item .card-code {
+                font-size: 5mm !important;
+                color: #000000 !important;
+            }
+            .card-item .card-container {
+                color: #444444 !important;
+            }
+            .card-item .card-desc {
+                font-size: 3.4mm !important;
+                color: #111111 !important;
+            }
+            .card-item .card-index {
+                font-size: 2.5mm !important;
+                padding: 0.5mm 3mm !important;
+                color: #000000 !important;
+                background: none !important;
+                border: 1px solid #444444 !important;
             }
         }
 
@@ -1207,10 +1262,6 @@
                 padding: 4px 12px;
                 font-size: 0.7rem;
             }
-            .design-toggle button {
-                padding: 3px 10px;
-                font-size: 0.6rem;
-            }
         }
         @media (max-width: 480px) {
             body { padding: 6px; }
@@ -1223,12 +1274,11 @@
             .app-title h1 { font-size: 1.1rem; }
             .app-title .badge { font-size: 0.6rem; padding: 2px 10px; }
             .view-toggle button { font-size: 0.6rem; padding: 3px 8px; }
-            .design-toggle button { font-size: 0.5rem; padding: 2px 6px; }
             .sync-status { font-size: 0.6rem; }
             .sync-status .dot { width: 8px; height: 8px; }
             .terminal-panel { min-height: 25vh; max-height: 45vh; padding: 8px; }
             .right-panel { min-height: 25vh; max-height: 45vh; }
-            .card-panel { padding: 8px; } /* max-height entfernt */
+            .card-panel { padding: 8px; }
             .office-panel { padding: 8px; }
             .office-item .o-time { min-width: 40px; font-size: 0.5rem; }
             .office-item .o-delete { font-size: 0.8rem; }
@@ -1314,8 +1364,11 @@
             <!-- Card Panel - Karteikärtchen -->
             <div class="card-panel" id="cardPanel">
                 <div class="card-panel-header">
-                    <h4><i class="fas fa-id-card"></i> Karteikärtchen</h4>
-                    <span class="card-count" id="cardCountLabel">0</span>
+                    <div class="card-panel-header-left">
+                        <h4><i class="fas fa-id-card"></i> Karteikärtchen</h4>
+                        <span class="card-count" id="cardCountLabel">0</span>
+                    </div>
+                    <button class="print-all-btn" id="printAllCardsBtn" title="Alle Kärtchen zusammen drucken"><i class="fas fa-print"></i> Alle drucken</button>
                 </div>
                 <div class="card-stack-container" id="cardStackContainer">
                     <div class="card-empty">Keine Karteikärtchen<br>Füge Materialien hinzu</div>
@@ -1337,14 +1390,14 @@
             <span id="footerSyncText">lokal · synchronisiert</span>
         </div>
         
-        <!-- Theme- & Template-Tools am unteren Rand gebündelt -->
+        <!-- Dezent gestaltete Theme- & Template-Tools -->
         <div class="app-theme-tools">
             <button class="theme-toggle" id="themeToggle" title="Theme umschalten">
                 <i class="fas fa-moon" id="themeIcon"></i> <span id="themeLabel">Dunkel</span>
             </button>
             <div class="design-toggle">
                 <button class="active" id="designBootstrapBtn"><i class="fab fa-bootstrap"></i> Bootstrap</button>
-                <button id="designMaterialBtn"><span class="material-icons" style="font-size:1rem;">design_services</span> Material</button>
+                <button id="designMaterialBtn"><span class="material-icons" style="font-size:0.75rem; vertical-align: middle;">design_services</span> Material</button>
             </div>
         </div>
 
@@ -1356,10 +1409,6 @@
 
 <script>
     (function() {
-        // ============================================================
-        //  SERVERLOSE SYNC MIT LOCALSTORAGE
-        // ============================================================
-
         // ----- Material-Datenbank (LAVU) -----
         const materials = [
             { code: '1501', desc: 'Großmöbel (ReVital)', block: '1000', container: 'Container 10m³' },
@@ -1455,6 +1504,7 @@
         const designBootstrapBtn = document.getElementById('designBootstrapBtn');
         const designMaterialBtn = document.getElementById('designMaterialBtn');
         const bootstrapCss = document.getElementById('bootstrapCss');
+        const printAllCardsBtn = document.getElementById('printAllCardsBtn');
 
         // ============================================================
         //  DESIGN FUNKTIONEN
@@ -1741,8 +1791,11 @@
                 cardCountLabel.textContent = '0';
                 cardPrevBtn.disabled = true;
                 cardNextBtn.disabled = true;
+                printAllCardsBtn.style.display = 'none';
                 return;
             }
+
+            printAllCardsBtn.style.display = 'block';
 
             if (currentCardIndex >= basket.length) currentCardIndex = basket.length - 1;
             if (currentCardIndex < 0) currentCardIndex = 0;
@@ -1759,8 +1812,11 @@
                 else positionClass = 'hidden';
 
                 html += `
-                    <div class="card-item ${positionClass}" data-index="${idx}">
+                    <div class="card-item ${positionClass}" data-index="${idx}" id="card-item-${idx}">
                         <span class="card-index">${idx + 1} / ${total}</span>
+                        <button class="card-print-standalone-btn" data-index="${idx}" title="Dieses Kärtchen drucken">
+                            <i class="fas fa-print"></i>
+                        </button>
                         <div class="card-site">ASZ Asten · 106</div>
                         <div><span class="card-code">${item.code}</span> · <span class="card-container">${item.container}</span></div>
                         <div class="card-desc">${item.desc}</div>
@@ -1794,6 +1850,9 @@
 
             document.querySelectorAll('.card-item').forEach(card => {
                 card.addEventListener('click', function(e) {
+                    // Verhindern, dass Klick auf Print-Button das Kärtchen-Umschalten triggert
+                    if(e.target.closest('.card-print-standalone-btn')) return;
+
                     const idx = parseInt(this.dataset.index);
                     if (idx !== currentCardIndex && idx >= 0 && idx < basket.length) {
                         currentCardIndex = idx;
@@ -1802,8 +1861,42 @@
                 });
             });
 
+            // Event-Listener für Standalone Print hinzufügen
+            document.querySelectorAll('.card-print-standalone-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const idx = this.dataset.index;
+                    printSingleCard(idx);
+                });
+            });
+
             setupCardSwipe();
         }
+
+        // ============================================================
+        //  DRUCK FUNKTIONEN
+        // ============================================================
+        
+        function printSingleCard(index) {
+            // Alle Kärtchen von speziellen Druckklassen bereinigen
+            document.querySelectorAll('.card-item').forEach(c => c.classList.remove('print-target'));
+            
+            // Zielkarte markieren
+            const targetCard = document.getElementById(`card-item-${index}`);
+            if (targetCard) {
+                targetCard.classList.add('print-target');
+                document.body.classList.add('print-single-mode');
+                window.print();
+                // Nach dem Druckvorgang den Modus wieder aufheben
+                document.body.classList.remove('print-single-mode');
+                targetCard.classList.remove('print-target');
+            }
+        }
+
+        printAllCardsBtn.addEventListener('click', function() {
+            document.body.classList.remove('print-single-mode');
+            window.print();
+        });
 
         function updateOfficeDashboard() {
             const list = document.getElementById('officeListContainer');
