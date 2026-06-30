@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annahme- & Preisliste - LAVU</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            color: #333;
+            margin: 20px;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .header-table td {
+            border: none;
+            padding: 5px;
+            vertical-align: top;
+        }
+        .logo-area {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .title-area {
+            text-align: center;
+            background-color: #e2efda;
+            padding: 10px !important;
+            border: 2px solid #385723 !important;
+        }
+        .title-area h1 {
+            margin: 0;
+            font-size: 18px;
+            color: #385723;
+        }
+        .title-area p {
+            margin: 5px 0 0 0;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .section-title {
+            background-color: #7f7f7f;
+            color: white;
+            font-weight: bold;
+            padding: 6px;
+            font-size: 12px;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        table.data-table th, table.data-table td {
+            border: 1px solid #bbb;
+            padding: 4px 5px;
+            text-align: left;
+            vertical-align: middle;
+        }
+        table.data-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        table.data-table .num {
+            text-align: center;
+            width: 45px;
+        }
+        table.data-table .price {
+            text-align: right;
+            width: 55px;
+        }
+        .subsection-header {
+            background-color: #d9d9d9;
+            font-weight: bold;
+            padding: 3px 5px;
+            font-size: 11px;
+            border: 1px solid #bbb;
+        }
+        .footer-notes {
+            margin-top: 20px;
+            font-size: 10px;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        /* --- LUPEN EFFEKT STYLES --- */
+        .magnifier {
+            position: absolute;
+            border: 3px solid #333;
+            border-radius: 50%;
+            cursor: none;
+            width: 180px;
+            height: 180px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3), inset 0 0 10px rgba(0,0,0,0.2);
+            display: none;
+            pointer-events: none;
+            background-color: white;
+            z-index: 9999;
+            overflow: hidden;
+        }
+        .magnifier-content {
+            position: absolute;
+            transform-origin: 0 0;
+            transform: scale(1.4); /* Magnification level */
+            background-color: white;
+        }
+        /* Hide default cursor over the container to enhance the effect */
+        .magnify-zone {
+            cursor: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- The Magnifying Glass Overlay -->
+<div id="lupe" class="magnifier">
+    <div id="lupe-content" class="magnifier-content"></div>
+</div>
+
+<!-- Wrapped content to capture the hover zone -->
+<div class="container magnify-zone" id="content-to-magnify">
+
+    <!-- HEADER SECTION -->
+    <table class="header-table">
+        <tr>
+            <td class="logo-area" style="width: 35%;">
+                O.Ö. LANDES-ABFALLVERWERTUNGSUNTERNEHMEN GmbH<br>
+                4600 WELS, Mitterhoferstraße 16 &nbsp;&nbsp; T: 07242/77977, F: DW 5<br>
+                FB-Nr. 80915 v/DVR 0658618 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GLN: 9008390000335
+            </td>
+            <td class="title-area" style="width: 45%;">
+                <h1>ANNAHME- & PREISLISTE</h1>
+                <p>für alle oberösterreichischen Altstoffsammelzentren<br>gültig ab 01.02.2025 (ASZ-Aushang)</p>
+                <div style="font-size: 10px; font-weight: normal; margin-top: 3px;">Revision 0 (28.1.25)</div>
+            </td>
+            <td style="width: 20%; text-align: right; font-weight: bold; vertical-align: middle;">
+                Umwelt Profis
+            </td>
+        </tr>
+    </table>
+
+    <div class="grid-container">
+        
+        <!-- LEFT COLUMN -->
+        <div>
+            <div class="section-title">Sammlung zur Wiederverwendung</div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th class="num">Art.Nr.</th>
+                        <th class="num">Schl.Nr.</th>
+                        <th class="num">R/D</th>
+                        <th>Bezeichnung</th>
+                        <th class="price">Gewerbe<br>[€/kg]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="num">1000</td><td class="num">58107</td><td class="num">R3_14</td><td>Textilien</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">1005</td><td class="num">58107</td><td class="num">R3_14</td><td>Schultaschen</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">1010</td><td class="num">58107</td><td class="num">R3_14</td><td>Schuhe</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">1100</td><td class="num">57129</td><td class="num">R3_14</td><td>Cartridges & Tintenpatronen</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">1445</td><td class="num">35230</td><td class="num">R4_04</td><td>Mobiltelefone Handy (für Ö3-Wundertüte)</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">1501</td><td class="num">17201</td><td class="num">R3_14</td><td>Großmöbel (Revital)</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">1502</td><td class="num">17201</td><td class="num">R3_14</td><td>Kleinmöbel (Revital)</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">1505</td><td class="num">91401</td><td class="num">R3_14</td><td>Hausrat (Revital)</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">1510</td><td class="num">35211</td><td class="num">R4_04</td><td>Elektro-Großgeräte (Revital)</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">1520</td><td class="num">35212</td><td class="num">R4_04</td><td>Elektro-Kleingeräte (Revital)</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">1540</td><td class="num">35230</td><td class="num">R4_04</td><td>Elektro-Kleingeräte (Revital)</td><td class="price">0,00</td></tr>
+                </tbody>
+            </table>
+
+            <div class="section-title">Gewerbeannahme in m³</div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th class="num">Art.Nr.</th>
+                        <th class="num">Schl.Nr.</th>
+                        <th class="num">R/D</th>
+                        <th>Bezeichnung</th>
+                        <th class="price">[€/m³]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="num">4490</td><td class="num">92102</td><td class="num">R3_05</td><td>Grünschnitt (in m³)</td><td class="price">16,00</td></tr>
+                    <tr><td class="num">4491</td><td class="num">92105</td><td class="num">R3_05</td><td>Strauchschnitt (in m³)</td><td class="price">21,00</td></tr>
+                    <tr><td class="num">4493</td><td class="num">31409</td><td class="num">D1</td><td>Bau-Restabfallmassen (in m³)</td><td class="price">110,00</td></tr>
+                    <tr><td class="num">4495</td><td class="num">91401</td><td class="num">D10</td><td>Gewerbeabfall (in 0,1 m³ 100 Liter-Sack) €/0,1 m³</td><td class="price">9,09</td></tr>
+                </tbody>
+            </table>
+
+            <div class="section-title">ASZ-INKASSO (nur für private Haushalte)</div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th class="num">Art.Nr.</th>
+                        <th>Bezeichnung</th>
+                        <th style="width:40px; text-align:center;">Einheit</th>
+                        <th class="price">netto</th>
+                        <th class="price">brutto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="num">4500</td><td>Pkw-Reifen (bis 70 cm Durchmesser)</td><td style="text-align:center;">[€/Stk.]</td><td class="price">2,73</td><td class="price">3,00</td></tr>
+                    <tr><td class="num">4501</td><td>Klein- und Pkw-Reifen in kg</td><td style="text-align:center;">[€/kg]</td><td class="price">0,30</td><td class="price">0,33</td></tr>
+                    <tr><td class="num">4502</td><td>Sonderreifen (70 bis 150 cm Durchmesser)</td><td style="text-align:center;">[€/Stk.]</td><td class="price">0,50</td><td class="price">0,55</td></tr>
+                    <tr><td class="num">4503</td><td>Pkw-Reifen m. Felgen (bis 19" Innendurchmesser)</td><td style="text-align:center;">[€/Stk.]</td><td class="price">4,55</td><td class="price">5,00</td></tr>
+                    <tr><td class="num">4921</td><td>Gasflaschen **(ab 1.3.2025)</td><td style="text-align:center;">[€/Stk.]</td><td class="price">4,00</td><td class="price">4,40</td></tr>
+                    <tr><td class="num">4930</td><td>XPS-Dämmplatten (inkl. Entsorgung)</td><td style="text-align:center;">[€/kg]</td><td class="price">6,36</td><td class="price">7,00</td></tr>
+                    <tr><td class="num">4963</td><td>Mineralwolle-Sammelsack (110 Liter, inkl. Entsorgung)</td><td style="text-align:center;">[€/Stk.]</td><td class="price">6,36</td><td class="price">7,00</td></tr>
+                </tbody>
+            </table>
+
+            <div class="section-title">ASZ-VERKAUFSWAREN (für private Haushalte & Gewerbe)</div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th class="num">Art.Nr.</th>
+                        <th>Bezeichnung</th>
+                        <th class="price">netto</th>
+                        <th class="price">brutto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="num">5001</td><td>Injektionsnadelbehälter (1 Liter)</td><td class="price">1,25</td><td class="price">1,50</td></tr>
+                    <tr><td class="num">5030</td><td>Injektionsnadelbehälter (30 Liter)</td><td class="price">7,00</td><td class="price">8,40</td></tr>
+                    <tr><td class="num">5040</td><td>Speiseölbehälter (25 Liter-Gastro-Öli)</td><td class="price">6,00</td><td class="price">7,20</td></tr>
+                    <tr><td class="num">5100</td><td>Ungefährliche medizinische Abfälle (Sammelsack 55 Liter)</td><td class="price">1,00</td><td class="price">1,20</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div>
+            <div class="section-title">Sammlung zur stofflichen Verwertung</div>
+            
+            <div class="subsection-header">VERPACKUNGEN</div>
+            <table class="data-table">
+                <tbody>
+                    <tr><td class="num">2100</td><td class="num">91201</td><td class="num">R3_02</td><td>Kartonagen (ARA-lizenziert)</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">2200</td><td class="num">35105</td><td class="num">R4_01</td><td>Metallverpackungen</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">2210</td><td class="num">35105</td><td class="num">R4_01</td><td>Metallverpackungen - geöffnete Gaskartuschen</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">2300</td><td class="num">31468</td><td class="num">R5_09</td><td>Glasverpackungen</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">2400</td><td class="num">18702</td><td class="num">R3_06</td><td>Getränkeverbundkartons</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">2520</td><td class="num">57118</td><td class="num">R3_14</td><td>Eimer & Kanister/HDPE-,PP-Hohlkörper gemischt</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">2540</td><td class="num">57119</td><td class="num">R3_14</td><td>Kunststoff Verpackungsfolien</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">2565</td><td class="num">57108</td><td class="num">R3_14</td><td>EPS-Styropor</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">2580</td><td class="num">17201</td><td class="num">R3_01</td><td>Holzverpackungen</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">2590</td><td class="num">31407</td><td class="num">R5_01</td><td>Keramikverpackungen</td><td class="price">0,00</td></tr>
+                </tbody>
+            </table>
+
+            <div class="subsection-header">ALTSTOFFE</div>
+            <table class="data-table">
+                <tbody>
+                    <tr><td class="num">3000</td><td class="num">18718</td><td class="num">R3_02</td><td>Altpapier (Deinking-Qualität)</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">3005</td><td class="num">18718</td><td class="num">R3_02</td><td>Datenschutzpapier</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">3200</td><td class="num">35103</td><td class="num">R4_03</td><td>Alteisen</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">3210</td><td class="num">35315</td><td class="num">R4_01</td><td>Nichteisen-Metalle</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">3211</td><td class="num">35315</td><td class="num">R4_01</td><td>Armaturen & Messing</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">3212</td><td class="num">35315</td><td class="num">R4_01</td><td>Alu-Kaffeekapseln</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">3220</td><td class="num">35314</td><td class="num">R4_01</td><td>Kabelschrott</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">3300</td><td class="num">31408</td><td class="num">R5_09</td><td>Flachglas</td><td class="price">0,05</td></tr>
+                    <tr><td class="num">3310</td><td class="num">31465</td><td class="num">R5_02</td><td>Altfenster</td><td class="price">0,11</td></tr>
+                    <tr><td class="num">3315</td><td class="num">31465</td><td class="num">R5_02</td><td>Altfenster PVC</td><td class="price">0,10</td></tr>
+                    <tr><td class="num">3400</td><td class="num">12302</td><td class="num">R3_14</td><td>Speisefett, -öl (Haushalts-Öli)</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">3405</td><td class="num">12302</td><td class="num">R3_14</td><td>Speisefett, -öl (Gastro-Öli)</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">3410</td><td class="num">12302</td><td class="num">R3_14</td><td>Speisefett, -öl (in Kleingebinden)</td><td class="price">0,15</td></tr>
+                    <tr><td class="num">3430</td><td class="num">54207</td><td class="num">R3_14</td><td>Kerzen</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">3520</td><td class="num">57128</td><td class="num">R3_02</td><td>Hartkunststoffe</td><td class="price">0,29</td></tr>
+                    <tr><td class="num">3526</td><td class="num">57128</td><td class="num">R3_14</td><td>Kunststoff-Mülltonnen</td><td class="price">0,18</td></tr>
+                    <tr><td class="num">3540</td><td class="num">57129</td><td class="num">R3_14</td><td>Kunststoff-sonstige Folien</td><td class="price">0,16</td></tr>
+                    <tr><td class="num">3571</td><td class="num">57115</td><td class="num">R3_14</td><td>Filmmaterial</td><td class="price">0,10</td></tr>
+                    <tr><td class="num">3572</td><td class="num">57117</td><td class="num">R3_14</td><td>Compact-Disk (CD)</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">3580</td><td class="num">57502</td><td class="num">R3_16</td><td>Altreifen (auch für Private kostenpflichtig!)</td><td class="price">0,30</td></tr>
+                    <tr><td class="num">3581</td><td class="num">57502</td><td class="num">R3_16</td><td>Sonderreifen (70 - 150 cm D. auch für Private kos.)</td><td class="price">0,50</td></tr>
+                    <tr><td class="num">3585</td><td class="num">57502</td><td class="num">R3_02</td><td>Reifen m. Felgen (auch für Private kostenpflichtig!)</td><td class="price">0,30</td></tr>
+                    <tr><td class="num">3600</td><td class="num">31409</td><td class="num">R5_06</td><td>Mineralischer Bauschutt (1 m³ = 1.000 kg)</td><td class="price">0,07</td></tr>
+                    <tr><td class="num">3610</td><td class="num">31438</td><td class="num">R5_06</td><td>Gipskarton</td><td class="price">0,15</td></tr>
+                    <tr><td class="num">3700</td><td class="num">17201</td><td class="num">R3_01</td><td>Altholz (1 m³ = 300 kg)</td><td class="price">0,08</td></tr>
+                    <tr><td class="num">3805</td><td class="num">57128</td><td class="num">R1</td><td>Ersatzbrennstoff</td><td class="price">0,29</td></tr>
+                </tbody>
+            </table>
+
+            <div class="section-title">Sammlung zur Beseitigung</div>
+            <div class="subsection-header">ELEKTROALTGERÄTE</div>
+            <table class="data-table">
+                <tbody>
+                    <tr><td class="num">4010</td><td class="num">35221</td><td class="num">R4_06</td><td>Elektro-Großgeräte</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">4015</td><td class="num">35220</td><td class="num">R4_06</td><td>Nachtspeicheröfen</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">4020</td><td class="num">35205</td><td class="num">R4_06</td><td>Kühlgeräte</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">4030</td><td class="num">35212</td><td class="num">R4_06</td><td>Bildschirmgeräte</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">4031</td><td class="num">35212</td><td class="num">R4_06</td><td>Flachbildschirme</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">4040</td><td class="num">35230</td><td class="num">R4_06</td><td>Elektro-Kleingeräte</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">4050</td><td class="num">35339</td><td class="num">R4_06</td><td>Gasentladungslampen stabförmig</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">4051</td><td class="num">35339</td><td class="num">R4_06</td><td>Gasentladungslampen Sonderformen</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">4100</td><td class="num">35322</td><td class="num">R4_02</td><td>Fahrzeugbatterien</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">4110</td><td class="num">35398</td><td class="num">R4_02</td><td>Gerätebatterien</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">4111</td><td class="num">35337</td><td class="num">R4_02</td><td>Lithium-Batterien</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">4120</td><td class="num">35323</td><td class="num">R4_02</td><td>Ni-Cd Akkumulatoren</td><td class="price">3,80</td></tr>
+                    <tr><td class="num">4125</td><td class="num">35322</td><td class="num">R4_02</td><td>Traktionsbatterien</td><td class="price">0,00</td></tr>
+                </tbody>
+            </table>
+
+            <div class="subsection-header">GEFÄHRLICHE ABFÄLLE</div>
+            <table class="data-table">
+                <tbody>
+                    <tr><td class="num">4200</td><td class="num">35203</td><td class="num">R4_05</td><td>Altölfahrzeug (Autowrack 1 Stk. = 800kg)</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">4221</td><td class="num">59802</td><td class="num">R4_01</td><td>Gasflaschen (keine Annahme von Gewerbe)</td><td class="price">k.A.</td></tr>
+                    <tr><td class="num">4230</td><td class="num">59801</td><td class="num">R4_01</td><td>Feuerlöscher</td><td class="price">0,75</td></tr>
+                    <tr><td class="num">4250</td><td class="num">54102</td><td class="num">R1</td><td>Altöl</td><td class="price">0,13</td></tr>
+                    <tr><td class="num">4260</td><td class="num">53174</td><td class="num">R1</td><td>Lösemittel-Wassergemische</td><td class="price">1,04</td></tr>
+                    <tr><td class="num">4270</td><td class="num">52102</td><td class="num">R5_10</td><td>Säurengemische</td><td class="price">1,40</td></tr>
+                    <tr><td class="num">4275</td><td class="num">52402</td><td class="num">R5_10</td><td>Laugengemische</td><td class="price">1,40</td></tr>
+                    <tr><td class="num">4280</td><td class="num">31423</td><td class="num">R3_18</td><td>Ölverunreinigtes Erdmaterial</td><td class="price">0,45</td></tr>
+                    <tr><td class="num">4300</td><td class="num">55302</td><td class="num">D10</td><td>Altlacke & Werkstättenabfälle</td><td class="price">1,04</td></tr>
+                    <tr><td class="num">4305</td><td class="num">55503</td><td class="num">D10</td><td>Lack- & Farbschlamm</td><td class="price">1,10</td></tr>
+                    <tr><td class="num">4310</td><td class="num">12302</td><td class="num">D10</td><td>Kunststoffemballagen (mit schädlichen Restinhalten)</td><td class="price">1,20</td></tr>
+                    <tr><td class="num">4320</td><td class="num">54704</td><td class="num">D9_03</td><td>Ölschlamm & Ölgatsch</td><td class="price">1,10</td></tr>
+                    <tr><td class="num">4325</td><td class="num">54408</td><td class="num">D9_03</td><td>Öl-/Wassergemische & Emulsionen</td><td class="price">0,65</td></tr>
+                    <tr><td class="num">4330</td><td class="num">59305</td><td class="num">D10</td><td>Schädlingsbekämpfungs-&Chemikalienreste</td><td class="price">2,45</td></tr>
+                    <tr><td class="num">4340</td><td class="num">53510</td><td class="num">D10</td><td>Altmedikamente (ungeleerte Arzneien)</td><td class="price">2,45</td></tr>
+                    <tr><td class="num">4350</td><td class="num">59803</td><td class="num">D10</td><td>Spraydosen (mit Restinhalt)</td><td class="price">1,90</td></tr>
+                    <tr><td class="num">4360</td><td class="num">54110</td><td class="num">D10</td><td>Kondensatoren</td><td class="price">1,50</td></tr>
+                    <tr><td class="num">4380</td><td class="num">57108_77</td><td class="num">D10</td><td>XPS-Dämmplatten (keine Annahme von Gewerbe)</td><td class="price">k.A.</td></tr>
+                    <tr><td class="num">4385</td><td class="num">31437_44</td><td class="num">D1</td><td>Mineralwolle (keine Annahme von Gewerbe)</td><td class="price">k.A.</td></tr>
+                    <tr><td class="num">4390</td><td class="num">31412</td><td class="num">D1</td><td>Asbestzement/Eternit (für Private t.u.)</td><td class="price">0,13</td></tr>
+                </tbody>
+            </table>
+
+            <div class="subsection-header">SONSTIGE ABFÄLLE</div>
+            <table class="data-table">
+                <tbody>
+                    <tr><td class="num">4421</td><td class="num">91401</td><td class="num">D10</td><td>Gewerbeabfall</td><td class="price">0,26</td></tr>
+                    <tr><td class="num">4422</td><td class="num">91401</td><td class="num">D10</td><td>Netze & Schnüre</td><td class="price">0,26</td></tr>
+                    <tr><td class="num">4430</td><td class="num">31409</td><td class="num">D1</td><td>Bau-Restabfall-massen</td><td class="price">0,13</td></tr>
+                    <tr><td class="num">4450</td><td class="num">55510</td><td class="num">D10</td><td>Dispersionsfarben</td><td class="price">0,36</td></tr>
+                    <tr><td class="num">4460</td><td class="num">53501</td><td class="num">D10</td><td>Altmedikamente (vorsortiert)</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">4461</td><td class="num">53501</td><td class="num">D10</td><td>Altmedikamente (vorsortiert/Apotheken)</td><td class="price">0,55</td></tr>
+                    <tr><td class="num">4464</td><td class="num">97105</td><td class="num">D10</td><td>Injektionsnadeln</td><td class="price">0,00</td></tr>
+                    <tr><td class="num">4465</td><td class="num">97105</td><td class="num">D10</td><td>Injektionsnadeln (aus Spitälern)</td><td class="price">0,55</td></tr>
+                    <tr><td class="num">4466</td><td class="num">97104</td><td class="num">D10</td><td>Ungefährliche medizinische Abfälle (Roter Sack)</td><td class="price">0,85</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- FOOTER NOTES -->
+    <div class="footer-notes">
+        R/D: Behandlungsverfahren gem. Abfallnachweis-Verordnung &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; k.A.: keine Gewerbeannahme
+    </div>
+
+</div>
+
+<!-- LUPEN EFFEKT JAVASCRIPT -->
+<script>
+    const zone = document.getElementById('content-to-magnify');
+    const lupe = document.getElementById('lupe');
+    const lupeContent = document.getElementById('lupe-content');
+
+    // Clone the main UI elements into the magnifying window to simulate real magnifying text.
+    // This provides a high-fidelity visual layout instead of basic pixelated CSS tricks.
+    const clone = zone.cloneNode(true);
+    lupeContent.appendChild(clone);
+
+    // Dynamic width setups matching layout size
+    lupeContent.style.width = zone.offsetWidth + "px";
+
+    zone.addEventListener('mousemove', moveMagnifier);
+    zone.addEventListener('mouseenter', showMagnifier);
+    zone.addEventListener('mouseleave', hideMagnifier);
+
+    function showMagnifier() {
+        lupe.style.display = "block";
+    }
+
+    function hideMagnifier() {
+        lupe.style.display = "none";
+    }
+
+    function moveMagnifier(e) {
+        // Find position adjustments relative to document body boundaries
+        const rect = zone.getBoundingClientRect();
+        const x = e.pageX - window.scrollX;
+        const y = e.pageY - window.scrollY;
+
+        // Position the magnifying loop circle element centered over the cursor position
+        lupe.style.left = (e.pageX - lupe.offsetWidth / 2) + "px";
+        lupe.style.top = (e.pageY - lupe.offsetHeight / 2) + "px";
+
+        // Internal content layout scaling transformations
+        const targetX = e.clientX - rect.left;
+        const targetY = e.clientY - rect.top;
+
+        // Scale factors logic matching CSS transformation multiplier (1.4 scale)
+        const scale = 1.4; 
+        const moveX = -(targetX * scale - lupe.offsetWidth / 2);
+        const moveY = -(targetY * scale - lupe.offsetHeight / 2);
+
+        lupeContent.style.left = moveX + "px";
+        lupeContent.style.top = moveY + "px";
+    }
+
+    // Keep cloned content width synchronized during global browser adjustments
+    window.addEventListener('resize', () => {
+        lupeContent.style.width = zone.offsetWidth + "px";
+    });
+</script>
+
+</body>
+</html>
