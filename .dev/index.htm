@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASZ Asten / St. Florian - Terminal</title>
+    <style>
+        /* ASZ OÖ / LAV Brand Design Identity */
+        :root {
+            --asz-green: #4ea642;
+            --asz-green-hover: #3d8a32;
+            --asz-green-light: #f0f7ef;
+            --asz-dark: #1a2219;
+            --asz-text: #2c3e50;
+            --asz-bg: #f4f6f4;
+            --asz-border: #d0d7d0;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--asz-bg);
+            color: var(--asz-text);
+            margin: 0;
+            padding: 30px 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .terminal-card {
+            width: 100%;
+            max-width: 1200px;
+            background: var(--white);
+            border-top: 8px solid var(--asz-green);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--asz-bg);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .header-title h1 {
+            margin: 0;
+            font-size: 26px;
+            color: var(--asz-dark);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-title p {
+            margin: 5px 0 0 0;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .badge-site {
+            background-color: var(--asz-dark);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .input-wrapper {
+            background: var(--asz-green-light);
+            border: 1px solid var(--asz-border);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--asz-dark);
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input {
+            padding: 12px 16px;
+            border: 2px solid var(--asz-border);
+            border-radius: 6px;
+            font-size: 16px;
+            color: var(--asz-dark);
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--asz-green);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(78, 166, 66, 0.15);
+        }
+
+        /* Navigation Tabs */
+        .tabs-container {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--asz-bg);
+        }
+
+        .tab-item {
+            background: var(--white);
+            border: 1px solid var(--asz-border);
+            color: var(--asz-text);
+            padding: 10px 18px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .tab-item:hover {
+            background: var(--asz-bg);
+            border-color: #bdc3c7;
+        }
+
+        .tab-item.active {
+            background: var(--asz-green);
+            color: var(--white);
+            border-color: var(--asz-green);
+        }
+
+        /* Table Design */
+        .table-responsive {
+            max-height: 380px;
+            overflow-y: auto;
+            border: 1px solid var(--asz-border);
+            border-radius: 6px;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: var(--asz-dark);
+            color: var(--white);
+            padding: 14px 16px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--asz-bg);
+            font-size: 15px;
+            color: var(--asz-dark);
+        }
+
+        tr {
+            transition: background 0.1s;
+        }
+
+        tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        tr:hover {
+            background: var(--asz-green-light);
+            cursor: pointer;
+        }
+
+        tr.selected-row {
+            background: #d4edd2 !important;
+            border-left: 5px solid var(--asz-green);
+        }
+
+        tr.selected-row td {
+            font-weight: 700;
+        }
+
+        .badge-container {
+            background: #eaeded;
+            color: #7f8c8d;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Live Label Preview Section */
+        .preview-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .preview-container {
+            background: #f8f9fa;
+            border: 2px dashed var(--asz-border);
+            border-radius: 6px;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .physical-label {
+            background: var(--white);
+            border: 3px solid #000000;
+            padding: 20px 35px;
+            width: 100%;
+            max-width: 550px;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+        }
+
+        .label-line-1 {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 20px;
+            font-weight: 800;
+            color: #000000;
+            border-bottom: 1px dashed #000000;
+            padding-bottom: 6px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .label-line-2 {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            text-transform: uppercase;
+            word-wrap: break-word;
+        }
+
+        /* Submit Button Area */
+        .panel-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn-action-print {
+            background-color: var(--asz-green);
+            color: var(--white);
+            border: none;
+            padding: 16px 36px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(78, 166, 66, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .btn-action-print:hover {
+            background-color: var(--asz-green-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(78, 166, 66, 0.4);
+        }
+
+        .btn-action-print:active {
+            transform: translateY(1px);
+        }
+
+        .btn-action-print:disabled {
+            background-color: #bdc3c7;
+            color: #7f8c8d;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Zebra / Dymo Paper Print styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .preview-container, .preview-container * {
+                visibility: visible;
+            }
+            .preview-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: none;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
+            .physical-label {
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="terminal-card">
+    <div class="header-section">
+        <div class="header-title">
+            <h1>ASZ-Wertstofferfassung</h1>
+            <p>Büro-Arbeitsplatz & Logistik-Schnittstelle</p>
+        </div>
+        <div class="badge-site">ID 106 ASTEN</div>
+    </div>
+    
+    <div class="input-wrapper">
+        <div class="form-group">
+            <label for="callerName">Mitarbeiter / Anlieferer (Full Caller Name) *</label>
+            <input type="text" id="callerName" placeholder="Namen eingeben zur Freischaltung..." oninput="refreshLabelLive()">
+        </div>
+    </div>
+
+    <div class="tabs-container" id="tabsBlockContainer">
+        <!-- Generiert per JS -->
+    </div>
+
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Frachtnr.</th>
+                    <th style="width: 55%;">Interne Bezeichnung</th>
+                    <th style="width: 30%;">Behälter-Typ</th>
+                </tr>
+            </thead>
+            <tbody id="lavuTableRows">
+                <!-- Generiert per JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="preview-title">
+        <span>●</span> Live-Vorschau Behälter-Etikett
+    </div>
+    <div class="preview-container">
+        <div class="physical-label" id="labelCard">
+            <div class="label-line-1" id="uiLine1">ASZ 106 ASTEN - [CALLER NAME]</div>
+            <div class="label-line-2" id="uiLine2">[FRACHTNR] [BEZEICHNUNG] ([BEHÄLTER])</div>
+        </div>
+    </div>
+
+    <div class="panel-actions">
+        <button class="btn-action-print" id="submitAndPrintBtn" onclick="triggerPrintRoutine()" disabled>Etikett drucken & buchen</button>
+    </div>
+</div>
+
+<script>
+    const dataset = [
+        { block: "1000", nr: "1501", name: "Großmöbel (ReVital)", container: "Großcontainer" },
+        { block: "1000", nr: "1506", name: "Hausrat (ReVital)", container: "Gitterbox gschlossen" },
+        { block: "1000", nr: "1510", name: "Elektro-Großgeräte (ReVital)", container: "Palette" },
+        { block: "1000", nr: "1511", name: "Elektro-Kleingeräte (ReVital)", container: "Gitterbox" },
+        
+        { block: "2000", nr: "2110", name: "Altpapier (Zeitungen/Prospekte)", container: "Großcontainer" },
+        { block: "2000", nr: "2120", name: "Kartonagen (Wellpappe)", container: "Presscontainer" },
+        { block: "2000", nr: "2210", name: "Verpackungsglas Weiß", container: "Glas-Spezialbehälter" },
+        { block: "2000", nr: "2220", name: "Verpackungsglas Bunt", container: "Glas-Spezialbehälter" },
+        { block: "2000", nr: "2310", name: "Flachglas / Fensterglas", container: "Inloader-Gestell" },
+        { block: "2000", nr: "2510", name: "PET-Flaschen transparent", container: "Großsack" },
+        { block: "2000", nr: "2511", name: "PET-Flaschen bunt", container: "Großsack" },
+        { block: "2000", nr: "2520", name: "Kunststoff-Hohlkörper >5L", container: "Gitterbox" },
+        { block: "2000", nr: "2540", name: "PE-Folie transparent (LDPE)", container: "Foliensack" },
+        { block: "2000", nr: "2541", name: "PE-Folie bunt / Gewerbe", container: "Foliensack" },
+        { block: "2000", nr: "2550", name: "Getränkekartons", container: "LAVU-Sammelsack" },
+        { block: "2000", nr: "2570", name: "Styropor (EPS) rein", container: "Großsack" },
+        { block: "2000", nr: "2571", name: "Styropor (EPS) Baustelle", container: "Großsack" },
+        { block: "2000", nr: "2580", name: "Hartkunststoffe (Nicht-Verp.)", container: "Großcontainer" },
+        
+        { block: "3000", nr: "3010", name: "Altholz stofflich (Kat. A I/II)", container: "Großcontainer" },
+        { block: "3000", nr: "3020", name: "Altholz thermisch (Kat. A III)", container: "Großcontainer" },
+        { block: "3000", nr: "3030", name: "Altholz verunreinigt (Kat. A IV)", container: "Sondercontainer" },
+        { block: "3000", nr: "3510", name: "Alteisen / Mischschrott", container: "Großcontainer" },
+        { block: "3000", nr: "3520", name: "Kabelschrott isoliert", container: "Kleinbox absperrbar" },
+        { block: "3000", nr: "3530", name: "Aluminium (Profile/Bleche)", container: "Gitterbox" },
+        { block: "3000", nr: "3540", name: "Buntmetalle (Kupfer/Messing)", container: "Kleinbox absperrbar" },
+        
+        { block: "4000", nr: "4010", name: "Elektro-Großgeräte", container: "Stellplatz lose" },
+        { block: "4000", nr: "4020", name: "Kühl- und Klimageräte", container: "Stellplatz gesichert" },
+        { block: "4000", nr: "4030", name: "Bildschirmgeräte (TV/Monitore)", container: "Gitterbox/Palette" },
+        { block: "4000", nr: "4040", name: "Elektro-Kleingeräte", container: "QR-Box" },
+        { block: "4000", nr: "4041", name: "Elektro-Kleingeräte m. Li-Akku", container: "QR-Box Sicherheitsaufst." },
+        { block: "4000", nr: "4050", name: "Gasentladungslampen stabform", container: "Spezialbox lang" },
+        { block: "4000", nr: "4051", name: "Gasentladungslampen Sonderform", container: "Spezialbox Kiste" },
+        { block: "4000", nr: "4110", name: "Gerätebatterien", container: "Fass / Sammelbox" },
+        { block: "4000", nr: "4120", name: "Lithium-Batterien intakt", container: "Sicherheitsfass (Sand)" },
+        { block: "4000", nr: "4130", name: "Fahrzeugbatterien", container: "Säurestabile Kunststoffbox" },
+        
+        { block: "4300", nr: "4310", name: "Altöl mineralisch", container: "Doppelwandiger Tank" },
+        { block: "4300", nr: "4315", name: "Speiseöl / Altfett", container: "Öli-Palettenbox" },
+        { block: "4300", nr: "4320", name: "Dispersionsfarben", container: "Gitterbox Palette" },
+        { block: "4300", nr: "4325", name: "Lacke und Lösemittel", container: "Problemstoff-Fass" },
+        { block: "4300", nr: "4340", name: "Altmedikamente", container: "Safe-Box Büro" },
+        { block: "4300", nr: "4350", name: "Spraydosen mit Restinhalt", container: "Spundfass belüftet" },
+        { block: "4300", nr: "4385", name: "Mineralwolle / KMF", container: "ASZ-Sammelsack staubdicht" },
+        { block: "4300", nr: "4390", name: "Asbestzement / Eternit", container: "BigBag auf Palette" },
+        
+        { block: "9000", nr: "9110", name: "Bauschutt rein (mineralisch)", container: "Flachcontainer" },
+        { block: "9000", nr: "9120", name: "Bauschutt sortiert / Ytong", container: "Großcontainer" },
+        { block: "9000", nr: "9140", name: "Gipskartonplatten rein", container: "Großcontainer gedeckt" },
+        { block: "9000", nr: "9510", name: "Sperrmüll", container: "Großvolumen-Presscontainer" },
+        { block: "9000", nr: "9520", name: "Altreifen ohne Felge", container: "Gitterbox XL" },
+        { block: "9000", nr: "9521", name: "Altreifen mit Felge", container: "Gitterbox XL" }
+    ];
+
+    const filterCategories = [
+        { id: "all", label: "ALLE ANZEIGEN" },
+        { id: "1000", label: "1000: ReVital" },
+        { id: "2000", label: "2000: Verpackung" },
+        { id: "3000", label: "3000: Holz / Metall" },
+        { id: "4000", label: "4000: Elektro / EAG" },
+        { id: "4300", label: "4300: Problemst." },
+        { id: "9000", label: "9000: Bau & Sperr" }
+    ];
+
+    let currentSelectedActiveData = null;
+    let globalActiveBlock = "all";
+
+    function startTerminal() {
+        const tabsWrapper = document.getElementById("tabsBlockContainer");
+        filterCategories.forEach((cat, idx) => {
+            const elementButton = document.createElement("button");
+            elementButton.className = `tab-item ${idx === 0 ? 'active' : ''}`;
+            elementButton.innerText = cat.label;
+            elementButton.onclick = () => filterTableByBlock(cat.id, elementButton);
+            tabsWrapper.appendChild(elementButton);
+        });
+        buildTableData();
+    }
+
+    function buildTableData() {
+        const containerBody = document.getElementById("lavuTableRows");
+        containerBody.innerHTML = "";
+
+        const finalFilteredData = globalActiveBlock === "all" 
+            ? dataset 
+            : dataset.filter(x => x.block === globalActiveBlock);
+
+        finalFilteredData.forEach(entry => {
+            const elementRow = document.createElement("tr");
+            if (currentSelectedActiveData && currentSelectedActiveData.nr === entry.nr) {
+                elementRow.className = "selected-row";
+            }
+            
+            elementRow.innerHTML = `
+                <td><span style="font-weight:700; color:var(--asz-dark);">${entry.nr}</span></td>
+                <td>${entry.name}</td>
+                <td><span class="badge-container">${entry.container}</span></td>
+            `;
+            
+            elementRow.onclick = () => highlightSelectedRow(entry, elementRow);
+            containerBody.appendChild(elementRow);
+        });
+    }
+
+    function filterTableByBlock(id, targetBtn) {
+        document.querySelectorAll(".tab-item").forEach(t => t.classList.remove("active"));
+        targetBtn.classList.add("active");
+        globalActiveBlock = id;
+        buildTableData();
+    }
+
+    function highlightSelectedRow(dataObj, trDomElement) {
+        document.querySelectorAll("#lavuTableRows tr").forEach(row => row.classList.remove("selected-row"));
+        trDomElement.classList.add("selected-row");
+        currentSelectedActiveData = dataObj;
+        refreshLabelLive();
+    }
+
+    function refreshLabelLive() {
+        const valueName = document.getElementById("callerName").value.trim();
+        const nodeL1 = document.getElementById("uiLine1");
+        const nodeL2 = document.getElementById("uiLine2");
+        const triggerBtn = document.getElementById("submitAndPrintBtn");
+
+        if (valueName) {
+            nodeL1.innerText = `ASZ 106 ASTEN - ${valueName}`;
+        } else {
+            nodeL1.innerText = "ASZ 106 ASTEN - [CALLER NAME]";
+        }
+
+        if (currentSelectedActiveData) {
+            nodeL2.innerText = `${currentSelectedActiveData.nr} ${currentSelectedActiveData.name} (${currentSelectedActiveData.container})`;
+        } else {
+            nodeL2.innerText = "[FRACHTNR] [BEZEICHNUNG] ([BEHÄLTER])";
+        }
+
+        triggerBtn.disabled = !(valueName && currentSelectedActiveData);
+    }
+
+    function triggerPrintRoutine() {
+        window.print();
+    }
+
+    window.onload = startTerminal;
+</script>
+
+</body>
+</html>

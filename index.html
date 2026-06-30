@@ -2,1621 +2,996 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ASZ Asten · Terminal & Office</title>
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Font & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>♻️ Entsorgungs-Frachtverwaltung Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ============================================================
-           THEME VARIABLES
-           ============================================================ */
-        :root {
-            --bg-primary: #0b1a24;
-            --bg-secondary: #122b38;
-            --bg-card: #0d2230;
-            --bg-surface: #163544;
-            --bg-input: rgba(255,255,255,0.06);
-            --bg-item: rgba(255,255,255,0.04);
-            --bg-item-hover: rgba(255,255,255,0.08);
-            
-            --text-primary: #e8f0f5;
-            --text-secondary: #8fc9e8;
-            --text-muted: #6a8f9e;
-            --text-dim: #4a6a78;
-            
-            --border-color: #1a3d4f;
-            --border-light: #2a5a6e;
-            --border-active: #4a9ac0;
-            
-            --shadow-color: rgba(0,0,0,0.5);
-            --shadow-glow: rgba(74, 154, 192, 0.15);
-            
-            --accent-primary: #4a9ac0;
-            --accent-secondary: #2a7a9a;
-            --accent-success: #4caf84;
-            --accent-danger: #e87070;
-            --accent-warning: #e8b84c;
-            
-            --dot-color: #4caf84;
-            --dot-offline: #e87070;
-            
-            --card-border-color: #1a3d4f;
-            --card-shadow: rgba(0,0,0,0.4);
-            
-            --radius-sm: 8px;
-            --radius-md: 14px;
-            --radius-lg: 20px;
-            --radius-xl: 28px;
-            
-            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            --transition-speed: 0.25s;
-        }
-
-        [data-bs-theme="light"] {
-            --bg-primary: #eef3f7;
-            --bg-secondary: #dce6ef;
-            --bg-card: #f5f8fa;
-            --bg-surface: #e8edf2;
-            --bg-input: rgba(0,0,0,0.04);
-            --bg-item: rgba(0,0,0,0.02);
-            --bg-item-hover: rgba(0,0,0,0.05);
-            
-            --text-primary: #1a2f3e;
-            --text-secondary: #1a5a7a;
-            --text-muted: #6a8a9a;
-            --text-dim: #8aaaba;
-            
-            --border-color: #b8ccda;
-            --border-light: #c8d8e6;
-            --border-active: #3a8aaf;
-            
-            --shadow-color: rgba(0,0,0,0.10);
-            --shadow-glow: rgba(58, 138, 175, 0.12);
-            
-            --accent-primary: #3a8aaf;
-            --accent-secondary: #2a6a8a;
-            --accent-success: #3a9a7a;
-            --accent-danger: #d06060;
-            --accent-warning: #d0a040;
-            
-            --dot-color: #3a9a7a;
-            --dot-offline: #d06060;
-            
-            --card-border-color: #c8d8e6;
-            --card-shadow: rgba(0,0,0,0.08);
-        }
-
-        /* ============================================================
-           BASE RESET
-           ============================================================ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html, body {
-            height: 100%;
-            overflow: hidden;
-            font-family: var(--font-family);
-        }
-
         body {
-            background: var(--bg-primary);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            transition: background var(--transition-speed) ease;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #f0f4f8;
+            color: #1a2332;
+            padding: 24px;
+            transition: background 0.3s, color 0.3s;
+            min-height: 100vh;
         }
 
-        /* ============================================================
-           SCROLLBAR
-           ============================================================ */
-        ::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-light);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--border-active);
+        body.dark-mode {
+            background: #0d1117;
+            color: #e6edf3;
         }
 
-        /* ============================================================
-           APP CONTAINER
-           ============================================================ */
+        /* Moderner Container */
         .app-container {
-            max-width: 1480px;
-            width: 100%;
-            height: 98vh;
-            height: 98dvh;
-            max-height: 920px;
-            background: var(--bg-primary);
-            border-radius: var(--radius-xl);
-            box-shadow: 0 30px 80px var(--shadow-color);
-            padding: clamp(14px, 2vw, 28px);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            transition: all var(--transition-speed) ease;
-            overflow: hidden;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        /* ============================================================
-           HEADER
-           ============================================================ */
-        .app-header {
+        /* Header */
+        .header {
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 12px;
-            padding-bottom: clamp(12px, 1.5vh, 18px);
-            margin-bottom: clamp(12px, 1.5vh, 18px);
-            border-bottom: 2px solid var(--border-color);
-            flex-shrink: 0;
-            transition: border-color var(--transition-speed) ease;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: clamp(10px, 1.8vw, 22px);
+            margin-bottom: 32px;
             flex-wrap: wrap;
+            gap: 16px;
         }
 
-        .brand h1 {
-            font-weight: 800;
-            font-size: clamp(1.3rem, 3vw, 2.2rem);
-            letter-spacing: -0.5px;
-            color: var(--text-secondary);
+        .header-left {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin: 0;
-            font-family: var(--font-family);
+            gap: 16px;
         }
 
-        .brand h1 .brand-icon {
-            color: var(--accent-primary);
-            font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+        .header-left h1 {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .brand .location-badge {
-            background: var(--bg-surface);
-            color: var(--text-secondary);
-            padding: 4px clamp(14px, 1.8vw, 24px);
-            border-radius: 60px;
-            font-size: clamp(0.7rem, 1vw, 1rem);
-            font-weight: 600;
-            border: 1px solid var(--border-light);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            white-space: nowrap;
-        }
-
-        .brand .location-badge i {
-            color: var(--accent-primary);
+        .header-left .emoji-big {
+            font-size: 32px;
+            -webkit-text-fill-color: initial;
         }
 
         .header-actions {
             display: flex;
-            align-items: center;
-            gap: clamp(8px, 1.2vw, 16px);
+            gap: 12px;
             flex-wrap: wrap;
         }
 
-        .sync-status {
-            display: flex;
+        /* Buttons modern */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-            color: var(--text-muted);
-            font-size: clamp(0.7rem, 0.9vw, 0.9rem);
-            font-weight: 500;
-            padding: 4px 14px;
-            background: var(--bg-input);
-            border-radius: 40px;
-            border: 1px solid var(--border-color);
+            background: #eef2f6;
+            color: #1a2332;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
-        .sync-status .dot {
-            width: clamp(8px, 0.9vw, 12px);
-            height: clamp(8px, 0.9vw, 12px);
-            border-radius: 50%;
-            background: var(--dot-color);
-            box-shadow: 0 0 20px var(--dot-color);
-            animation: pulse-dot 2s infinite;
-            flex-shrink: 0;
-            transition: background var(--transition-speed) ease;
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         }
 
-        .sync-status .dot.offline {
-            background: var(--dot-offline);
-            box-shadow: 0 0 20px var(--dot-offline);
-        }
-
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.85); }
-        }
-
-        .btn-icon {
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 40px;
-            padding: clamp(6px, 0.6vh, 10px) clamp(12px, 1.2vw, 18px);
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all var(--transition-speed) ease;
-            font-size: clamp(0.8rem, 0.9vw, 0.95rem);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-family: var(--font-family);
-            font-weight: 500;
-            touch-action: manipulation;
-        }
-
-        .btn-icon:hover {
-            background: var(--bg-item-hover);
-            border-color: var(--border-active);
-            color: var(--text-primary);
-        }
-
-        .btn-icon:active {
-            transform: scale(0.95);
-        }
-
-        /* ============================================================
-           MAIN GRID - 2 COLUMNS
-           ============================================================ */
-        .app-grid {
-            display: flex;
-            gap: clamp(14px, 2vw, 24px);
-            flex: 1;
-            min-height: 0;
-            overflow: hidden;
-        }
-
-        /* ----- LEFT COLUMN: Search + Cards ----- */
-        .left-col {
-            flex: 1;
-            min-width: 0;
-            max-width: 42%;
-            display: flex;
-            flex-direction: column;
-            gap: clamp(10px, 1.2vh, 16px);
-            overflow: hidden;
-        }
-
-        /* Search Bar */
-        .search-bar {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: clamp(8px, 1vw, 14px);
-            background: var(--bg-secondary);
-            padding: clamp(8px, 1vw, 14px) clamp(14px, 1.8vw, 22px);
-            border-radius: 60px;
-            border: 1px solid var(--border-color);
-            flex-shrink: 0;
-            transition: all var(--transition-speed) ease;
-        }
-
-        .search-bar .search-icon {
-            color: var(--text-dim);
-            font-size: clamp(0.9rem, 1vw, 1.1rem);
-        }
-
-        .search-bar input {
-            flex: 1;
-            min-width: 80px;
-            border: none;
-            background: transparent;
-            padding: clamp(6px, 0.6vh, 10px) 0;
-            font-size: clamp(0.85rem, 1vw, 1.05rem);
-            color: var(--text-primary);
-            font-family: var(--font-family);
-            outline: none;
-        }
-
-        .search-bar input::placeholder {
-            color: var(--text-dim);
-        }
-
-        .search-bar .block-filter {
-            display: flex;
-            align-items: center;
-            gap: clamp(4px, 0.5vw, 8px);
-            flex-wrap: wrap;
-            padding-left: clamp(8px, 1vw, 14px);
-            border-left: 1px solid var(--border-color);
-        }
-
-        .search-bar .block-filter .label {
-            font-weight: 600;
-            color: var(--text-muted);
-            font-size: clamp(0.6rem, 0.7vw, 0.8rem);
-            font-family: var(--font-family);
-        }
-
-        .search-bar .block-filter .block-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            padding: clamp(3px, 0.3vh, 6px) clamp(8px, 0.8vw, 14px);
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: clamp(0.55rem, 0.6vw, 0.75rem);
-            cursor: pointer;
-            transition: all var(--transition-speed) ease;
-            color: var(--text-muted);
-            font-family: var(--font-family);
-            white-space: nowrap;
-        }
-
-        .search-bar .block-filter .block-btn.active {
-            background: var(--accent-primary);
-            border-color: var(--border-active);
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            box-shadow: 0 4px 16px var(--shadow-glow);
         }
 
-        .search-bar .block-filter .block-btn:hover:not(.active) {
-            background: var(--bg-item-hover);
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a6fd6 0%, #6a4292 100%);
         }
 
-        .search-bar .block-filter .block-btn:active {
-            transform: scale(0.92);
+        .btn-success {
+            background: #10b981;
+            color: white;
         }
 
-        /* Cards Panel */
-        .card-panel {
-            flex: 1;
-            min-height: 0;
-            background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
-            padding: clamp(10px, 1.5vw, 18px);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transition: all var(--transition-speed) ease;
+        .btn-success:hover {
+            background: #059669;
         }
 
-        .card-panel-header {
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #667eea;
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-dark {
+            background: #1a2332;
+            color: white;
+        }
+
+        .btn-dark:hover {
+            background: #2d3a4f;
+        }
+
+        body.dark-mode .btn-dark {
+            background: #e6edf3;
+            color: #0d1117;
+        }
+
+        body.dark-mode .btn-dark:hover {
+            background: #ffffff;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+        }
+
+        body.dark-mode .stat-card {
+            background: #161b22;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b7a8f;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        body.dark-mode .stat-label {
+            color: #8b949e;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .stat-value .accent {
+            color: #667eea;
+        }
+
+        /* Hauptcards */
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 24px;
+            transition: all 0.3s;
+        }
+
+        body.dark-mode .card {
+            background: #161b22;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: clamp(8px, 1vh, 12px);
-            margin-bottom: clamp(8px, 1vh, 12px);
-            border-bottom: 2px solid var(--border-color);
-            flex-shrink: 0;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
-        .card-panel-header h3 {
-            font-weight: 700;
-            color: var(--text-secondary);
-            font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin: 0;
-            font-family: var(--font-family);
+            gap: 10px;
         }
 
-        .card-panel-header h3 i {
-            color: var(--accent-primary);
-        }
-
-        .card-panel-header .card-count-badge {
-            background: var(--accent-primary);
+        .card-title .badge-count {
+            background: #667eea;
             color: white;
-            border-radius: 40px;
-            padding: 0 clamp(12px, 1.5vw, 18px);
-            font-weight: 700;
-            font-size: clamp(0.8rem, 1vw, 1rem);
-            line-height: clamp(28px, 3.5vh, 34px);
-            border: 1px solid var(--border-active);
-        }
-
-        /* Card Stack */
-        .card-stack-wrapper {
-            position: relative;
-            flex: 1;
-            min-height: 100px;
-            perspective: 1200px;
-            touch-action: pan-y;
-            cursor: grab;
-        }
-
-        .card-stack-wrapper:active {
-            cursor: grabbing;
-        }
-
-        .card-stack-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
-        .card-item {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-card);
-            border: 2px solid var(--card-border-color);
-            border-radius: var(--radius-md);
-            padding: clamp(14px, 2vw, 24px) clamp(16px, 2.5vw, 28px);
-            font-family: 'Inter', monospace;
-            font-size: clamp(0.8rem, 1vw, 0.95rem);
-            line-height: 1.8;
-            color: var(--text-primary);
-            text-align: right;
-            transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                        opacity 0.4s ease,
-                        box-shadow 0.3s ease,
-                        border-color 0.3s ease;
-            backface-visibility: hidden;
-            box-shadow: 0 4px 16px var(--card-shadow);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            user-select: none;
-            -webkit-user-select: none;
-            will-change: transform;
-            touch-action: none;
-        }
-
-        .card-item.active {
-            transform: translateX(0) scale(1) rotate(0deg);
-            opacity: 1;
-            z-index: 10;
-            box-shadow: 0 12px 48px var(--card-shadow), 0 0 40px var(--shadow-glow);
-            border-color: var(--border-active);
-        }
-
-        .card-item.prev {
-            transform: translateX(clamp(-25px, -4vw, -45px)) scale(0.90) rotate(-2.5deg);
-            opacity: 0.3;
-            z-index: 5;
-            filter: blur(0.5px);
-        }
-
-        .card-item.next {
-            transform: translateX(clamp(25px, 4vw, 45px)) scale(0.90) rotate(2.5deg);
-            opacity: 0.3;
-            z-index: 5;
-            filter: blur(0.5px);
-        }
-
-        .card-item.hidden {
-            transform: translateX(clamp(50px, 6vw, 80px)) scale(0.82) rotate(4deg);
-            opacity: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .card-item .card-site {
-            font-weight: 700;
-            font-size: clamp(0.75rem, 1vw, 0.9rem);
-            color: var(--text-secondary);
-            margin-bottom: 2px;
-        }
-
-        .card-item .card-code {
-            font-weight: 800;
-            color: var(--accent-primary);
-            font-size: clamp(1.1rem, 1.6vw, 1.4rem);
-        }
-
-        .card-item .card-container {
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        .card-item .card-desc {
-            font-size: clamp(0.7rem, 0.85vw, 0.85rem);
-            color: var(--text-muted);
-        }
-
-        .card-item .card-index-badge {
-            position: absolute;
-            top: clamp(8px, 1vh, 14px);
-            left: clamp(12px, 1.5vw, 20px);
-            font-size: clamp(0.5rem, 0.6vw, 0.65rem);
-            color: var(--text-muted);
-            font-weight: 600;
-            background: var(--bg-input);
-            padding: 2px clamp(8px, 1vw, 14px);
+            font-size: 12px;
+            padding: 2px 12px;
             border-radius: 20px;
-            border: 1px solid var(--border-color);
+            font-weight: 500;
         }
 
-        .card-item .card-hint {
-            position: absolute;
-            bottom: clamp(8px, 1vh, 14px);
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: clamp(0.4rem, 0.5vw, 0.55rem);
-            color: var(--text-muted);
-            opacity: 0.4;
-            background: var(--bg-input);
-            padding: 2px clamp(10px, 1.2vw, 16px);
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            white-space: nowrap;
-            pointer-events: none;
-        }
-
-        .card-empty {
-            text-align: center;
-            color: var(--text-muted);
-            padding: 20px 10px;
-            background: var(--bg-item);
-            border-radius: var(--radius-md);
-            border: 2px dashed var(--border-color);
-            height: 100%;
+        /* Filter / Suche */
+        .filter-bar {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 6px;
-            font-size: clamp(0.9rem, 1vw, 1rem);
-        }
-
-        .card-empty i {
-            font-size: clamp(1.5rem, 2vw, 2.2rem);
-            color: var(--text-dim);
-        }
-
-        /* Card Controls */
-        .card-dots {
-            display: flex;
-            justify-content: center;
-            gap: clamp(6px, 0.8vw, 10px);
-            margin-top: clamp(6px, 0.6vh, 10px);
-            flex-shrink: 0;
+            gap: 12px;
             flex-wrap: wrap;
-        }
-
-        .card-dot {
-            width: clamp(8px, 0.9vw, 12px);
-            height: clamp(8px, 0.9vw, 12px);
-            border-radius: 50%;
-            background: var(--border-color);
-            border: 1px solid var(--border-light);
-            padding: 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .card-dot.active {
-            background: var(--accent-primary);
-            border-color: var(--border-active);
-            transform: scale(1.4);
-            box-shadow: 0 0 20px var(--shadow-glow);
-        }
-
-        .card-dot:hover {
-            transform: scale(1.2);
-        }
-
-        .card-nav {
-            display: flex;
-            justify-content: center;
             align-items: center;
-            gap: clamp(8px, 1vw, 14px);
-            margin-top: clamp(6px, 0.6vh, 10px);
-            flex-shrink: 0;
-            flex-wrap: wrap;
         }
 
-        .card-nav button {
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 40px;
-            padding: clamp(6px, 0.6vh, 10px) clamp(14px, 1.5vw, 20px);
+        .filter-bar input, .filter-bar select {
+            padding: 10px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            background: white;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body.dark-mode .filter-bar input,
+        body.dark-mode .filter-bar select {
+            background: #0d1117;
+            border-color: #30363d;
+            color: #e6edf3;
+        }
+
+        .filter-bar input:focus, .filter-bar select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+        }
+
+        /* Tabelle modern */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+
+        thead th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 12px;
             font-weight: 600;
-            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6b7a8f;
+            border-bottom: 2px solid #eef2f6;
+        }
+
+        body.dark-mode thead th {
+            color: #8b949e;
+            border-bottom-color: #30363d;
+        }
+
+        tbody tr {
+            background: #f8fafc;
+            border-radius: 12px;
+            transition: all 0.2s;
             cursor: pointer;
-            transition: all var(--transition-speed) ease;
-            font-size: clamp(0.75rem, 0.8vw, 0.9rem);
+        }
+
+        body.dark-mode tbody tr {
+            background: #0d1117;
+        }
+
+        tbody tr:hover {
+            background: #f1f5f9;
+            transform: scale(1.01);
+        }
+
+        body.dark-mode tbody tr:hover {
+            background: #1c2128;
+        }
+
+        tbody td {
+            padding: 14px 16px;
+            font-size: 14px;
+            border-top: 1px solid transparent;
+        }
+
+        /* Status Badge */
+        .status-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-family: var(--font-family);
-        }
-
-        .card-nav button:hover:not(:disabled) {
-            background: var(--bg-item-hover);
-            border-color: var(--border-active);
-            color: var(--text-primary);
-        }
-
-        .card-nav button:disabled {
-            opacity: 0.25;
-            cursor: not-allowed;
-        }
-
-        .card-nav .counter {
-            font-weight: 700;
-            color: var(--text-secondary);
-            font-size: clamp(0.85rem, 1vw, 1rem);
-            min-width: clamp(50px, 5vw, 70px);
-            text-align: center;
-            background: var(--bg-input);
-            padding: clamp(4px, 0.4vh, 6px) clamp(10px, 1.2vw, 16px);
+            padding: 6px 14px;
             border-radius: 30px;
-            border: 1px solid var(--border-color);
-        }
-
-        /* ----- RIGHT COLUMN: Office / Frachtliste ----- */
-        .right-col {
-            flex: 1.2;
-            min-width: 0;
-            background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
-            padding: clamp(10px, 1.5vw, 18px);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transition: all var(--transition-speed) ease;
-        }
-
-        .right-col-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: clamp(8px, 1vh, 12px);
-            margin-bottom: clamp(8px, 1vh, 12px);
-            border-bottom: 2px solid var(--border-color);
-            flex-shrink: 0;
-        }
-
-        .right-col-header h3 {
-            font-weight: 700;
-            color: var(--text-secondary);
-            font-size: clamp(0.95rem, 1.2vw, 1.15rem);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin: 0;
-            font-family: var(--font-family);
-        }
-
-        .right-col-header h3 i {
-            color: var(--accent-primary);
-        }
-
-        .right-col-header .office-count-badge {
-            background: var(--accent-primary);
-            color: white;
-            border-radius: 40px;
-            padding: 0 clamp(12px, 1.5vw, 18px);
-            font-weight: 700;
-            font-size: clamp(0.8rem, 1vw, 1rem);
-            line-height: clamp(28px, 3.5vh, 34px);
-            border: 1px solid var(--border-active);
-        }
-
-        /* Office / Frachtliste */
-        .office-list {
-            flex: 1;
-            overflow-y: auto;
-            padding-right: 4px;
-            min-height: 0;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .office-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: clamp(6px, 0.8vw, 12px);
-            padding: clamp(8px, 0.8vh, 14px) clamp(12px, 1.2vw, 18px);
-            margin-bottom: clamp(4px, 0.4vh, 6px);
-            background: var(--bg-item);
-            border-radius: 60px;
-            border: 1px solid var(--border-color);
-            transition: all var(--transition-speed) ease;
-            flex-wrap: wrap;
-        }
-
-        .office-item:hover {
-            background: var(--bg-item-hover);
-            border-color: var(--border-light);
-        }
-
-        .office-item .code {
-            font-weight: 700;
-            color: var(--accent-primary);
-            font-size: clamp(0.9rem, 1.1vw, 1.1rem);
-            flex-shrink: 0;
-            min-width: 44px;
-        }
-
-        .office-item .desc {
-            flex: 1;
-            margin: 0 clamp(4px, 0.6vw, 10px);
-            font-weight: 500;
-            color: var(--text-primary);
-            font-size: clamp(0.8rem, 0.9vw, 0.95rem);
-            min-width: 60px;
-        }
-
-        .office-item .container-tag {
-            background: var(--bg-surface);
-            padding: 2px clamp(8px, 0.8vw, 14px);
-            border-radius: 50px;
-            font-size: clamp(0.55rem, 0.65vw, 0.75rem);
+            font-size: 12px;
             font-weight: 600;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-light);
-            white-space: nowrap;
-            flex-shrink: 0;
+            transition: all 0.3s;
         }
 
-        .office-item .time {
-            font-size: clamp(0.5rem, 0.55vw, 0.65rem);
-            color: var(--text-dim);
-            flex-shrink: 0;
-            min-width: 50px;
-            text-align: right;
+        .status-offen {
+            background: #fef3c7;
+            color: #92400e;
         }
 
-        .office-item .delete-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-dim);
+        .status-erledigt {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        body.dark-mode .status-offen {
+            background: #332d1a;
+            color: #fbbf24;
+        }
+
+        body.dark-mode .status-erledigt {
+            background: #1a332a;
+            color: #34d399;
+        }
+
+        /* Moderner Toggle-Switch */
+        .toggle-switch {
+            width: 44px;
+            height: 24px;
+            background: #cbd5e1;
+            border-radius: 30px;
+            display: inline-block;
+            position: relative;
             cursor: pointer;
-            font-size: clamp(0.8rem, 0.9vw, 1rem);
-            padding: 0 clamp(4px, 0.5vw, 8px);
-            transition: all var(--transition-speed) ease;
+            transition: all 0.3s;
             flex-shrink: 0;
         }
 
-        .office-item .delete-btn:hover {
-            color: var(--accent-danger);
+        body.dark-mode .toggle-switch {
+            background: #30363d;
         }
 
-        .office-item .delete-btn:active {
-            transform: scale(0.85);
+        .toggle-switch.active {
+            background: #10b981;
         }
 
-        .office-empty {
-            text-align: center;
-            color: var(--text-muted);
-            padding: 40px 10px;
-            background: var(--bg-item);
-            border-radius: var(--radius-md);
-            border: 2px dashed var(--border-color);
-            font-size: clamp(0.9rem, 1vw, 1rem);
+        .toggle-switch .toggle-knob {
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        .office-empty i {
-            font-size: clamp(1.5rem, 2vw, 2.2rem);
-            color: var(--text-dim);
-            display: block;
+        .toggle-switch.active .toggle-knob {
+            left: 23px;
+        }
+
+        /* Etiketten Grid */
+        .etikett-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .etikett-card {
+            background: white;
+            border-radius: 16px;
+            padding: 18px;
+            border: 2px solid #eef2f6;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        body.dark-mode .etikett-card {
+            background: #0d1117;
+            border-color: #30363d;
+        }
+
+        .etikett-card:hover {
+            border-color: #667eea;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.15);
+        }
+
+        .etikett-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
             margin-bottom: 8px;
         }
 
-        /* Actions */
-        .actions-bar {
+        .etikett-fracht {
+            font-weight: 700;
+            font-size: 16px;
+            color: #667eea;
+        }
+
+        .etikett-nr {
+            font-size: 12px;
+            color: #6b7a8f;
+            background: #f1f5f9;
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+
+        body.dark-mode .etikett-nr {
+            background: #1c2128;
+            color: #8b949e;
+        }
+
+        .etikett-material {
+            font-size: 15px;
+            font-weight: 500;
+            margin: 4px 0;
+        }
+
+        .etikett-menge {
+            font-size: 13px;
+            color: #6b7a8f;
+        }
+
+        body.dark-mode .etikett-menge {
+            color: #8b949e;
+        }
+
+        .etikett-status {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px dashed #eef2f6;
+            font-size: 12px;
             display: flex;
-            gap: clamp(6px, 0.8vw, 12px);
-            justify-content: flex-end;
-            margin-top: clamp(8px, 0.8vh, 12px);
-            flex-shrink: 0;
-            flex-wrap: wrap;
+            justify-content: space-between;
         }
 
-        .actions-bar button {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            padding: clamp(6px, 0.6vh, 10px) clamp(14px, 1.5vw, 20px);
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition-speed) ease;
-            color: var(--text-muted);
-            font-size: clamp(0.75rem, 0.8vw, 0.9rem);
-            font-family: var(--font-family);
-            touch-action: manipulation;
-            white-space: nowrap;
+        body.dark-mode .etikett-status {
+            border-top-color: #30363d;
         }
 
-        .actions-bar button:active {
-            transform: scale(0.94);
+        .etikett-datum {
+            color: #6b7a8f;
+            font-size: 11px;
         }
 
-        .actions-bar .clear-btn {
-            color: var(--accent-danger);
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.35s ease;
         }
 
-        .actions-bar .clear-btn:hover {
-            background: rgba(224, 112, 112, 0.10);
-            border-color: var(--accent-danger);
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
         }
 
-        .actions-bar .sample-btn {
-            border-color: var(--accent-secondary);
-            color: var(--text-secondary);
+        .modal {
+            background: white;
+            border-radius: 28px;
+            padding: 32px;
+            max-width: 560px;
+            width: 90%;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.35s ease;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.2);
         }
 
-        .actions-bar .sample-btn:hover {
-            background: var(--bg-item-hover);
-            border-color: var(--border-active);
+        body.dark-mode .modal {
+            background: #161b22;
         }
 
-        .actions-bar .sync-btn {
-            border-color: var(--accent-success);
-            color: var(--accent-success);
+        .modal-overlay.active .modal {
+            transform: scale(1) translateY(0);
         }
 
-        .actions-bar .sync-btn:hover {
-            background: rgba(76, 175, 132, 0.10);
-            border-color: var(--accent-success);
-        }
-
-        /* ============================================================
-           FOOTER
-           ============================================================ */
-        .app-footer {
-            margin-top: clamp(8px, 1vh, 14px);
-            padding-top: clamp(8px, 1vh, 12px);
-            border-top: 1px solid var(--border-color);
+        .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-shrink: 0;
-            flex-wrap: wrap;
-            gap: 6px;
-            font-size: clamp(0.6rem, 0.65vw, 0.75rem);
-            color: var(--text-muted);
+            margin-bottom: 24px;
         }
 
-        .app-footer .footer-left {
-            display: flex;
-            align-items: center;
-            gap: clamp(6px, 0.8vw, 10px);
+        .modal-title {
+            font-size: 22px;
+            font-weight: 700;
         }
 
-        .app-footer .footer-left i {
-            color: var(--dot-color);
-            font-size: clamp(0.5rem, 0.6vw, 0.7rem);
-        }
-
-        .app-footer .footer-left i.offline {
-            color: var(--dot-offline);
-        }
-
-        .app-footer .footer-right {
-            display: flex;
-            align-items: center;
-            gap: clamp(6px, 0.8vw, 12px);
-        }
-
-        .app-footer .footer-right .theme-toggle-sm {
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 30px;
-            padding: clamp(2px, 0.3vh, 4px) clamp(8px, 0.6vw, 12px);
-            color: var(--text-secondary);
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
             cursor: pointer;
-            transition: all var(--transition-speed) ease;
-            font-size: clamp(0.65rem, 0.65vw, 0.75rem);
-            font-family: var(--font-family);
+            color: #6b7a8f;
+            transition: all 0.2s;
+            padding: 0 8px;
+        }
+
+        .modal-close:hover {
+            color: #ef4444;
+            transform: rotate(90deg);
+        }
+
+        .modal .form-group {
+            margin-bottom: 18px;
+        }
+
+        .modal .form-group label {
+            display: block;
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .modal .form-group input,
+        .modal .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            background: white;
+        }
+
+        body.dark-mode .modal .form-group input,
+        body.dark-mode .modal .form-group select {
+            background: #0d1117;
+            border-color: #30363d;
+            color: #e6edf3;
+        }
+
+        .modal .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+        }
+
+        .modal-actions {
             display: flex;
-            align-items: center;
-            gap: 4px;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
         }
 
-        .app-footer .footer-right .theme-toggle-sm:hover {
-            background: var(--bg-item-hover);
+        /* Print optimiert */
+        @media print {
+            body { background: white; padding: 12px; }
+            .no-print { display: none !important; }
+            .card { box-shadow: none; border: 1px solid #ddd; background: white; }
+            .etikett-card { border-color: #999; break-inside: avoid; box-shadow: none; }
+            .table-wrapper { overflow: visible; }
+            tbody tr { background: white !important; }
+            .stats-grid { display: none; }
+            .header-actions { display: none; }
+            .filter-bar { display: none; }
+            .modal-overlay { display: none; }
         }
 
-        .app-footer .device-info {
-            color: var(--text-dim);
-            font-size: clamp(0.5rem, 0.5vw, 0.6rem);
-        }
-
-        /* ============================================================
-           RESPONSIVE
-           ============================================================ */
-        @media (max-width: 900px) {
-            .app-grid {
-                flex-direction: column;
-                gap: 10px;
-            }
-            .left-col {
-                max-width: 100%;
-                max-height: 45%;
-            }
-            .right-col {
-                flex: 1;
-                min-height: 30vh;
-            }
-            .app-container {
-                height: 100vh;
-                height: 100dvh;
-                max-height: none;
-                border-radius: var(--radius-lg);
-                padding: 12px;
-            }
-            .search-bar .block-filter .label {
-                display: none;
-            }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-left h1 { font-size: 20px; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .stat-value { font-size: 24px; }
         }
 
         @media (max-width: 480px) {
-            body { padding: 6px; }
-            .app-container {
-                border-radius: var(--radius-md);
-                padding: 8px;
-            }
-            .brand h1 { font-size: 1.1rem; }
-            .brand .location-badge { font-size: 0.55rem; padding: 2px 10px; }
-            .sync-status { font-size: 0.6rem; padding: 3px 10px; }
-            .sync-status .dot { width: 7px; height: 7px; }
-            .btn-icon { font-size: 0.65rem; padding: 4px 10px; }
-            .left-col { max-height: 35%; }
-            .right-col { padding: 8px; min-height: 25vh; }
-            .card-panel { padding: 8px; }
-            .card-stack-wrapper { min-height: 70px; }
-            .card-item { padding: 10px 14px; font-size: 0.7rem; }
-            .card-item .card-code { font-size: 0.9rem; }
-            .office-item { padding: 5px 8px; gap: 4px; }
-            .office-item .desc { font-size: 0.7rem; min-width: 40px; }
-            .office-item .code { font-size: 0.75rem; min-width: 34px; }
-            .office-item .container-tag { font-size: 0.5rem; padding: 1px 6px; }
-            .office-item .time { font-size: 0.45rem; min-width: 35px; }
-            .search-bar { padding: 6px 12px; }
-            .search-bar input { font-size: 0.75rem; }
-            .search-bar .block-filter .block-btn { font-size: 0.5rem; padding: 2px 6px; }
-            .actions-bar button { font-size: 0.65rem; padding: 4px 10px; }
-            .app-footer { flex-direction: column; align-items: stretch; gap: 4px; }
-            .app-footer .footer-right { justify-content: center; flex-wrap: wrap; }
-            .app-footer .footer-left { justify-content: center; }
-            .card-nav button { font-size: 0.65rem; padding: 4px 10px; }
-            .card-dot { width: 6px; height: 6px; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .btn { padding: 8px 14px; font-size: 12px; }
+            .modal { padding: 20px; }
         }
 
-        @media (max-width: 380px) {
-            .search-bar .block-filter .block-btn { font-size: 0.45rem; padding: 2px 5px; }
-            .search-bar .block-filter .label { font-size: 0.5rem; }
-        }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #eef2f6; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #667eea; border-radius: 10px; }
+        body.dark-mode ::-webkit-scrollbar-track { background: #1c2128; }
     </style>
 </head>
 <body>
+
 <div class="app-container">
+
     <!-- HEADER -->
-    <div class="app-header">
-        <div class="brand">
-            <h1><i class="fas fa-recycle brand-icon"></i>ASZ Asten</h1>
-            <span class="location-badge"><i class="fas fa-map-pin"></i> Standort 106</span>
+    <div class="header">
+        <div class="header-left">
+            <span class="emoji-big">♻️</span>
+            <h1>Entsorgungs-Frachtverwaltung</h1>
         </div>
-        <div class="header-actions">
-            <div class="sync-status">
-                <span class="dot" id="syncDot"></span>
-                <span id="syncLabel">lokal · sync</span>
-            </div>
-            <button class="btn-icon" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
-        </div>
-    </div>
-
-    <!-- MAIN GRID -->
-    <div class="app-grid">
-        <!-- LEFT: Search + Cards -->
-        <div class="left-col">
-            <!-- Search Bar -->
-            <div class="search-bar">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" id="materialSearch" placeholder="Material suchen (Name oder Code)..." inputmode="search">
-                <div class="block-filter">
-                    <span class="label">Block:</span>
-                    <button class="block-btn active" data-block="all">Alle</button>
-                    <button class="block-btn" data-block="1000">1000</button>
-                    <button class="block-btn" data-block="2000">2000</button>
-                    <button class="block-btn" data-block="3000">3000</button>
-                    <button class="block-btn" data-block="4000">4000</button>
-                    <button class="block-btn" data-block="4300">4300</button>
-                    <button class="block-btn" data-block="9000">9000</button>
-                </div>
-            </div>
-
-            <!-- Cards -->
-            <div class="card-panel">
-                <div class="card-panel-header">
-                    <h3><i class="fas fa-id-card"></i> Karteikärtchen</h3>
-                    <span class="card-count-badge" id="cardCountLabel">0</span>
-                </div>
-                <div class="card-stack-wrapper" id="cardStackWrapper">
-                    <div class="card-stack-inner" id="cardStackInner">
-                        <div class="card-empty">
-                            <i class="fas fa-layer-group"></i>
-                            <span>Keine Karteikärtchen<br><small style="opacity:0.6;">Füge Materialien hinzu</small></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-dots" id="cardDots"></div>
-                <div class="card-nav">
-                    <button id="cardPrevBtn" disabled><i class="fas fa-chevron-left"></i></button>
-                    <span class="counter" id="cardCounter">0 / 0</span>
-                    <button id="cardNextBtn" disabled><i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
-        </div>
-
-        <!-- RIGHT: Frachtliste (Office) -->
-        <div class="right-col">
-            <div class="right-col-header">
-                <h3><i class="fas fa-clipboard-list"></i> Frachtliste - Entsorgung</h3>
-                <span class="office-count-badge" id="officeCountLabel">0</span>
-            </div>
-            <div class="office-list" id="officeList">
-                <div class="office-empty">
-                    <i class="fas fa-box-open"></i>
-                    <span>Keine Fracht im System</span>
-                </div>
-            </div>
-            <div class="actions-bar">
-                <button class="clear-btn" id="clearBasketBtn"><i class="fas fa-trash-alt"></i> Alle Leeren</button>
-                <button class="sample-btn" id="addSampleBtn"><i class="fas fa-plus-circle"></i> Beispiel</button>
-                <button class="sync-btn" id="syncNowBtn"><i class="fas fa-sync-alt"></i> Sync</button>
-            </div>
+        <div class="header-actions no-print">
+            <button class="btn btn-primary" onclick="openModal('add')">➕ Position hinzufügen</button>
+            <button class="btn btn-success" onclick="generateSampleData()">📦 Beispieldaten</button>
+            <button class="btn btn-outline" onclick="printEtiketten()">🖨️ Etiketten drucken</button>
+            <button class="btn btn-dark" onclick="toggleDarkMode()">🌙</button>
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <div class="app-footer">
-        <div class="footer-left">
-            <i class="fas fa-circle" id="footerSyncIcon"></i>
-            <span id="footerSyncText">lokal · synchronisiert</span>
-            <span class="device-info" id="deviceInfo">🖥️ PC</span>
+    <!-- STATS -->
+    <div class="stats-grid no-print" id="statsGrid">
+        <div class="stat-card">
+            <div class="stat-label">📦 Positionen</div>
+            <div class="stat-value"><span id="totalPositions">0</span></div>
         </div>
-        <div class="footer-right">
-            <button class="theme-toggle-sm" id="themeToggleSm"><i class="fas fa-moon" id="themeIconSm"></i></button>
+        <div class="stat-card">
+            <div class="stat-label">🚚 Frachten</div>
+            <div class="stat-value"><span id="totalFrachten">0</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">🔄 Offen</div>
+            <div class="stat-value"><span class="accent" id="offenCount">0</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">✅ Erledigt</div>
+            <div class="stat-value"><span class="accent" id="erledigtCount">0</span></div>
+        </div>
+    </div>
+
+    <!-- FRACHTLISTE -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                📋 Frachtliste
+                <span class="badge-count" id="frachtBadge">0</span>
+            </div>
+            <div class="filter-bar no-print">
+                <input type="text" id="searchInput" placeholder="🔍 Suchen..." oninput="renderAll()">
+                <select id="statusFilter" onchange="renderAll()">
+                    <option value="alle">Alle Status</option>
+                    <option value="offen">🔄 Offen</option>
+                    <option value="erledigt">✅ Erledigt</option>
+                </select>
+            </div>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fracht-ID</th>
+                        <th>Positionen</th>
+                        <th>Gesamtmenge</th>
+                        <th>Status</th>
+                        <th class="no-print">Aktion</th>
+                    </tr>
+                </thead>
+                <tbody id="frachtTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ETIKETTEN -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                🏷️ Etiketten
+                <span class="badge-count" id="etikettBadge">0</span>
+            </div>
+            <div class="no-print">
+                <button class="btn btn-outline" onclick="document.getElementById('etikettGrid').scrollIntoView({behavior:'smooth'})">⬇️ Zu Etiketten</button>
+            </div>
+        </div>
+        <div id="etikettGrid" class="etikett-grid"></div>
+    </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title" id="modalTitle">➕ Position hinzufügen</div>
+            <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div id="modalBody">
+            <div class="form-group">
+                <label>Positions-Nr.</label>
+                <input type="number" id="editNr" placeholder="z.B. 767">
+            </div>
+            <div class="form-group">
+                <label>Fracht-ID</label>
+                <input type="text" id="editFracht" placeholder="z.B. F-2026-050">
+            </div>
+            <div class="form-group">
+                <label>Material / Beschreibung</label>
+                <input type="text" id="editMaterial" placeholder="z.B. Elektroschrott">
+            </div>
+            <div class="form-group">
+                <label>Menge</label>
+                <input type="number" id="editMenge" placeholder="1" value="1">
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn" onclick="closeModal()">Abbrechen</button>
+            <button class="btn btn-primary" id="modalSaveBtn" onclick="saveModal()">Speichern</button>
         </div>
     </div>
 </div>
 
 <script>
-    (function() {
-        // ============================================================
-        //  MATERIAL DATABASE
-        // ============================================================
-        const materials = [
-            { code: '1501', desc: 'Großmöbel (ReVital)', block: '1000', container: 'Container 10m³' },
-            { code: '1506', desc: 'Hausrat (ReVital)', block: '1000', container: 'Container 10m³' },
-            { code: '1510', desc: 'Elektro-Großgeräte Wiederverwendung', block: '1000', container: 'Gitterbox' },
-            { code: '1511', desc: 'Elektro-Kleingeräte Wiederverwendung', block: '1000', container: 'QR-Box' },
-            { code: '2110', desc: 'Altpapier (Zeitungen, Illustrierte)', block: '2000', container: 'Papier-Container' },
-            { code: '2120', desc: 'Kartonagen (Wellpappe)', block: '2000', container: 'Container 10m³' },
-            { code: '2210', desc: 'Verpackungsglas Weiß', block: '2000', container: 'Glas-Container' },
-            { code: '2220', desc: 'Verpackungsglas Bunt', block: '2000', container: 'Glas-Container' },
-            { code: '2310', desc: 'Flachglas / Fensterglas', block: '2000', container: 'Container 5m³' },
-            { code: '2510', desc: 'PET-Flaschen transparent', block: '2000', container: 'Sack / BigBag' },
-            { code: '2511', desc: 'PET-Flaschen bunt', block: '2000', container: 'Sack / BigBag' },
-            { code: '2520', desc: 'Kunststoff-Hohlkörper (>5L)', block: '2000', container: 'Gitterbox' },
-            { code: '2540', desc: 'PE-Folie transparent (LDPE)', block: '2000', container: 'Sack' },
-            { code: '2541', desc: 'PE-Folie bunt / Gewerbefolie', block: '2000', container: 'Sack' },
-            { code: '2550', desc: 'Getränkekartons', block: '2000', container: 'Container 10m³' },
-            { code: '2570', desc: 'Styropor (EPS) rein', block: '2000', container: 'Sack' },
-            { code: '2571', desc: 'Styropor (EPS) Baustelle', block: '2000', container: 'Container' },
-            { code: '2580', desc: 'Hartkunststoffe (Spielzeug, Möbel)', block: '2000', container: 'Container 10m³' },
-            { code: '3010', desc: 'Altholz stofflich (A I / A II)', block: '3000', container: 'Container 10m³' },
-            { code: '3020', desc: 'Altholz thermisch (A III)', block: '3000', container: 'Container 10m³' },
-            { code: '3030', desc: 'Altholz verunreinigt / imprägniert', block: '3000', container: 'Container 10m³' },
-            { code: '3510', desc: 'Alteisen / Mischschrott', block: '3000', container: 'Container 5m³' },
-            { code: '3520', desc: 'Kabelschrott (Cu/Al isoliert)', block: '3000', container: 'Container' },
-            { code: '3530', desc: 'Aluminium (Profile, Bleche)', block: '3000', container: 'Container' },
-            { code: '3540', desc: 'Buntmetalle (Cu, Messing)', block: '3000', container: 'Container' },
-            { code: '4010', desc: 'Elektro-Großgeräte', block: '4000', container: 'Container 10m³' },
-            { code: '4020', desc: 'Kühl- und Klimageräte', block: '4000', container: 'Container' },
-            { code: '4030', desc: 'Bildschirmgeräte (TV, Monitore)', block: '4000', container: 'Container' },
-            { code: '4040', desc: 'Elektro-Kleingeräte (ohne Akku)', block: '4000', container: 'QR-Box' },
-            { code: '4041', desc: 'Kleingeräte mit Li-Akku', block: '4000', container: 'Sonderbox' },
-            { code: '4050', desc: 'Gasentladungslampen stabförmig', block: '4000', container: 'Sammelbox' },
-            { code: '4051', desc: 'Gasentladungslampen Sonderformen', block: '4000', container: 'Sammelbox' },
-            { code: '4110', desc: 'Gerätebatterien (Fass / Box)', block: '4000', container: 'Batterie-Fass' },
-            { code: '4120', desc: 'Lithium-Batterien / Akkus', block: '4000', container: 'Sonderbox' },
-            { code: '4130', desc: 'Fahrzeugbatterien', block: '4000', container: 'Batterie-Container' },
-            { code: '4310', desc: 'Altöl mineralisch', block: '4300', container: 'Kanister / Fass' },
-            { code: '4315', desc: 'Speiseöl / Altfett', block: '4300', container: 'Kanister' },
-            { code: '4320', desc: 'Dispersionsfarben (Wasserbasis)', block: '4300', container: 'Gebinde' },
-            { code: '4325', desc: 'Lacke und Lösemittel', block: '4300', container: 'Gebinde' },
-            { code: '4340', desc: 'Altmedikamente', block: '4300', container: 'Sammelbox' },
-            { code: '4350', desc: 'Spraydosen mit Restinhalt', block: '4300', container: 'Sonderbox' },
-            { code: '4385', desc: 'Mineralwolle / KMF (Sack)', block: '4300', container: 'ASZ-Sack' },
-            { code: '4390', desc: 'Asbestzement / Eternit mix', block: '4300', container: 'BigBag' },
-            { code: '4963', desc: 'kostenpfl. Mineralwolle (Sack)', block: '4300', container: 'ASZ-Sack' },
-            { code: '9110', desc: 'Bauschutt rein (Ziegel, Beton)', block: '9000', container: 'Container 10m³' },
-            { code: '9120', desc: 'Bauschutt sortiert / Ytong', block: '9000', container: 'Container 10m³' },
-            { code: '9140', desc: 'Gipskartonplatten rein', block: '9000', container: 'Container 10m³' },
-            { code: '9510', desc: 'Sperrmüll', block: '9000', container: 'Container 10m³' },
-            { code: '9520', desc: 'Altreifen ohne Felge', block: '9000', container: 'Reifen-Container' },
-            { code: '9521', desc: 'Altreifen mit Felge', block: '9000', container: 'Reifen-Container' },
-        ];
+    // ============================================================
+    //  DATA LAYER
+    // ============================================================
+    let positions = JSON.parse(localStorage.getItem('entsorgung_positions')) || [];
+    let modalMode = 'add'; // 'add' | 'edit'
+    let editTargetNr = null;
 
-        // ============================================================
-        //  STATE
-        // ============================================================
-        let basket = [];
-        let activeBlock = 'all';
-        let currentCardIndex = 0;
-        let darkTheme = true;
-        const STORAGE_KEY = 'asz_fracht_data';
+    function save() {
+        localStorage.setItem('entsorgung_positions', JSON.stringify(positions));
+        renderAll();
+    }
 
-        // ============================================================
-        //  DOM REFS
-        // ============================================================
-        const officeListEl = document.getElementById('officeList');
-        const cardStackInner = document.getElementById('cardStackInner');
-        const cardDots = document.getElementById('cardDots');
-        const cardCounter = document.getElementById('cardCounter');
-        const cardCountLabel = document.getElementById('cardCountLabel');
-        const officeCountLabel = document.getElementById('officeCountLabel');
-        const cardPrevBtn = document.getElementById('cardPrevBtn');
-        const cardNextBtn = document.getElementById('cardNextBtn');
-        const searchInput = document.getElementById('materialSearch');
-        const syncDot = document.getElementById('syncDot');
-        const syncLabel = document.getElementById('syncLabel');
-        const footerSyncIcon = document.getElementById('footerSyncIcon');
-        const footerSyncText = document.getElementById('footerSyncText');
-        const deviceInfo = document.getElementById('deviceInfo');
+    // ============================================================
+    //  RENDER
+    // ============================================================
+    function renderAll() {
+        const search = document.getElementById('searchInput')?.value?.toLowerCase() || '';
+        const statusFilter = document.getElementById('statusFilter')?.value || 'alle';
 
-        // ============================================================
-        //  STORAGE
-        // ============================================================
-        function loadFromStorage() {
-            try {
-                const stored = localStorage.getItem(STORAGE_KEY);
-                if (stored) {
-                    basket = JSON.parse(stored);
-                    return true;
-                }
-                return false;
-            } catch { return false; }
+        let filtered = positions.filter(p => {
+            const matchSearch = p.fracht.toLowerCase().includes(search) || 
+                               p.material.toLowerCase().includes(search) ||
+                               String(p.nr).includes(search);
+            const matchStatus = statusFilter === 'alle' || p.status === statusFilter;
+            return matchSearch && matchStatus;
+        });
+
+        renderStats(filtered);
+        renderFrachtliste(filtered);
+        renderEtiketten(filtered);
+    }
+
+    function renderStats(filtered) {
+        document.getElementById('totalPositions').textContent = filtered.length;
+        const frachten = new Set(filtered.map(p => p.fracht));
+        document.getElementById('totalFrachten').textContent = frachten.size;
+        const offen = filtered.filter(p => p.status === 'offen').length;
+        const erledigt = filtered.filter(p => p.status === 'erledigt').length;
+        document.getElementById('offenCount').textContent = offen;
+        document.getElementById('erledigtCount').textContent = erledigt;
+    }
+
+    function renderFrachtliste(filtered) {
+        const gruppen = {};
+        filtered.forEach(p => {
+            if (!gruppen[p.fracht]) gruppen[p.fracht] = [];
+            gruppen[p.fracht].push(p);
+        });
+
+        const tbody = document.getElementById('frachtTableBody');
+        document.getElementById('frachtBadge').textContent = Object.keys(gruppen).length;
+
+        if (Object.keys(gruppen).length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:40px;color:#6b7a8f;">Keine Frachten gefunden</td></tr>`;
+            return;
         }
 
-        function saveToStorage() {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(basket));
-                return true;
-            } catch { return false; }
+        let html = '';
+        for (let [fracht, posListe] of Object.entries(gruppen)) {
+            const alleErledigt = posListe.every(p => p.status === 'erledigt');
+            const gesamtMenge = posListe.reduce((sum, p) => sum + p.menge, 0);
+            const statusClass = alleErledigt ? 'status-erledigt' : 'status-offen';
+            const statusLabel = alleErledigt ? '✅ Erledigt' : '🔄 Offen';
+
+            html += `
+                <tr>
+                    <td><strong>${fracht}</strong></td>
+                    <td>${posListe.length}</td>
+                    <td>${gesamtMenge}</td>
+                    <td><span class="status-badge ${statusClass}">${statusLabel}</span></td>
+                    <td class="no-print">
+                        <button class="btn" style="padding:4px 12px;font-size:12px;" onclick="toggleFrachtStatus('${fracht}')">
+                            ${alleErledigt ? '↩️ Wieder öffnen' : '✅ Als erledigt'}
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }
+        tbody.innerHTML = html;
+    }
+
+    function renderEtiketten(filtered) {
+        const grid = document.getElementById('etikettGrid');
+        document.getElementById('etikettBadge').textContent = filtered.length;
+
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:#6b7a8f;">Keine Etiketten vorhanden</div>`;
+            return;
         }
 
-        // ============================================================
-        //  BASKET HELPERS
-        // ============================================================
-        function getItemCount(code) {
-            return basket.filter(item => item.code === code).length;
-        }
-
-        function getTotalItems() {
-            return basket.length;
-        }
-
-        function addToBasket(code) {
-            const mat = materials.find(m => m.code === code);
-            if (!mat) return;
-            basket.push({ ...mat, id: Date.now() + '_' + Math.random().toString(36).substr(2, 6) });
-            saveToStorage();
-            renderAll();
-        }
-
-        function removeFromBasket(code) {
-            const idx = basket.findIndex(item => item.code === code);
-            if (idx === -1) return;
-            basket.splice(idx, 1);
-            if (currentCardIndex >= basket.length) currentCardIndex = Math.max(0, basket.length - 1);
-            saveToStorage();
-            renderAll();
-        }
-
-        function removeSpecificItem(id) {
-            const idx = basket.findIndex(item => item.id === id);
-            if (idx === -1) return;
-            basket.splice(idx, 1);
-            if (currentCardIndex >= basket.length) currentCardIndex = Math.max(0, basket.length - 1);
-            saveToStorage();
-            renderAll();
-        }
-
-        function clearBasket() {
-            basket = [];
-            currentCardIndex = 0;
-            saveToStorage();
-            renderAll();
-        }
-
-        // ============================================================
-        //  RENDER
-        // ============================================================
-        function renderAll() {
-            renderOfficeList();
-            renderCardStack();
-            updateCounts();
-            updateSyncStatus(true);
-        }
-
-        function renderOfficeList() {
-            if (basket.length === 0) {
-                officeListEl.innerHTML = `
-                    <div class="office-empty">
-                        <i class="fas fa-box-open"></i>
-                        <span>Keine Fracht im System</span>
+        let html = '';
+        filtered.forEach(p => {
+            const statusIcon = p.status === 'offen' ? '🔄' : '✅';
+            const statusText = p.status === 'offen' ? 'offen' : 'erledigt';
+            html += `
+                <div class="etikett-card">
+                    <div class="etikett-header">
+                        <span class="etikett-fracht">${p.fracht}</span>
+                        <span class="etikett-nr">#${p.nr}</span>
                     </div>
-                `;
+                    <div class="etikett-material">${p.material}</div>
+                    <div class="etikett-menge">📦 Menge: ${p.menge}</div>
+                    <div class="etikett-status">
+                        <span>${statusIcon} ${statusText}</span>
+                        <span class="etikett-datum">${new Date().toLocaleDateString('de-DE')}</span>
+                    </div>
+                </div>
+            `;
+        });
+        grid.innerHTML = html;
+    }
+
+    // ============================================================
+    //  ACTIONS
+    // ============================================================
+    function toggleFrachtStatus(fracht) {
+        const allSame = positions.filter(p => p.fracht === fracht).every(p => p.status === 'erledigt');
+        positions.forEach(p => {
+            if (p.fracht === fracht) {
+                p.status = allSame ? 'offen' : 'erledigt';
+            }
+        });
+        save();
+    }
+
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+
+    // Dark Mode laden
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+
+    // ============================================================
+    //  MODAL
+    // ============================================================
+    function openModal(mode, nr = null) {
+        modalMode = mode;
+        const overlay = document.getElementById('modalOverlay');
+        const title = document.getElementById('modalTitle');
+        const saveBtn = document.getElementById('modalSaveBtn');
+
+        if (mode === 'add') {
+            title.textContent = '➕ Position hinzufügen';
+            saveBtn.textContent = 'Hinzufügen';
+            document.getElementById('editNr').value = positions.length + 1;
+            document.getElementById('editFracht').value = '';
+            document.getElementById('editMaterial').value = '';
+            document.getElementById('editMenge').value = 1;
+            editTargetNr = null;
+        } else if (mode === 'edit' && nr !== null) {
+            const pos = positions.find(p => p.nr === nr);
+            if (!pos) return;
+            title.textContent = '✏️ Position bearbeiten';
+            saveBtn.textContent = 'Speichern';
+            document.getElementById('editNr').value = pos.nr;
+            document.getElementById('editFracht').value = pos.fracht;
+            document.getElementById('editMaterial').value = pos.material;
+            document.getElementById('editMenge').value = pos.menge;
+            editTargetNr = nr;
+        }
+
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('modalOverlay').classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    function saveModal() {
+        const nr = parseInt(document.getElementById('editNr').value);
+        const fracht = document.getElementById('editFracht').value.trim();
+        const material = document.getElementById('editMaterial').value.trim();
+        const menge = parseInt(document.getElementById('editMenge').value) || 1;
+
+        if (!fracht || !material) {
+            alert('Bitte Fracht-ID und Material ausfüllen.');
+            return;
+        }
+
+        if (modalMode === 'add') {
+            if (positions.some(p => p.nr === nr)) {
+                alert('Positions-Nr. existiert bereits.');
                 return;
             }
+            positions.push({ nr, fracht, material, menge, status: 'offen' });
+        } else if (modalMode === 'edit' && editTargetNr !== null) {
+            const idx = positions.findIndex(p => p.nr === editTargetNr);
+            if (idx !== -1) {
+                positions[idx] = { ...positions[idx], nr, fracht, material, menge };
+            }
+        }
 
-            let html = '';
-            basket.forEach((item) => {
-                const time = new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
-                html += `
-                    <div class="office-item">
-                        <span class="code">${item.code}</span>
-                        <span class="desc">${item.desc}</span>
-                        <span class="container-tag"><i class="fas fa-box" style="font-size:0.6rem;"></i> ${item.container}</span>
-                        <span class="time">${time}</span>
-                        <button class="delete-btn" data-id="${item.id}" title="Löschen"><i class="fas fa-times"></i></button>
-                    </div>
-                `;
+        closeModal();
+        save();
+    }
+
+    // Klick außerhalb Modal schließen
+    document.getElementById('modalOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+
+    // ESC schließt Modal
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+    });
+
+    // ============================================================
+    //  SAMPLE DATA
+    // ============================================================
+    function generateSampleData() {
+        if (positions.length > 0 && !confirm('Beispieldaten laden? Vorhandene Daten werden überschrieben.')) return;
+
+        const sample = [];
+        const frachten = ['F-2026-042', 'F-2026-043', 'F-2026-044', 'F-2026-045', 'F-2026-046'];
+        const materialien = ['Elektroschrott', 'Kabel & Leitungen', 'Batterien', 'Kunststoffteile', 'Metallschrott', 'Elektronikbauteile', 'Verpackungsmaterial'];
+        for (let i = 1; i <= 50; i++) {
+            sample.push({
+                nr: i,
+                fracht: frachten[i % frachten.length],
+                material: materialien[i % materialien.length],
+                menge: Math.floor(Math.random() * 12) + 1,
+                status: i % 3 === 0 ? 'erledigt' : 'offen'
             });
-            officeListEl.innerHTML = html;
-
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', () => removeSpecificItem(btn.dataset.id));
-            });
         }
+        positions = sample;
+        save();
+    }
 
-        function renderCardStack() {
-            if (basket.length === 0) {
-                cardStackInner.innerHTML = `
-                    <div class="card-empty">
-                        <i class="fas fa-layer-group"></i>
-                        <span>Keine Karteikärtchen<br><small style="opacity:0.6;">Füge Materialien hinzu</small></span>
-                    </div>
-                `;
-                cardDots.innerHTML = '';
-                cardCounter.textContent = '0 / 0';
-                cardPrevBtn.disabled = true;
-                cardNextBtn.disabled = true;
-                return;
-            }
+    // ============================================================
+    //  PRINT / EXPORT
+    // ============================================================
+    function printEtiketten() {
+        window.print();
+    }
 
-            if (currentCardIndex >= basket.length) currentCardIndex = basket.length - 1;
-            if (currentCardIndex < 0) currentCardIndex = 0;
+    // ============================================================
+    //  INIT
+    // ============================================================
+    renderAll();
 
-            const total = basket.length;
-            const activeIdx = currentCardIndex;
-            let html = '<div class="card-stack-inner">';
-
-            basket.forEach((item, idx) => {
-                let positionClass = 'hidden';
-                if (idx === activeIdx) positionClass = 'active';
-                else if (idx === activeIdx - 1) positionClass = 'prev';
-                else if (idx === activeIdx + 1) positionClass = 'next';
-
-                html += `
-                    <div class="card-item ${positionClass}" data-index="${idx}">
-                        <span class="card-index-badge">${idx + 1} / ${total}</span>
-                        <div class="card-site">ASZ Asten · 106</div>
-                        <div><span class="card-code">${item.code}</span> · <span class="card-container">${item.container}</span></div>
-                        <div class="card-desc">${item.desc}</div>
-                        <div class="card-hint"><i class="fas fa-hand-pointer"></i> Zum Auswählen tippen</div>
-                    </div>
-                `;
-            });
-            html += '</div>';
-            cardStackInner.innerHTML = html;
-
-            // Dots
-            let dotsHtml = '';
-            for (let i = 0; i < total; i++) {
-                dotsHtml += `<button class="card-dot ${i === activeIdx ? 'active' : ''}" data-index="${i}"></button>`;
-            }
-            cardDots.innerHTML = dotsHtml;
-            document.querySelectorAll('.card-dot').forEach(dot => {
-                dot.addEventListener('click', function() {
-                    const idx = parseInt(this.dataset.index);
-                    if (idx !== currentCardIndex) {
-                        currentCardIndex = idx;
-                        renderCardStack();
-                    }
-                });
-            });
-
-            cardCounter.textContent = `${activeIdx + 1} / ${total}`;
-            cardPrevBtn.disabled = (activeIdx === 0);
-            cardNextBtn.disabled = (activeIdx === total - 1);
-
-            document.querySelectorAll('.card-item').forEach(card => {
-                card.addEventListener('click', function() {
-                    const idx = parseInt(this.dataset.index);
-                    if (idx !== currentCardIndex && idx >= 0 && idx < basket.length) {
-                        currentCardIndex = idx;
-                        renderCardStack();
-                    }
-                });
-            });
-
-            setupCardSwipe();
+    // Tastaturkürzel: Strg+N → neues Modal
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+            e.preventDefault();
+            openModal('add');
         }
+    });
 
-        function updateCounts() {
-            const total = getTotalItems();
-            cardCountLabel.textContent = total;
-            officeCountLabel.textContent = total;
-        }
-
-        function updateSyncStatus(connected) {
-            const dot = syncDot;
-            const label = syncLabel;
-            const footerIcon = footerSyncIcon;
-            const footerText = footerSyncText;
-
-            if (connected) {
-                dot.className = 'dot';
-                label.textContent = 'lokal · sync';
-                footerIcon.className = 'fas fa-circle';
-                footerIcon.style.color = 'var(--dot-color)';
-                footerText.textContent = 'lokal · synchronisiert';
-            } else {
-                dot.className = 'dot offline';
-                label.textContent = 'lokal · offline';
-                footerIcon.className = 'fas fa-circle offline';
-                footerText.textContent = 'lokal · offline';
-            }
-        }
-
-        // ============================================================
-        //  SWIPE
-        // ============================================================
-        let touchStartX = 0;
-        let isSwiping = false;
-        let mouseDownX = 0;
-        let isMouseDragging = false;
-
-        function setupCardSwipe() {
-            const wrapper = document.getElementById('cardStackWrapper');
-            if (!wrapper) return;
-
-            wrapper.removeEventListener('touchstart', handleTouchStart);
-            wrapper.removeEventListener('touchmove', handleTouchMove);
-            wrapper.removeEventListener('touchend', handleTouchEnd);
-            wrapper.removeEventListener('mousedown', handleMouseDown);
-            document.removeEventListener('mousemove', handleMouseMove);
-            document.removeEventListener('mouseup', handleMouseUp);
-
-            wrapper.addEventListener('touchstart', handleTouchStart, { passive: true });
-            wrapper.addEventListener('touchmove', handleTouchMove, { passive: false });
-            wrapper.addEventListener('touchend', handleTouchEnd, { passive: true });
-            wrapper.addEventListener('mousedown', handleMouseDown);
-            document.addEventListener('mousemove', handleMouseMove);
-            document.addEventListener('mouseup', handleMouseUp);
-        }
-
-        function handleTouchStart(e) {
-            touchStartX = e.touches[0].clientX;
-            isSwiping = false;
-        }
-
-        function handleTouchMove(e) {
-            if (touchStartX === 0) return;
-            const deltaX = e.touches[0].clientX - touchStartX;
-            if (Math.abs(deltaX) > 15) {
-                isSwiping = true;
-                e.preventDefault();
-                const active = document.querySelector('.card-item.active');
-                if (active) {
-                    const clamped = Math.max(-60, Math.min(60, deltaX));
-                    active.style.transform = `translateX(${clamped}px) scale(1) rotate(${clamped * 0.02}deg)`;
-                    active.style.transition = 'none';
-                }
-            }
-        }
-
-        function handleTouchEnd(e) {
-            if (!isSwiping || touchStartX === 0) { touchStartX = 0; resetCardTransform(); return; }
-            const deltaX = e.changedTouches[0].clientX - touchStartX;
-            touchStartX = 0;
-            isSwiping = false;
-            resetCardTransform();
-
-            if (deltaX < -40 && currentCardIndex < basket.length - 1) {
-                currentCardIndex++;
-                renderCardStack();
-            } else if (deltaX > 40 && currentCardIndex > 0) {
-                currentCardIndex--;
-                renderCardStack();
-            }
-        }
-
-        function handleMouseDown(e) {
-            if (basket.length === 0) return;
-            mouseDownX = e.clientX;
-            isMouseDragging = false;
-        }
-
-        function handleMouseMove(e) {
-            if (mouseDownX === 0) return;
-            const deltaX = e.clientX - mouseDownX;
-            if (Math.abs(deltaX) > 15) {
-                isMouseDragging = true;
-                const active = document.querySelector('.card-item.active');
-                if (active) {
-                    const clamped = Math.max(-60, Math.min(60, deltaX));
-                    active.style.transform = `translateX(${clamped}px) scale(1) rotate(${clamped * 0.02}deg)`;
-                    active.style.transition = 'none';
-                }
-            }
-        }
-
-        function handleMouseUp(e) {
-            if (mouseDownX === 0) return;
-            const deltaX = e.clientX - mouseDownX;
-            const wasDragging = isMouseDragging;
-            mouseDownX = 0;
-            isMouseDragging = false;
-            resetCardTransform();
-
-            if (wasDragging) {
-                if (deltaX < -40 && currentCardIndex < basket.length - 1) {
-                    currentCardIndex++;
-                    renderCardStack();
-                } else if (deltaX > 40 && currentCardIndex > 0) {
-                    currentCardIndex--;
-                    renderCardStack();
-                }
-            }
-        }
-
-        function resetCardTransform() {
-            const active = document.querySelector('.card-item.active');
-            if (active) {
-                active.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                active.style.transform = '';
-                setTimeout(() => { if (active) active.style.transition = ''; }, 350);
-            }
-        }
-
-        // ============================================================
-        //  NAVIGATION
-        // ============================================================
-        cardPrevBtn.addEventListener('click', () => {
-            if (currentCardIndex > 0) { currentCardIndex--; renderCardStack(); }
-        });
-        cardNextBtn.addEventListener('click', () => {
-            if (currentCardIndex < basket.length - 1) { currentCardIndex++; renderCardStack(); }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (basket.length === 0) return;
-            if (e.target.tagName === 'INPUT') return;
-            if (e.key === 'ArrowLeft' && currentCardIndex > 0) {
-                e.preventDefault(); currentCardIndex--; renderCardStack();
-            } else if (e.key === 'ArrowRight' && currentCardIndex < basket.length - 1) {
-                e.preventDefault(); currentCardIndex++; renderCardStack();
-            }
-        });
-
-        // ============================================================
-        //  EVENTS
-        // ============================================================
-        document.getElementById('clearBasketBtn').addEventListener('click', () => {
-            if (basket.length === 0) return;
-            if (confirm('Möchten Sie wirklich alle Artikel aus der Frachtliste entfernen?')) clearBasket();
-        });
-
-        document.getElementById('addSampleBtn').addEventListener('click', () => {
-            const sampleCodes = ['2110', '2120', '4050', '2210', '3010'];
-            let added = 0;
-            sampleCodes.forEach(code => {
-                const mat = materials.find(m => m.code === code);
-                if (mat) {
-                    basket.push({ ...mat, id: Date.now() + '_' + Math.random().toString(36).substr(2, 6) });
-                    added++;
-                }
-            });
-            if (added > 0) {
-                currentCardIndex = basket.length - 1;
-                saveToStorage();
-                renderAll();
-            }
-        });
-
-        document.getElementById('syncNowBtn').addEventListener('click', function() {
-            const btn = this;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-            btn.disabled = true;
-            setTimeout(() => {
-                saveToStorage();
-                renderAll();
-                btn.innerHTML = '<i class="fas fa-sync-alt"></i> Sync';
-                btn.disabled = false;
-            }, 400);
-        });
-
-        // Block Filter
-        document.querySelectorAll('.block-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.block-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                activeBlock = this.dataset.block;
-                // Block filter nur für die Suche relevant
-            });
-        });
-
-        // Search - filtered view in office list
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase().trim();
-            const items = document.querySelectorAll('.office-item');
-            items.forEach(item => {
-                const code = item.querySelector('.code')?.textContent?.toLowerCase() || '';
-                const desc = item.querySelector('.desc')?.textContent?.toLowerCase() || '';
-                const match = !searchTerm || code.includes(searchTerm) || desc.includes(searchTerm);
-                item.style.display = match ? 'flex' : 'none';
-            });
-        });
-
-        // Theme Toggle
-        function toggleTheme() {
-            darkTheme = !darkTheme;
-            document.documentElement.setAttribute('data-bs-theme', darkTheme ? 'dark' : 'light');
-            document.getElementById('themeIcon').className = darkTheme ? 'fas fa-moon' : 'fas fa-sun';
-            document.getElementById('themeIconSm').className = darkTheme ? 'fas fa-moon' : 'fas fa-sun';
-            try { localStorage.setItem('asz_theme', darkTheme ? 'dark' : 'light'); } catch {}
-        }
-
-        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-        document.getElementById('themeToggleSm').addEventListener('click', toggleTheme);
-
-        // ============================================================
-        //  INIT
-        // ============================================================
-        function init() {
-            // Load theme
-            try {
-                const storedTheme = localStorage.getItem('asz_theme');
-                if (storedTheme === 'light') {
-                    darkTheme = false;
-                    document.documentElement.setAttribute('data-bs-theme', 'light');
-                    document.getElementById('themeIcon').className = 'fas fa-sun';
-                    document.getElementById('themeIconSm').className = 'fas fa-sun';
-                }
-            } catch {}
-
-            // Load data
-            loadFromStorage();
-            renderAll();
-
-            // Device detection
-            const isMobile = window.innerWidth < 600;
-            deviceInfo.textContent = isMobile ? '📱 Mobil' : window.innerWidth < 900 ? '📱 Tablet' : '🖥️ PC';
-
-            console.log('🔄 ASZ Asten System gestartet');
-            console.log(`📦 ${getTotalItems()} Artikel in der Frachtliste`);
-        }
-
-        init();
-    })();
+    // Doppelklick auf Tabellenzeile → Position bearbeiten (optional)
+    // (Wird nicht automatisch gemacht, aber man könnte es einbauen)
 </script>
 </body>
 </html>
