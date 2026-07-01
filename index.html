@@ -15,49 +15,51 @@
         /* ----- Theme Variables ----- */
         :root {
             --bg-primary: #0f212e;
-            --bg-secondary: #1a2f3e;
+            --bg-secondary: #162a38;
             --bg-card: #0f212e;
-            --bg-input: rgba(255,255,255,0.08);
-            --bg-item: rgba(255,255,255,0.05);
+            --bg-input: rgba(255,255,255,0.06);
+            --bg-item: rgba(255,255,255,0.04);
             --bg-item-hover: rgba(255,255,255,0.08);
-            --text-primary: #c8dce8;
+            --text-primary: #e0edf5;
             --text-secondary: #8bc1e0;
-            --text-muted: #5a8a9a;
+            --text-muted: #6a8a9a;
             --border-color: #1f3a4a;
             --border-light: #2a5a6a;
             --shadow-color: rgba(0,0,0,0.5);
             --card-border: #2a5a6a;
-            --card-active-border: #3a8aaf;
+            --card-active-border: #4a9abf;
             --btn-bg: rgba(31,93,122,0.2);
             --btn-hover: rgba(31,93,122,0.4);
             --btn-text: #8ac0da;
-            --badge-bg: rgba(31,93,122,0.3);
+            --badge-bg: rgba(31,93,122,0.25);
             --badge-text: #8ac0da;
             --dot-color: #2ecc71;
             --dot-offline: #e74c3c;
             --scrollbar-color: #1f3a4a;
             --count-color: #7ac0e0;
             --font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            --header-height: 50px;
+            --footer-height: 40px;
         }
         [data-bs-theme="light"] {
             --bg-primary: #e8edf2;
             --bg-secondary: #d5dee8;
             --bg-card: #ffffff;
-            --bg-input: rgba(0,0,0,0.05);
-            --bg-item: rgba(0,0,0,0.03);
+            --bg-input: rgba(0,0,0,0.04);
+            --bg-item: rgba(0,0,0,0.02);
             --bg-item-hover: rgba(0,0,0,0.06);
             --text-primary: #1a2f3e;
             --text-secondary: #0f212e;
             --text-muted: #5a7a8a;
             --border-color: #b8c9da;
             --border-light: #a0b8c8;
-            --shadow-color: rgba(0,0,0,0.15);
+            --shadow-color: rgba(0,0,0,0.12);
             --card-border: #b8c9da;
             --card-active-border: #1f5d7a;
-            --btn-bg: rgba(31,93,122,0.1);
-            --btn-hover: rgba(31,93,122,0.2);
+            --btn-bg: rgba(31,93,122,0.08);
+            --btn-hover: rgba(31,93,122,0.16);
             --btn-text: #1f5d7a;
-            --badge-bg: rgba(31,93,122,0.1);
+            --badge-bg: rgba(31,93,122,0.08);
             --badge-text: #1f5d7a;
             --dot-color: #27ae60;
             --dot-offline: #e74c3c;
@@ -78,7 +80,7 @@
             --text-muted: #757575;
             --border-color: #e0e0e0;
             --border-light: #bdbdbd;
-            --shadow-color: rgba(0,0,0,0.12);
+            --shadow-color: rgba(0,0,0,0.1);
             --card-border: #e0e0e0;
             --card-active-border: #1f5d7a;
             --btn-bg: rgba(31,93,122,0.08);
@@ -138,7 +140,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 12px;
+            padding: 8px;
             min-height: 100vh;
             min-height: 100dvh;
             transition: background 0.3s ease;
@@ -148,7 +150,7 @@
             font-family: 'Material Icons';
             font-weight: normal;
             font-style: normal;
-            font-size: 24px;
+            font-size: 22px;
             line-height: 1;
             letter-spacing: normal;
             text-transform: none;
@@ -162,15 +164,15 @@
 
         /* ----- Main Container ----- */
         .app-container {
-            max-width: 1440px;
+            max-width: 1600px;
             width: 100%;
-            height: 98vh;
-            height: 98dvh;
-            max-height: 900px;
+            height: 100vh;
+            height: 100dvh;
+            max-height: 1000px;
             background: var(--bg-primary);
-            border-radius: 28px;
-            box-shadow: 0 30px 60px var(--shadow-color), inset 0 1px 0 rgba(255,255,255,0.05);
-            padding: clamp(12px, 2vw, 28px);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px var(--shadow-color), inset 0 1px 0 rgba(255,255,255,0.05);
+            padding: clamp(10px, 1.5vw, 20px);
             border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
@@ -178,46 +180,47 @@
             transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* ----- Header ----- */
+        /* ----- Header - Kompakt ----- */
         .app-header {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: clamp(10px, 1.5vh, 18px);
-            margin-bottom: clamp(10px, 1.5vh, 20px);
+            gap: 6px 12px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: clamp(6px, 0.8vh, 10px);
+            margin-bottom: clamp(8px, 1vh, 12px);
             flex-shrink: 0;
             transition: border-color 0.3s ease;
+            min-height: 40px;
         }
         .app-title {
             display: flex;
             align-items: center;
-            gap: clamp(8px, 1.5vw, 18px);
+            gap: clamp(6px, 1vw, 14px);
             flex-wrap: wrap;
         }
         .app-title h1 {
             font-weight: 700;
-            font-size: clamp(1.2rem, 3vw, 2.2rem);
-            letter-spacing: -0.5px;
+            font-size: clamp(1rem, 1.8vw, 1.5rem);
+            letter-spacing: -0.3px;
             color: var(--text-secondary);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             margin: 0;
             font-family: var(--font-family);
         }
-        .app-title h1 i, .app-title h1 .material-icons {
+        .app-title h1 i {
             color: #3a8aaf;
-            font-size: clamp(1rem, 2vw, 1.6rem);
+            font-size: clamp(0.9rem, 1.4vw, 1.2rem);
         }
         .app-title .badge {
             background: var(--badge-bg);
             color: var(--badge-text);
-            padding: 4px clamp(10px, 1.5vw, 22px);
-            border-radius: 60px;
-            font-size: clamp(0.7rem, 1.2vw, 1.1rem);
+            padding: 2px clamp(8px, 1vw, 14px);
+            border-radius: 40px;
+            font-size: clamp(0.55rem, 0.8vw, 0.75rem);
             font-weight: 600;
             border: 1px solid var(--border-light);
             white-space: nowrap;
@@ -226,61 +229,60 @@
         .app-title .title-icons {
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            font-size: clamp(0.9rem, 1.2vw, 1.2rem);
-        }
-        .app-title .title-icons i, .app-title .title-icons .material-icons {
+            gap: 4px;
             color: var(--text-muted);
-            font-size: clamp(1rem, 1.2vw, 1.3rem);
+            font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+        }
+        .app-title .title-icons i {
+            color: var(--text-muted);
         }
 
         .app-status {
             display: flex;
             align-items: center;
-            gap: clamp(8px, 1.5vw, 20px);
+            gap: clamp(6px, 1vw, 14px);
             flex-wrap: wrap;
         }
         .sync-status {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             color: var(--text-muted);
-            font-size: clamp(0.7rem, 1vw, 0.95rem);
+            font-size: clamp(0.55rem, 0.7vw, 0.7rem);
             font-weight: 500;
         }
         .sync-status .dot {
-            width: clamp(10px, 1.2vw, 14px);
-            height: clamp(10px, 1.2vw, 14px);
+            width: clamp(8px, 0.8vw, 10px);
+            height: clamp(8px, 0.8vw, 10px);
             border-radius: 50%;
             background: var(--dot-color);
-            box-shadow: 0 0 20px rgba(46, 204, 113, 0.4);
+            box-shadow: 0 0 12px rgba(46, 204, 113, 0.3);
             animation: pulse 2s infinite;
             flex-shrink: 0;
             transition: background 0.3s ease;
         }
         .sync-status .dot.offline {
             background: var(--dot-offline);
-            box-shadow: 0 0 20px rgba(231, 76, 60, 0.4);
+            box-shadow: 0 0 12px rgba(231, 76, 60, 0.3);
         }
         @keyframes pulse {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+            50% { opacity: 0.5; }
         }
 
         .theme-toggle {
             background: var(--bg-input);
             border: 1px solid var(--border-light);
-            border-radius: 40px;
-            padding: clamp(4px, 0.5vh, 8px) clamp(10px, 1.2vw, 16px);
+            border-radius: 30px;
+            padding: clamp(2px, 0.3vh, 4px) clamp(6px, 0.6vw, 10px);
             color: var(--text-secondary);
             cursor: pointer;
             transition: 0.2s;
-            font-size: clamp(0.8rem, 1vw, 1rem);
+            font-size: clamp(0.6rem, 0.7vw, 0.75rem);
             touch-action: manipulation;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             font-family: var(--font-family);
         }
         .theme-toggle:hover {
@@ -289,19 +291,19 @@
 
         .view-toggle {
             display: flex;
-            gap: 4px;
+            gap: 3px;
             background: var(--bg-input);
-            border-radius: 40px;
-            padding: 4px;
+            border-radius: 30px;
+            padding: 3px;
             border: 1px solid var(--border-color);
         }
         .view-toggle button {
             background: transparent;
             border: none;
-            padding: clamp(6px, 0.8vh, 10px) clamp(14px, 1.8vw, 24px);
-            border-radius: 30px;
+            padding: clamp(3px, 0.4vh, 6px) clamp(8px, 0.8vw, 14px);
+            border-radius: 20px;
             font-weight: 600;
-            font-size: clamp(0.75rem, 1vw, 0.95rem);
+            font-size: clamp(0.55rem, 0.7vw, 0.75rem);
             color: var(--text-muted);
             cursor: pointer;
             transition: 0.2s;
@@ -312,136 +314,173 @@
         .view-toggle button.active {
             background: #1f5d7a;
             color: white;
-            box-shadow: 0 0 20px rgba(31, 93, 122, 0.3);
+            box-shadow: 0 0 15px rgba(31, 93, 122, 0.25);
         }
         .view-toggle button:hover:not(.active) {
             background: var(--bg-item-hover);
         }
 
-        /* ----- Main Grid - 50/50 Split ----- */
+        /* ----- Main Grid - 3 Spalten Layout ----- */
         .app-grid {
             display: flex;
             flex-direction: row;
-            gap: clamp(12px, 2vw, 24px);
+            gap: clamp(10px, 1.5vw, 18px);
             flex: 1;
             min-height: 0;
             overflow: hidden;
         }
 
-        /* ----- Linke Hälfte: Frachtliste & Karteikärtchen ----- */
-        .left-panel {
-            flex: 1;
-            min-width: 0;
-            display: flex;
-            flex-direction: column;
-            gap: clamp(8px, 1vw, 12px);
-            overflow: hidden;
-        }
-
-        /* ----- Office Panel (Frachtliste - Entsorgung) ----- */
-        .office-panel {
-            flex: 1;
+        /* ----- Linke Spalte: Materialauswahl (kompakt) ----- */
+        .terminal-panel {
+            flex: 1.2;
             min-width: 0;
             background: var(--bg-secondary);
-            border-radius: clamp(14px, 2vw, 20px);
-            padding: clamp(10px, 1.5vw, 18px);
+            border-radius: clamp(12px, 1.5vw, 16px);
+            padding: clamp(8px, 1vw, 14px);
             border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             overflow: hidden;
             transition: background 0.3s ease, border-color 0.3s ease;
         }
-        .office-panel.hidden {
+        .terminal-panel.hidden {
             display: none;
         }
 
-        .office-header {
+        .filter-bar {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: clamp(8px, 1vh, 12px);
-            margin-bottom: clamp(8px, 1vh, 12px);
+            flex-wrap: wrap;
+            gap: clamp(4px, 0.5vw, 8px);
+            margin-bottom: clamp(6px, 0.6vh, 10px);
+            background: var(--bg-input);
+            padding: clamp(4px, 0.4vw, 8px) clamp(8px, 0.8vw, 12px);
+            border-radius: 40px;
+            border: 1px solid var(--border-color);
             flex-shrink: 0;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
-        .office-header h3 {
-            font-weight: 600;
-            color: var(--text-secondary);
-            font-size: clamp(1rem, 1.5vw, 1.3rem);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin: 0;
+        .filter-bar input {
+            flex: 2;
+            min-width: 80px;
+            border: none;
+            background: var(--bg-input);
+            padding: clamp(4px, 0.5vh, 8px) clamp(8px, 0.8vw, 12px);
+            border-radius: 30px;
+            font-size: clamp(0.7rem, 0.8vw, 0.85rem);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+            transition: 0.15s;
+            touch-action: manipulation;
             font-family: var(--font-family);
         }
-        .office-header h3 i, .office-header h3 .material-icons {
-            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+        .filter-bar input:focus {
+            outline: none;
+            border-color: #3a8aaf;
+            background: var(--bg-item-hover);
+            box-shadow: 0 0 0 2px rgba(31, 93, 122, 0.15);
         }
-        .office-header .count-badge {
+        .filter-bar input::placeholder {
+            color: var(--text-muted);
+            font-size: clamp(0.6rem, 0.7vw, 0.75rem);
+        }
+        .block-selector {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: clamp(2px, 0.3vw, 6px);
+        }
+        .block-selector span {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: clamp(0.55rem, 0.6vw, 0.7rem);
+            font-family: var(--font-family);
+        }
+        .block-btn {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            padding: clamp(2px, 0.3vh, 4px) clamp(6px, 0.6vw, 10px);
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: clamp(0.5rem, 0.55vw, 0.65rem);
+            cursor: pointer;
+            transition: 0.15s;
+            color: var(--text-muted);
+            touch-action: manipulation;
+            white-space: nowrap;
+            font-family: var(--font-family);
+        }
+        .block-btn.active {
             background: #1f5d7a;
+            border-color: #3a8aaf;
             color: white;
-            border-radius: 40px;
-            padding: 0 clamp(12px, 1.5vw, 18px);
-            font-weight: 700;
-            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
-            line-height: clamp(28px, 3.5vh, 34px);
-            border: 1px solid #3a8aaf;
-            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(31, 93, 122, 0.2);
+        }
+        .block-btn:hover:not(.active) {
+            background: var(--bg-item-hover);
+        }
+        .block-btn:active {
+            transform: scale(0.95);
         }
 
-        .office-list {
+        .material-list {
             flex: 1;
             overflow-y: auto;
-            padding-right: 4px;
+            padding-right: 3px;
+            margin-top: 2px;
+            min-height: 0;
             -webkit-overflow-scrolling: touch;
         }
-        .office-list::-webkit-scrollbar {
-            width: 4px;
+        .material-list::-webkit-scrollbar {
+            width: 3px;
         }
-        .office-list::-webkit-scrollbar-thumb {
+        .material-list::-webkit-scrollbar-thumb {
             background: var(--scrollbar-color);
-            border-radius: 8px;
+            border-radius: 6px;
         }
-        .office-list {
+        .material-list {
             scrollbar-width: thin;
             scrollbar-color: var(--scrollbar-color) transparent;
         }
 
-        .office-item {
+        .material-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: clamp(4px, 0.6vw, 10px);
-            padding: clamp(8px, 0.8vh, 12px) clamp(10px, 1.2vw, 16px);
+            gap: clamp(4px, 0.5vw, 8px);
+            padding: clamp(4px, 0.5vh, 8px) clamp(6px, 0.6vw, 10px);
+            margin-bottom: clamp(2px, 0.2vh, 4px);
             background: var(--bg-item);
             border-radius: 40px;
-            margin-bottom: clamp(4px, 0.4vh, 6px);
             border: 1px solid var(--border-color);
-            transition: background 0.3s ease, border-color 0.3s ease;
+            transition: 0.15s;
+            cursor: default;
+            flex-wrap: wrap;
         }
-        .office-item:hover {
+        .material-item:hover {
             background: var(--bg-item-hover);
+            border-color: var(--border-light);
         }
-        .office-item .o-code {
+        .material-item .code {
             font-weight: 700;
             color: #7ac0e0;
+            font-size: clamp(0.7rem, 0.8vw, 0.85rem);
             flex-shrink: 0;
-            min-width: 44px;
-            font-size: clamp(0.85rem, 1vw, 1rem);
+            min-width: 36px;
         }
-        .office-item .o-desc {
+        .material-item .desc {
             flex: 1;
-            margin: 0 clamp(4px, 0.6vw, 10px);
+            margin: 0 clamp(3px, 0.4vw, 6px);
             font-weight: 500;
             color: var(--text-primary);
-            font-size: clamp(0.75rem, 0.85vw, 0.9rem);
-            min-width: 50px;
-        }
-        .office-item .o-container {
-            background: var(--badge-bg);
-            padding: 1px clamp(8px, 1vw, 16px);
-            border-radius: 30px;
             font-size: clamp(0.6rem, 0.7vw, 0.75rem);
+            min-width: 50px;
+            line-height: 1.2;
+        }
+        .material-item .container-badge {
+            background: var(--badge-bg);
+            padding: 1px clamp(4px, 0.4vw, 8px);
+            border-radius: 30px;
+            font-size: clamp(0.45rem, 0.5vw, 0.55rem);
             font-weight: 600;
             color: var(--badge-text);
             border: 1px solid var(--border-light);
@@ -449,75 +488,69 @@
             flex-shrink: 0;
             transition: background 0.3s ease, color 0.3s ease;
         }
-        .office-item .o-time {
-            font-size: clamp(0.55rem, 0.6vw, 0.7rem);
-            color: var(--text-muted);
-            flex-shrink: 0;
-            min-width: 60px;
-            text-align: right;
-        }
-        .office-item .o-delete {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: clamp(0.9rem, 1.1vw, 1.1rem);
-            padding: 0 clamp(4px, 0.5vw, 8px);
-            transition: 0.15s;
-            touch-action: manipulation;
-            flex-shrink: 0;
-        }
-        .office-item .o-delete:hover {
-            color: #e06666;
-        }
-        .office-item .o-delete:active {
-            transform: scale(0.85);
-        }
-
-        .office-empty {
-            text-align: center;
-            color: var(--text-muted);
-            font-style: italic;
-            padding: 30px 10px;
-            font-size: clamp(0.9rem, 1.1vw, 1.1rem);
-        }
-
-        .office-footer {
-            margin-top: auto;
-            padding-top: 10px;
-            border-top: 1px solid var(--border-color);
-            flex-shrink: 0;
+        .material-item .item-controls {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: clamp(2px, 0.3vw, 6px);
+            flex-shrink: 0;
         }
-        .office-footer button {
-            background: transparent;
-            border: 1px solid #aa5555;
-            border-radius: 40px;
-            padding: 6px 16px;
-            color: #cc8888;
+        .material-item .qty-btn {
+            background: var(--btn-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 30px;
+            width: clamp(22px, 2vw, 30px);
+            height: clamp(22px, 2vw, 30px);
+            font-weight: 700;
+            color: var(--btn-text);
             cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
+            transition: 0.15s;
+            font-size: clamp(0.65rem, 0.7vw, 0.8rem);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             touch-action: manipulation;
+            flex-shrink: 0;
             font-family: var(--font-family);
         }
-        .office-footer button:hover {
-            background: rgba(200, 80, 80, 0.15);
+        .material-item .qty-btn:hover:not(:disabled) {
+            background: var(--btn-hover);
+            border-color: #3a8aaf;
+            color: white;
         }
-        .office-footer span {
+        .material-item .qty-btn:active:not(:disabled) {
+            transform: scale(0.9);
+        }
+        .material-item .qty-btn:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+        }
+        .material-item .qty-btn.minus-btn {
+            color: #cc8888;
+        }
+        .material-item .qty-btn.minus-btn:hover:not(:disabled) {
+            background: rgba(200, 80, 80, 0.15);
+            border-color: #aa5555;
+            color: #ff8888;
+        }
+        .material-item .item-count {
+            font-weight: 700;
+            color: var(--count-color);
+            font-size: clamp(0.7rem, 0.8vw, 0.85rem);
+            min-width: 16px;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+        .material-item .item-count.zero {
             color: var(--text-muted);
-            font-size: 0.7rem;
         }
 
-        /* ----- Card Stack (Karteikärtchen) ----- */
+        /* ----- Mittlere Spalte: Karteikärtchen (groß) ----- */
         .card-panel {
-            flex: 0 0 auto;
-            max-height: 45%;
+            flex: 1.6;
+            min-width: 0;
             background: var(--bg-secondary);
-            border-radius: clamp(14px, 2vw, 20px);
-            padding: clamp(10px, 1.5vw, 18px);
+            border-radius: clamp(12px, 1.5vw, 16px);
+            padding: clamp(10px, 1.2vw, 16px);
             border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
@@ -532,39 +565,35 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: clamp(6px, 0.8vh, 10px);
-            margin-bottom: clamp(6px, 0.8vh, 10px);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: clamp(4px, 0.5vh, 8px);
+            margin-bottom: clamp(6px, 0.6vh, 10px);
             flex-shrink: 0;
         }
         .card-panel-header h4 {
             font-weight: 600;
             color: var(--text-secondary);
-            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+            font-size: clamp(0.8rem, 1vw, 1rem);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             margin: 0;
             font-family: var(--font-family);
         }
-        .card-panel-header h4 i, .card-panel-header h4 .material-icons {
-            font-size: clamp(0.8rem, 1vw, 1rem);
-        }
-        .card-panel-header .card-count {
-            color: var(--text-muted);
-            font-size: clamp(0.8rem, 1vw, 0.95rem);
+        .card-panel-header h4 i {
+            font-size: clamp(0.7rem, 0.9vw, 0.9rem);
         }
         .card-panel-header .print-actions {
             display: flex;
-            gap: clamp(4px, 0.5vw, 8px);
+            gap: clamp(4px, 0.4vw, 8px);
         }
         .card-panel-header .print-actions button {
             background: var(--btn-bg);
             border: 1px solid var(--border-light);
-            border-radius: 30px;
-            padding: clamp(2px, 0.3vh, 4px) clamp(8px, 0.8vw, 12px);
+            border-radius: 20px;
+            padding: clamp(2px, 0.2vh, 4px) clamp(6px, 0.5vw, 10px);
             font-weight: 600;
-            font-size: clamp(0.55rem, 0.6vw, 0.7rem);
+            font-size: clamp(0.5rem, 0.5vw, 0.65rem);
             color: var(--btn-text);
             cursor: pointer;
             transition: 0.15s;
@@ -573,25 +602,30 @@
             font-family: var(--font-family);
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
         }
-        .card-panel-header .print-actions button:hover {
+        .card-panel-header .print-actions button:hover:not(:disabled) {
             background: var(--btn-hover);
             border-color: #3a8aaf;
             color: white;
         }
-        .card-panel-header .print-actions button:active {
-            transform: scale(0.95);
+        .card-panel-header .print-actions button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
         .card-panel-header .print-actions button i {
-            font-size: clamp(0.6rem, 0.6vw, 0.75rem);
+            font-size: clamp(0.5rem, 0.5vw, 0.65rem);
+        }
+        .card-panel-header .card-count {
+            color: var(--text-muted);
+            font-size: clamp(0.65rem, 0.7vw, 0.8rem);
         }
 
         .card-stack-container {
             position: relative;
             flex: 1;
-            min-height: 100px;
-            perspective: 1000px;
+            min-height: 120px;
+            perspective: 1200px;
             touch-action: pan-y;
             cursor: grab;
         }
@@ -611,16 +645,16 @@
             height: 100%;
             background: var(--bg-card);
             border: 2.5px solid var(--card-border);
-            border-radius: clamp(14px, 2vw, 18px);
-            padding: clamp(12px, 2vw, 22px) clamp(14px, 2.5vw, 26px);
+            border-radius: clamp(14px, 2vw, 20px);
+            padding: clamp(16px, 2.5vw, 30px) clamp(18px, 3vw, 36px);
             font-family: 'Courier New', monospace;
-            font-size: clamp(0.75rem, 1vw, 0.95rem);
-            line-height: 1.8;
+            font-size: clamp(0.85rem, 1.2vw, 1.1rem);
+            line-height: 2;
             color: var(--text-primary);
             text-align: right;
             transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
             backface-visibility: hidden;
-            box-shadow: 0 4px 12px var(--shadow-color);
+            box-shadow: 0 4px 16px var(--shadow-color);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -633,67 +667,68 @@
             transform: translateX(0) scale(1) rotate(0deg);
             opacity: 1;
             z-index: 10;
-            box-shadow: 0 12px 40px var(--shadow-color), 0 0 30px rgba(31, 93, 122, 0.15);
+            box-shadow: 0 12px 48px var(--shadow-color), 0 0 40px rgba(31, 93, 122, 0.12);
             border-color: var(--card-active-border);
         }
         .card-item.prev {
-            transform: translateX(clamp(-30px, -5vw, -50px)) scale(0.88) rotate(-3deg);
-            opacity: 0.3;
+            transform: translateX(clamp(-40px, -6vw, -70px)) scale(0.88) rotate(-3deg);
+            opacity: 0.25;
             z-index: 5;
             filter: blur(0.5px);
         }
         .card-item.next {
-            transform: translateX(clamp(30px, 5vw, 50px)) scale(0.88) rotate(3deg);
-            opacity: 0.3;
+            transform: translateX(clamp(40px, 6vw, 70px)) scale(0.88) rotate(3deg);
+            opacity: 0.25;
             z-index: 5;
             filter: blur(0.5px);
         }
         .card-item.hidden {
-            transform: translateX(clamp(50px, 8vw, 90px)) scale(0.8) rotate(5deg);
+            transform: translateX(clamp(60px, 10vw, 120px)) scale(0.8) rotate(5deg);
             opacity: 0;
             z-index: 0;
             pointer-events: none;
         }
         .card-item .card-site {
             font-weight: 700;
-            font-size: clamp(0.8rem, 1.2vw, 1rem);
+            font-size: clamp(0.9rem, 1.3vw, 1.2rem);
             color: var(--text-secondary);
             margin-bottom: 2px;
         }
         .card-item .card-code {
             font-weight: 700;
             color: #7ac0e0;
-            font-size: clamp(1rem, 1.6vw, 1.3rem);
+            font-size: clamp(1.2rem, 1.8vw, 1.6rem);
         }
         .card-item .card-container {
             font-weight: 600;
             color: var(--badge-text);
+            font-size: clamp(0.8rem, 1vw, 1rem);
         }
         .card-item .card-desc {
-            font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+            font-size: clamp(0.8rem, 1.1vw, 1rem);
         }
         .card-item .card-index {
             position: absolute;
-            top: clamp(8px, 1vh, 12px);
-            left: clamp(12px, 1.5vw, 18px);
-            font-size: clamp(0.5rem, 0.6vw, 0.65rem);
+            top: clamp(10px, 1.2vh, 16px);
+            left: clamp(14px, 1.8vw, 24px);
+            font-size: clamp(0.55rem, 0.6vw, 0.7rem);
             color: var(--text-muted);
             font-weight: 600;
-            background: rgba(0,0,0,0.3);
-            padding: 1px clamp(8px, 1vw, 14px);
+            background: rgba(0,0,0,0.2);
+            padding: 1px clamp(8px, 0.8vw, 14px);
             border-radius: 20px;
             border: 1px solid var(--border-color);
         }
         .card-item .card-select-hint {
             position: absolute;
-            bottom: clamp(8px, 1vh, 12px);
+            bottom: clamp(10px, 1.2vh, 16px);
             left: 50%;
             transform: translateX(-50%);
             font-size: clamp(0.45rem, 0.5vw, 0.55rem);
             color: var(--text-muted);
-            opacity: 0.5;
-            background: rgba(0,0,0,0.3);
-            padding: 1px clamp(10px, 1.2vw, 16px);
+            opacity: 0.4;
+            background: rgba(0,0,0,0.2);
+            padding: 1px clamp(10px, 1vw, 16px);
             border-radius: 20px;
             white-space: nowrap;
             pointer-events: none;
@@ -703,15 +738,15 @@
         .card-dots {
             display: flex;
             justify-content: center;
-            gap: clamp(6px, 0.8vw, 10px);
-            margin-top: clamp(4px, 0.5vh, 8px);
+            gap: clamp(5px, 0.6vw, 8px);
+            margin-top: clamp(4px, 0.4vh, 8px);
             padding: 2px 0;
             flex-shrink: 0;
             flex-wrap: wrap;
         }
         .card-dot {
-            width: clamp(10px, 1.2vw, 14px);
-            height: clamp(10px, 1.2vw, 14px);
+            width: clamp(8px, 0.8vw, 11px);
+            height: clamp(8px, 0.8vw, 11px);
             border-radius: 50%;
             background: var(--border-color);
             border: 1px solid var(--border-light);
@@ -724,8 +759,8 @@
         .card-dot.active {
             background: #1f5d7a;
             border-color: #3a8aaf;
-            transform: scale(1.3);
-            box-shadow: 0 0 20px rgba(31, 93, 122, 0.4);
+            transform: scale(1.35);
+            box-shadow: 0 0 16px rgba(31, 93, 122, 0.35);
         }
         .card-dot:active {
             transform: scale(0.85);
@@ -735,8 +770,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: clamp(8px, 1.2vw, 16px);
-            margin-top: clamp(4px, 0.5vh, 8px);
+            gap: clamp(10px, 1.2vw, 18px);
+            margin-top: clamp(4px, 0.4vh, 8px);
             padding: 2px 0;
             flex-shrink: 0;
             flex-wrap: wrap;
@@ -744,16 +779,16 @@
         .card-nav button {
             background: var(--btn-bg);
             border: 1px solid var(--border-light);
-            border-radius: 40px;
-            padding: clamp(6px, 0.8vh, 10px) clamp(12px, 1.5vw, 20px);
+            border-radius: 30px;
+            padding: clamp(4px, 0.5vh, 8px) clamp(10px, 1vw, 16px);
             font-weight: 700;
             color: var(--btn-text);
             cursor: pointer;
             transition: 0.15s;
-            font-size: clamp(0.75rem, 0.9vw, 0.95rem);
+            font-size: clamp(0.6rem, 0.7vw, 0.8rem);
             display: inline-flex;
             align-items: center;
-            gap: clamp(4px, 0.6vw, 8px);
+            gap: clamp(3px, 0.4vw, 6px);
             touch-action: manipulation;
             white-space: nowrap;
             font-family: var(--font-family);
@@ -773,12 +808,12 @@
         .card-nav .counter {
             font-weight: 700;
             color: var(--text-secondary);
-            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
-            min-width: clamp(50px, 6vw, 70px);
+            font-size: clamp(0.8rem, 0.9vw, 1rem);
+            min-width: clamp(45px, 5vw, 65px);
             text-align: center;
-            background: rgba(0,0,0,0.2);
-            padding: clamp(4px, 0.5vh, 6px) clamp(10px, 1.2vw, 16px);
-            border-radius: 30px;
+            background: rgba(0,0,0,0.15);
+            padding: clamp(2px, 0.3vh, 4px) clamp(8px, 0.8vw, 14px);
+            border-radius: 20px;
             border: 1px solid var(--border-color);
         }
 
@@ -795,158 +830,114 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(0.9rem, 1.1vw, 1.1rem);
+            font-size: clamp(0.8rem, 0.9vw, 0.95rem);
         }
 
-        /* ----- Rechte Hälfte: Terminal (Materialauswahl) ----- */
-        .terminal-panel {
-            flex: 1;
+        /* ----- Rechte Spalte: Frachtliste (kompakt) ----- */
+        .office-panel {
+            flex: 0.9;
             min-width: 0;
             background: var(--bg-secondary);
-            border-radius: clamp(14px, 2vw, 20px);
-            padding: clamp(10px, 1.5vw, 18px);
+            border-radius: clamp(12px, 1.5vw, 16px);
+            padding: clamp(8px, 1vw, 14px);
             border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             overflow: hidden;
             transition: background 0.3s ease, border-color 0.3s ease;
         }
-        .terminal-panel.hidden {
+        .office-panel.hidden {
             display: none;
         }
 
-        .filter-bar {
+        .office-header {
             display: flex;
-            flex-wrap: wrap;
-            gap: clamp(6px, 1vw, 14px);
-            margin-bottom: clamp(10px, 1.5vh, 16px);
-            background: var(--bg-input);
-            padding: clamp(8px, 1vw, 14px) clamp(12px, 1.5vw, 18px);
-            border-radius: 60px;
-            border: 1px solid var(--border-color);
-            flex-shrink: 0;
-            transition: background 0.3s ease, border-color 0.3s ease;
-        }
-        .filter-bar input {
-            flex: 2;
-            min-width: 120px;
-            border: none;
-            background: var(--bg-input);
-            padding: clamp(8px, 1.2vh, 14px) clamp(14px, 2vw, 20px);
-            border-radius: 40px;
-            font-size: clamp(0.85rem, 1.2vw, 1.1rem);
-            color: var(--text-primary);
-            border: 1px solid var(--border-light);
-            transition: 0.15s;
-            touch-action: manipulation;
-            font-family: var(--font-family);
-        }
-        .filter-bar input:focus {
-            outline: none;
-            border-color: #3a8aaf;
-            background: var(--bg-item-hover);
-            box-shadow: 0 0 0 3px rgba(31, 93, 122, 0.2);
-        }
-        .filter-bar input::placeholder {
-            color: var(--text-muted);
-        }
-        .block-selector {
-            display: flex;
-            flex-wrap: wrap;
+            justify-content: space-between;
             align-items: center;
-            gap: clamp(4px, 0.6vw, 10px);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: clamp(4px, 0.5vh, 8px);
+            margin-bottom: clamp(6px, 0.6vh, 10px);
+            flex-shrink: 0;
         }
-        .block-selector span {
+        .office-header h3 {
             font-weight: 600;
             color: var(--text-secondary);
-            font-size: clamp(0.7rem, 0.9vw, 0.95rem);
+            font-size: clamp(0.75rem, 0.9vw, 0.95rem);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 0;
             font-family: var(--font-family);
         }
-        .block-btn {
-            background: transparent;
-            border: 1px solid var(--border-light);
-            padding: clamp(4px, 0.6vh, 8px) clamp(10px, 1.2vw, 18px);
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: clamp(0.65rem, 0.8vw, 0.9rem);
-            cursor: pointer;
-            transition: 0.15s;
-            color: var(--text-muted);
-            touch-action: manipulation;
-            white-space: nowrap;
-            font-family: var(--font-family);
+        .office-header h3 i {
+            font-size: clamp(0.7rem, 0.8vw, 0.85rem);
         }
-        .block-btn.active {
+        .office-header .count-badge {
             background: #1f5d7a;
-            border-color: #3a8aaf;
             color: white;
-            box-shadow: 0 0 15px rgba(31, 93, 122, 0.3);
-        }
-        .block-btn:hover:not(.active) {
-            background: var(--bg-item-hover);
-        }
-        .block-btn:active {
-            transform: scale(0.95);
+            border-radius: 30px;
+            padding: 0 clamp(8px, 0.8vw, 14px);
+            font-weight: 700;
+            font-size: clamp(0.7rem, 0.8vw, 0.85rem);
+            line-height: clamp(22px, 2.5vh, 28px);
+            border: 1px solid #3a8aaf;
+            flex-shrink: 0;
         }
 
-        .material-list {
+        .office-list {
             flex: 1;
             overflow-y: auto;
-            padding-right: 4px;
-            margin-top: 4px;
-            min-height: 0;
+            padding-right: 3px;
             -webkit-overflow-scrolling: touch;
         }
-        .material-list::-webkit-scrollbar {
-            width: 4px;
+        .office-list::-webkit-scrollbar {
+            width: 3px;
         }
-        .material-list::-webkit-scrollbar-thumb {
+        .office-list::-webkit-scrollbar-thumb {
             background: var(--scrollbar-color);
-            border-radius: 8px;
+            border-radius: 6px;
         }
-        .material-list {
+        .office-list {
             scrollbar-width: thin;
             scrollbar-color: var(--scrollbar-color) transparent;
         }
 
-        .material-item {
+        .office-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: clamp(6px, 1vw, 12px);
-            padding: clamp(8px, 1.2vh, 14px) clamp(10px, 1.5vw, 16px) clamp(8px, 1.2vh, 14px) clamp(12px, 1.8vw, 20px);
-            margin-bottom: clamp(3px, 0.4vh, 5px);
+            gap: clamp(3px, 0.4vw, 6px);
+            padding: clamp(3px, 0.3vh, 6px) clamp(4px, 0.4vw, 8px);
             background: var(--bg-item);
-            border-radius: 60px;
+            border-radius: 30px;
+            margin-bottom: clamp(2px, 0.2vh, 4px);
             border: 1px solid var(--border-color);
-            transition: 0.15s;
-            cursor: default;
-            flex-wrap: wrap;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
-        .material-item:hover {
+        .office-item:hover {
             background: var(--bg-item-hover);
-            border-color: var(--border-light);
         }
-        .material-item .code {
+        .office-item .o-code {
             font-weight: 700;
             color: #7ac0e0;
-            font-size: clamp(0.85rem, 1.1vw, 1.1rem);
             flex-shrink: 0;
-            min-width: 44px;
+            min-width: 34px;
+            font-size: clamp(0.65rem, 0.7vw, 0.8rem);
         }
-        .material-item .desc {
+        .office-item .o-desc {
             flex: 1;
-            margin: 0 clamp(4px, 0.6vw, 10px) 0 clamp(3px, 0.4vw, 6px);
+            margin: 0 clamp(2px, 0.3vw, 6px);
             font-weight: 500;
             color: var(--text-primary);
-            font-size: clamp(0.75rem, 1vw, 0.95rem);
-            min-width: 60px;
+            font-size: clamp(0.55rem, 0.6vw, 0.7rem);
+            min-width: 30px;
+            line-height: 1.2;
         }
-        .material-item .container-badge {
+        .office-item .o-container {
             background: var(--badge-bg);
-            padding: 2px clamp(8px, 1vw, 14px);
-            border-radius: 50px;
-            font-size: clamp(0.55rem, 0.7vw, 0.75rem);
+            padding: 1px clamp(4px, 0.4vw, 8px);
+            border-radius: 20px;
+            font-size: clamp(0.45rem, 0.45vw, 0.55rem);
             font-weight: 600;
             color: var(--badge-text);
             border: 1px solid var(--border-light);
@@ -954,81 +945,90 @@
             flex-shrink: 0;
             transition: background 0.3s ease, color 0.3s ease;
         }
-        .material-item .item-controls {
-            display: flex;
-            align-items: center;
-            gap: clamp(3px, 0.4vw, 8px);
+        .office-item .o-time {
+            font-size: clamp(0.4rem, 0.4vw, 0.5rem);
+            color: var(--text-muted);
             flex-shrink: 0;
+            min-width: 40px;
+            text-align: right;
         }
-        .material-item .qty-btn {
-            background: var(--btn-bg);
-            border: 1px solid var(--border-light);
-            border-radius: 40px;
-            width: clamp(28px, 3vw, 38px);
-            height: clamp(28px, 3vw, 38px);
-            font-weight: 700;
-            color: var(--btn-text);
+        .office-item .o-delete {
+            background: none;
+            border: none;
+            color: var(--text-muted);
             cursor: pointer;
+            font-size: clamp(0.7rem, 0.7vw, 0.85rem);
+            padding: 0 clamp(2px, 0.2vw, 4px);
             transition: 0.15s;
-            font-size: clamp(0.85rem, 1vw, 1.1rem);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
             touch-action: manipulation;
             flex-shrink: 0;
-            font-family: var(--font-family);
         }
-        .material-item .qty-btn:hover:not(:disabled) {
-            background: var(--btn-hover);
-            border-color: #3a8aaf;
-            color: white;
+        .office-item .o-delete:hover {
+            color: #e06666;
         }
-        .material-item .qty-btn:active:not(:disabled) {
-            transform: scale(0.9);
-        }
-        .material-item .qty-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-        .material-item .qty-btn.minus-btn {
-            color: #cc8888;
-        }
-        .material-item .qty-btn.minus-btn:hover:not(:disabled) {
-            background: rgba(200, 80, 80, 0.2);
-            border-color: #aa5555;
-            color: #ff8888;
-        }
-        .material-item .item-count {
-            font-weight: 700;
-            color: var(--count-color);
-            font-size: clamp(0.85rem, 1vw, 1.1rem);
-            min-width: 20px;
-            text-align: center;
-            transition: color 0.3s ease;
-        }
-        .material-item .item-count.zero {
-            color: var(--text-muted);
+        .office-item .o-delete:active {
+            transform: scale(0.85);
         }
 
-        /* ----- Terminal Actions ----- */
+        .office-empty {
+            text-align: center;
+            color: var(--text-muted);
+            font-style: italic;
+            padding: 20px 6px;
+            font-size: clamp(0.7rem, 0.7vw, 0.8rem);
+        }
+
+        .office-footer {
+            margin-top: auto;
+            padding-top: clamp(6px, 0.6vh, 10px);
+            border-top: 1px solid var(--border-color);
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .office-footer button {
+            background: transparent;
+            border: 1px solid #aa5555;
+            border-radius: 30px;
+            padding: clamp(2px, 0.2vh, 4px) clamp(8px, 0.6vw, 12px);
+            color: #cc8888;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: clamp(0.5rem, 0.5vw, 0.65rem);
+            touch-action: manipulation;
+            font-family: var(--font-family);
+            white-space: nowrap;
+        }
+        .office-footer button:hover {
+            background: rgba(200, 80, 80, 0.12);
+        }
+        .office-footer span {
+            color: var(--text-muted);
+            font-size: clamp(0.45rem, 0.45vw, 0.55rem);
+        }
+
+        /* ----- Terminal Actions (kompakt) ----- */
         .terminal-actions {
             display: flex;
-            gap: clamp(8px, 1vw, 12px);
+            gap: clamp(4px, 0.4vw, 8px);
             justify-content: flex-end;
-            margin-top: clamp(6px, 0.8vh, 10px);
+            margin-top: clamp(4px, 0.4vh, 8px);
             flex-shrink: 0;
             flex-wrap: wrap;
         }
         .terminal-actions button {
             background: transparent;
             border: 1px solid var(--border-light);
-            padding: clamp(6px, 0.8vh, 10px) clamp(14px, 1.8vw, 22px);
-            border-radius: 40px;
+            padding: clamp(2px, 0.2vh, 4px) clamp(8px, 0.6vw, 14px);
+            border-radius: 30px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.15s;
             color: var(--text-muted);
-            font-size: clamp(0.8rem, 0.9vw, 0.95rem);
+            font-size: clamp(0.5rem, 0.5vw, 0.65rem);
             touch-action: manipulation;
             white-space: nowrap;
             font-family: var(--font-family);
@@ -1040,12 +1040,12 @@
             color: #cc8888;
         }
         .terminal-actions .clear-btn:hover {
-            background: rgba(200, 80, 80, 0.15);
+            background: rgba(200, 80, 80, 0.12);
             border-color: #aa5555;
         }
         .terminal-actions .sample-btn {
             border-color: #2a6a7a;
-            background: rgba(31, 93, 122, 0.15);
+            background: rgba(31, 93, 122, 0.12);
             color: var(--btn-text);
         }
         .terminal-actions .sample-btn:hover {
@@ -1054,38 +1054,37 @@
         .terminal-actions .sync-btn {
             border-color: #2ecc71;
             color: #5cdb9a;
-            background: rgba(46, 204, 113, 0.08);
+            background: rgba(46, 204, 113, 0.06);
         }
         .terminal-actions .sync-btn:hover {
-            background: rgba(46, 204, 113, 0.2);
+            background: rgba(46, 204, 113, 0.15);
         }
 
-        /* ----- Footer ----- */
+        /* ----- Footer (kompakt) ----- */
         .app-footer {
-            margin-top: clamp(8px, 1vh, 14px);
-            font-size: clamp(0.65rem, 0.7vw, 0.8rem);
+            margin-top: clamp(6px, 0.6vh, 10px);
+            font-size: clamp(0.5rem, 0.5vw, 0.6rem);
             color: var(--text-muted);
-            text-align: right;
             border-top: 1px solid var(--border-color);
-            padding-top: clamp(8px, 1vh, 12px);
+            padding-top: clamp(4px, 0.4vh, 8px);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-shrink: 0;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 4px;
             transition: border-color 0.3s ease, color 0.3s ease;
+            min-height: 28px;
         }
         .app-footer .footer-left {
             display: flex;
             align-items: center;
-            gap: clamp(6px, 0.8vw, 10px);
+            gap: clamp(4px, 0.4vw, 8px);
             color: var(--text-muted);
-            font-size: clamp(0.65rem, 0.7vw, 0.85rem);
         }
         .app-footer .footer-left i {
             color: var(--dot-color);
-            font-size: clamp(0.5rem, 0.6vw, 0.7rem);
+            font-size: clamp(0.4rem, 0.4vw, 0.5rem);
             transition: color 0.3s ease;
         }
         .app-footer .footer-left i.offline {
@@ -1094,23 +1093,23 @@
         .app-footer .footer-right {
             display: flex;
             align-items: center;
-            gap: clamp(6px, 0.8vw, 12px);
+            gap: clamp(4px, 0.4vw, 8px);
         }
         .app-footer .footer-right .design-toggle {
             display: flex;
-            gap: 3px;
+            gap: 2px;
             background: var(--bg-input);
-            border-radius: 30px;
-            padding: 3px;
+            border-radius: 20px;
+            padding: 2px;
             border: 1px solid var(--border-color);
         }
         .app-footer .footer-right .design-toggle button {
             background: transparent;
             border: none;
-            padding: clamp(2px, 0.3vh, 4px) clamp(6px, 0.6vw, 10px);
-            border-radius: 20px;
+            padding: clamp(1px, 0.2vh, 2px) clamp(4px, 0.4vw, 8px);
+            border-radius: 16px;
             font-weight: 500;
-            font-size: clamp(0.55rem, 0.6vw, 0.7rem);
+            font-size: clamp(0.45rem, 0.4vw, 0.55rem);
             color: var(--text-muted);
             cursor: pointer;
             transition: 0.2s;
@@ -1121,7 +1120,7 @@
         .app-footer .footer-right .design-toggle button.active {
             background: #1f5d7a;
             color: white;
-            box-shadow: 0 0 10px rgba(31, 93, 122, 0.2);
+            box-shadow: 0 0 8px rgba(31, 93, 122, 0.15);
         }
         .app-footer .footer-right .design-toggle button:hover:not(.active) {
             background: var(--bg-item-hover);
@@ -1129,16 +1128,16 @@
         .app-footer .footer-right .theme-toggle-sm {
             background: var(--bg-input);
             border: 1px solid var(--border-light);
-            border-radius: 30px;
-            padding: clamp(2px, 0.3vh, 4px) clamp(6px, 0.6vw, 10px);
+            border-radius: 20px;
+            padding: clamp(1px, 0.2vh, 2px) clamp(4px, 0.4vw, 8px);
             color: var(--text-secondary);
             cursor: pointer;
             transition: 0.2s;
-            font-size: clamp(0.7rem, 0.7vw, 0.8rem);
+            font-size: clamp(0.5rem, 0.5vw, 0.6rem);
             touch-action: manipulation;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
             font-family: var(--font-family);
         }
         .app-footer .footer-right .theme-toggle-sm:hover {
@@ -1146,225 +1145,115 @@
         }
         .app-footer .device-info {
             color: var(--text-muted);
-            font-size: clamp(0.5rem, 0.5vw, 0.65rem);
+            font-size: clamp(0.4rem, 0.4vw, 0.5rem);
         }
 
         /* ----- EC-Card Größe für Druck ----- */
         @media print {
-            body {
-                background: white !important;
-                padding: 0 !important;
-                overflow: visible !important;
-            }
-            .app-container {
-                height: auto !important;
-                max-height: none !important;
-                overflow: visible !important;
-                padding: 10mm !important;
-                border: none !important;
-                box-shadow: none !important;
-                background: white !important;
-                border-radius: 0 !important;
-            }
-            .card-panel-header .print-actions,
-            .card-dots, .card-nav, .terminal-actions, 
-            .filter-bar, .material-list, .app-header .app-status, 
-            .app-footer, .office-panel, .terminal-panel {
-                display: none !important;
-            }
-            .card-panel {
-                max-height: none !important;
-                border: none !important;
-                background: white !important;
-                padding: 0 !important;
-                flex: 1 !important;
-            }
-            .card-stack-container {
-                height: auto !important;
-                min-height: auto !important;
-                perspective: none !important;
-                cursor: default !important;
-                touch-action: auto !important;
-            }
-            .card-stack {
-                position: relative !important;
-                display: flex !important;
-                flex-wrap: wrap !important;
-                justify-content: center !important;
-                gap: 4mm !important;
-                padding: 2mm !important;
-            }
-            .card-item {
-                position: relative !important;
-                width: 85.6mm !important;
-                height: 53.98mm !important;
-                border-radius: 4mm !important;
-                padding: 5mm !important;
-                font-size: 2.5mm !important;
-                line-height: 1.6 !important;
-                border: 1.5px solid #003b57 !important;
-                box-shadow: none !important;
-                transform: none !important;
-                opacity: 1 !important;
-                filter: none !important;
-                margin: 0 !important;
-                flex-shrink: 0 !important;
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
-            }
-            .card-item .card-site {
-                font-size: 3mm !important;
-            }
-            .card-item .card-code {
-                font-size: 4mm !important;
-            }
-            .card-item .card-desc {
-                font-size: 2.8mm !important;
-            }
-            .card-item .card-index {
-                font-size: 2mm !important;
-                padding: 0.5mm 3mm !important;
-                top: 2mm !important;
-                left: 3mm !important;
-            }
-            .card-item .card-select-hint {
-                display: none !important;
-            }
-            .card-item.active, .card-item.prev, .card-item.next, .card-item.hidden {
-                transform: none !important;
-                opacity: 1 !important;
-                filter: none !important;
-                position: relative !important;
-                display: flex !important;
-            }
-            .left-panel {
-                gap: 0 !important;
-            }
-            .card-panel-header {
-                display: none !important;
-            }
-            .app-header .app-title {
-                display: flex !important;
-            }
-            .app-header .app-status {
-                display: none !important;
-            }
-            .app-header {
-                border-bottom: 1px solid #ccc !important;
-                margin-bottom: 4mm !important;
-                padding-bottom: 2mm !important;
-            }
-            .app-title h1 {
-                font-size: 4mm !important;
-                color: #003b57 !important;
-            }
-            .app-title .badge {
-                font-size: 2.5mm !important;
-                padding: 1mm 3mm !important;
-                background: #e0e0e0 !important;
-                color: #003b57 !important;
-                border: 1px solid #003b57 !important;
-            }
-            .app-title .title-icons {
-                display: none !important;
-            }
+            /* ... print styles ... */
         }
 
         /* ----- Responsive ----- */
-        @media (max-width: 860px) {
+        @media (max-width: 1024px) {
+            .app-grid {
+                gap: 8px;
+            }
+            .terminal-panel { flex: 1; }
+            .card-panel { flex: 1.4; }
+            .office-panel { flex: 0.8; }
+        }
+        @media (max-width: 768px) {
             .app-grid {
                 flex-direction: column;
-                gap: 10px;
+                gap: 6px;
             }
             .terminal-panel {
-                flex: 1;
-                min-height: 30vh;
-                max-height: 50vh;
-            }
-            .left-panel {
-                flex: 1;
-                min-height: 30vh;
-                max-height: 50vh;
-                flex-direction: column-reverse;
+                flex: 0 0 auto;
+                max-height: 35vh;
+                min-height: 120px;
             }
             .card-panel {
-                max-height: 45%;
                 flex: 1;
+                min-height: 120px;
             }
             .office-panel {
-                flex: 1;
+                flex: 0 0 auto;
+                max-height: 30vh;
+                min-height: 80px;
             }
             .app-container {
                 height: 100vh;
                 height: 100dvh;
                 max-height: none;
-                border-radius: 20px;
-                padding: 12px;
+                border-radius: 16px;
+                padding: 8px;
             }
             .view-toggle button {
-                padding: 4px 12px;
-                font-size: 0.7rem;
+                padding: 2px 8px;
+                font-size: 0.6rem;
             }
             .card-panel-header .print-actions button {
                 font-size: 0.5rem;
-                padding: 2px 6px;
+                padding: 1px 5px;
             }
-            .card-panel-header .print-actions button i {
-                font-size: 0.5rem;
+            .material-item .desc {
+                font-size: 0.7rem;
+            }
+            .office-item .o-desc {
+                font-size: 0.6rem;
             }
         }
         @media (max-width: 480px) {
-            body { padding: 6px; }
+            body { padding: 4px; }
             .app-container {
-                border-radius: 14px;
-                padding: 8px;
+                border-radius: 12px;
+                padding: 6px;
                 height: 100vh;
                 height: 100dvh;
             }
-            .app-title h1 { font-size: 1.1rem; }
-            .app-title .badge { font-size: 0.6rem; padding: 2px 10px; }
-            .view-toggle button { font-size: 0.6rem; padding: 3px 8px; }
-            .sync-status { font-size: 0.6rem; }
-            .sync-status .dot { width: 8px; height: 8px; }
-            .terminal-panel { min-height: 25vh; max-height: 45vh; padding: 8px; }
-            .left-panel { min-height: 25vh; max-height: 45vh; }
-            .card-panel { max-height: 40%; padding: 8px; }
-            .office-panel { padding: 8px; }
-            .office-item .o-time { min-width: 40px; font-size: 0.5rem; }
-            .office-item .o-delete { font-size: 0.8rem; }
-            .card-stack-container { min-height: 80px; }
-            .card-item { padding: 10px 12px; font-size: 0.7rem; }
-            .card-item .card-site { font-size: 0.8rem; }
-            .card-item .card-code { font-size: 0.95rem; }
-            .material-item { padding: 6px 8px; flex-wrap: wrap; gap: 3px; }
-            .material-item .desc { font-size: 0.7rem; }
-            .material-item .qty-btn { width: 24px; height: 24px; font-size: 0.75rem; }
-            .filter-bar input { font-size: 0.75rem; padding: 6px 10px; }
-            .block-btn { font-size: 0.55rem; padding: 3px 8px; }
-            .app-footer .footer-right .design-toggle button { font-size: 0.5rem; padding: 2px 5px; }
-            .app-footer .footer-right .theme-toggle-sm { font-size: 0.55rem; padding: 2px 6px; }
-            .card-panel-header .print-actions button {
-                font-size: 0.45rem;
-                padding: 1px 4px;
-            }
-            .card-panel-header .print-actions button i {
-                font-size: 0.45rem;
-            }
-        }
-        @media (max-width: 400px) {
-            .app-footer { flex-direction: column; align-items: stretch; gap: 4px; }
-            .app-footer .footer-right { justify-content: center; flex-wrap: wrap; }
-            .app-footer .footer-left { justify-content: center; }
+            .app-title h1 { font-size: 0.95rem; }
+            .app-title .badge { font-size: 0.5rem; padding: 1px 6px; }
+            .view-toggle button { font-size: 0.5rem; padding: 2px 6px; }
+            .sync-status { font-size: 0.5rem; }
+            .sync-status .dot { width: 6px; height: 6px; }
+            .terminal-panel { max-height: 30vh; padding: 6px; }
+            .card-panel { padding: 6px; min-height: 100px; }
+            .office-panel { max-height: 25vh; padding: 6px; }
+            .card-item { padding: 10px 12px; font-size: 0.65rem; }
+            .card-item .card-site { font-size: 0.7rem; }
+            .card-item .card-code { font-size: 0.85rem; }
+            .material-item { padding: 3px 6px; }
+            .material-item .desc { font-size: 0.6rem; }
+            .material-item .qty-btn { width: 18px; height: 18px; font-size: 0.6rem; }
+            .filter-bar input { font-size: 0.6rem; padding: 3px 6px; }
+            .block-btn { font-size: 0.45rem; padding: 2px 5px; }
+            .office-item { padding: 2px 4px; }
+            .office-item .o-code { font-size: 0.55rem; min-width: 28px; }
+            .office-item .o-desc { font-size: 0.5rem; }
+            .office-item .o-container { font-size: 0.4rem; padding: 1px 4px; }
+            .office-item .o-time { font-size: 0.35rem; min-width: 30px; }
+            .card-nav button { font-size: 0.55rem; padding: 3px 8px; }
+            .card-nav .counter { font-size: 0.65rem; min-width: 35px; padding: 1px 6px; }
+            .card-dot { width: 6px; height: 6px; }
+            .terminal-actions button { font-size: 0.45rem; padding: 1px 6px; }
+            .office-footer button { font-size: 0.45rem; padding: 1px 6px; }
+            .office-footer span { font-size: 0.4rem; }
+            .app-footer { font-size: 0.4rem; min-height: 20px; padding-top: 3px; }
+            .app-footer .footer-right .design-toggle button { font-size: 0.4rem; padding: 1px 4px; }
+            .app-footer .footer-right .theme-toggle-sm { font-size: 0.45rem; padding: 1px 4px; }
+            .card-panel-header h4 { font-size: 0.65rem; }
+            .card-panel-header .print-actions button { font-size: 0.4rem; padding: 1px 4px; }
+            .card-panel-header .card-count { font-size: 0.55rem; }
         }
     </style>
 </head>
 <body>
 <div class="app-container" id="app">
-    <!-- Header -->
+    <!-- Header - Kompakt -->
     <div class="app-header">
         <div class="app-title">
             <h1><i class="fas fa-recycle"></i>ASZ Asten</h1>
-            <span class="badge"><i class="fas fa-map-pin"></i> Standort 106</span>
+            <span class="badge"><i class="fas fa-map-pin"></i> 106</span>
             <div class="title-icons">
                 <i class="fas fa-clipboard-list" title="Frachtliste"></i>
                 <i class="fas fa-desktop" title="Büro-Dashboard"></i>
@@ -1376,60 +1265,21 @@
             </button>
             <div class="sync-status">
                 <span class="dot" id="syncDot"></span>
-                <span id="syncLabel">lokal · sync</span>
+                <span id="syncLabel">sync</span>
             </div>
             <div class="view-toggle">
-                <button class="active" data-view="terminal" id="viewTerminalBtn"><i class="fas fa-terminal"></i> Terminal</button>
-                <button data-view="office" id="viewOfficeBtn"><i class="fas fa-list"></i> Frachtliste</button>
+                <button class="active" data-view="terminal" id="viewTerminalBtn"><i class="fas fa-terminal"></i></button>
+                <button data-view="office" id="viewOfficeBtn"><i class="fas fa-list"></i></button>
             </div>
         </div>
     </div>
 
-    <!-- Main Grid -->
+    <!-- Main Grid - 3 Spalten -->
     <div class="app-grid">
-        <!-- Linke Hälfte: Frachtliste & Karteikärtchen -->
-        <div class="left-panel">
-            <!-- Office Panel - Frachtliste - Entsorgung -->
-            <div class="office-panel hidden" id="officePanel">
-                <div class="office-header">
-                    <h3><i class="fas fa-clipboard-list"></i> Frachtliste - Entsorgung</h3>
-                    <span class="count-badge" id="officeCount">0</span>
-                </div>
-                <div class="office-list" id="officeListContainer">
-                    <div class="office-empty">📭 Keine Fracht im System</div>
-                </div>
-                <div class="office-footer">
-                    <button id="officeClearBtn"><i class="fas fa-trash-alt"></i> Alle löschen</button>
-                    <span id="officeLastSync">Letzte Sync: —</span>
-                </div>
-            </div>
-
-            <!-- Card Panel - Karteikärtchen -->
-            <div class="card-panel" id="cardPanel">
-                <div class="card-panel-header">
-                    <h4><i class="fas fa-id-card"></i> Karteikärtchen</h4>
-                    <div class="print-actions">
-                        <button id="printSingleBtn" title="Aktuelle Karte drucken"><i class="fas fa-print"></i> Einzel</button>
-                        <button id="printAllBtn" title="Alle Karten drucken"><i class="fas fa-print"></i> Alle</button>
-                    </div>
-                    <span class="card-count" id="cardCountLabel">0</span>
-                </div>
-                <div class="card-stack-container" id="cardStackContainer">
-                    <div class="card-empty">Keine Karteikärtchen<br>Füge Materialien hinzu</div>
-                </div>
-                <div class="card-dots" id="cardDots"></div>
-                <div class="card-nav">
-                    <button id="cardPrevBtn" disabled><i class="fas fa-chevron-left"></i></button>
-                    <span class="counter" id="cardCounter">0 / 0</span>
-                    <button id="cardNextBtn" disabled><i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Rechte Hälfte: Terminal (Materialauswahl) -->
+        <!-- Linke Spalte: Materialauswahl -->
         <div class="terminal-panel" id="terminalPanel">
             <div class="filter-bar">
-                <input type="text" id="materialSearch" placeholder="🔍 Suchen (Code / Name) ..." inputmode="search">
+                <input type="text" id="materialSearch" placeholder="🔍 Suchen" inputmode="search">
                 <div class="block-selector">
                     <span>Block:</span>
                     <button class="block-btn active" data-block="all">Alle</button>
@@ -1442,11 +1292,46 @@
                 </div>
             </div>
             <div class="material-list" id="materialListContainer"></div>
-
             <div class="terminal-actions">
-                <button class="clear-btn" id="clearBasketBtn"><i class="fas fa-trash-alt"></i> Alle Leeren</button>
+                <button class="clear-btn" id="clearBasketBtn"><i class="fas fa-trash-alt"></i> Leeren</button>
                 <button class="sample-btn" id="addSampleBtn"><i class="fas fa-plus-circle"></i> Beispiel</button>
-                <button class="sync-btn" id="syncNowBtn"><i class="fas fa-sync-alt"></i> Sync jetzt</button>
+                <button class="sync-btn" id="syncNowBtn"><i class="fas fa-sync-alt"></i> Sync</button>
+            </div>
+        </div>
+
+        <!-- Mittlere Spalte: Karteikärtchen -->
+        <div class="card-panel" id="cardPanel">
+            <div class="card-panel-header">
+                <h4><i class="fas fa-id-card"></i> Karteikärtchen</h4>
+                <div class="print-actions">
+                    <button id="printSingleBtn" title="Aktuelle Karte drucken"><i class="fas fa-print"></i> Einzel</button>
+                    <button id="printAllBtn" title="Alle Karten drucken"><i class="fas fa-print"></i> Alle</button>
+                </div>
+                <span class="card-count" id="cardCountLabel">0</span>
+            </div>
+            <div class="card-stack-container" id="cardStackContainer">
+                <div class="card-empty">Keine Karteikärtchen<br>Füge Materialien hinzu</div>
+            </div>
+            <div class="card-dots" id="cardDots"></div>
+            <div class="card-nav">
+                <button id="cardPrevBtn" disabled><i class="fas fa-chevron-left"></i></button>
+                <span class="counter" id="cardCounter">0 / 0</span>
+                <button id="cardNextBtn" disabled><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Rechte Spalte: Frachtliste -->
+        <div class="office-panel hidden" id="officePanel">
+            <div class="office-header">
+                <h3><i class="fas fa-clipboard-list"></i> Frachtliste</h3>
+                <span class="count-badge" id="officeCount">0</span>
+            </div>
+            <div class="office-list" id="officeListContainer">
+                <div class="office-empty">📭 Keine Fracht</div>
+            </div>
+            <div class="office-footer">
+                <button id="officeClearBtn"><i class="fas fa-trash-alt"></i> Alle löschen</button>
+                <span id="officeLastSync">Sync: —</span>
             </div>
         </div>
     </div>
@@ -1455,15 +1340,15 @@
     <div class="app-footer">
         <div class="footer-left">
             <i class="fas fa-circle" id="footerSyncIcon"></i>
-            <span id="footerSyncText">lokal · synchronisiert</span>
-            <span class="device-info" id="deviceInfo">📱 Gerät: Browser</span>
+            <span id="footerSyncText">synchronisiert</span>
+            <span class="device-info" id="deviceInfo">💻 Browser</span>
         </div>
         <div class="footer-right">
             <div class="design-toggle">
-                <button class="active" id="designBootstrapBtn"><i class="fab fa-bootstrap"></i> BS</button>
-                <button id="designMaterialBtn"><span class="material-icons" style="font-size:0.7rem;">design_services</span> MD</button>
+                <button class="active" id="designBootstrapBtn">BS</button>
+                <button id="designMaterialBtn">MD</button>
             </div>
-            <button class="theme-toggle-sm" id="themeToggleSm" title="Theme umschalten">
+            <button class="theme-toggle-sm" id="themeToggleSm" title="Theme">
                 <i class="fas fa-moon" id="themeIconSm"></i>
             </button>
         </div>
@@ -1477,8 +1362,6 @@
         // ============================================================
 
         const materials = [];
-
-        // Block 1000: ReVital / Wiederverwendung
         const block1000 = [
             { code: '1501', desc: 'Großmöbel (ReVital)', container: 'Container 10m³' },
             { code: '1506', desc: 'Hausrat (ReVital)', container: 'Container 10m³' },
@@ -1487,7 +1370,6 @@
         ];
         block1000.forEach(item => materials.push({ ...item, block: '1000' }));
 
-        // Block 2000: Altstoffe & Verpackungen
         const block2000 = [
             { code: '2110', desc: 'Altpapier (Zeitungen, Illustrierte)', container: 'Papier-Container' },
             { code: '2120', desc: 'Kartonagen (Wellpappe)', container: 'Container 10m³' },
@@ -1506,7 +1388,6 @@
         ];
         block2000.forEach(item => materials.push({ ...item, block: '2000' }));
 
-        // Block 3000: Altholz & Metalle
         const block3000 = [
             { code: '3010', desc: 'Altholz stofflich (A I / A II)', container: 'Container 10m³' },
             { code: '3020', desc: 'Altholz thermisch (A III)', container: 'Container 10m³' },
@@ -1518,7 +1399,6 @@
         ];
         block3000.forEach(item => materials.push({ ...item, block: '3000' }));
 
-        // Block 4000: Elektroaltgeräte & Batterien
         const block4000 = [
             { code: '4010', desc: 'Elektro-Großgeräte', container: 'Container 10m³' },
             { code: '4020', desc: 'Kühl- und Klimageräte', container: 'Container' },
@@ -1533,7 +1413,6 @@
         ];
         block4000.forEach(item => materials.push({ ...item, block: '4000' }));
 
-        // Block 4300: Problemstoffe & Bau-Sonderabfälle
         const block4300 = [
             { code: '4310', desc: 'Altöl mineralisch', container: 'Kanister / Fass' },
             { code: '4315', desc: 'Speiseöl / Altfett', container: 'Kanister' },
@@ -1547,7 +1426,6 @@
         ];
         block4300.forEach(item => materials.push({ ...item, block: '4300' }));
 
-        // Block 9000: Baurestmassen & Sperrmüll
         const block9000 = [
             { code: '9110', desc: 'Bauschutt rein (Ziegel, Beton)', container: 'Container 10m³' },
             { code: '9120', desc: 'Bauschutt sortiert / Ytong', container: 'Container 10m³' },
@@ -1574,13 +1452,12 @@
         let darkTheme = true;
         let currentDesign = 'bootstrap';
 
-        // ----- localStorage Keys -----
         const STORAGE_KEY = 'asz_fracht_data';
         const HISTORY_KEY = 'asz_sync_history';
         const THEME_KEY = 'asz_theme';
         const DESIGN_KEY = 'asz_design';
 
-        // ----- DOM Refs -----
+        // DOM Refs
         const materialListEl = document.getElementById('materialListContainer');
         const cardStackContainer = document.getElementById('cardStackContainer');
         const cardDots = document.getElementById('cardDots');
@@ -1612,33 +1489,24 @@
         const printAllBtn = document.getElementById('printAllBtn');
 
         // ============================================================
-        //  DESIGN FUNKTIONEN
+        //  DESIGN & THEME
         // ============================================================
 
         function loadDesign() {
             try {
                 const stored = localStorage.getItem(DESIGN_KEY);
-                if (stored === 'material') {
-                    currentDesign = 'material';
-                } else {
-                    currentDesign = 'bootstrap';
-                }
-            } catch (e) {
-                currentDesign = 'bootstrap';
-            }
+                if (stored === 'material') currentDesign = 'material';
+                else currentDesign = 'bootstrap';
+            } catch (e) { currentDesign = 'bootstrap'; }
             applyDesign();
         }
 
         function applyDesign() {
             const container = document.querySelector('.app-container');
-            
             if (currentDesign === 'material') {
                 container.classList.add('material-design');
-                if (darkTheme) {
-                    container.classList.add('dark-theme');
-                } else {
-                    container.classList.remove('dark-theme');
-                }
+                if (darkTheme) container.classList.add('dark-theme');
+                else container.classList.remove('dark-theme');
                 document.documentElement.style.setProperty('--font-family', "'Roboto', 'Segoe UI', system-ui, sans-serif");
             } else {
                 container.classList.remove('material-design');
@@ -1646,7 +1514,6 @@
                 document.documentElement.style.setProperty('--font-family', "'Segoe UI', Roboto, system-ui, sans-serif");
                 bootstrapCss.disabled = false;
             }
-            
             if (darkTheme) {
                 document.documentElement.setAttribute('data-bs-theme', 'dark');
                 themeIcon.className = 'fas fa-moon';
@@ -1658,11 +1525,7 @@
                 themeLabel.textContent = 'Hell';
                 themeIconSm.className = 'fas fa-sun';
             }
-            
-            try {
-                localStorage.setItem(DESIGN_KEY, currentDesign);
-            } catch (e) {}
-            
+            try { localStorage.setItem(DESIGN_KEY, currentDesign); } catch (e) {}
             designBootstrapBtn.classList.toggle('active', currentDesign === 'bootstrap');
             designMaterialBtn.classList.toggle('active', currentDesign === 'material');
         }
@@ -1673,16 +1536,10 @@
             renderAll();
         }
 
-        // ============================================================
-        //  THEME FUNKTIONEN
-        // ============================================================
-
         function loadTheme() {
             try {
                 const stored = localStorage.getItem(THEME_KEY);
-                if (stored !== null) {
-                    darkTheme = stored === 'true';
-                }
+                if (stored !== null) darkTheme = stored === 'true';
             } catch (e) {}
             applyDesign();
         }
@@ -1696,7 +1553,7 @@
         themeToggleSm.addEventListener('click', toggleTheme);
 
         // ============================================================
-        //  LOCAL STORAGE FUNKTIONEN
+        //  LOCAL STORAGE
         // ============================================================
 
         function loadFromStorage() {
@@ -1709,48 +1566,33 @@
                     return true;
                 }
                 return false;
-            } catch (e) {
-                console.warn('Storage read error:', e);
-                return false;
-            }
+            } catch (e) { return false; }
         }
 
         function saveToStorage() {
             try {
-                const data = {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({
                     basket: basket,
                     history: syncHistory,
                     lastUpdated: new Date().toISOString()
-                };
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+                }));
                 return true;
-            } catch (e) {
-                console.warn('Storage write error:', e);
-                return false;
-            }
+            } catch (e) { return false; }
         }
 
         function loadHistory() {
             try {
                 const stored = localStorage.getItem(HISTORY_KEY);
-                if (stored) {
-                    syncHistory = JSON.parse(stored);
-                }
-            } catch (e) {
-                syncHistory = [];
-            }
+                if (stored) syncHistory = JSON.parse(stored);
+            } catch (e) { syncHistory = []; }
         }
 
         function saveHistory() {
-            try {
-                localStorage.setItem(HISTORY_KEY, JSON.stringify(syncHistory));
-            } catch (e) {
-                console.warn('History write error:', e);
-            }
+            try { localStorage.setItem(HISTORY_KEY, JSON.stringify(syncHistory)); } catch (e) {}
         }
 
         // ============================================================
-        //  BASKET HELPER FUNKTIONEN
+        //  BASKET HELPER
         // ============================================================
 
         function getItemCount(code) {
@@ -1773,22 +1615,20 @@
         function removeFromBasket(code) {
             const idx = basket.findIndex(item => item.code === code);
             if (idx === -1) return;
-            const removed = basket[idx];
             basket.splice(idx, 1);
             if (currentCardIndex >= basket.length) currentCardIndex = Math.max(0, basket.length - 1);
             saveToStorage();
-            addSyncHistory('remove', `${removed.code} · ${removed.desc} (-1)`);
+            addSyncHistory('remove', `${code} (-1)`);
             renderAll();
         }
 
         function removeSpecificItem(id) {
             const idx = basket.findIndex(item => item.id === id);
             if (idx === -1) return;
-            const removed = basket[idx];
             basket.splice(idx, 1);
             if (currentCardIndex >= basket.length) currentCardIndex = Math.max(0, basket.length - 1);
             saveToStorage();
-            addSyncHistory('remove', `${removed.code} · ${removed.desc} (-1)`);
+            addSyncHistory('remove', `Einzelnes Item entfernt`);
             renderAll();
         }
 
@@ -1806,9 +1646,7 @@
 
         function printSingleCard() {
             if (basket.length === 0) return;
-            const item = basket[currentCardIndex];
-            if (!item) return;
-            printCards([item]);
+            printCards([basket[currentCardIndex]]);
         }
 
         function printAllCards() {
@@ -1865,7 +1703,7 @@
                             justify-content: center;
                             page-break-inside: avoid;
                             break-inside: avoid;
-                            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
                         }
                         .card-item .card-site {
                             font-weight: 700;
@@ -1927,7 +1765,7 @@ return m.code.includes(searchTerm) || m.desc.toLowerCase().includes(searchTerm);
 return true;
 });
 if (filtered.length === 0) {
-materialListEl.innerHTML = `<div style="padding: 30px 16px; color: var(--text-muted); text-align:center;font-size:1.1rem;">Keine Materialien gefunden</div>`;
+materialListEl.innerHTML = `<div style="padding: 20px 10px; color: var(--text-muted); text-align:center;font-size:0.85rem;">Keine Materialien</div>`;
 return;
 }
 let html = '';
@@ -1953,16 +1791,13 @@ html += `
 materialListEl.innerHTML = html;
 
 document.querySelectorAll('.plus-btn').forEach(btn => {
-btn.addEventListener('click', function(e) {
-const code = this.dataset.code;
-addToBasket(code);
+btn.addEventListener('click', function() {
+addToBasket(this.dataset.code);
 });
 });
-
 document.querySelectorAll('.minus-btn').forEach(btn => {
-btn.addEventListener('click', function(e) {
-const code = this.dataset.code;
-removeFromBasket(code);
+btn.addEventListener('click', function() {
+removeFromBasket(this.dataset.code);
 });
 });
 }
@@ -2000,7 +1835,7 @@ html += `
         <div class="card-site">ASZ Asten · 106</div>
         <div><span class="card-code">${item.code}</span> · <span class="card-container">${item.container}</span></div>
         <div class="card-desc">${item.desc}</div>
-        <div class="card-select-hint"><i class="fas fa-hand-pointer"></i> Zum Auswählen tippen</div>
+        <div class="card-select-hint"><i class="fas fa-hand-pointer"></i> Zum Auswählen</div>
     </div>
 `;
 });
@@ -2013,7 +1848,7 @@ printAllBtn.disabled = false;
 
 let dotsHtml = '';
 for (let i = 0; i < total; i++) {
-dotsHtml += `<button class="card-dot ${i === activeIdx ? 'active' : ''}" data-index="${i}" aria-label="Karte ${i+1}"></button>`;
+dotsHtml += `<button class="card-dot ${i === activeIdx ? 'active' : ''}" data-index="${i}"></button>`;
 }
 cardDots.innerHTML = dotsHtml;
 document.querySelectorAll('.card-dot').forEach(dot => {
@@ -2031,7 +1866,7 @@ cardPrevBtn.disabled = (activeIdx === 0);
 cardNextBtn.disabled = (activeIdx === total - 1);
 
 document.querySelectorAll('.card-item').forEach(card => {
-card.addEventListener('click', function(e) {
+card.addEventListener('click', function() {
 const idx = parseInt(this.dataset.index);
 if (idx !== currentCardIndex && idx >= 0 && idx < basket.length) {
 currentCardIndex = idx;
@@ -2048,21 +1883,21 @@ const list = document.getElementById('officeListContainer');
 const count = document.getElementById('officeCount');
 
 if (basket.length === 0) {
-list.innerHTML = `<div class="office-empty">📭 Keine Fracht im System</div>`;
+list.innerHTML = `<div class="office-empty">📭 Keine Fracht</div>`;
 count.textContent = '0';
 return;
 }
 
 let html = '';
 basket.forEach((item, idx) => {
-const time = new Date().toLocaleTimeString('de-DE');
+const time = new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
 html += `
     <div class="office-item">
         <span class="o-code">${item.code}</span>
         <span class="o-desc">${item.desc}</span>
         <span class="o-container">${item.container}</span>
         <span class="o-time">${time}</span>
-        <button class="o-delete" data-id="${item.id}" title="Löschen"><i class="fas fa-times"></i></button>
+        <button class="o-delete" data-id="${item.id}"><i class="fas fa-times"></i></button>
     </div>
 `;
 });
@@ -2071,28 +1906,24 @@ count.textContent = basket.length;
 
 document.querySelectorAll('.o-delete').forEach(btn => {
 btn.addEventListener('click', function() {
-const id = this.dataset.id;
-removeSpecificItem(id);
+removeSpecificItem(this.dataset.id);
 });
 });
 
 if (syncHistory.length > 0) {
 const last = new Date(syncHistory[0].timestamp);
-officeLastSync.textContent = `Letzte Sync: ${last.toLocaleTimeString('de-DE')}`;
+officeLastSync.textContent = `Sync: ${last.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}`;
 } else {
-officeLastSync.textContent = 'Letzte Sync: —';
+officeLastSync.textContent = 'Sync: —';
 }
 }
 
 function performSync() {
 const remoteData = loadFromStorage() ? { basket: basket, history: syncHistory } : null;
-
 if (remoteData && remoteData.basket) {
 const localIds = new Set(basket.map(item => item.id));
 remoteData.basket.forEach(item => {
-if (!localIds.has(item.id)) {
-basket.push(item);
-}
+if (!localIds.has(item.id)) basket.push(item);
 });
 syncHistory = remoteData.history || [];
 saveToStorage();
@@ -2101,7 +1932,6 @@ addSyncHistory('sync', `Sync durchgeführt (${basket.length} Artikel)`);
 saveToStorage();
 addSyncHistory('sync', `Initialer Sync (${basket.length} Artikel)`);
 }
-
 renderAll();
 updateSyncStatus(true);
 return true;
@@ -2127,15 +1957,15 @@ const footerText = document.getElementById('footerSyncText');
 
 if (connected) {
 dot.className = 'dot';
-label.textContent = 'lokal · sync';
+label.textContent = 'sync';
 footerIcon.className = 'fas fa-circle';
 footerIcon.style.color = 'var(--dot-color)';
-footerText.textContent = 'lokal · synchronisiert';
+footerText.textContent = 'synchronisiert';
 } else {
 dot.className = 'dot offline';
-label.textContent = 'lokal · offline';
+label.textContent = 'offline';
 footerIcon.className = 'fas fa-circle offline';
-footerText.textContent = 'lokal · offline';
+footerText.textContent = 'offline';
 }
 }
 
@@ -2148,14 +1978,12 @@ let isMouseDragging = false;
 function setupCardSwipe() {
 const container = cardStackContainer;
 if (!container) return;
-
 container.removeEventListener('touchstart', handleTouchStart);
 container.removeEventListener('touchmove', handleTouchMove);
 container.removeEventListener('touchend', handleTouchEnd);
 container.removeEventListener('mousedown', handleMouseDown);
 document.removeEventListener('mousemove', handleMouseMove);
 document.removeEventListener('mouseup', handleMouseUp);
-
 container.addEventListener('touchstart', handleTouchStart, { passive: true });
 container.addEventListener('touchmove', handleTouchMove, { passive: false });
 container.addEventListener('touchend', handleTouchEnd, { passive: true });
@@ -2199,7 +2027,6 @@ const deltaX = touch.clientX - touchStartX;
 touchStartX = 0;
 isSwiping = false;
 resetCardTransform();
-
 if (deltaX < -50 && currentCardIndex < basket.length - 1) {
 currentCardIndex++;
 renderCardStack();
@@ -2238,7 +2065,6 @@ const wasDragging = isMouseDragging;
 mouseDownX = 0;
 isMouseDragging = false;
 resetCardTransform();
-
 if (wasDragging) {
 if (deltaX < -50 && currentCardIndex < basket.length - 1) {
 currentCardIndex++;
@@ -2272,7 +2098,7 @@ if (currentCardIndex < basket.length - 1) { currentCardIndex++; renderCardStack(
 
 document.addEventListener('keydown', function(e) {
 if (basket.length === 0) return;
-if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+if (e.target.tagName === 'INPUT') return;
 if (e.key === 'ArrowLeft' && currentCardIndex > 0) {
 e.preventDefault(); currentCardIndex--; renderCardStack();
 } else if (e.key === 'ArrowRight' && currentCardIndex < basket.length - 1) {
@@ -2280,11 +2106,9 @@ e.preventDefault(); currentCardIndex++; renderCardStack();
 }
 });
 
-// ----- Druck Buttons -----
 printSingleBtn.addEventListener('click', printSingleCard);
 printAllBtn.addEventListener('click', printAllCards);
 
-// ----- View Toggle -----
 document.getElementById('viewTerminalBtn').addEventListener('click', function() {
 currentView = 'terminal';
 document.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('active'));
@@ -2303,21 +2127,14 @@ cardPanel.classList.add('hidden');
 updateOfficeDashboard();
 });
 
-// ----- Design Toggle -----
-designBootstrapBtn.addEventListener('click', function() {
-setDesign('bootstrap');
-});
-designMaterialBtn.addEventListener('click', function() {
-setDesign('material');
-});
+designBootstrapBtn.addEventListener('click', function() { setDesign('bootstrap'); });
+designMaterialBtn.addEventListener('click', function() { setDesign('material'); });
 
-// ----- Clear Basket -----
 document.getElementById('clearBasketBtn').addEventListener('click', function() {
 if (basket.length === 0) return;
 clearBasket();
 });
 
-// ----- Add Sample -----
 document.getElementById('addSampleBtn').addEventListener('click', function() {
 const sampleCodes = ['2110', '2120', '4050'];
 let added = 0;
@@ -2336,29 +2153,23 @@ renderAll();
 }
 });
 
-// ----- Sync Button -----
 document.getElementById('syncNowBtn').addEventListener('click', function() {
 const btn = this;
-btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Syncing...';
+btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 btn.disabled = true;
-
 setTimeout(() => {
 performSync();
-btn.innerHTML = '<i class="fas fa-sync-alt"></i> Sync jetzt';
+btn.innerHTML = '<i class="fas fa-sync-alt"></i> Sync';
 btn.disabled = false;
 updateOfficeDashboard();
-}, 500);
+}, 400);
 });
 
-// ----- Office Clear -----
 document.getElementById('officeClearBtn').addEventListener('click', function() {
 if (basket.length === 0) return;
-if (confirm('Möchten Sie wirklich alle Frachtdaten aus dem System löschen?')) {
-clearBasket();
-}
+if (confirm('Alle Frachtdaten löschen?')) clearBasket();
 });
 
-// ----- Block Filter -----
 document.querySelectorAll('.block-btn').forEach(btn => {
 btn.addEventListener('click', function() {
 document.querySelectorAll('.block-btn').forEach(b => b.classList.remove('active'));
@@ -2368,7 +2179,6 @@ renderMaterialList();
 });
 });
 
-// ----- Search -----
 searchInput.addEventListener('input', renderMaterialList);
 
 // ============================================================
@@ -2386,15 +2196,15 @@ saveToStorage();
 }
 loadHistory();
 
-const isMobile = window.innerWidth < 860;
-deviceInfo.textContent = isMobile ? '📱 Tablet' : '🖥️ PC';
+const isMobile = window.innerWidth < 768;
+deviceInfo.textContent = isMobile ? '📱 Tablet' : '💻 PC';
 
 renderAll();
 
 setTimeout(() => {
 performSync();
 updateOfficeDashboard();
-}, 1000);
+}, 800);
 
 setInterval(() => {
 performSync();
@@ -2402,10 +2212,8 @@ updateOfficeDashboard();
 }, 30000);
 
 console.log('🔄 ASZ Asten System gestartet');
-console.log(`📦 ${getTotalItems()} einzelne Artikel im System`);
-console.log(`📚 ${materials.length} LAVU-Artikel verfügbar`);
+console.log(`📦 ${getTotalItems()} Artikel, 📚 ${materials.length} LAVU-Artikel`);
 console.log(`🎨 Design: ${currentDesign}`);
-console.log('📡 localStorage-Sync aktiv');
 }
 
 init();
