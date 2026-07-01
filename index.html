@@ -2,178 +2,67 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>ASZ Abfall-Etiketten</title>
+    <title>ASZ Transport-Etiketten</title>
     <style>
         @page {
-            size: A4;
+            size: A4 landscape; /* Querformat für maximale Schriftgröße */
             margin: 10mm;
         }
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-family: 'Arial Black', Impact, sans-serif; /* Sehr dicke, gut lesbare Schrift */
             margin: 0;
             padding: 0;
             background-color: #ffffff;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
         }
-        .grid {
-            display: table;
+        .container {
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 10px;
-        }
-        .row {
-            display: table-row;
+            max-width: 1100px;
+            margin: 0 auto;
         }
         .label {
-            display: table-cell;
-            width: 48%;
-            height: 140px;
-            border: 2px dashed #999;
-            border-radius: 8px;
-            padding: 12px;
-            vertical-align: top;
+            width: 100%;
+            height: 180mm; /* Füllt fast die ganze A4-Seite */
+            border: 5px solid #000000;
             box-sizing: border-box;
-            background-color: #fafafa;
-            page-break-inside: avoid;
-        }
-        .label-header {
-            font-size: 10pt;
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 6px 8px;
-            border-radius: 4px;
-            color: #fff;
-            margin-bottom: 8px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            letter-spacing: 0.5px;
+            page-break-after: always; /* Jedes Etikett auf einer neuen Seite */
         }
-        .label-title {
-            font-size: 16pt;
-            font-weight: bold;
-            color: #111;
-            margin: 6px 0 4px 0;
+        .line-1 {
+            font-size: 80pt; /* Riesige Schrift für den Ort */
+            line-height: 1.1;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
-        .label-desc {
-            font-size: 9.5pt;
-            color: #444;
-            line-height: 1.3;
+        .line-2 {
+            font-size: 55pt; /* Etwas kleiner für die Artikelnummer + Bezeichnung */
+            line-height: 1.2;
+            color: #000000;
+            border-top: 8px solid #000;
+            padding-top: 40px;
+            width: 100%;
         }
-        .label-footer {
-            font-size: 8pt;
-            color: #777;
-            margin-top: 10px;
-            text-align: right;
-            border-top: 1px solid #ddd;
-            padding-top: 4px;
-        }
-        
-        /* Farbcodierung nach ASZ / LAVU Standard */
-        .bg-wiederverwendung { background-color: #2e7d32; } /* Grün */
-        .bg-verpackung { background-color: #1565c0; }       /* Blau */
-        .bg-altstoffe { background-color: #ef6c00; }        /* Orange */
-        .bg-elektro { background-color: #00838f; }          /* Cyan/Teal */
-        .bg-batterien { background-color: #c62828; }        /* Rot */
-        .bg-gefahrgut { background-color: #37474f; }        /* Dunkelgrau */
-        .bg-beseitigung { background-color: #6a1b9a; }      /* Lila */
     </style>
 </head>
 <body>
 
-    <div style="text-align: center; margin-bottom: 20px; font-size: 11pt; color: #666; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-        <strong>ASZ Sortier- und Drucketiketten</strong> (A4 Drucklayout — Schneidekanten gestrichelt)
-    </div>
+    <div class="container">
 
-    <div class="grid">
-        <div class="row">
-            <div class="label">
-                <div class="label-header bg-wiederverwendung">Sammlung zur Wiederverwendung</div>
-                <div class="label-title">Textilien & Schuhe</div>
-                <div class="label-desc">Saubere Kleidung, Schuhe (paarweise gebündelt), Taschen und Heimtextilien.</div>
-                <div class="label-footer">Art.Nr. 1000/1005 • ASZ-Richtlinie</div>
-            </div>
-            <div class="label">
-                <div class="label-header bg-verpackung">Verpackungen (Stoffliche Verwertung)</div>
-                <div class="label-title">Kartonagen & Papier</div>
-                <div class="label-desc">Altpapier, Druckerpapier, saubere Kartons und Verpackungsschachteln (flachgefaltet).</div>
-                <div class="label-footer">Art.Nr. 2100 • ASZ-Richtlinie</div>
-            </div>
+        <div class="label">
+            <div class="line-1">106 Asten</div>
+            <div class="line-2">4040 Elektro Kleingeräte</div>
         </div>
 
-        <div class="row">
-            <div class="label">
-                <div class="label-header bg-verpackung">Verpackungen (Stoffliche Verwertung)</div>
-                <div class="label-title">Metallverpackungen</div>
-                <div class="label-desc">Getränkedosen, Konservendosen, Alufolien und metallische Verschlüsse (restentleert).</div>
-                <div class="label-footer">Art.Nr. 2200/2210 • ASZ-Richtlinie</div>
-            </div>
-            <div class="label">
-                <div class="label-header bg-verpackung">Verpackungen (Stoffliche Verwertung)</div>
-                <div class="label-title">Kunststoff-Verpackungen</div>
-                <div class="label-desc">PET-Flaschen, Becher, Folien, Shampooflaschen und restentleerte Kunststoffkanister.</div>
-                <div class="label-footer">Art.Nr. 2540 • ASZ-Richtlinie</div>
-            </div>
+        <div class="label">
+            <div class="line-1">106 Asten</div>
+            <div class="line-2">4010 Elektro Großgeräte</div>
         </div>
 
-        <div class="row">
-            <div class="label">
-                <div class="label-header bg-altstoffe">Altstoffe (Stoffliche Verwertung)</div>
-                <div class="label-title">Alteisen / Altmetall</div>
-                <div class="label-desc">Mischschrott, Fahrräder, Werkzeuge, Bleche und Träger aus Metall (ohne Fremdstoffe).</div>
-                <div class="label-footer">Art.Nr. 3200 • ASZ-Richtlinie</div>
-            </div>
-            <div class="label">
-                <div class="label-header bg-altstoffe">Altstoffe (Stoffliche Verwertung)</div>
-                <div class="label-title">Flachglas</div>
-                <div class="label-desc">Fensterglas, Autoscheiben (ohne Rahmen), Spiegel und Verbundglas. Nicht für Flaschen!</div>
-                <div class="label-footer">Art.Nr. 3300 • ASZ-Richtlinie</div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="label">
-                <div class="label-header bg-elektro">Elektroaltgeräte (Verwertung)</div>
-                <div class="label-title">Elektro-Großgeräte</div>
-                <div class="label-desc">Waschmaschinen, Trockner, Geschirrspüler, Herde und sonstige Großgeräte.</div>
-                <div class="label-footer">Art.Nr. 4010 • ASZ-Richtlinie</div>
-            </div>
-            <div class="label">
-                <div class="label-header bg-elektro">Elektroaltgeräte (Verwertung)</div>
-                <div class="label-title">Kühlgeräte & Monitore</div>
-                <div class="label-desc">Kühlschränke, Gefriertruhen, Klimageräte sowie Bildschirme und TV-Geräte.</div>
-                <div class="label-footer">Art.Nr. 4020/4040 • ASZ-Richtlinie</div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="label">
-                <div class="label-header bg-batterien">Batterien (Verwertung)</div>
-                <div class="label-title">Gerätebatterien & Lithium</div>
-                <div class="label-desc">Haushaltsbatterien, Knopfzellen, Akkus aus Werkzeugen und Smartphones (Pole abkleben).</div>
-                <div class="label-footer">Art.Nr. 4100/4110 • ASZ-Richtlinie</div>
-            </div>
-            <div class="label">
-                <div class="label-header bg-gefahrgut">Gefährliche Abfälle (Problemstoffe)</div>
-                <div class="label-title">Altöle & Chemikalien</div>
-                <div class="label-desc">Motorenöle, Schmierstoffe, Säuren, Laugen, Lösemittel und flüssige Werkstattabfälle.</div>
-                <div class="label-footer">Art.Nr. 4200/4260 • ASZ-Richtlinie</div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="label">
-                <div class="label-header bg-beseitigung">Sammlung zur Beseitigung</div>
-                <div class="label-title">Asbestzement (Eternit)</div>
-                <div class="label-desc">Faserzementplatten, Dachplatten und Rohre (nur staubdicht verpackt zugelassen).</div>
-                <div class="label-footer">Art.Nr. 4421 • ASZ-Beseitigung</div>
-            </div>
-            <div class="label">
-                <div class="label-header bg-beseitigung">Sammlung zur Beseitigung</div>
-                <div class="label-title">Mineralwolle (KMF)</div>
-                <div class="label-desc">Glaswolle, Steinwolle und Dämmmaterialien. Nur im zugelassenen Sammelsack!</div>
-                <div class="label-footer">Art.Nr. 4380 • ASZ-Beseitigung</div>
-            </div>
-        </div>
     </div>
 
 </body>
