@@ -2,68 +2,1070 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>ASZ Transport-Etiketten</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ASZ Asten · Terminal & Office</title>
+    
+    <!-- External Framework Assets -->
+    <link id="bootstrapCss" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
-        @page {
-            size: A4 landscape; /* Querformat für maximale Schriftgröße */
-            margin: 10mm;
+        /* ----- Design Core Tokens ----- */
+        :root {
+            --bg-primary: #0f212e;
+            --bg-secondary: #1a2f3e;
+            --bg-card: #0f212e;
+            --bg-input: rgba(255,255,255,0.08);
+            --bg-item: rgba(255,255,255,0.05);
+            --bg-item-hover: rgba(255,255,255,0.08);
+            --text-primary: #c8dce8;
+            --text-secondary: #8bc1e0;
+            --text-muted: #5a8a9a;
+            --border-color: #1f3a4a;
+            --border-light: #2a5a6a;
+            --shadow-color: rgba(0,0,0,0.5);
+            --card-border: #2a5a6a;
+            --card-active-border: #3a8aaf;
+            --btn-bg: rgba(31,93,122,0.2);
+            --btn-hover: rgba(31,93,122,0.4);
+            --btn-text: #8ac0da;
+            --badge-bg: rgba(31,93,122,0.3);
+            --badge-text: #8ac0da;
+            --dot-color: #2ecc71;
+            --dot-offline: #e74c3c;
+            --scrollbar-color: #1f3a4a;
+            --count-color: #7ac0e0;
+            --font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
         }
+
+        [data-bs-theme="light"] {
+            --bg-primary: #e8edf2;
+            --bg-secondary: #d5dee8;
+            --bg-card: #ffffff;
+            --bg-input: rgba(0,0,0,0.05);
+            --bg-item: rgba(0,0,0,0.03);
+            --bg-item-hover: rgba(0,0,0,0.06);
+            --text-primary: #1a2f3e;
+            --text-secondary: #0f212e;
+            --text-muted: #5a7a8a;
+            --border-color: #b8c9da;
+            --border-light: #a0b8c8;
+            --shadow-color: rgba(0,0,0,0.15);
+            --card-border: #b8c9da;
+            --card-active-border: #1f5d7a;
+            --btn-bg: rgba(31,93,122,0.1);
+            --btn-hover: rgba(31,93,122,0.2);
+            --btn-text: #1f5d7a;
+            --badge-bg: rgba(31,93,122,0.1);
+            --badge-text: #1f5d7a;
+            --dot-color: #27ae60;
+            --dot-offline: #e74c3c;
+            --scrollbar-color: #b8c9da;
+            --count-color: #1f5d7a;
+        }
+
+        .material-design {
+            --bg-primary: #f5f5f5;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-input: rgba(0,0,0,0.04);
+            --bg-item: rgba(0,0,0,0.02);
+            --bg-item-hover: rgba(0,0,0,0.06);
+            --text-primary: #1a1a1a;
+            --text-secondary: #1f5d7a;
+            --text-muted: #757575;
+            --border-color: #e0e0e0;
+            --border-light: #bdbdbd;
+            --shadow-color: rgba(0,0,0,0.12);
+            --card-border: #e0e0e0;
+            --card-active-border: #1f5d7a;
+            --btn-bg: rgba(31,93,122,0.08);
+            --btn-hover: rgba(31,93,122,0.16);
+            --btn-text: #1f5d7a;
+            --badge-bg: rgba(31,93,122,0.08);
+            --badge-text: #1f5d7a;
+            --dot-color: #4caf50;
+            --dot-offline: #e74c3c;
+            --scrollbar-color: #bdbdbd;
+            --count-color: #1f5d7a;
+            --font-family: 'Roboto', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        .material-design.dark-theme {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-card: #1e1e1e;
+            --bg-input: rgba(255,255,255,0.06);
+            --bg-item: rgba(255,255,255,0.04);
+            --bg-item-hover: rgba(255,255,255,0.08);
+            --text-primary: #e0e0e0;
+            --text-secondary: #90caf9;
+            --text-muted: #9e9e9e;
+            --border-color: #333333;
+            --border-light: #444444;
+            --shadow-color: rgba(0,0,0,0.4);
+            --card-border: #333333;
+            --card-active-border: #90caf9;
+            --btn-bg: rgba(144,202,249,0.12);
+            --btn-hover: rgba(144,202,249,0.24);
+            --btn-text: #90caf9;
+            --badge-bg: rgba(144,202,249,0.12);
+            --badge-text: #90caf9;
+            --dot-color: #4caf50;
+            --dot-offline: #e74c3c;
+            --scrollbar-color: #444444;
+            --count-color: #90caf9;
+        }
+
+        /* ----- Base Layout ----- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-family); }
+        html, body { height: 100%; overflow: hidden; }
         body {
-            font-family: 'Arial Black', Impact, sans-serif; /* Sehr dicke, gut lesbare Schrift */
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
-        }
-        .container {
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .label {
-            width: 100%;
-            height: 180mm; /* Füllt fast die ganze A4-Seite */
-            border: 5px solid #000000;
-            box-sizing: border-box;
-            padding: 30px;
+            background: var(--bg-primary);
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            page-break-after: always; /* Jedes Etikett auf einer neuen Seite */
+            padding: 12px;
+            min-height: 100vh;
+            min-height: 100dvh;
+            transition: background 0.3s ease;
         }
-        .line-1 {
-            font-size: 80pt; /* Riesige Schrift für den Ort */
-            line-height: 1.1;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .line-2 {
-            font-size: 55pt; /* Etwas kleiner für die Artikelnummer + Bezeichnung */
-            line-height: 1.2;
-            color: #000000;
-            border-top: 8px solid #000;
-            padding-top: 40px;
+
+        .app-container {
+            max-width: 1440px;
             width: 100%;
+            height: 98vh;
+            height: 98dvh;
+            max-height: 900px;
+            background: var(--bg-primary);
+            border-radius: 28px;
+            box-shadow: 0 30px 60px var(--shadow-color), inset 0 1px 0 rgba(255,255,255,0.05);
+            padding: clamp(12px, 2vw, 28px);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* ----- Header Element Structure ----- */
+        .app-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: clamp(10px, 1.5vh, 18px);
+            margin-bottom: clamp(10px, 1.5vh, 20px);
+            flex-shrink: 0;
+        }
+        .app-title { display: flex; align-items: center; gap: clamp(8px, 1.5vw, 18px); flex-wrap: wrap; }
+        .app-title h1 {
+            font-weight: 700;
+            font-size: clamp(1.2rem, 3vw, 2.2rem);
+            letter-spacing: -0.5px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+        }
+        .app-title h1 i { color: #3a8aaf; font-size: clamp(1rem, 2vw, 1.6rem); }
+        .app-title .badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            padding: 4px clamp(10px, 1.5vw, 22px);
+            border-radius: 60px;
+            font-size: clamp(0.7rem, 1.2vw, 1.1rem);
+            font-weight: 600;
+            border: 1px solid var(--border-light);
+            white-space: nowrap;
+        }
+        .app-title .title-icons { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); }
+        .app-title .title-icons i { color: var(--text-muted); }
+
+        .app-status { display: flex; align-items: center; gap: clamp(8px, 1.5vw, 20px); flex-wrap: wrap; }
+        .sync-status { display: flex; align-items: center; gap: 6px; color: var(--text-muted); font-size: clamp(0.7rem, 1vw, 0.95rem); font-weight: 500; }
+        .sync-status .dot {
+            width: clamp(10px, 1.2vw, 14px);
+            height: clamp(10px, 1.2vw, 14px);
+            border-radius: 50%;
+            background: var(--dot-color);
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.4);
+            animation: pulse 2s infinite;
+            flex-shrink: 0;
+        }
+        .sync-status .dot.offline { background: var(--dot-offline); box-shadow: 0 0 20px rgba(231, 76, 60, 0.4); }
+
+        .theme-toggle {
+            background: var(--bg-input);
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            padding: clamp(4px, 0.5vh, 8px) clamp(10px, 1.2vw, 16px);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .theme-toggle:hover { background: var(--btn-hover); }
+
+        .view-toggle { display: flex; gap: 4px; background: var(--bg-input); border-radius: 40px; padding: 4px; border: 1px solid var(--border-color); }
+        .view-toggle button {
+            background: transparent;
+            border: none;
+            padding: clamp(6px, 0.8vh, 10px) clamp(14px, 1.8vw, 24px);
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: clamp(0.75rem, 1vw, 0.95rem);
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .view-toggle button.active { background: #1f5d7a; color: white; box-shadow: 0 0 20px rgba(31, 93, 122, 0.3); }
+        .view-toggle button:hover:not(.active) { background: var(--bg-item-hover); }
+
+        /* ----- Grid Layouts ----- */
+        .app-grid { display: flex; flex-direction: row; gap: clamp(12px, 2vw, 24px); flex: 1; min-height: 0; overflow: hidden; }
+
+        /* ----- Card Deck Panel ----- */
+        .card-panel {
+            flex: 1; min-width: 0; max-width: 45%; background: var(--bg-secondary);
+            border-radius: clamp(14px, 2vw, 20px); padding: clamp(10px, 1.5vw, 18px);
+            border: 1px solid var(--border-color); display: flex; flex-direction: column; overflow: hidden;
+        }
+        .card-panel.hidden { display: none; }
+        .card-panel-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: clamp(6px, 0.8vh, 10px); margin-bottom: clamp(6px, 0.8vh, 10px); flex-shrink: 0; }
+        .card-panel-header h4 { font-weight: 600; color: var(--text-secondary); font-size: clamp(0.9rem, 1.2vw, 1.1rem); display: flex; align-items: center; gap: 8px; margin: 0; }
+        .card-panel-header .card-count { color: var(--text-muted); font-size: clamp(0.8rem, 1vw, 0.95rem); }
+
+        .card-stack-container { position: relative; flex: 1; min-height: 100px; perspective: 1000px; touch-action: pan-y; cursor: grab; }
+        .card-stack-container:active { cursor: grabbing; }
+        .card-stack { position: relative; width: 100%; height: 100%; }
+        .card-item {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-card);
+            border: 2.5px solid var(--card-border); border-radius: clamp(14px, 2vw, 18px);
+            padding: clamp(12px, 2vw, 22px) clamp(14px, 2.5vw, 26px);
+            font-family: 'Courier New', monospace; font-size: clamp(0.75rem, 1vw, 0.95rem); line-height: 1.8;
+            color: var(--text-primary); text-align: right;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+            backface-visibility: hidden; box-shadow: 0 4px 12px var(--shadow-color);
+            display: flex; flex-direction: column; justify-content: center; user-select: none; -webkit-user-select: none;
+            will-change: transform; touch-action: none;
+        }
+        .card-item.active { transform: translateX(0) scale(1) rotate(0deg); opacity: 1; z-index: 10; box-shadow: 0 12px 40px var(--shadow-color), 0 0 30px rgba(31, 93, 122, 0.15); border-color: var(--card-active-border); }
+        .card-item.prev { transform: translateX(clamp(-30px, -5vw, -50px)) scale(0.88) rotate(-3deg); opacity: 0.3; z-index: 5; filter: blur(0.5px); }
+        .card-item.next { transform: translateX(clamp(30px, 5vw, 50px)) scale(0.88) rotate(3deg); opacity: 0.3; z-index: 5; filter: blur(0.5px); }
+        .card-item.hidden { transform: translateX(clamp(50px, 8vw, 90px)) scale(0.8) rotate(5deg); opacity: 0; z-index: 0; pointer-events: none; }
+        .card-item .card-site { font-weight: 700; font-size: clamp(0.8rem, 1.2vw, 1rem); color: var(--text-secondary); margin-bottom: 2px; }
+        .card-item .card-code { font-weight: 700; color: #7ac0e0; font-size: clamp(1rem, 1.6vw, 1.3rem); }
+        .card-item .card-container { font-weight: 600; color: var(--badge-text); }
+        .card-item .card-desc { font-size: clamp(0.7rem, 0.9vw, 0.9rem); }
+        .card-item .card-index { position: absolute; top: clamp(8px, 1vh, 12px); left: clamp(12px, 1.5vw, 18px); font-size: clamp(0.5rem, 0.6vw, 0.65rem); color: var(--text-muted); font-weight: 600; background: rgba(0,0,0,0.3); padding: 1px clamp(8px, 1vw, 14px); border-radius: 20px; border: 1px solid var(--border-color); }
+        .card-item .card-select-hint { position: absolute; bottom: clamp(8px, 1vh, 12px); left: 50%; transform: translateX(-50%); font-size: clamp(0.45rem, 0.5vw, 0.55rem); color: var(--text-muted); opacity: 0.5; background: rgba(0,0,0,0.3); padding: 1px clamp(10px, 1.2vw, 16px); border-radius: 20px; white-space: nowrap; pointer-events: none; border: 1px solid var(--border-color); }
+
+        .card-dots { display: flex; justify-content: center; gap: clamp(6px, 0.8vw, 10px); margin-top: clamp(4px, 0.5vh, 8px); padding: 2px 0; flex-shrink: 0; flex-wrap: wrap; }
+        .card-dot { width: clamp(10px, 1.2vw, 14px); height: clamp(10px, 1.2vw, 14px); border-radius: 50%; background: var(--border-color); border: 1px solid var(--border-light); padding: 0; cursor: pointer; transition: all 0.25s ease; flex-shrink: 0; }
+        .card-dot.active { background: #1f5d7a; border-color: #3a8aaf; transform: scale(1.3); box-shadow: 0 0 20px rgba(31, 93, 122, 0.4); }
+
+        .card-nav { display: flex; justify-content: center; align-items: center; gap: clamp(8px, 1.2vw, 16px); margin-top: clamp(4px, 0.5vh, 8px); padding: 2px 0; flex-shrink: 0; flex-wrap: wrap; }
+        .card-nav button {
+            background: var(--btn-bg); border: 1px solid var(--border-light); border-radius: 40px;
+            padding: clamp(6px, 0.8vh, 10px) clamp(12px, 1.5vw, 20px); font-weight: 700; color: var(--btn-text);
+            cursor: pointer; font-size: clamp(0.75rem, 0.9vw, 0.95rem); display: inline-flex; align-items: center; gap: clamp(4px, 0.6vw, 8px); white-space: nowrap;
+        }
+        .card-nav button:hover:not(:disabled) { background: var(--btn-hover); border-color: #3a8aaf; color: white; }
+        .card-nav button:disabled { opacity: 0.25; cursor: not-allowed; }
+        .card-nav .counter { font-weight: 700; color: var(--text-secondary); font-size: clamp(0.9rem, 1.2vw, 1.1rem); min-width: clamp(50px, 6vw, 70px); text-align: center; background: rgba(0,0,0,0.2); padding: clamp(4px, 0.5vh, 6px) clamp(10px, 1.2vw, 16px); border-radius: 30px; border: 1px solid var(--border-color); }
+        .card-empty { text-align: center; color: var(--text-muted); font-style: italic; padding: 20px 10px; background: var(--bg-item); border-radius: 16px; border: 2px dashed var(--border-color); font-family: 'Courier New', monospace; height: 100%; display: flex; align-items: center; justify-content: center; font-size: clamp(0.9rem, 1.1vw, 1.1rem); }
+
+        /* ----- Terminal Action Panels ----- */
+        .terminal-panel {
+            flex: 1.2; min-width: 0; background: var(--bg-secondary); border-radius: clamp(14px, 2vw, 20px);
+            padding: clamp(10px, 1.5vw, 18px); border: 1px solid var(--border-color); display: flex; flex-direction: column; overflow: hidden;
+        }
+        .terminal-panel.hidden { display: none; }
+
+        .filter-bar { display: flex; flex-wrap: wrap; gap: clamp(6px, 1vw, 14px); margin-bottom: clamp(10px, 1.5vh, 16px); background: var(--bg-input); padding: clamp(8px, 1vw, 14px) clamp(12px, 1.5vw, 18px); border-radius: 60px; border: 1px solid var(--border-color); flex-shrink: 0; }
+        .filter-bar input { flex: 2; min-width: 120px; border: none; background: var(--bg-input); padding: clamp(8px, 1.2vh, 14px) clamp(14px, 2vw, 20px); border-radius: 40px; font-size: clamp(0.85rem, 1.2vw, 1.1rem); color: var(--text-primary); border: 1px solid var(--border-light); }
+        .filter-bar input:focus { outline: none; border-color: #3a8aaf; background: var(--bg-item-hover); box-shadow: 0 0 0 3px rgba(31, 93, 122, 0.2); }
+        .filter-bar input::placeholder { color: var(--text-muted); }
+        .block-selector { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(4px, 0.6vw, 10px); }
+        .block-selector span { font-weight: 600; color: var(--text-secondary); font-size: clamp(0.7rem, 0.9vw, 0.95rem); }
+        .block-btn { background: transparent; border: 1px solid var(--border-light); padding: clamp(4px, 0.6vh, 8px) clamp(10px, 1.2vw, 18px); border-radius: 40px; font-weight: 600; font-size: clamp(0.65rem, 0.8vw, 0.9rem); cursor: pointer; color: var(--text-muted); white-space: nowrap; }
+        .block-btn.active { background: #1f5d7a; border-color: #3a8aaf; color: white; box-shadow: 0 0 15px rgba(31, 93, 122, 0.3); }
+        .block-btn:hover:not(.active) { background: var(--bg-item-hover); }
+
+        .material-list { flex: 1; overflow-y: auto; padding-right: 4px; margin-top: 4px; min-height: 0; scrollbar-width: thin; scrollbar-color: var(--scrollbar-color) transparent; }
+        .material-list::-webkit-scrollbar { width: 4px; }
+        .material-list::-webkit-scrollbar-thumb { background: var(--scrollbar-color); border-radius: 8px; }
+
+        .material-item { display: flex; justify-content: space-between; align-items: center; gap: clamp(6px, 1vw, 12px); padding: clamp(10px, 1.2vh, 16px) clamp(12px, 1.5vw, 18px); margin-bottom: clamp(4px, 0.5vh, 6px); background: var(--bg-item); border-radius: 60px; border: 1px solid var(--border-color); flex-wrap: wrap; }
+        .material-item:hover { background: var(--bg-item-hover); border-color: var(--border-light); }
+        .material-item .code { font-weight: 700; color: #7ac0e0; font-size: clamp(1rem, 1.3vw, 1.2rem); flex-shrink: 0; min-width: 50px; }
+        .material-item .desc { flex: 1; margin: 0 clamp(6px, 1vw, 14px) 0 clamp(4px, 0.6vw, 8px); font-weight: 500; color: var(--text-primary); font-size: clamp(0.85rem, 1.1vw, 1.05rem); min-width: 80px; }
+        .material-item .container-badge { background: var(--badge-bg); padding: 2px clamp(10px, 1.2vw, 18px); border-radius: 50px; font-size: clamp(0.65rem, 0.8vw, 0.85rem); font-weight: 600; color: var(--badge-text); border: 1px solid var(--border-light); white-space: nowrap; flex-shrink: 0; }
+        .material-item .item-controls { display: flex; align-items: center; gap: clamp(4px, 0.6vw, 10px); flex-shrink: 0; }
+        
+        .material-item .qty-btn {
+            background: var(--btn-bg); border: 1px solid var(--border-light); border-radius: 40px;
+            width: clamp(32px, 3.5vw, 42px); height: clamp(32px, 3.5vw, 42px); font-weight: 700; color: var(--btn-text);
+            cursor: pointer; font-size: clamp(1rem, 1.2vw, 1.3rem); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .material-item .qty-btn:hover:not(:disabled) { background: var(--btn-hover); border-color: #3a8aaf; color: white; }
+        .material-item .qty-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .material-item .qty-btn.minus-btn { color: #cc8888; }
+        .material-item .qty-btn.minus-btn:hover:not(:disabled) { background: rgba(200, 80, 80, 0.2); border-color: #aa5555; color: #ff8888; }
+        .material-item .item-count { font-weight: 700; color: var(--count-color); font-size: clamp(1rem, 1.2vw, 1.2rem); min-width: 24px; text-align: center; }
+
+        .terminal-actions { display: flex; gap: clamp(8px, 1vw, 16px); margin-top: clamp(10px, 1.5vh, 16px); border-top: 1px solid var(--border-color); padding-top: clamp(10px, 1.5vh, 16px); flex-shrink: 0; flex-wrap: wrap; }
+        .terminal-actions button {
+            flex: 1; min-width: 100px; background: var(--btn-bg); border: 1px solid var(--border-light);
+            border-radius: 40px; padding: clamp(10px, 1.2vh, 14px) clamp(14px, 1.8vw, 24px); font-weight: 700;
+            color: var(--btn-text); cursor: pointer; font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap;
+        }
+        .terminal-actions button:hover { background: var(--btn-hover); border-color: #3a8aaf; color: white; }
+        .terminal-actions button#syncNowBtn { background: rgba(46, 204, 113, 0.15); border-color: rgba(46, 204, 113, 0.4); color: #2ecc71; }
+        .terminal-actions button#syncNowBtn:hover { background: rgba(46, 204, 113, 0.3); border-color: #2ecc71; color: white; }
+
+        /* ----- Right Panel Layout ----- */
+        .right-panel { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: clamp(12px, 2vw, 24px); }
+        .office-panel {
+            flex: 1; min-width: 0; background: var(--bg-secondary); border-radius: clamp(14px, 2vw, 20px);
+            padding: clamp(10px, 1.5vw, 18px); border: 1px solid var(--border-color); display: flex; flex-direction: column; overflow: hidden;
+        }
+        .office-panel.hidden { display: none; }
+        
+        .office-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: clamp(8px, 1vh, 12px); margin-bottom: clamp(8px, 1vh, 12px); flex-shrink: 0; }
+        .office-header h3 { font-weight: 600; color: var(--text-secondary); font-size: clamp(1rem, 1.5vw, 1.3rem); display: flex; align-items: center; gap: 8px; margin: 0; }
+        .office-header .count-badge { background: #1f5d7a; color: white; border-radius: 40px; padding: 0 clamp(12px, 1.5vw, 18px); font-weight: 700; font-size: clamp(0.9rem, 1.2vw, 1.1rem); line-height: clamp(28px, 3.5vh, 34px); border: 1px solid #3a8aaf; flex-shrink: 0; }
+        
+        .office-list { flex: 1; overflow-y: auto; padding-right: 4px; scrollbar-width: thin; scrollbar-color: var(--scrollbar-color) transparent; }
+        .office-list::-webkit-scrollbar { width: 4px; }
+        .office-list::-webkit-scrollbar-thumb { background: var(--scrollbar-color); border-radius: 8px; }
+
+        .office-item { display: flex; justify-content: space-between; align-items: center; gap: clamp(4px, 0.6vw, 10px); padding: clamp(8px, 0.8vh, 12px) clamp(10px, 1.2vw, 16px); background: var(--bg-item); border-radius: 40px; margin-bottom: clamp(4px, 0.4vh, 6px); border: 1px solid var(--border-color); }
+        .office-item:hover { background: var(--bg-item-hover); }
+        .office-item .o-code { font-weight: 700; color: #7ac0e0; flex-shrink: 0; min-width: 44px; font-size: clamp(0.85rem, 1vw, 1rem); }
+        .office-item .o-desc { flex: 1; margin: 0 clamp(4px, 0.6vw, 10px); font-weight: 500; color: var(--text-primary); font-size: clamp(0.75rem, 0.85vw, 0.9rem); min-width: 50px; }
+        .office-item .o-container { background: var(--badge-bg); padding: 1px clamp(8px, 1vw, 16px); border-radius: 30px; font-size: clamp(0.6rem, 0.7vw, 0.75rem); font-weight: 600; color: var(--badge-text); border: 1px solid var(--border-light); white-space: nowrap; flex-shrink: 0; }
+        .office-item .o-time { font-size: clamp(0.55rem, 0.6vw, 0.7rem); color: var(--text-muted); flex-shrink: 0; min-width: 60px; text-align: right; }
+        .office-item .o-delete { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: clamp(0.9rem, 1.1vw, 1.1rem); padding: 0 clamp(4px, 0.5vw, 8px); transition: 0.15s; flex-shrink: 0; }
+        .office-item .o-delete:hover { color: #e06666; }
+        .office-empty { text-align: center; color: var(--text-muted); font-style: italic; padding: 30px 10px; font-size: clamp(0.9rem, 1.1vw, 1.1rem); }
+        
+        .office-footer { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border-color); flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; }
+        .office-footer button { background: transparent; border: 1px solid #aa5555; border-radius: 40px; padding: 6px 16px; color: #cc8888; cursor: pointer; font-weight: 600; font-size: 0.8rem; }
+        .office-footer button:hover { background: rgba(200, 80, 80, 0.15); }
+        .office-footer span { color: var(--text-muted); font-size: 0.7rem; }
+
+        /* ----- System Status Footer Elements ----- */
+        .app-footer { margin-top: clamp(8px, 1vh, 14px); font-size: clamp(0.65rem, 0.7vw, 0.8rem); color: var(--text-muted); text-align: right; border-top: 1px solid var(--border-color); padding-top: clamp(8px, 1vh, 12px); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; flex-wrap: wrap; gap: 6px; }
+        .app-footer .footer-left { display: flex; align-items: center; gap: clamp(6px, 0.8vw, 10px); color: var(--text-muted); font-size: clamp(0.65rem, 0.7vw, 0.85rem); }
+        .app-footer .footer-left i { color: var(--dot-color); font-size: clamp(0.5rem, 0.6vw, 0.7rem); }
+        .app-footer .footer-right { display: flex; align-items: center; gap: clamp(6px, 0.8vw, 12px); }
+        .app-footer .footer-right .design-toggle { display: flex; gap: 3px; background: var(--bg-input); border-radius: 30px; padding: 3px; border: 1px solid var(--border-color); }
+        .app-footer .footer-right .design-toggle button { background: transparent; border: none; padding: clamp(2px, 0.3vh, 4px) clamp(6px, 0.6vw, 10px); border-radius: 20px; font-weight: 500; font-size: clamp(0.55rem, 0.6vw, 0.7rem); color: var(--text-muted); cursor: pointer; }
+        .app-footer .footer-right .design-toggle button.active { background: #1f5d7a; color: white; box-shadow: 0 0 10px rgba(31, 93, 122, 0.2); }
+        .app-footer .theme-toggle-sm { background: var(--bg-input); border: 1px solid var(--border-light); border-radius: 30px; padding: clamp(2px, 0.3vh, 4px) clamp(6px, 0.6vw, 10px); color: var(--text-secondary); cursor: pointer; font-size: clamp(0.7rem, 0.7vw, 0.8rem); display: flex; align-items: center; gap: 4px; }
+
+        /* ----- Print Rules ----- */
+        @media print {
+            .card-panel, .terminal-panel, .office-panel { width: 100% !important; max-width: none !important; display: block !important; }
+            .card-stack-container { height: auto !important; min-height: auto !important; }
+            .card-item { position: relative !important; transform: none !important; opacity: 1 !important; filter: none !important; margin: 0 auto 4mm auto !important; display: block !important; }
+            .card-dots, .card-nav, .terminal-actions, .filter-bar, .material-list, .app-header .app-status, .app-footer { display: none !important; }
+            .app-container { height: auto !important; max-height: none !important; overflow: visible !important; padding: 10mm !important; border: none !important; box-shadow: none !important; background: white !important; }
+            body { background: white !important; padding: 0 !important; overflow: visible !important; }
+        }
+
+        /* ----- Responsive Adaptation Breakpoints ----- */
+        @media (max-width: 1000px) {
+            .app-grid { flex-direction: column; gap: 10px; }
+            .card-panel { max-width: 100%; max-height: 35%; flex: 0 0 auto; }
+            .terminal-panel, .right-panel { flex: 1; min-height: 30vh; max-height: 50vh; }
+            .app-container { height: 100vh; height: 100dvh; max-height: none; border-radius: 20px; padding: 12px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-
-        <div class="label">
-            <div class="line-1">106 Asten</div>
-            <div class="line-2">4040 Elektro Kleingeräte</div>
+<div class="app-container" id="app">
+    <!-- Main App Header Layout -->
+    <div class="app-header">
+        <div class="app-title">
+            <h1><i class="fas fa-recycle"></i> ASZ Asten</h1>
+            <span class="badge"><i class="fas fa-map-pin"></i> Standort 106</span>
+            <div class="title-icons">
+                <i class="fas fa-clipboard-list" title="Frachtliste"></i>
+                <i class="fas fa-desktop" title="Büro-Dashboard"></i>
+            </div>
         </div>
-
-        <div class="label">
-            <div class="line-1">106 Asten</div>
-            <div class="line-2">4010 Elektro Großgeräte</div>
+        <div class="app-status">
+            <button class="theme-toggle" id="themeToggle" title="Theme umschalten">
+                <i class="fas fa-moon" id="themeIcon"></i>
+                <span id="themeLabel">Dunkel</span>
+            </button>
+            <div class="sync-status">
+                <span class="dot" id="syncDot"></span>
+                <span id="syncLabel">lokal · sync</span>
+            </div>
+            <div class="view-toggle">
+                <button class="active" data-view="terminal" id="viewTerminalBtn"><i class="fas fa-terminal"></i> Terminal</button>
+                <button data-view="office" id="viewOfficeBtn"><i class="fas fa-list"></i> Frachtliste</button>
+            </div>
         </div>
-
     </div>
+
+    <!-- Central Workspace Architecture Grid -->
+    <div class="app-grid">
+        <!-- Interactive Card Module -->
+        <div class="card-panel" id="cardPanel">
+            <div class="card-panel-header">
+                <h4><i class="fas fa-id-card"></i> Karteikärtchen</h4>
+                <span class="card-count" id="cardCountLabel">0</span>
+            </div>
+            <div class="card-stack-container" id="cardStackContainer"></div>
+            <div class="card-dots" id="cardDots"></div>
+            <div class="card-nav">
+                <button id="cardPrevBtn" disabled><i class="fas fa-chevron-left"></i> Zurück</button>
+                <span class="counter" id="cardCounter">0 / 0</span>
+                <button id="cardNextBtn" disabled>Weiter <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Terminal Panel Engine Module -->
+        <div class="terminal-panel" id="terminalPanel">
+            <div class="filter-bar">
+                <input type="text" id="materialSearch" placeholder="Material suchen (Name oder Code)..." autocomplete="off">
+                <div class="block-selector" id="blockSelector">
+                    <span>Block:</span>
+                    <button class="block-btn active" data-block="all">Alle</button>
+                    <button class="block-btn" data-block="1000">1000</button>
+                    <button class="block-btn" data-block="2000">2000</button>
+                    <button class="block-btn" data-block="3000">3000</button>
+                    <button class="block-btn" data-block="4000">4000</button>
+                </div>
+            </div>
+            <div class="material-list" id="materialListContainer"></div>
+            <div class="terminal-actions">
+                <button id="addSampleBtn"><i class="fas fa-folder-plus"></i> Beispiele</button>
+                <button id="syncNowBtn"><i class="fas fa-sync-alt"></i> Sync jetzt</button>
+            </div>
+        </div>
+
+        <!-- Dashboard Structure -->
+        <div class="right-panel">
+            <div class="office-panel hidden" id="officePanel">
+                <div class="office-header">
+                    <h3><i class="fas fa-chart-pie"></i> Büro-Dashboard</h3>
+                    <div class="count-badge" id="officeCount">0</div>
+                </div>
+                <div class="office-list" id="officeListContainer"></div>
+                <div class="office-footer">
+                    <button id="clearBasketBtn"><i class="fas fa-trash-alt"></i> Alle entfernen</button>
+                    <span id="officeLastSync">Stand: --:--:--</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Terminal Footer Status -->
+    <div class="app-footer">
+        <div class="footer-left">
+            <i class="fas fa-circle" id="footerSyncIcon"></i>
+            <span id="footerSyncText">lokal · synchronisiert</span>
+        </div>
+        <div class="footer-right">
+            <span class="device-info" id="deviceInfo">🖥️ PC</span>
+            <div class="design-toggle">
+                <button class="active" id="designBootstrapBtn">Standard</button>
+                <button id="designMaterialBtn">Material</button>
+            </div>
+            <button class="theme-toggle-sm" id="themeToggleSm" title="Theme umschalten">
+                <i class="fas fa-moon" id="themeIconSm"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+(() => {
+    // ============================================================
+    // APPLICATION STATIC CONFIGURATION REGISTRY
+    // ============================================================
+    const CONFIG = {
+        STORAGE_KEYS: { BASKET: 'asz_basket_v2', HISTORY: 'asz_history_v2', THEME: 'asz_theme_v2', DESIGN: 'asz_design_v2' },
+        BLOCKS: ['1000', '2000', '3000', '4000'],
+        MATERIALS: [
+            // SAMMLUNG ZUR WIEDERVERWENDUNG (1000er Reihe)
+            { code: '1000', desc: 'Textilien', block: '1000', container: 'Revital-Box' },
+            { code: '1005', desc: 'Schuhtaschen', block: '1000', container: 'Revital-Box' },
+            { code: '1010', desc: 'Schuhe', block: '1000', container: 'Gitterbox' },
+            { code: '1100', desc: 'Wand&Gartendeko & Tintenpatronen', block: '1000', container: 'Sammelbehälter' },
+            { code: '1445', desc: 'Mobiltelefone Handy (für Ö3-Wundertüte)', block: '1000', container: 'Kartonbox' },
+            { code: '1501', desc: 'Großmöbel (ReVital)', block: '1000', container: 'Möbellager' },
+            { code: '1502', desc: 'Kleinmöbel (ReVital)', block: '1000', container: 'Möbellager' },
+            { code: '1505', desc: 'Hausrat (ReVital)', block: '1000', container: 'Gitterbox' },
+            { code: '1510', desc: 'Elektro-Großgeräte (ReVital)', block: '1000', container: 'Großgeräte-Zone' },
+            { code: '1530', desc: 'Bildschirmgeräte (ReVital)', block: '1000', container: 'Gitterbox' },
+            { code: '1540', desc: 'Elektro-Kleingeräte (ReVital)', block: '1000', container: 'Kleingeräte-Box' },
+
+            // SAMMLUNG ZUR STOFFLICHEN VERWERTUNG: VERPACKUNGEN (2000er Reihe)
+            { code: '2100', desc: 'Kartonagen (ARA-lizenziert)', block: '2000', container: 'Großcontainer 30m³' },
+            { code: '2200', desc: 'Metallverpackungen', block: '2000', container: 'Blauer Container' },
+            { code: '2210', desc: 'Metallverpackungen - geöffnete Gaskartuschen', block: '2000', container: 'Sicherheitsfass' },
+            { code: '2300', desc: 'Glasverpackungen', block: '2000', container: 'Glas-Silo' },
+            { code: '2400', desc: 'Getränkekartons', block: '2000', container: 'Sammelsack' },
+            { code: '2520', desc: 'Eimer & Kanister (HDPE, PP-Hohlkörper)', block: '2000', container: 'Großbox' },
+            { code: '2540', desc: 'Kunststoff Verpackungsfolien', block: '2000', container: 'Presscontainer' },
+            { code: '2565', desc: 'EPS-Styropor', block: '2000', container: 'Styropor-Sack' },
+            { code: '2580', desc: 'Holzverpackungen', block: '2000', container: 'Holzcontainer' },
+            { code: '2590', desc: 'Keramikverpackungen', block: '2000', container: 'Bauschuttmulde' },
+
+            // ALTSTOFFE (3000er Reihe)
+            { code: '3000', desc: 'Altpapier (Deinking-Qualität)', block: '3000', container: 'Papier-Container' },
+            { code: '3005', desc: 'Datenschutzpapier', block: '3000', container: 'Sicherheitsbox' },
+            { code: '3200', desc: 'Alteisen', block: '3000', container: 'Schrottmulde' },
+            { code: '3210', desc: 'Nichteisen-Metalle', block: '3000', container: 'Buntmetallbox' },
+            { code: '3211', desc: 'Armaturen & Messing', block: '3000', container: 'Kleinbox' },
+            { code: '3212', desc: 'Alu-Kaffeekapseln', block: '3000', container: 'Sammeltonne' },
+            { code: '3310', desc: 'Flachglas', block: '3000', container: 'Glasgestell' },
+            { code: '3315', desc: 'Altfenster PVC', block: '3000', container: 'Flachglas-Zone' },
+            { code: '3320', desc: 'Altfenster', block: '3000', container: 'Großmulde' },
+            { code: '3400', desc: 'Speisefett, -öl (Haushalts-Öl)', block: '3000', container: 'Öli-Sammelbox' },
+            { code: '3405', desc: 'Speisefett, -öl (Gastro-Öl)', block: '3000', container: 'Gastrofrit-Fass' },
+            { code: '3410', desc: 'Speisefett, -öl (in Kleingebinden)', block: '3000', container: 'Sammelbehälter' },
+            { code: '3430', desc: 'Kerzen', block: '3000', container: 'Kartonbox' },
+            { code: '3520', desc: 'Hartkunststoffe', block: '3000', container: 'Großcontainer' },
+            { code: '3526', desc: 'Kunststoff-Mülltonnen', block: '3000', container: 'Stellplatz' },
+            { code: '3540', desc: 'Kunststoff-Sonstige Folien', block: '3000', container: 'Sackware' },
+            { code: '3571', desc: 'Filmmaterial', block: '3000', container: 'Kartonbox' },
+            { code: '3572', desc: 'Compact-Disk (CD)', block: '3000', container: 'Spindelbox' },
+            { code: '3580', desc: 'Altreifen', block: '3000', container: 'Reifenregal' },
+            { code: '3585', desc: 'Reifen m. Felgen', block: '3000', container: 'Reifenregal' },
+            { code: '3591', desc: 'Sonderreifen (70-150 cm)', block: '3000', container: 'Freifläche' },
+            { code: '3600', desc: 'Mineralischer Bauschutt', block: '3000', container: 'Bauschuttmulde' },
+            { code: '3610', desc: 'Gipskarton', block: '3000', container: 'Gipscontainer' },
+            { code: '3700', desc: 'Altholz', block: '3000', container: 'Altholzcontainer' },
+            { code: '3805', desc: 'Ersatzbrennstoff', block: '3000', container: 'EBS-Sack' },
+
+            // ELEKTROALTGERÄTE & PROBLEMSTOFFE (4000er Reihe)
+            { code: '4010', desc: 'Elektro-Großgeräte', block: '4000', container: 'Großgeräte-Palette' },
+            { code: '4015', desc: 'Nachtspeicheröfen', block: '4000', container: 'Sonderstellplatz' },
+            { code: '4020', desc: 'Kühlgeräte', block: '4000', container: 'Kühlgeräte-Zone' },
+            { code: '4030', desc: 'Bildschirmgeräte', block: '4000', container: 'Gitterbox' },
+            { code: '4031', desc: 'Flachbildschirme', block: '4000', container: 'Gitterbox Spiegellage' },
+            { code: '4040', desc: 'Elektro-Kleingeräte', block: '4000', container: 'Kleingeräte-Box' },
+            { code: '4050', desc: 'Gasentladungslampen stabförmig', block: '4000', container: 'Lampenbox' },
+            { code: '4051', desc: 'Gasentladungslampen Sonderformen', block: '4000', container: 'Lampenbox' },
+            { code: '4100', desc: 'Gerätebatterien', block: '4000', container: 'Batteriefass' },
+            { code: '4110', desc: 'Fahrzeugbatterien', block: '4000', container: 'Säurewanne' },
+            { code: '4111', desc: 'Li-Akkus', block: '4000', container: 'Sicherheitsfass' },
+            { code: '4120', desc: 'Ni-Cd Akkumulatoren', block: '4000', container: 'Batteriebox' },
+            { code: '4125', desc: 'Traktionsbatterien', block: '4000', container: 'Sonderpalette' },
+            { code: '4200', desc: 'Altfeuerlöscher (Autowrack)', block: '4000', container: 'Sammelbox' },
+            { code: '4221', desc: 'Gasflaschen', block: '4000', container: 'Gasflaschenkäfig' },
+            { code: '4230', desc: 'Feuerlöscher', block: '4000', container: 'Sammelpalette' },
+            { code: '4250', desc: 'Altöl', block: '4000', container: 'Öltank' },
+            { code: '4260', desc: 'Lösemittel-Wassergemische', block: '4000', container: 'ASF-Behälter' },
+            { code: '4270', desc: 'Säurengemische', block: '4000', container: 'Säurefass' },
+            { code: '4275', desc: 'Laugengemische', block: '4000', container: 'Laugenfass' },
+            { code: '4280', desc: 'Ölverunreinigtes Erdmaterial', block: '4000', container: 'BigBag' },
+            { code: '4300', desc: 'Altlacke & Werkstättenabfälle', block: '4000', container: 'Lackbox' },
+            { code: '4305', desc: 'Lack- & Farbschlamm', block: '4000', container: 'Fass' },
+            { code: '4310', desc: 'Kunststoffemballagen (m. schädl. Restinhalt)', block: '4000', container: 'Sonderabfallbox' },
+            { code: '4320', desc: 'Öl-Wassergemische & Emulsionen', block: '4000', container: 'ASF-Tank' },
+            { code: '4325', desc: 'Ölschlamm & Ölgatsch', block: '4000', container: 'Fass' },
+            { code: '4340', desc: 'Altmedikamente (ungesondert)', block: '4000', container: 'Medizinbox' },
+            { code: '4350', desc: 'Spraydosen (mit Restinhalt)', block: '4000', container: 'Aerosoltonne' },
+            { code: '4360', desc: 'Kondensatoren', block: '4000', container: 'Sicherheitsbox' },
+            { code: '4380', desc: 'Mineralwolle', block: '4000', container: 'KMF-Sack' },
+            { code: '4385', desc: 'XPS-Dämmplatten', block: '4000', container: 'XPS-Sack' },
+            { code: '4390', desc: 'Asbestzement/Eternit', block: '4000', container: 'BigBag' },
+            { code: '4421', desc: 'Gewerbeabfall', block: '4000', container: 'Restmülltonne' },
+            { code: '4422', desc: 'Netze & Schnüre', block: '4000', container: 'Sack' },
+            { code: '4430', desc: 'Dispersionsfarben', block: '4000', container: 'Farbeimer-Palette' },
+            { code: '4450', desc: 'Bau-Restabfall-massen', block: '4000', container: 'Schuttmulde' },
+            { code: '4460', desc: 'Altmedikamente (vorsortiert)', block: '4000', container: 'Medizinbox' },
+            { code: '4461', desc: 'Altmedikamente (vorsortiert/Apotheken)', block: '4000', container: 'Medizinbox' },
+            { code: '4464', desc: 'Injektionsnadeln', block: '4000', container: 'Medi-Safe' },
+            { code: '4465', desc: 'Injektionsnadeln (aus Spitälern)', block: '4000', container: 'Medi-Safe' },
+            { code: '4466', desc: 'Ungefährliche medizinische Abfälle', block: '4000', container: 'Roter Sack' }
+        ]
+    };
+
+    // ============================================================
+    // CENTRALIZED OBSERVABLE APP STATE ENGINE
+    // ============================================================
+    class ASZState {
+        constructor() {
+            this._basket = this._load(CONFIG.STORAGE_KEYS.BASKET, []);
+            this._history = this._load(CONFIG.STORAGE_KEYS.HISTORY, []);
+            this._currentCardIndex = 0;
+            this._activeView = 'terminal'; 
+            this._activeBlock = 'all';
+            this._searchQuery = '';
+            this._listeners = new Set();
+        }
+
+        subscribe(listener) { this._listeners.add(listener); }
+        notify() { this._listeners.forEach(callback => callback(this)); }
+
+        get basket() { return this._basket; }
+        get history() { return this._history; }
+        get currentCardIndex() { return this._currentCardIndex; }
+        get activeView() { return this._activeView; }
+        get activeBlock() { return this._activeBlock; }
+        get searchQuery() { return this._searchQuery; }
+
+        set currentCardIndex(val) {
+            this._currentCardIndex = Math.max(0, Math.min(val, this._basket.length - 1));
+            this.notify();
+        }
+
+        set activeView(view) { this._activeView = view; this.notify(); }
+        set activeBlock(block) { this._activeBlock = block; this.notify(); }
+        set searchQuery(query) { this._searchQuery = query.toLowerCase().trim(); this.notify(); }
+
+        addItem(code) {
+            const material = CONFIG.MATERIALS.find(m => m.code === code);
+            if (!material) return;
+            
+            const uniqueItem = {
+                ...material,
+                id: `${Date.now()}_${Math.random().toString(36).substring(2, 8)}`,
+                timestamp: new Date().toLocaleTimeString('de-AT')
+            };
+            
+            this._basket.push(uniqueItem);
+            this._logHistory('add', `${material.code} · ${material.desc} (+1)`);
+            this._save(CONFIG.STORAGE_KEYS.BASKET, this._basket);
+            this.notify();
+        }
+
+        removeItemByCode(code) {
+            const idx = this._basket.findIndex(item => item.code === code);
+            if (idx === -1) return;
+            const removed = this._basket.splice(idx, 1)[0];
+            
+            this._adjustCardIndexAfterRemoval();
+            this._logHistory('remove', `${removed.code} · ${removed.desc} (-1)`);
+            this._save(CONFIG.STORAGE_KEYS.BASKET, this._basket);
+            this.notify();
+        }
+
+        removeItemById(id) {
+            const idx = this._basket.findIndex(item => item.id === id);
+            if (idx === -1) return;
+            const removed = this._basket.splice(idx, 1)[0];
+            
+            this._adjustCardIndexAfterRemoval();
+            this._logHistory('remove', `${removed.code} · ${removed.desc} (-1)`);
+            this._save(CONFIG.STORAGE_KEYS.BASKET, this._basket);
+            this.notify();
+        }
+
+        clearAll() {
+            this._basket = [];
+            this._currentCardIndex = 0;
+            this._logHistory('clear', 'Alle Artikel entfernt');
+            this._save(CONFIG.STORAGE_KEYS.BASKET, this._basket);
+            this.notify();
+        }
+
+        getItemCount(code) {
+            return this._basket.filter(item => item.code === code).length;
+        }
+
+        _adjustCardIndexAfterRemoval() {
+            if (this._currentCardIndex >= this._basket.length) {
+                this._currentCardIndex = Math.max(0, this._basket.length - 1);
+            }
+        }
+
+        _logHistory(action, message) {
+            const log = { timestamp: new Date().toISOString(), action, message, count: this._basket.length };
+            this._history.unshift(log);
+            if (this._history.length > 100) this._history = this._history.slice(0, 100);
+            this._save(CONFIG.STORAGE_KEYS.HISTORY, this._history);
+        }
+
+        _save(key, data) { try { localStorage.setItem(key, JSON.stringify(data)); } catch(e) { console.error('Write error', e); } }
+        _load(key, fallback) { try { const data = localStorage.getItem(key); return data ? JSON.parse(data) : fallback; } catch(e) { return fallback; } }
+    }
+
+    // ============================================================
+    // THEME & CORE APPLICATION UI DESIGN MANAGER
+    // ============================================================
+    class ThemeManager {
+        constructor() {
+            this.isDark = localStorage.getItem(CONFIG.STORAGE_KEYS.THEME) !== 'light';
+            this.design = localStorage.getItem(CONFIG.STORAGE_KEYS.DESIGN) === 'material' ? 'material' : 'bootstrap';
+            this.appContainer = document.getElementById('app');
+            this.init();
+        }
+
+        init() {
+            this.applyTheme();
+            this.applyDesign();
+
+            const toggleAction = () => { this.isDark = !this.isDark; this.applyTheme(); };
+            document.getElementById('themeToggle').addEventListener('click', toggleAction);
+            document.getElementById('themeToggleSm').addEventListener('click', toggleAction);
+
+            document.getElementById('designBootstrapBtn').addEventListener('click', () => this.switchDesign('bootstrap'));
+            document.getElementById('designMaterialBtn').addEventListener('click', () => this.switchDesign('material'));
+        }
+
+        applyTheme() {
+            const themeLabel = this.isDark ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-bs-theme', themeLabel);
+            localStorage.setItem(CONFIG.STORAGE_KEYS.THEME, themeLabel);
+            
+            const iconClass = this.isDark ? 'fas fa-moon' : 'fas fa-sun';
+            document.getElementById('themeIcon').className = iconClass;
+            document.getElementById('themeIconSm').className = iconClass;
+            document.getElementById('themeLabel').textContent = this.isDark ? 'Dunkel' : 'Hell';
+
+            if (this.design === 'material') {
+                this.appContainer.classList.toggle('dark-theme', this.isDark);
+            }
+        }
+
+        applyDesign() {
+            const isMat = this.design === 'material';
+            this.appContainer.classList.toggle('material-design', isMat);
+            this.appContainer.classList.toggle('dark-theme', isMat && this.isDark);
+            
+            document.getElementById('designMaterialBtn').classList.toggle('active', isMat);
+            document.getElementById('designBootstrapBtn').classList.toggle('active', !isMat);
+            document.getElementById('bootstrapCss').disabled = isMat;
+
+            const fontToken = isMat ? "'Roboto', 'Segoe UI', system-ui, sans-serif" : "'Segoe UI', Roboto, system-ui, sans-serif";
+            document.documentElement.style.setProperty('--font-family', fontToken);
+            localStorage.setItem(CONFIG.STORAGE_KEYS.DESIGN, this.design);
+        }
+
+        switchDesign(targetDesign) {
+            if (this.design === targetDesign) return;
+            this.design = targetDesign;
+            this.applyDesign();
+        }
+    }
+
+    // ============================================================
+    // COMPONENT MODULE: TERMINAL ENGINE AND FILTER ACTIONS
+    // ============================================================
+    class MaterialListComponent {
+        constructor(state) {
+            this.state = state;
+            this.container = document.getElementById('materialListContainer');
+            this.searchField = document.getElementById('materialSearch');
+            this.init();
+        }
+
+        init() {
+            this.searchField.addEventListener('input', (e) => { this.state.searchQuery = e.target.value; });
+            
+            document.getElementById('blockSelector').addEventListener('click', (e) => {
+                const btn = e.target.closest('.block-btn');
+                if (!btn) return;
+                document.querySelectorAll('.block-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.state.activeBlock = btn.dataset.block;
+            });
+
+            this.container.addEventListener('click', (e) => {
+                const button = e.target.closest('.qty-btn');
+                if (!button) return;
+                const code = button.dataset.code;
+                if (button.classList.contains('plus-btn')) {
+                    this.state.addItem(code);
+                } else {
+                    this.state.removeItemByCode(code);
+                }
+            });
+        }
+
+        render() {
+            const query = this.state.searchQuery;
+            const block = this.state.activeBlock;
+
+            const filtered = CONFIG.MATERIALS.filter(m => {
+                const matchSearch = m.code.includes(query) || m.desc.toLowerCase().includes(query);
+                const matchBlock = block === 'all' || m.block === block;
+                return matchSearch && matchBlock;
+            });
+
+            if (filtered.length === 0) {
+                this.container.innerHTML = `<div class="office-empty">Keine Materialien gefunden...</div>`;
+                return;
+            }
+
+            this.container.innerHTML = filtered.map(m => {
+                const count = this.state.getItemCount(m.code);
+                return `
+                    <div class="material-item">
+                        <span class="code">${m.code}</span>
+                        <span class="desc">${m.desc}</span>
+                        <span class="container-badge">${m.container}</span>
+                        <div class="item-controls">
+                            <button class="qty-btn minus-btn" data-code="${m.code}" ${count === 0 ? 'disabled' : ''}>&minus;</button>
+                            <span class="item-count">${count}</span>
+                            <button class="qty-btn plus-btn" data-code="${m.code}">&plus;</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    }
+
+    // ============================================================
+    // COMPONENT MODULE: INDEX CARD STACK CAROUSEL VIEW
+    // ============================================================
+    class CardStackComponent {
+        constructor(state) {
+            this.state = state;
+            this.container = document.getElementById('cardStackContainer');
+            this.dotsContainer = document.getElementById('cardDots');
+            this.counter = document.getElementById('cardCounter');
+            this.countLabel = document.getElementById('cardCountLabel');
+            this.prevBtn = document.getElementById('cardPrevBtn');
+            this.nextBtn = document.getElementById('cardNextBtn');
+            
+            this.swipeData = { startX: 0, startY: 0, active: false };
+            this.init();
+        }
+
+        init() {
+            this.prevBtn.addEventListener('click', () => this.state.currentCardIndex--);
+            this.nextBtn.addEventListener('click', () => this.state.currentCardIndex++);
+            
+            this.dotsContainer.addEventListener('click', (e) => {
+                const dot = e.target.closest('.card-dot');
+                if (dot) this.state.currentCardIndex = parseInt(dot.dataset.index, 10);
+            });
+
+            this.setupGestures();
+        }
+
+        setupGestures() {
+            const start = (x, y) => {
+                if (this.state.basket.length === 0) return;
+                this.swipeData.startX = x;
+                this.swipeData.startY = y;
+                this.swipeData.active = true;
+            };
+
+            const move = (x) => {
+                if (!this.swipeData.active) return;
+                const deltaX = x - this.swipeData.startX;
+                const activeCard = this.container.querySelector('.card-item.active');
+                if (activeCard) {
+                    const clampX = Math.max(-100, Math.min(100, deltaX));
+                    activeCard.style.transform = `translateX(${clampX}px) rotate(${clampX * 0.03}deg)`;
+                    activeCard.style.transition = 'none';
+                }
+            };
+
+            const end = (x) => {
+                if (!this.swipeData.active) return;
+                this.swipeData.active = false;
+                const deltaX = x - this.swipeData.startX;
+                
+                const activeCard = this.container.querySelector('.card-item.active');
+                if (activeCard) activeCard.style.transform = '';
+
+                if (deltaX < -60 && this.state.currentCardIndex < this.state.basket.length - 1) {
+                    this.state.currentCardIndex++;
+                } else if (deltaX > 60 && this.state.currentCardIndex > 0) {
+                    this.state.currentCardIndex--;
+                } else {
+                    this.render();
+                }
+            };
+
+            this.container.addEventListener('touchstart', e => start(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+            this.container.addEventListener('touchmove', e => move(e.touches[0].clientX), { passive: true });
+            this.container.addEventListener('touchend', e => end(e.changedTouches[0].clientX), { passive: true });
+
+            this.container.addEventListener('mousedown', e => start(e.clientX, e.clientY));
+            window.addEventListener('mousemove', e => move(e.clientX));
+            window.addEventListener('mouseup', e => end(e.clientX));
+        }
+
+        render() {
+            const total = this.state.basket.length;
+            this.countLabel.textContent = total;
+
+            if (total === 0) {
+                this.container.innerHTML = `<div class="card-empty">Keine Karteikärtchen<br>Füge Materialien hinzu</div>`;
+                this.dotsContainer.innerHTML = '';
+                this.counter.textContent = '0 / 0';
+                this.prevBtn.disabled = true;
+                this.nextBtn.disabled = true;
+                return;
+            }
+
+            const activeIdx = this.state.currentCardIndex;
+            let cardsHtml = '<div class="card-stack">';
+            
+            this.state.basket.forEach((item, idx) => {
+                let pos = 'hidden';
+                if (idx === activeIdx) pos = 'active';
+                else if (idx === activeIdx - 1) pos = 'prev';
+                else if (idx === activeIdx + 1) pos = 'next';
+
+                cardsHtml += `
+                    <div class="card-item ${pos}" data-index="${idx}">
+                        <span class="card-index">${idx + 1} / ${total}</span>
+                        <div class="card-site">ASZ Asten · 106</div>
+                        <div><span class="card-code">${item.code}</span> · <span class="card-container">${item.container}</span></div>
+                        <div class="card-desc">${item.desc}</div>
+                        <div class="card-select-hint"><i class="fas fa-hand-pointer"></i> Zum Blättern wischen</div>
+                    </div>
+                `;
+            });
+            cardsHtml += '</div>';
+            this.container.innerHTML = cardsHtml;
+
+            let dotsHtml = '';
+            for (let i = 0; i < total; i++) {
+                dotsHtml += `<button class="card-dot ${i === activeIdx ? 'active' : ''}" data-index="${i}" aria-label="Karte ${i + 1}"></button>`;
+            }
+            this.dotsContainer.innerHTML = dotsHtml;
+
+            this.counter.textContent = `${activeIdx + 1} / ${total}`;
+            this.prevBtn.disabled = (activeIdx === 0);
+            this.nextBtn.disabled = (activeIdx === total - 1);
+        }
+    }
+
+    // ============================================================
+    // COMPONENT MODULE: FREIGHT MANIFEST TRACKING LOG MODULE
+    // ============================================================
+    class OfficeDashboardComponent {
+        constructor(state) {
+            this.state = state;
+            this.listContainer = document.getElementById('officeListContainer');
+            this.countBadge = document.getElementById('officeCount');
+            this.lastSync = document.getElementById('officeLastSync');
+            this.init();
+        }
+
+        init() {
+            this.listContainer.addEventListener('click', (e) => {
+                const delBtn = e.target.closest('.o-delete');
+                if (delBtn) this.state.removeItemById(delBtn.dataset.id);
+            });
+        }
+
+        render() {
+            const basket = this.state.basket;
+            this.countBadge.textContent = basket.length;
+
+            if (basket.length === 0) {
+                this.listContainer.innerHTML = `<div class="office-empty">Frachtliste leer...</div>`;
+                return;
+            }
+
+            this.listContainer.innerHTML = basket.map(item => `
+                <div class="office-item">
+                    <span class="o-code">${item.code}</span>
+                    <span class="o-desc">${item.desc}</span>
+                    <span class="o-container">${item.container}</span>
+                    <span class="o-time">${item.timestamp}</span>
+                    <button class="o-delete" data-id="${item.id}" title="Artikel löschen"><i class="fas fa-times-circle"></i></button>
+                </div>
+            `).join('');
+        }
+
+        updateSyncTimestamp() {
+            this.lastSync.textContent = `Stand: ${new Date().toLocaleTimeString('de-AT')}`;
+        }
+    }
+
+    // ============================================================
+    // APPLICATION SHELL INITIALIZATION PIPELINE
+    // ============================================================
+    function initApp() {
+        const state = new ASZState();
+        const themeManager = new ThemeManager();
+
+        const materialList = new MaterialListComponent(state);
+        const cardStack = new CardStackComponent(state);
+        const officeDashboard = new OfficeDashboardComponent(state);
+
+        const terminalPanel = document.getElementById('terminalPanel');
+        const cardPanel = document.getElementById('cardPanel');
+        const officePanel = document.getElementById('officePanel');
+        const viewTerminalBtn = document.getElementById('viewTerminalBtn');
+        const viewOfficeBtn = document.getElementById('viewOfficeBtn');
+
+        state.subscribe(() => {
+            materialList.render();
+            cardStack.render();
+            officeDashboard.render();
+        });
+
+        const switchView = (targetView) => {
+            state.activeView = targetView;
+            const isTerminal = targetView === 'terminal';
+            
+            viewTerminalBtn.classList.toggle('active', isTerminal);
+            viewOfficeBtn.classList.toggle('active', !isTerminal);
+            
+            terminalPanel.classList.toggle('hidden', !isTerminal);
+            cardPanel.classList.toggle('hidden', !isTerminal);
+            officePanel.classList.toggle('hidden', isTerminal);
+        };
+
+        viewTerminalBtn.addEventListener('click', () => switchView('terminal'));
+        viewOfficeBtn.addEventListener('click', () => switchView('office'));
+
+        document.getElementById('clearBasketBtn').addEventListener('click', () => state.clearAll());
+        
+        document.getElementById('addSampleBtn').addEventListener('click', () => {
+            const randomCodes = ['1000', '2100', '3200', '4031'];
+            randomCodes.forEach(code => state.addItem(code));
+        });
+
+        const syncBtn = document.getElementById('syncNowBtn');
+        const performMockSync = () => {
+            syncBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Syncing...';
+            syncBtn.disabled = true;
+            
+            setTimeout(() => {
+                syncBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Sync jetzt';
+                syncBtn.disabled = false;
+                officeDashboard.updateSyncTimestamp();
+                
+                document.getElementById('syncDot').className = 'dot';
+                document.getElementById('syncLabel').textContent = 'lokal · sync';
+                document.getElementById('footerSyncIcon').style.color = 'var(--dot-color)';
+                document.getElementById('footerSyncText').textContent = 'lokal · synchronisiert';
+            }, 1200);
+        };
+
+        syncBtn.addEventListener('click', performMockSync);
+        document.getElementById('deviceInfo').textContent = window.innerWidth < 860 ? '📱 Tablet' : '🖥️ PC';
+
+        state.notify();
+        officeDashboard.updateSyncTimestamp();
+
+        setInterval(performMockSync, 60000);
+        console.log('🔄 ASZ Asten System Modul erfolgreich gestartet.');
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+})();
+</script>
 
 </body>
 </html>
