@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASZ Etiketten-Druckstudio v2</title>
+    <title>LAVU OÖ - Etiketten-Druckstudio</title>
     <style>
         /* ==========================================
            BENUTZEROBERFLÄCHE (Wird nicht gedruckt)
@@ -25,13 +25,27 @@
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
         }
 
-        h2 {
-            margin-top: 0;
+        /* Neuer zweigeteilter Header */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 3px solid #6cb4db;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        .app-header-left {
+            margin: 0;
             color: #1a4b60;
             font-size: 1.6rem;
-            border-bottom: 3px solid #6cb4db;
-            padding-bottom: 8px;
-            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .app-header-right {
+            color: #5d6d7e;
+            font-size: 1.2rem;
+            font-weight: 600;
         }
 
         /* Modus-Umschalter (Tabs) */
@@ -95,6 +109,11 @@
             .form-group.full-width {
                 grid-column: span 1;
             }
+            .app-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
         }
 
         label {
@@ -120,12 +139,6 @@
             outline: none;
             border-color: #6cb4db;
             background-color: #fff;
-        }
-
-        input:disabled {
-            background-color: #e2e8f0;
-            color: #64748b;
-            cursor: not-allowed;
         }
 
         .btn-group {
@@ -226,7 +239,7 @@
         .label-middle .num {
             font-size: 30pt;
             font-weight: bold;
-            color: #54a0cc; /* Originalgetreues helleres Blau */
+            color: #54a0cc;
             letter-spacing: -0.5px;
             line-height: 1;
         }
@@ -282,7 +295,7 @@
                 height: auto;
             }
             .label {
-                border: none !important; /* Entfernt die Hilfslinien beim echten Druck */
+                border: none !important;
             }
             @page {
                 size: A4;
@@ -293,24 +306,33 @@
 </head>
 <body>
 
+    <!-- Steuerungspanel (wird beim Drucken komplett ausgeblendet) -->
     <div class="no-print-container">
-        <h2>ASZ Etiketten-Druckstudio</h2>
+        <!-- Neuer, zweigeteilter Headerbereich -->
+        <div class="app-header">
+            <div class="app-header-left">LAVU OÖ - Etiketten-Druckstudio</div>
+            <div class="app-header-right">106 - ASZ Asten</div>
+        </div>
         
+        <!-- Tab-Umschalter -->
         <div class="mode-switcher">
             <div id="tabSelect" class="mode-tab active" onclick="switchMode('select')">Sortiment-Auswahl</div>
             <div id="tabInput" class="mode-tab" onclick="switchMode('input')">Freie Eingabe (Sofort-Vorschau)</div>
         </div>
         
+        <!-- SEKTION 1: AUSWAHL-MODUS -->
         <div id="sectionSelect" class="form-section active">
             <div class="form-grid">
                 <div class="form-group full-width">
                     <label for="sortimentSelect">Abfallart aus Sortiment wählen:</label>
                     <select id="sortimentSelect" onchange="handlePresetSelection()">
-                        </select>
+                        <!-- Wird dynamisch durch JS befüllt -->
+                    </select>
                 </div>
             </div>
         </div>
 
+        <!-- SEKTION 2: MANUELLER INPUT-MODUS -->
         <div id="sectionInput" class="form-section">
             <div class="form-grid">
                 <div class="form-group">
@@ -330,10 +352,11 @@
             </div>
         </div>
 
+        <!-- GEMEINSAME KONFIGURATION -->
         <div class="form-grid" style="border-top: 1px dashed #e2e8f0; padding-top: 20px;">
             <div class="form-group">
-                <label for="inputTop">Kopfzeile (rechts):</label>
-                <input type="text" id="inputTop" value="ASZ Asten · 106" oninput="updatePreview()">
+                <label for="inputTop">Kopfzeile auf Etikett (rechts):</label>
+                <input type="text" id="inputTop" value="106 - ASZ Asten" oninput="updatePreview()">
             </div>
 
             <div class="form-group">
@@ -354,13 +377,15 @@
 
     <div class="preview-title">Live-Druckvorschau (A4-Bogen)</div>
 
+    <!-- Das simulierte A4-Blatt -->
     <div class="page-container">
         <div class="print-sheet" id="labelSheet">
-            </div>
+            <!-- Inhalt wird dynamisch generiert -->
+        </div>
     </div>
 
     <script>
-        // Erweitertes Sortiment mit zugewiesenen Standard-Behältern/Zusätzen ("Zusatz Mitte")
+        // Erweitertes Sortiment mit zugewiesenen Standard-Behältern/Zusätzen
         const sortimentData = [
             { artNr: "4040", bez: "Elektro-Kleingeräte (ohne Akku)", zusatzMitte: "QR-Box" },
             { artNr: "4010", bez: "Elektro-Großgeräte", zusatzMitte: "Gitterbox" },
@@ -381,15 +406,13 @@
             { artNr: "4320", bez: "Altöle", zusatzMitte: "Tank" }
         ];
 
-        let aktuellerModus = 'select'; // 'select' oder 'input'
+        let aktuellerModus = 'select';
 
         window.onload = function() {
             initDropdown();
-            // Initialen Zustand laden
             handlePresetSelection();
         };
 
-        // Befüllt das Dropdown-Menü
         function initDropdown() {
             const select = document.getElementById('sortimentSelect');
             select.innerHTML = '';
@@ -402,15 +425,12 @@
             });
         }
 
-        // Steuert das Umschalten der Bedienmodi
         function switchMode(mode) {
             aktuellerModus = mode;
             
-            // UI-Tabs updaten
             document.getElementById('tabSelect').classList.toggle('active', mode === 'select');
             document.getElementById('tabInput').classList.toggle('active', mode === 'input');
             
-            // Formular-Sektionen ein-/ausblenden
             document.getElementById('sectionSelect').classList.toggle('active', mode === 'select');
             document.getElementById('sectionInput').classList.toggle('active', mode === 'input');
             
@@ -421,7 +441,6 @@
             }
         }
 
-        // Wird aufgerufen, wenn im Dropdown etwas gewählt wird
         function handlePresetSelection() {
             const select = document.getElementById('sortimentSelect');
             const index = select.value;
@@ -429,20 +448,17 @@
             if (index !== "" && sortimentData[index]) {
                 const item = sortimentData[index];
                 
-                // Setze die Werte im Hintergrund auch in die Inputfelder (Synchronisation)
                 document.getElementById('inputArtNr').value = item.artNr;
-                document.getElementById('inputSuffix').value = item.zusatzMitte; // Zusatz Mitte automatisch!
+                document.getElementById('inputSuffix').value = item.zusatzMitte;
                 document.getElementById('inputBezeichnung').value = item.bez;
             }
             updatePreview();
         }
 
-        // Hauptfunktion zur Generierung des Druckbogens (Sofort-Vorschau)
         function updatePreview() {
             const sheet = document.getElementById('labelSheet');
-            sheet.innerHTML = ''; // Vorherigen Inhalt löschen
+            sheet.innerHTML = '';
 
-            // Werte auslesen (kommen entweder aus dem Sync der Auswahl oder direkter Eingabe)
             const topText = document.getElementById('inputTop').value;
             const artNr = document.getElementById('inputArtNr').value;
             const suffix = document.getElementById('inputSuffix').value;
@@ -451,7 +467,7 @@
             const count = Math.max(1, parseInt(document.getElementById('inputCount').value) || 1);
             const startPos = Math.max(1, parseInt(document.getElementById('inputStartPos').value) || 1);
 
-            // 1. Übersprungene Etiketten (für angebrochene Bögen) generieren
+            // 1. Übersprungene Etiketten
             for (let i = 1; i < startPos; i++) {
                 if (sheet.children.length >= 27) break;
                 let emptyCell = document.createElement('div');
@@ -459,14 +475,13 @@
                 sheet.appendChild(emptyCell);
             }
 
-            // 2. Zu druckende Etiketten generieren
+            // 2. Zu druckende Etiketten
             for (let i = 0; i < count; i++) {
                 if (sheet.children.length >= 27) break;
 
                 let label = document.createElement('div');
                 label.className = 'label';
 
-                // Struktur exakt nach Vorgabe-Bild
                 label.innerHTML = `
                     <div class="label-top">${topText}</div>
                     <div class="label-middle">
@@ -479,7 +494,7 @@
                 sheet.appendChild(label);
             }
 
-            // 3. Den Rest des 27er-Rasters auffüllen
+            // 3. Den Rest auffüllen
             while (sheet.children.length < 27) {
                 let emptyCell = document.createElement('div');
                 emptyCell.className = 'label empty';
