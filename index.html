@@ -2,438 +2,179 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASZ Logistik: Terminal & Dashboard</title>
+    <title>ASZ Abfall-Etiketten</title>
     <style>
-        :root {
-            --bg-primary: #f4f6f9;
-            --sidebar-bg: #1e293b;
-            --sidebar-text: #f8fafc;
-            --accent-color: #3b82f6;
-            --accent-hover: #2563eb;
-            --text-main: #334155;
-            --text-muted: #64748b;
-            --card-bg: #ffffff;
-            --border-color: #e2e8f0;
-            --success: #10b981;
+        @page {
+            size: A4;
+            margin: 10mm;
         }
-
-        * {
-            box-sizing: border-box;
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #ffffff;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
-
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-main);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
+        .grid {
+            display: table;
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 10px;
         }
-
-        /* Seitennavigation */
-        .sidebar {
-            width: 260px;
-            background-color: var(--sidebar-bg);
-            color: var(--sidebar-text);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 24px;
+        .row {
+            display: table-row;
         }
-
-        .brand {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #fff;
-        }
-
-        .brand-icon {
-            width: 12px;
-            height: 12px;
-            background-color: var(--accent-color);
-            border-radius: 50%;
-            display: inline-block;
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-
-        .nav-menu {
-            list-style: none;
-            flex-grow: 1;
-        }
-
-        .nav-item {
-            padding: 12px 16px;
+        .label {
+            display: table-cell;
+            width: 48%;
+            height: 140px;
+            border: 2px dashed #999;
             border-radius: 8px;
-            cursor: pointer;
-            margin-bottom: 8px;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 500;
-            color: #94a3b8;
+            padding: 12px;
+            vertical-align: top;
+            box-sizing: border-box;
+            background-color: #fafafa;
+            page-break-inside: avoid;
         }
-
-        .nav-item:hover, .nav-item.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #fff;
-        }
-
-        .nav-item.active {
-            background-color: var(--accent-color);
-        }
-
-        .sidebar-footer {
-            font-size: 12px;
-            color: #64748b;
-            border-top: 1px solid #334155;
-            padding-top: 16px;
-        }
-
-        /* Hauptinhalt */
-        .main-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .header-bar {
-            background-color: #fff;
-            padding: 16px 32px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .page-title {
-            font-size: 22px;
-            font-weight: 600;
-            color: #0f172a;
-        }
-
-        .system-status {
-            font-size: 14px;
-            color: var(--success);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background-color: #ecfdf5;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: 500;
-        }
-
-        .workspace {
-            padding: 32px;
-            overflow-y: auto;
-            flex-grow: 1;
-        }
-
-        .view-panel {
-            display: none;
-        }
-
-        .view-panel.active {
-            display: block;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1.1fr;
-            gap: 24px;
-        }
-
-        .card {
-            background: #fff;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            padding: 24px;
-            margin-bottom: 24px;
-        }
-
-        .card-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #1e293b;
-            border-bottom: 2px solid var(--bg-primary);
-            padding-bottom: 10px;
-        }
-
-        /* Formular-Elemente */
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 6px;
-            color: var(--text-main);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .form-control:focus {
-            border-color: var(--accent-color);
-        }
-
-        .btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            font-size: 15px;
-        }
-
-        .btn:hover {
-            background-color: var(--accent-hover);
-        }
-
-        /* Vorschau-Bereich */
-        .preview-box {
-            background: #f8fafc;
-            border: 2px dashed #cbd5e1;
-            border-radius: 12px;
-            min-height: 340px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-        }
-
-        /* ORIGINAL-DESIGN NACHBILDUNG (image_ac1198.png) */
-        .modern-premium-label {
-            width: 100%;
-            max-width: 440px;
-            background-color: #0b1d28;
-            color: #ffffff;
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 12px 24px rgba(11, 29, 40, 0.3);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            aspect-ratio: 1.65 / 1;
-        }
-
-        .label-badge-top {
-            position: absolute;
-            top: 20px;
-            left: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 3px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            color: #728a96;
-            font-weight: 500;
-        }
-
-        .label-main-content {
-            text-align: right;
-            margin-top: 14px;
-        }
-
-        .label-location {
-            font-size: 24px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 4px;
-        }
-
-        .label-code-row {
-            font-size: 34px;
-            font-weight: 700;
-            color: #49a5e9;
-        }
-
-        .label-type-modifier {
-            font-size: 18px;
-            font-weight: 400;
-            color: #637b88;
-        }
-
-        .label-description {
-            font-size: 18px;
-            color: #8fa3ae;
-            font-weight: 400;
-            margin-top: 4px;
-        }
-
-        .label-action-pill {
-            align-self: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 6px 22px;
-            border-radius: 20px;
-            font-size: 12px;
-            color: #556c7a;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: auto;
-            background-color: rgba(255, 255, 255, 0.02);
-        }
-
-        /* Dashboard KPIs */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 24px;
-        }
-
-        .stat-card {
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-bottom: 6px;
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #0f172a;
-        }
-
-        /* Register-Tabelle */
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        .fracht-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 14px;
-        }
-
-        .fracht-table th {
-            background-color: #f8fafc;
-            color: var(--text-muted);
-            padding: 14px 16px;
-            font-weight: 600;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .fracht-table td {
-            padding: 14px 16px;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--text-main);
-        }
-
-        .fracht-table tr:hover {
-            background-color: #f8fafc;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 4px 8px;
+        .label-header {
+            font-size: 10pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 6px 8px;
             border-radius: 4px;
-            font-size: 12px;
-            font-weight: 500;
+            color: #fff;
+            margin-bottom: 8px;
+            text-align: center;
+            letter-spacing: 0.5px;
         }
-
-        .badge-success { background-color: #e6f4ea; color: #137333; }
-        .badge-info { background-color: #e8f0fe; color: #1a73e8; }
-
-        /* Druckoptimierung */
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            #printArea, #printArea * {
-                visibility: visible;
-            }
-            #printArea {
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%) scale(1.3);
-                border: none;
-                box-shadow: none;
-            }
+        .label-title {
+            font-size: 16pt;
+            font-weight: bold;
+            color: #111;
+            margin: 6px 0 4px 0;
         }
+        .label-desc {
+            font-size: 9.5pt;
+            color: #444;
+            line-height: 1.3;
+        }
+        .label-footer {
+            font-size: 8pt;
+            color: #777;
+            margin-top: 10px;
+            text-align: right;
+            border-top: 1px solid #ddd;
+            padding-top: 4px;
+        }
+        
+        /* Farbcodierung nach ASZ / LAVU Standard */
+        .bg-wiederverwendung { background-color: #2e7d32; } /* Grün */
+        .bg-verpackung { background-color: #1565c0; }       /* Blau */
+        .bg-altstoffe { background-color: #ef6c00; }        /* Orange */
+        .bg-elektro { background-color: #00838f; }          /* Cyan/Teal */
+        .bg-batterien { background-color: #c62828; }        /* Rot */
+        .bg-gefahrgut { background-color: #37474f; }        /* Dunkelgrau */
+        .bg-beseitigung { background-color: #6a1b9a; }      /* Lila */
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <div>
-            <div class="brand">
-                <div class="brand-icon"></div>
-                <span>ASZ LOGISTIK</span>
+    <div style="text-align: center; margin-bottom: 20px; font-size: 11pt; color: #666; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+        <strong>ASZ Sortier- und Drucketiketten</strong> (A4 Drucklayout — Schneidekanten gestrichelt)
+    </div>
+
+    <div class="grid">
+        <div class="row">
+            <div class="label">
+                <div class="label-header bg-wiederverwendung">Sammlung zur Wiederverwendung</div>
+                <div class="label-title">Textilien & Schuhe</div>
+                <div class="label-desc">Saubere Kleidung, Schuhe (paarweise gebündelt), Taschen und Heimtextilien.</div>
+                <div class="label-footer">Art.Nr. 1000/1005 • ASZ-Richtlinie</div>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item active" onclick="switchView('terminal', this)">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M21 9H3M9 21V9"/></svg>
-                    Druck-Terminal
-                </li>
-                <li class="nav-item" onclick="switchView('dashboard', this)">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17l-6-6-4 4-4-4"/></svg>
-                    Office Dashboard
-                </li>
-            </ul>
+            <div class="label">
+                <div class="label-header bg-verpackung">Verpackungen (Stoffliche Verwertung)</div>
+                <div class="label-title">Kartonagen & Papier</div>
+                <div class="label-desc">Altpapier, Druckerpapier, saubere Kartons und Verpackungsschachteln (flachgefaltet).</div>
+                <div class="label-footer">Art.Nr. 2100 • ASZ-Richtlinie</div>
+            </div>
         </div>
-        <div class="sidebar-footer">
-            System v2.5 &copy; 2026<br>
-            ASZ Annahme-Register
+
+        <div class="row">
+            <div class="label">
+                <div class="label-header bg-verpackung">Verpackungen (Stoffliche Verwertung)</div>
+                <div class="label-title">Metallverpackungen</div>
+                <div class="label-desc">Getränkedosen, Konservendosen, Alufolien und metallische Verschlüsse (restentleert).</div>
+                <div class="label-footer">Art.Nr. 2200/2210 • ASZ-Richtlinie</div>
+            </div>
+            <div class="label">
+                <div class="label-header bg-verpackung">Verpackungen (Stoffliche Verwertung)</div>
+                <div class="label-title">Kunststoff-Verpackungen</div>
+                <div class="label-desc">PET-Flaschen, Becher, Folien, Shampooflaschen und restentleerte Kunststoffkanister.</div>
+                <div class="label-footer">Art.Nr. 2540 • ASZ-Richtlinie</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="label">
+                <div class="label-header bg-altstoffe">Altstoffe (Stoffliche Verwertung)</div>
+                <div class="label-title">Alteisen / Altmetall</div>
+                <div class="label-desc">Mischschrott, Fahrräder, Werkzeuge, Bleche und Träger aus Metall (ohne Fremdstoffe).</div>
+                <div class="label-footer">Art.Nr. 3200 • ASZ-Richtlinie</div>
+            </div>
+            <div class="label">
+                <div class="label-header bg-altstoffe">Altstoffe (Stoffliche Verwertung)</div>
+                <div class="label-title">Flachglas</div>
+                <div class="label-desc">Fensterglas, Autoscheiben (ohne Rahmen), Spiegel und Verbundglas. Nicht für Flaschen!</div>
+                <div class="label-footer">Art.Nr. 3300 • ASZ-Richtlinie</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="label">
+                <div class="label-header bg-elektro">Elektroaltgeräte (Verwertung)</div>
+                <div class="label-title">Elektro-Großgeräte</div>
+                <div class="label-desc">Waschmaschinen, Trockner, Geschirrspüler, Herde und sonstige Großgeräte.</div>
+                <div class="label-footer">Art.Nr. 4010 • ASZ-Richtlinie</div>
+            </div>
+            <div class="label">
+                <div class="label-header bg-elektro">Elektroaltgeräte (Verwertung)</div>
+                <div class="label-title">Kühlgeräte & Monitore</div>
+                <div class="label-desc">Kühlschränke, Gefriertruhen, Klimageräte sowie Bildschirme und TV-Geräte.</div>
+                <div class="label-footer">Art.Nr. 4020/4040 • ASZ-Richtlinie</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="label">
+                <div class="label-header bg-batterien">Batterien (Verwertung)</div>
+                <div class="label-title">Gerätebatterien & Lithium</div>
+                <div class="label-desc">Haushaltsbatterien, Knopfzellen, Akkus aus Werkzeugen und Smartphones (Pole abkleben).</div>
+                <div class="label-footer">Art.Nr. 4100/4110 • ASZ-Richtlinie</div>
+            </div>
+            <div class="label">
+                <div class="label-header bg-gefahrgut">Gefährliche Abfälle (Problemstoffe)</div>
+                <div class="label-title">Altöle & Chemikalien</div>
+                <div class="label-desc">Motorenöle, Schmierstoffe, Säuren, Laugen, Lösemittel und flüssige Werkstattabfälle.</div>
+                <div class="label-footer">Art.Nr. 4200/4260 • ASZ-Richtlinie</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="label">
+                <div class="label-header bg-beseitigung">Sammlung zur Beseitigung</div>
+                <div class="label-title">Asbestzement (Eternit)</div>
+                <div class="label-desc">Faserzementplatten, Dachplatten und Rohre (nur staubdicht verpackt zugelassen).</div>
+                <div class="label-footer">Art.Nr. 4421 • ASZ-Beseitigung</div>
+            </div>
+            <div class="label">
+                <div class="label-header bg-beseitigung">Sammlung zur Beseitigung</div>
+                <div class="label-title">Mineralwolle (KMF)</div>
+                <div class="label-desc">Glaswolle, Steinwolle und Dämmmaterialien. Nur im zugelassenen Sammelsack!</div>
+                <div class="label-footer">Art.Nr. 4380 • ASZ-Beseitigung</div>
+            </div>
         </div>
     </div>
 
-    <div class="main-content">
-        <div class="header-bar">
-            <div class="page-title" id="page-title-text">Etikettendruck Terminal</div>
-            <div class="system-status">
-                <span style="width: 8px; height: 8px; background-color: var(--success); border-radius: 50%; display: inline-block;"></span>
-                Smart-Printer Online
-            </div>
-        </div>
-
-        <div class="workspace">
-            
-            <div id="view-terminal" class="view-panel active">
-                <div class="grid-2">
-                    <div class="card">
-                        <div class="card-title">Frachtdaten erfassen</div>
-                        <form id="labelForm" onsubmit="generateLabel(event)">
-                            <div class="form-group">
-                                <label for="
+</body>
+</html>
