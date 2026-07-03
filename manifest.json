@@ -9,13 +9,13 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "https://avatars.githubusercontent.com/u/297924413?s=192&v=4",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "icon-512.png",
+      "src": "https://avatars.githubusercontent.com/u/297924413?s=512&v=4",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
