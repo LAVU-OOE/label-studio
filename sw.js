@@ -31,7 +31,6 @@ self.addEventListener('activate', (event) => {
         })
     );
 });
-
 // Fetch-Event: Netzwerk-Anfragen abfangen und aus dem Cache bedienen (Offline-Support)
 self.addEventListener('fetch', (event) => {
     event.respondWith(
