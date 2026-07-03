@@ -1,4 +1,4 @@
-<!--unformatted-->
+<!--labels-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -544,6 +544,7 @@
             justify-content: flex-end;
             margin-top: auto;
             margin-bottom: auto;
+            white-space: nowrap; /* Verhindert das Umbrechen von Nummer, Punkt und Suffix */
         }
 
         .label-middle .num {
@@ -629,7 +630,6 @@
                 width: 210mm !important;
                 height: 297mm !important;
             }
-            /* Borders kept unformatted/visible for now as requested */
             @page {
                 size: A4;
                 margin: 0;
