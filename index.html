@@ -1031,14 +1031,50 @@
             labelSheetDirect.innerHTML = HTMLContent;
         }
     </script>
-    <script>
+<script>
+    let deferredPrompt;
+
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('Service Worker registriert!', reg))
+                .then(reg => console.log('Service Worker erfolgreich registriert!', reg))
                 .catch(err => console.error('Service Worker Registrierung fehlgeschlagen:', err));
         });
     }
+
+    // Installations-Event abfangen (Gehört in den Haupt-Thread!)
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        // Zeige den Installations-Banner an
+        const banner = document.getElementById('pwaBanner');
+        if (banner) banner.style.display = 'flex';
+    });
+
+    // Klick auf den Installations-Button handhaben
+    const installBtn = document.getElementById('btnPwaInstall');
+    if (installBtn) {
+        installBtn.addEventListener('click', () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User hat die Installation akzeptiert.');
+                    }
+                    const banner = document.getElementById('pwaBanner');
+                    if (banner) banner.style.display = 'none';
+                    deferredPrompt = null;
+                });
+            }
+        });
+    }
+
+    // Banner ausblenden, falls bereits erfolgreich installiert
+    window.addEventListener('appinstalled', () => {
+        console.log('LAVU v8 App wurde erfolgreich installiert.');
+        const banner = document.getElementById('pwaBanner');
+        if (banner) banner.style.display = 'none';
+    });
 </script>
 </body>
 </html>
