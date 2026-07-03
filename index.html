@@ -446,7 +446,7 @@
 
         /* ==========================================
            DRUCK-LAYOUT – HERMA 4473 (70 x 41 mm)
-           3 Spalten × 10 Zeilen = 30 Etiketten
+           3 Spalten × 7 Zeilen = 21 Etiketten
            ========================================== */
         .page-container {
             background: #ffffff;
@@ -460,10 +460,10 @@
             width: 210mm;
             height: 297mm;
             box-sizing: border-box;
-            padding: 5mm 4mm 4mm 4mm; /* Oberer, linker, rechter, unterer Rand */
+            padding: 5mm 0mm 5mm 0mm; /* 7 Spalten à 41mm = 287mm -> 10mm Rest vertikal (5mm oben/unten) */
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(10, 1fr);
+            grid-template-columns: repeat(3, 1fr); /* 3 Spalten à 70mm = 210mm (Randlos links/rechts) */
+            grid-template-rows: repeat(7, 1fr);
             gap: 0;
             background: white;
         }
@@ -783,17 +783,17 @@
                 <div class="form-group">
                     <label for="inputCount">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
-                        Anzahl Etiketten (max. 30):
+                        Anzahl Etiketten (max. 21):
                     </label>
-                    <input type="number" id="inputCount" value="9" min="1" max="30" oninput="updatePreview()" />
+                    <input type="number" id="inputCount" value="9" min="1" max="21" oninput="updatePreview()" />
                 </div>
 
                 <div class="form-group">
                     <label for="inputStartPos">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                        Start-Position (1-30):
+                        Start-Position (1-21):
                     </label>
-                    <input type="number" id="inputStartPos" value="1" min="1" max="30" oninput="updatePreview()" />
+                    <input type="number" id="inputStartPos" value="1" min="1" max="21" oninput="updatePreview()" />
                 </div>
             </div>
 
@@ -848,7 +848,7 @@
     <div id="previewModal" class="modal-backdrop" onclick="closePreviewModalViaBackdrop(event)">
         <div class="modal-content preview-modal-content">
             <div class="modal-header">
-                <span>Vollbild-Druckvorschau (A4-Bogen – HERMA 4473, 30 Etiketten)</span>
+                <span>Vollbild-Druckvorschau (A4-Bogen – HERMA 4473, 21 Etiketten)</span>
                 <button class="btn-close-x" onclick="closePreviewModal()">&times;</button>
             </div>
 
@@ -995,8 +995,8 @@
                 try {
                     const defaults = JSON.parse(saved);
                     if (defaults.topText !== undefined) document.getElementById('inputTop').value = defaults.topText;
-                    if (defaults.count !== undefined) document.getElementById('inputCount').value = defaults.count;
-                    if (defaults.startPos !== undefined) document.getElementById('inputStartPos').value = defaults.startPos;
+                    if (defaults.count !== undefined) document.getElementById('inputCount').value = Math.min(21, defaults.count);
+                    if (defaults.startPos !== undefined) document.getElementById('inputStartPos').value = Math.min(21, defaults.startPos);
                     if (defaults.artNr !== undefined) document.getElementById('inputArtNr').value = defaults.artNr;
                     if (defaults.suffix !== undefined) document.getElementById('inputSuffix').value = defaults.suffix;
                     if (defaults.bezeichnung !== undefined) document.getElementById('inputBezeichnung').value = defaults
@@ -1018,7 +1018,7 @@
         }
 
         // ============================================================
-        // RENDER – 30 Etiketten (3 × 10)
+        // RENDER – 21 Etiketten (3 × 7)
         // ============================================================
         function updatePreview() {
             const thumbnailSheet = document.getElementById('thumbnailSheet');
@@ -1039,8 +1039,8 @@
             document.getElementById('sumArtNr').innerHTML = artNr;
             document.getElementById('sumSuffix').innerHTML = suffix;
 
-            const count = Math.max(1, Math.min(30, parseInt(document.getElementById('inputCount').value) || 1));
-            const startPos = Math.max(1, Math.min(30, parseInt(document.getElementById('inputStartPos').value) || 1));
+            const count = Math.max(1, Math.min(21, parseInt(document.getElementById('inputCount').value) || 1));
+            const startPos = Math.max(1, Math.min(21, parseInt(document.getElementById('inputStartPos').value) || 1));
 
             document.getElementById('sumMenge').innerHTML = `${count}x (ab Position ${startPos})`;
 
@@ -1053,7 +1053,7 @@
 
             // 2. Bedruckte Etiketten
             for (let i = 0; i < count; i++) {
-                if ((startPos - 1 + i) >= 30) break;
+                if ((startPos - 1 + i) >= 21) break;
                 HTMLContent += `
                     <div class="label">
                         <div class="label-top">${topText}</div>
@@ -1069,7 +1069,7 @@
 
             // 3. Rest auffüllen
             let currentCells = startPos - 1 + count;
-            while (currentCells < 30) {
+            while (currentCells < 21) {
                 HTMLContent += `<div class="label empty"></div>`;
                 currentCells++;
             }
@@ -1080,4 +1080,4 @@
         }
     </script>
 </body>
-</html><!--071177-->
+</html><!--1977-->
