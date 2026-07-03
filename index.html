@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--https://github.com/7pub/--><!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8" />
@@ -460,9 +460,9 @@
             width: 210mm;
             height: 297mm;
             box-sizing: border-box;
-            padding: 5mm 0mm 5mm 0mm; /* 7 Spalten à 41mm = 287mm -> 10mm Rest vertikal (5mm oben/unten) */
+            padding: 5mm 0mm 5mm 0mm;
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 Spalten à 70mm = 210mm (Randlos links/rechts) */
+            grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(7, 1fr);
             gap: 0;
             background: white;
@@ -483,24 +483,27 @@
             overflow: hidden;
         }
 
+        /* 1. Label-top: Schrift leicht vergrößert */
         .label-top {
             text-align: right;
-            font-size: 9pt;
+            font-size: 11pt;
             font-weight: bold;
             color: #1a4b60;
             letter-spacing: 0.3px;
         }
 
+        /* 2. Label-middle: Vertikal exakt mittig zentriert */
         .label-middle {
             display: flex;
-            align-items: baseline;
+            align-items: center;
             justify-content: flex-end;
-            margin-top: -2mm;
+            margin-top: auto;
             margin-bottom: auto;
         }
 
+        /* Schriftgröße der Nummer dezent reduziert */
         .label-middle .num {
-            font-size: 24pt;
+            font-size: 21pt;
             font-weight: bold;
             color: #54a0cc;
             letter-spacing: -0.5px;
@@ -508,22 +511,22 @@
         }
 
         .label-middle .sep {
-            font-size: 18pt;
+            font-size: 16pt;
             color: #1a4b60;
             font-weight: bold;
-            margin: 0 6px;
-            position: relative;
-            top: -2px;
+            margin: 0 5px;
         }
 
         .label-middle .suffix {
-            font-size: 14pt;
+            font-size: 13pt;
             font-weight: bold;
             color: #1a4b60;
         }
 
+        /* 3. Label-bottom: Schrift verkleinert und kursiv */
         .label-bottom {
-            font-size: 10pt;
+            font-size: 9pt;
+            font-style: italic;
             text-align: right;
             color: #111111;
             font-weight: bold;
@@ -651,7 +654,7 @@
                     </button>
 
                     <button class="btn-secondary" onclick="openSettings()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1-2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                         Einstellungen
                     </button>
                 </div>
@@ -660,7 +663,6 @@
         </div>
     </div>
 
-    <!-- ===== SETTINGS MODAL ===== -->
     <div id="settingsModal" class="modal-backdrop" onclick="closeSettingsViaBackdrop(event)">
         <div class="modal-content">
             <div class="modal-header">
@@ -704,77 +706,6 @@
                         <option value="ASZ Bad Hall">ASZ Bad Hall</option>
                         <option value="ASZ Garsten">ASZ Garsten</option>
                         <option value="ASZ Sierning">ASZ Sierning</option>
-                    </optgroup>
-                    <optgroup label="Bezirk Braunau">
-                        <option value="ASZ Braunau">ASZ Braunau</option>
-                        <option value="ASZ Altheim">ASZ Altheim</option>
-                        <option value="ASZ Eggelsberg">ASZ Eggelsberg</option>
-                        <option value="ASZ Mattighofen">ASZ Mattighofen</option>
-                        <option value="ASZ Mauerkirchen">ASZ Mauerkirchen</option>
-                    </optgroup>
-                    <optgroup label="Bezirk Eferding">
-                        <option value="ASZ Eferding">ASZ Eferding</option>
-                        <option value="ASZ Alkoven">ASZ Alkoven</option>
-                    </optgroup>
-                    <optgroup label="Bezirk Freistadt">
-                        <option value="ASZ Freistadt">ASZ Freistadt</option>
-                        <option value="ASZ Pregarten">ASZ Pregarten</option>
-                        <option value="ASZ Tragwein">ASZ Tragwein</option>
-                        <option value="ASZ Unterweißenbach">ASZ Unterweißenbach</option>
-                    </optgroup>
-                    <optgroup label="Bezirk Gmunden">
-                        <option value="ASZ Gmunden">ASZ Gmunden</option>
-                        <option value="ASZ Altmünster">ASZ Altmünster</option>
-                        <option value="ASZ Bad Ischl">ASZ Bad Ischl</option>
-                        <option value="ASZ Ebensee">ASZ Ebensee</option>
-                        <option value="ASZ Vorchdorf">ASZ Vorchdorf</option>
-                    </optgroup>
-                    <optgroup label="Bezirk Grieskirchen">
-                        <option value="ASZ Grieskirchen">ASZ Grieskirchen</option>
-                        <option value="ASZ Bad Schallerbach">ASZ Bad Schallerbach</option>
-                        <option value="ASZ Peuerbach">ASZ Peuerbach</option>
-                    </optgroup>
-                    <optgroup label="Bezirk Kirchdorf">
-                        <option value="ASZ Kirchdorf">ASZ Kirchdorf</option>
-                        <option value="ASZ Micheldorf">ASZ Micheldorf</option>
-                        <option value="ASZ Pettenbach">ASZ Pettenbach</option>
-                        <option value="ASZ Windischgarsten">ASZ Windischgarsten</option>
-                    </optgroup>
-                    <optgroup label="Bezirk Perg">
-                        <option value="ASZ Perg">ASZ Perg</option>
-                        <option value="ASZ Grein">ASZ Grein</option>
-                        <option value="ASZ Schwertberg">ASZ Schwertberg</option>
-                        <option value="ASZ St. Georgen/Gusen">ASZ St. Georgen/Gusen</option>
-                    </optgroup>
-                    <optgroup label="Bezirk Ried">
-                        <option value="ASZ Ried im Innkreis">ASZ Ried im Innkreis</option>
-                        <option value="ASZ Mettmach">ASZ Mettmach</option>
-                        <option value="ASZ Obernberg">ASZ Obernberg</option>
-                    </optgroup>
-                    <optgroup label="Bezirk Rohrbach">
-                        <option value="ASZ Rohrbach">ASZ Rohrbach</option>
-                        <option value="ASZ Lembach">ASZ Lembach</option>
-                        <option value="ASZ Neufelden">ASZ Neufelden</option>
-                        <option value="ASZ Ulrichsberg">ASZ Ulrichsberg</option>
-                    </optgroup>
-                    <optgroup label="Bezirk Schärding">
-                        <option value="ASZ Schärding">ASZ Schärding</option>
-                        <option value="ASZ Andorf">ASZ Andorf</option>
-                        <option value="ASZ Engelhartszell">ASZ Engelhartszell</option>
-                    </optgroup>
-                    <optgroup label="Bezirk Urfahr-Umgebung">
-                        <option value="ASZ Bad Leonfelden">ASZ Bad Leonfelden</option>
-                        <option value="ASZ Gallneukirchen">ASZ Gallneukirchen</option>
-                        <option value="ASZ Ottensheim">ASZ Ottensheim</option>
-                        <option value="ASZ Steyregg">ASZ Steyregg</option>
-                    </optgroup>
-                    <optgroup label="Bezirk Vöcklabruck">
-                        <option value="ASZ Vöcklabruck">ASZ Vöcklabruck</option>
-                        <option value="ASZ Attnang-Puchheim">ASZ Attnang-Puchheim</option>
-                        <option value="ASZ Frankenmarkt">ASZ Frankenmarkt</option>
-                        <option value="ASZ Lenzing">ASZ Lenzing</option>
-                        <option value="ASZ Mondsee">ASZ Mondsee</option>
-                        <option value="ASZ Schwanenstadt">ASZ Schwanenstadt</option>
                     </optgroup>
                 </select>
             </div>
@@ -844,7 +775,6 @@
         </div>
     </div>
 
-    <!-- ===== PREVIEW MODAL ===== -->
     <div id="previewModal" class="modal-backdrop" onclick="closePreviewModalViaBackdrop(event)">
         <div class="modal-content preview-modal-content">
             <div class="modal-header">
@@ -868,7 +798,6 @@
         </div>
     </div>
 
-    <!-- ===== HIDDEN PRINT CONTAINER ===== -->
     <div id="hiddenPrintContainer">
         <div class="page-container">
             <div class="print-sheet" id="labelSheetDirect"></div>
@@ -1080,4 +1009,4 @@
         }
     </script>
 </body>
-</html><!--1977-->
+</html>
