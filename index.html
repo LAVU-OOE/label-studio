@@ -1,4 +1,4 @@
-<!--https://github.com/7pub/--><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8" />
@@ -177,6 +177,41 @@
             text-transform: uppercase;
             letter-spacing: 0.8px;
             margin-bottom: 12px;
+        }
+
+        /* Sortiment-Auswahl auf der Frontpage */
+        .frontpage-selection {
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .frontpage-selection label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .frontpage-selection select {
+            padding: 12px 14px;
+            border: 2px solid #6cb4db;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a4b60;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(108, 180, 219, 0.1);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .frontpage-selection select:focus {
+            outline: none;
+            border-color: #1a4b60;
+            box-shadow: 0 0 0 3px rgba(26, 75, 96, 0.15);
         }
 
         .summary-box {
@@ -446,7 +481,6 @@
 
         /* ==========================================
            DRUCK-LAYOUT – HERMA 4473 (70 x 41 mm)
-           3 Spalten × 7 Zeilen = 21 Etiketten
            ========================================== */
         .page-container {
             background: #ffffff;
@@ -468,7 +502,6 @@
             background: white;
         }
 
-        /* Jedes Etikett: 70 x 41 mm */
         .label {
             width: 100%;
             height: 100%;
@@ -483,7 +516,6 @@
             overflow: hidden;
         }
 
-        /* 1. Label-top: Schrift leicht vergrößert */
         .label-top {
             text-align: right;
             font-size: 11pt;
@@ -492,7 +524,6 @@
             letter-spacing: 0.3px;
         }
 
-        /* 2. Label-middle: Vertikal exakt mittig zentriert */
         .label-middle {
             display: flex;
             align-items: center;
@@ -501,7 +532,6 @@
             margin-bottom: auto;
         }
 
-        /* Schriftgröße der Nummer dezent reduziert */
         .label-middle .num {
             font-size: 21pt;
             font-weight: bold;
@@ -523,7 +553,6 @@
             color: #1a4b60;
         }
 
-        /* 3. Label-bottom: Schrift verkleinert und kursiv */
         .label-bottom {
             font-size: 9pt;
             font-style: italic;
@@ -542,12 +571,10 @@
             background-color: #fafbfc;
         }
 
-        /* Versteckter Container für direkten Druck */
         #hiddenPrintContainer {
             display: none;
         }
 
-        /* Responsive */
         @media (max-width: 700px) {
             .dashboard-grid {
                 grid-template-columns: 1fr;
@@ -561,9 +588,6 @@
             }
         }
 
-        /* ==========================================
-           DRUCK
-           ========================================== */
         @media print {
             body * {
                 display: none !important;
@@ -638,6 +662,11 @@
             </div>
 
             <div class="info-panel">
+                <div class="frontpage-selection">
+                    <label for="sortimentSelect">Abfallart aus Sortiment wählen:</label>
+                    <select id="sortimentSelect" onchange="handlePresetSelection()"></select>
+                </div>
+
                 <div class="info-title">Aktuelle Konfiguration</div>
 
                 <div class="summary-box">
@@ -694,19 +723,6 @@
                         <option value="ASZ Linz-Wiener Straße">ASZ Linz-Wiener Straße</option>
                         <option value="ASZ Linz-Dornach">ASZ Linz-Dornach</option>
                     </optgroup>
-                    <optgroup label="Wels & Wels-Land">
-                        <option value="ASZ Wels-Nord">ASZ Wels-Nord</option>
-                        <option value="ASZ Wels-Süd">ASZ Wels-Süd</option>
-                        <option value="ASZ Gunskirchen">ASZ Gunskirchen</option>
-                        <option value="ASZ Marchtrenk">ASZ Marchtrenk</option>
-                        <option value="ASZ Thalheim">ASZ Thalheim</option>
-                    </optgroup>
-                    <optgroup label="Steyr & Steyr-Land">
-                        <option value="ASZ Steyr">ASZ Steyr</option>
-                        <option value="ASZ Bad Hall">ASZ Bad Hall</option>
-                        <option value="ASZ Garsten">ASZ Garsten</option>
-                        <option value="ASZ Sierning">ASZ Sierning</option>
-                    </optgroup>
                 </select>
             </div>
 
@@ -731,7 +747,7 @@
             <div class="mode-switcher">
                 <div id="tabSelect" class="mode-tab active" onclick="switchMode('select')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-                    Sortiment-Auswahl
+                    Modus: Sortiment
                 </div>
                 <div id="tabInput" class="mode-tab" onclick="switchMode('input')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"/></svg>
@@ -740,10 +756,7 @@
             </div>
 
             <div id="sectionSelect" class="form-section active">
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label for="sortimentSelect">Abfallart aus Sortiment wählen:</label>
-                    <select id="sortimentSelect" onchange="handlePresetSelection()"></select>
-                </div>
+                <p style="font-size: 0.9rem; color: #64748b; margin: 0 0 10px 0;">Die Sortiment-Auswahl befindet sich jetzt direkt auf der Startseite.</p>
             </div>
 
             <div id="sectionInput" class="form-section">
@@ -858,6 +871,15 @@
         }
 
         function handlePresetSelection() {
+            // Wenn im Sortiment-Modus ausgewählt wird, stellen wir sicher, dass das Tab synchronisiert ist
+            if (aktuellerModus !== 'select') {
+                aktuellerModus = 'select';
+                document.getElementById('tabSelect').classList.add('active');
+                document.getElementById('tabInput').classList.remove('active');
+                document.getElementById('sectionSelect').classList.add('active');
+                document.getElementById('sectionInput').classList.remove('active');
+            }
+
             const select = document.getElementById('sortimentSelect');
             const index = select.value;
             if (index !== "" && sortimentData[index]) {
@@ -873,17 +895,13 @@
         // MODALS
         // ============================================================
         function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
-
         function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
-
         function closeSettingsViaBackdrop(event) {
             if (event.target.id === 'settingsModal') closeSettings();
         }
 
         function openPreviewModal() { document.getElementById('previewModal').style.display = 'flex'; }
-
         function closePreviewModal() { document.getElementById('previewModal').style.display = 'none'; }
-
         function closePreviewModalViaBackdrop(event) {
             if (event.target.id === 'previewModal') closePreviewModal();
         }
@@ -928,10 +946,8 @@
                     if (defaults.startPos !== undefined) document.getElementById('inputStartPos').value = Math.min(21, defaults.startPos);
                     if (defaults.artNr !== undefined) document.getElementById('inputArtNr').value = defaults.artNr;
                     if (defaults.suffix !== undefined) document.getElementById('inputSuffix').value = defaults.suffix;
-                    if (defaults.bezeichnung !== undefined) document.getElementById('inputBezeichnung').value = defaults
-                        .bezeichnung;
-                    if (defaults.sortimentIndex !== undefined) document.getElementById('sortimentSelect').value = defaults
-                        .sortimentIndex;
+                    if (defaults.bezeichnung !== undefined) document.getElementById('inputBezeichnung').value = defaults.bezeichnung;
+                    if (defaults.sortimentIndex !== undefined) document.getElementById('sortimentSelect').value = defaults.sortimentIndex;
                     if (defaults.modus) {
                         switchMode(defaults.modus);
                     } else {
