@@ -1,3 +1,4 @@
+<!--7pub-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -48,6 +49,16 @@
             display: flex;
             align-items: center;
             gap: 16px;
+        }
+
+        /* Neues Icon-Styling */
+        .app-logo {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #1a4b60;
+            box-shadow: 0 2px 8px rgba(26, 75, 96, 0.15);
         }
 
         .app-header-title {
@@ -626,12 +637,7 @@
 
         <div class="app-header">
             <div class="app-header-left">
-                <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="46" fill="#1a4b60"/>
-                    <path d="M34 68 L50 32 L66 68 Z" stroke="#6cb4db" stroke-width="7" stroke-linejoin="round" fill="none"/>
-                    <path d="M41 53 L59 53" stroke="#6cb4db" stroke-width="6" stroke-linecap="round"/>
-                    <path d="M22 36 Q50 12 78 36" stroke="#27ae60" stroke-width="6" stroke-linecap="round" fill="none"/>
-                </svg>
+                <img class="app-logo" src="https://avatars.githubusercontent.com/u/297924413?s=400&u=9843148f4e4e6cd0cc18040131acc5403ef4a9ac&v=4" alt="Logo">
                 <div>
                     <div class="app-header-title">LAVU OÖ</div>
                     <div class="app-header-subtitle">Etiketten-Druckstudio v8</div>
@@ -871,7 +877,6 @@
         }
 
         function handlePresetSelection() {
-            // Wenn im Sortiment-Modus ausgewählt wird, stellen wir sicher, dass das Tab synchronisiert ist
             if (aktuellerModus !== 'select') {
                 aktuellerModus = 'select';
                 document.getElementById('tabSelect').classList.add('active');
