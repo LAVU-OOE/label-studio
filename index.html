@@ -1,10 +1,18 @@
-<!--7pub-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LAVU OÖ - Etiketten-Druckstudio v8 (HERMA 4473)</title>
+    
+    <meta name="theme-color" content="#1a4b60" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="LAVU OÖ v8" />
+    <link rel="apple-touch-icon" href="https://avatars.githubusercontent.com/u/297924413?s=400&u=9843148f4e4e6cd0cc18040131acc5403ef4a9ac&v=4" />
+
+    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIkxBVisgT8YgLSBFdGlrZXR0ZW4tRHJ1Y2tzdHVkaW8gdjgiLAogICJzaG9ydF9uYW1lIjogIkxBVisgT8YgdjgiLAogICJkZXNjcmlwdGlvbiI6ICJFdGlrZXR0ZW4tRHJ1Y2tzdHVkaW8gZsOValidIEhFUk1BIDQ0NzMgYXVmIEE0IiwKICAic3RhcnRfdXJsIjogIi4vaW5kZXguaHRtbCIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2Y0ZjdmOSIsCiAgInRoZW1lX2NvbG9yIjogIiMxYTRiNjAiLAogICJvcmllbnRhdGlvbiI6ICFueW5lIiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiaHR0cHM6Ly9hdmF0YXJzLmdpdGh1YnVzZXJjb250ZW50LmNvbS91LzI5NzkyNDQxMz9zPTQwMCZ1PTk4NDMxNDhmNGU0ZTZjZDBjYzE4MDQwMTMxYWNjNTQwM2VmNGE5YWMmdj00IiwKICAgICAgInNpemVzIjogIjQwMHg0MDAiLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciLAogICAgICAicHVycG9zZSI6ICJhbnkgbWFza2FibGUiCiAgICB9CiAgXQp9" />
+
     <style>
         /* ==========================================
            BENUTZEROBERFLÄCHE (Wird nicht gedruckt)
@@ -51,7 +59,7 @@
             gap: 16px;
         }
 
-        /* Neues Icon-Styling */
+        /* Rundes Logo-Styling */
         .app-logo {
             width: 46px;
             height: 46px;
@@ -89,6 +97,39 @@
             border-radius: 8px;
             border-left: 4px solid #27ae60;
             box-shadow: 0 2px 6px rgba(39, 174, 96, 0.04);
+        }
+
+        /* PWA Install Banner */
+        .pwa-install-banner {
+            display: none;
+            background: #ebf5fa;
+            border: 1px solid #bce0f2;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .pwa-install-text {
+            font-size: 0.95rem;
+            color: #1a4b60;
+            font-weight: 500;
+        }
+
+        .btn-pwa-install {
+            background-color: #3498db;
+            color: white;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .btn-pwa-install:hover {
+            background-color: #2980b9;
         }
 
         /* Dashboard */
@@ -188,41 +229,6 @@
             text-transform: uppercase;
             letter-spacing: 0.8px;
             margin-bottom: 12px;
-        }
-
-        /* Sortiment-Auswahl auf der Frontpage */
-        .frontpage-selection {
-            margin-bottom: 18px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .frontpage-selection label {
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #475569;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .frontpage-selection select {
-            padding: 12px 14px;
-            border: 2px solid #6cb4db;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #1a4b60;
-            background-color: #fff;
-            box-shadow: 0 2px 8px rgba(108, 180, 219, 0.1);
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-
-        .frontpage-selection select:focus {
-            outline: none;
-            border-color: #1a4b60;
-            box-shadow: 0 0 0 3px rgba(26, 75, 96, 0.15);
         }
 
         .summary-box {
@@ -492,6 +498,7 @@
 
         /* ==========================================
            DRUCK-LAYOUT – HERMA 4473 (70 x 41 mm)
+           3 Spalten × 10 Zeilen = 30 Etiketten
            ========================================== */
         .page-container {
             background: #ffffff;
@@ -505,10 +512,10 @@
             width: 210mm;
             height: 297mm;
             box-sizing: border-box;
-            padding: 5mm 0mm 5mm 0mm;
+            padding: 5mm 4mm 4mm 4mm;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(7, 1fr);
+            grid-template-rows: repeat(10, 1fr);
             gap: 0;
             background: white;
         }
@@ -529,7 +536,7 @@
 
         .label-top {
             text-align: right;
-            font-size: 11pt;
+            font-size: 9pt;
             font-weight: bold;
             color: #1a4b60;
             letter-spacing: 0.3px;
@@ -537,14 +544,14 @@
 
         .label-middle {
             display: flex;
-            align-items: center;
+            align-items: baseline;
             justify-content: flex-end;
-            margin-top: auto;
+            margin-top: -2mm;
             margin-bottom: auto;
         }
 
         .label-middle .num {
-            font-size: 21pt;
+            font-size: 24pt;
             font-weight: bold;
             color: #54a0cc;
             letter-spacing: -0.5px;
@@ -552,21 +559,22 @@
         }
 
         .label-middle .sep {
-            font-size: 16pt;
+            font-size: 18pt;
             color: #1a4b60;
             font-weight: bold;
-            margin: 0 5px;
+            margin: 0 6px;
+            position: relative;
+            top: -2px;
         }
 
         .label-middle .suffix {
-            font-size: 13pt;
+            font-size: 14pt;
             font-weight: bold;
             color: #1a4b60;
         }
 
         .label-bottom {
-            font-size: 9pt;
-            font-style: italic;
+            font-size: 10pt;
             text-align: right;
             color: #111111;
             font-weight: bold;
@@ -599,6 +607,9 @@
             }
         }
 
+        /* ==========================================
+           DRUCK
+           ========================================== */
         @media print {
             body * {
                 display: none !important;
@@ -649,6 +660,11 @@
             </div>
         </div>
 
+        <div id="pwaBanner" class="pwa-install-banner">
+            <div class="pwa-install-text">App auf dem Startbildschirm installieren für Offline-Nutzung?</div>
+            <button id="btnPwaInstall" class="btn-pwa-install">Installieren</button>
+        </div>
+
         <div class="dashboard-grid">
 
             <div class="preview-sidebar">
@@ -668,11 +684,6 @@
             </div>
 
             <div class="info-panel">
-                <div class="frontpage-selection">
-                    <label for="sortimentSelect">Abfallart aus Sortiment wählen:</label>
-                    <select id="sortimentSelect" onchange="handlePresetSelection()"></select>
-                </div>
-
                 <div class="info-title">Aktuelle Konfiguration</div>
 
                 <div class="summary-box">
@@ -689,7 +700,7 @@
                     </button>
 
                     <button class="btn-secondary" onclick="openSettings()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1-2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                         Einstellungen
                     </button>
                 </div>
@@ -729,6 +740,90 @@
                         <option value="ASZ Linz-Wiener Straße">ASZ Linz-Wiener Straße</option>
                         <option value="ASZ Linz-Dornach">ASZ Linz-Dornach</option>
                     </optgroup>
+                    <optgroup label="Wels & Wels-Land">
+                        <option value="ASZ Wels-Nord">ASZ Wels-Nord</option>
+                        <option value="ASZ Wels-Süd">ASZ Wels-Süd</option>
+                        <option value="ASZ Gunskirchen">ASZ Gunskirchen</option>
+                        <option value="ASZ Marchtrenk">ASZ Marchtrenk</option>
+                        <option value="ASZ Thalheim">ASZ Thalheim</option>
+                    </optgroup>
+                    <optgroup label="Steyr & Steyr-Land">
+                        <option value="ASZ Steyr">ASZ Steyr</option>
+                        <option value="ASZ Bad Hall">ASZ Bad Hall</option>
+                        <option value="ASZ Garsten">ASZ Garsten</option>
+                        <option value="ASZ Sierning">ASZ Sierning</option>
+                    </optgroup>
+                    <optgroup label="Bezirk Braunau">
+                        <option value="ASZ Braunau">ASZ Braunau</option>
+                        <option value="ASZ Altheim">ASZ Altheim</option>
+                        <option value="ASZ Eggelsberg">ASZ Eggelsberg</option>
+                        <option value="ASZ Mattighofen">ASZ Mattighofen</option>
+                        <option value="ASZ Mauerkirchen">ASZ Mauerkirchen</option>
+                    </optgroup>
+                    <optgroup label="Bezirk Eferding">
+                        <option value="ASZ Eferding">ASZ Eferding</option>
+                        <option value="ASZ Alkoven">ASZ Alkoven</option>
+                    </optgroup>
+                    <optgroup label="Bezirk Freistadt">
+                        <option value="ASZ Freistadt">ASZ Freistadt</option>
+                        <option value="ASZ Pregarten">ASZ Pregarten</option>
+                        <option value="ASZ Tragwein">ASZ Tragwein</option>
+                        <option value="ASZ Unterweißenbach">ASZ Unterweißenbach</option>
+                    </optgroup>
+                    <optgroup label="Bezirk Gmunden">
+                        <option value="ASZ Gmunden">ASZ Gmunden</option>
+                        <option value="ASZ Altmünster">ASZ Altmünster</option>
+                        <option value="ASZ Bad Ischl">ASZ Bad Ischl</option>
+                        <option value="ASZ Ebensee">ASZ Ebensee</option>
+                        <option value="ASZ Vorchdorf">ASZ Vorchdorf</option>
+                    </optgroup>
+                    <optgroup label="Bezirk Grieskirchen">
+                        <option value="ASZ Grieskirchen">ASZ Grieskirchen</option>
+                        <option value="ASZ Bad Schallerbach">ASZ Bad Schallerbach</option>
+                        <option value="ASZ Peuerbach">ASZ Peuerbach</option>
+                    </optgroup>
+                    <optgroup label="Bezirk Kirchdorf">
+                        <option value="ASZ Kirchdorf">ASZ Kirchdorf</option>
+                        <option value="ASZ Micheldorf">ASZ Micheldorf</option>
+                        <option value="ASZ Pettenbach">ASZ Pettenbach</option>
+                        <option value="ASZ Windischgarsten">ASZ Windischgarsten</option>
+                    </optgroup>
+                    <optgroup label="Bezirk Perg">
+                        <option value="ASZ Perg">ASZ Perg</option>
+                        <option value="ASZ Grein">ASZ Grein</option>
+                        <option value="ASZ Schwertberg">ASZ Schwertberg</option>
+                        <option value="ASZ St. Georgen/Gusen">ASZ St. Georgen/Gusen</option>
+                    </optgroup>
+                    <optgroup label="Bezirk Ried">
+                        <option value="ASZ Ried im Innkreis">ASZ Ried im Innkreis</option>
+                        <option value="ASZ Mettmach">ASZ Mettmach</option>
+                        <option value="ASZ Obernberg">ASZ Obernberg</option>
+                    </optgroup>
+                    <optgroup label="Bezirk Rohrbach">
+                        <option value="ASZ Rohrbach">ASZ Rohrbach</option>
+                        <option value="ASZ Lembach">ASZ Lembach</option>
+                        <option value="ASZ Neufelden">ASZ Neufelden</option>
+                        <option value="ASZ Ulrichsberg">ASZ Ulrichsberg</option>
+                    </optgroup>
+                    <optgroup label="Bezirk Schärding">
+                        <option value="ASZ Schärding">ASZ Schärding</option>
+                        <option value="ASZ Andorf">ASZ Andorf</option>
+                        <option value="ASZ Engelhartszell">ASZ Engelhartszell</option>
+                    </optgroup>
+                    <optgroup label="Bezirk Urfahr-Umgebung">
+                        <option value="ASZ Bad Leonfelden">ASZ Bad Leonfelden</option>
+                        <option value="ASZ Gallneukirchen">ASZ Gallneukirchen</option>
+                        <option value="ASZ Ottensheim">ASZ Ottensheim</option>
+                        <option value="ASZ Steyregg">ASZ Steyregg</option>
+                    </optgroup>
+                    <optgroup label="Bezirk Vöcklabruck">
+                        <option value="ASZ Vöcklabruck">ASZ Vöcklabruck</option>
+                        <option value="ASZ Attnang-Puchheim">ASZ Attnang-Puchheim</option>
+                        <option value="ASZ Frankenmarkt">ASZ Frankenmarkt</option>
+                        <option value="ASZ Lenzing">ASZ Lenzing</option>
+                        <option value="ASZ Mondsee">ASZ Mondsee</option>
+                        <option value="ASZ Schwanenstadt">ASZ Schwanenstadt</option>
+                    </optgroup>
                 </select>
             </div>
 
@@ -736,24 +831,24 @@
                 <div class="form-group">
                     <label for="inputCount">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
-                        Anzahl Etiketten (max. 21):
+                        Anzahl Etiketten (max. 30):
                     </label>
-                    <input type="number" id="inputCount" value="9" min="1" max="21" oninput="updatePreview()" />
+                    <input type="number" id="inputCount" value="9" min="1" max="30" oninput="updatePreview()" />
                 </div>
 
                 <div class="form-group">
                     <label for="inputStartPos">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                        Start-Position (1-21):
+                        Start-Position (1-30):
                     </label>
-                    <input type="number" id="inputStartPos" value="1" min="1" max="21" oninput="updatePreview()" />
+                    <input type="number" id="inputStartPos" value="1" min="1" max="30" oninput="updatePreview()" />
                 </div>
             </div>
 
             <div class="mode-switcher">
                 <div id="tabSelect" class="mode-tab active" onclick="switchMode('select')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-                    Modus: Sortiment
+                    Sortiment-Auswahl
                 </div>
                 <div id="tabInput" class="mode-tab" onclick="switchMode('input')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"/></svg>
@@ -762,7 +857,10 @@
             </div>
 
             <div id="sectionSelect" class="form-section active">
-                <p style="font-size: 0.9rem; color: #64748b; margin: 0 0 10px 0;">Die Sortiment-Auswahl befindet sich jetzt direkt auf der Startseite.</p>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="sortimentSelect">Abfallart aus Sortiment wählen:</label>
+                    <select id="sortimentSelect" onchange="handlePresetSelection()"></select>
+                </div>
             </div>
 
             <div id="sectionInput" class="form-section">
@@ -797,7 +895,7 @@
     <div id="previewModal" class="modal-backdrop" onclick="closePreviewModalViaBackdrop(event)">
         <div class="modal-content preview-modal-content">
             <div class="modal-header">
-                <span>Vollbild-Druckvorschau (A4-Bogen – HERMA 4473, 21 Etiketten)</span>
+                <span>Vollbild-Druckvorschau (A4-Bogen – HERMA 4473, 30 Etiketten)</span>
                 <button class="btn-close-x" onclick="closePreviewModal()">&times;</button>
             </div>
 
@@ -846,10 +944,12 @@
         ];
 
         let aktuellerModus = 'select';
+        let deferredPrompt;
 
         window.onload = function() {
             initDropdown();
             loadDefaults();
+            initPwaLogic();
         };
 
         function initDropdown() {
@@ -877,14 +977,6 @@
         }
 
         function handlePresetSelection() {
-            if (aktuellerModus !== 'select') {
-                aktuellerModus = 'select';
-                document.getElementById('tabSelect').classList.add('active');
-                document.getElementById('tabInput').classList.remove('active');
-                document.getElementById('sectionSelect').classList.add('active');
-                document.getElementById('sectionInput').classList.remove('active');
-            }
-
             const select = document.getElementById('sortimentSelect');
             const index = select.value;
             if (index !== "" && sortimentData[index]) {
@@ -947,8 +1039,8 @@
                 try {
                     const defaults = JSON.parse(saved);
                     if (defaults.topText !== undefined) document.getElementById('inputTop').value = defaults.topText;
-                    if (defaults.count !== undefined) document.getElementById('inputCount').value = Math.min(21, defaults.count);
-                    if (defaults.startPos !== undefined) document.getElementById('inputStartPos').value = Math.min(21, defaults.startPos);
+                    if (defaults.count !== undefined) document.getElementById('inputCount').value = defaults.count;
+                    if (defaults.startPos !== undefined) document.getElementById('inputStartPos').value = defaults.startPos;
                     if (defaults.artNr !== undefined) document.getElementById('inputArtNr').value = defaults.artNr;
                     if (defaults.suffix !== undefined) document.getElementById('inputSuffix').value = defaults.suffix;
                     if (defaults.bezeichnung !== undefined) document.getElementById('inputBezeichnung').value = defaults.bezeichnung;
@@ -968,7 +1060,7 @@
         }
 
         // ============================================================
-        // RENDER – 21 Etiketten (3 × 7)
+        // RENDER – 30 Etiketten (3 × 10)
         // ============================================================
         function updatePreview() {
             const thumbnailSheet = document.getElementById('thumbnailSheet');
@@ -989,21 +1081,19 @@
             document.getElementById('sumArtNr').innerHTML = artNr;
             document.getElementById('sumSuffix').innerHTML = suffix;
 
-            const count = Math.max(1, Math.min(21, parseInt(document.getElementById('inputCount').value) || 1));
-            const startPos = Math.max(1, Math.min(21, parseInt(document.getElementById('inputStartPos').value) || 1));
+            const count = Math.max(1, Math.min(30, parseInt(document.getElementById('inputCount').value) || 1));
+            const startPos = Math.max(1, Math.min(30, parseInt(document.getElementById('inputStartPos').value) || 1));
 
             document.getElementById('sumMenge').innerHTML = `${count}x (ab Position ${startPos})`;
 
             let HTMLContent = '';
 
-            // 1. Leere Etiketten vor der Startposition
             for (let i = 1; i < startPos; i++) {
                 HTMLContent += `<div class="label empty"></div>`;
             }
 
-            // 2. Bedruckte Etiketten
             for (let i = 0; i < count; i++) {
-                if ((startPos - 1 + i) >= 21) break;
+                if ((startPos - 1 + i) >= 30) break;
                 HTMLContent += `
                     <div class="label">
                         <div class="label-top">${topText}</div>
@@ -1017,9 +1107,8 @@
                 `;
             }
 
-            // 3. Rest auffüllen
             let currentCells = startPos - 1 + count;
-            while (currentCells < 21) {
+            while (currentCells < 30) {
                 HTMLContent += `<div class="label empty"></div>`;
                 currentCells++;
             }
@@ -1027,6 +1116,103 @@
             thumbnailSheet.innerHTML = HTMLContent;
             labelSheetModal.innerHTML = HTMLContent;
             labelSheetDirect.innerHTML = HTMLContent;
+        }
+
+        // ============================================================
+        // PWA IMPLEMENTATION (SERVICE WORKER & IN-APP INSTALLATION)
+        // ============================================================
+        function initPwaLogic() {
+            if ('serviceWorker' in navigator) {
+                // Dynamische Code-Injektion für den Service Worker in eine Blob-URI
+                const swCode = `
+                    const CACHE_NAME = 'lavu-studio-cache-v8';
+                    const ASSETS = [
+                        './',
+                        './index.html',
+                        'https://avatars.githubusercontent.com/u/297924413?s=400&u=9843148f4e4e6cd0cc18040131acc5403ef4a9ac&v=4'
+                    ];
+
+                    self.addEventListener('install', (e) => {
+                        e.waitUntil(
+                            caches.open(CACHE_NAME).then((cache) => {
+                                return cache.addAll(ASSETS);
+                            }).then(() => self.skipWaiting())
+                        );
+                    });
+
+                    self.addEventListener('activate', (e) => {
+                        e.waitUntil(
+                            caches.keys().then((keys) => {
+                                return Promise.all(
+                                    keys.map((key) => {
+                                        if (key !== CACHE_NAME) {
+                                            return caches.delete(key);
+                                        }
+                                    })
+                                );
+                            }).then(() => self.clients.claim())
+                        );
+                    });
+
+                    self.addEventListener('fetch', (e) => {
+                        e.respondWith(
+                            caches.match(e.request).then((cachedResponse) => {
+                                if (cachedResponse) return cachedResponse;
+                                return fetch(e.request).then((networkResponse) => {
+                                    return caches.open(CACHE_NAME).then((cache) => {
+                                        // Nur gültige HTTP-Anfragen cachen (verhindert Fehler bei data: oder chrome-extension:)
+                                        if (e.request.url.startsWith('http')) {
+                                            cache.put(e.request, networkResponse.clone());
+                                        }
+                                        return networkResponse;
+                                    });
+                                });
+                            }).catch(() => {
+                                // Fallback wenn alles fehlschlägt und Offline-Modus aktiv
+                                if (e.request.mode === 'navigate') {
+                                    return caches.match('./index.html');
+                                }
+                            })
+                        );
+                    });
+                `;
+
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+
+                // Service Worker aus dem Blob registrieren (Scope auf das aktuelle Verzeichnis setzen)
+                navigator.serviceWorker.register(swUrl, { scope: './' })
+                    .then(() => console.log('LAVU PWA Service Worker erfolgreich registriert.'))
+                    .catch(err => console.error('Service Worker Fehler:', err));
+            }
+
+            // Installations-Event abfangen
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                // Zeige den Installations-Banner an
+                document.getElementById('pwaBanner').style.display = 'flex';
+            });
+
+            // Klick auf den Installations-Button handhaben
+            document.getElementById('btnPwaInstall').addEventListener('click', () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User hat die Installation akzeptiert.');
+                        }
+                        document.getElementById('pwaBanner').style.display = 'none';
+                        deferredPrompt = null;
+                    });
+                }
+            });
+
+            // Banner ausblenden, falls die App bereits erfolgreich installiert wurde
+            window.addEventListener('appinstalled', () => {
+                console.log('LAVU v8 App wurde erfolgreich installiert.');
+                document.getElementById('pwaBanner').style.display = 'none';
+            });
         }
     </script>
 </body>
