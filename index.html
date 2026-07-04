@@ -1,4 +1,4 @@
-<!--Article Manager-->
+<!--ahlo-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LAVU OÖ - Etiketten-Druckstudio v8 (HERMA 4473)</title>
     <link rel="manifest" href="manifest.json" />
-    <meta name="theme-color" content="#1a4b60" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<meta name="theme-color" content="#1a4b60" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <style>
         /* ==========================================
            BENUTZEROBERFLÄCHE (Wird nicht gedruckt)
@@ -474,7 +474,7 @@
             border: 1px solid #e2e8f0;
             border-radius: 12px;
             padding: 18px;
-            margin-top: 15px;
+            margin-top: 5px;
         }
         .crud-title {
             font-size: 0.85rem;
@@ -732,7 +732,6 @@
         </div>
     </div>
 
-    <!-- SETTINGS MODAL -->
     <div id="settingsModal" class="modal-backdrop" onclick="closeSettingsViaBackdrop(event)">
         <div class="modal-content">
             <div class="modal-header">
@@ -798,9 +797,6 @@
                 </div>
 
                 <div id="sectionSelect" class="form-section active">
-                    <p style="font-size: 0.9rem; color: #64748b; margin: 0 0 10px 0;">Die Sortiment-Auswahl befindet sich auf der Startseite.</p>
-                    
-                    <!-- Dynamic Sortiment / Articles CRUD Manager -->
                     <div class="crud-box">
                         <div class="crud-title">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
@@ -822,8 +818,7 @@
                             <button class="btn-crud-add" onclick="addArticleItem()">Hinzufügen</button>
                         </div>
                         <div class="crud-list-container" id="crudListContainer">
-                            <!-- Populated dynamically via JS -->
-                        </div>
+                            </div>
                     </div>
                 </div>
 
@@ -855,7 +850,6 @@
         </div>
     </div>
 
-    <!-- PREVIEW MODAL -->
     <div id="previewModal" class="modal-backdrop" onclick="closePreviewModalViaBackdrop(event)">
         <div class="modal-content preview-modal-content">
             <div class="modal-header">
@@ -884,7 +878,6 @@
     </div>
 
     <script>
-        // Default Baseline Dataset
         const defaultSortimentData = [
             { artNr: "4040", bez: "Elektro-Kleingeräte (ohne Akku)", zusatzMitte: "QR-Box" },
             { artNr: "4010", bez: "Elektro-Großgeräte", zusatzMitte: "Gitterbox" },
@@ -913,7 +906,6 @@
             renderCrudList();
         };
 
-        // Load Articles from Storage or use defaults
         function loadSortimentData() {
             const savedArticles = localStorage.getItem('lavu_studio_articles_v8');
             if (savedArticles) {
@@ -980,9 +972,6 @@
             updatePreview();
         }
 
-        // ============================================================
-        // ARTICLE MANAGER (CRUD)
-        // ============================================================
         function renderCrudList() {
             const container = document.getElementById('crudListContainer');
             container.innerHTML = '';
@@ -1013,12 +1002,10 @@
             saveSortimentData();
             renderCrudList();
 
-            // Clear Input Fields
             document.getElementById('crudArtNr').value = '';
             document.getElementById('crudZusatz').value = '';
             document.getElementById('crudBez').value = '';
             
-            // Set newly created option active
             document.getElementById('sortimentSelect').value = sortimentData.length - 1;
             handlePresetSelection();
         }
@@ -1032,14 +1019,43 @@
             }
         }
 
-        // ============================================================
-        // MODALS
-        // ============================================================
         function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
         function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
         function closeSettingsViaBackdrop(event) {
             if (event.target.id === 'settingsModal') closeSettings();
         }
+
+        // PWA Install Lifecycle Handler Setup
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const banner = document.getElementById('pwaBanner');
+            if (banner) banner.style.display = 'flex';
+        });
+
+        const installBtn = document.getElementById('btnPwaInstall');
+        if (installBtn) {
+            installBtn.addEventListener('click', () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User hat die Installation akzeptiert.');
+                        }
+                        const banner = document.getElementById('pwaBanner');
+                        if (banner) banner.style.display = 'none';
+                        deferredPrompt = null;
+                    });
+                }
+            });
+        }
+
+        window.addEventListener('appinstalled', () => {
+            console.log('LAVU v8 App wurde erfolgreich installiert.');
+            const banner = document.getElementById('pwaBanner');
+            if (banner) banner.style.display = 'none';
+        });
 
         function openPreviewModal() { document.getElementById('previewModal').style.display = 'flex'; }
         function closePreviewModal() { document.getElementById('previewModal').style.display = 'none'; }
@@ -1049,9 +1065,6 @@
 
         function triggerDirectPrint() { window.print(); }
 
-        // ============================================================
-        // LOCAL STORAGE - DEFAULTS
-        // ============================================================
         function saveDefaults() {
             const defaults = {
                 topText: document.getElementById('inputTop').value,
@@ -1102,9 +1115,6 @@
             }
         }
 
-        // ============================================================
-        // RENDER – 21 Etiketten (3 × 7)
-        // ============================================================
         function updatePreview() {
             const thumbnailSheet = document.getElementById('thumbnailSheet');
             const labelSheetModal = document.getElementById('labelSheetModal');
@@ -1159,16 +1169,6 @@
             thumbnailSheet.innerHTML = HTMLContent;
             labelSheetModal.innerHTML = HTMLContent;
             labelSheetDirect.innerHTML = HTMLContent;
-        }
-    </script>
-    <script>
-        let deferredPrompt;
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('Service Worker erfolgreich registriert!', reg))
-                    .catch(err => console.error('Service Worker Registrierung fehlgeschlagen:', err));
-            });
         }
     </script>
 </body>
