@@ -1,4 +1,3 @@
-<!--mediaprint-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -54,7 +53,6 @@
             gap: 16px;
         }
 
-        /* Neues Icon-Styling */
         .app-logo {
             width: 46px;
             height: 46px;
@@ -193,7 +191,6 @@
             margin-bottom: 12px;
         }
 
-        /* Sortiment-Auswahl auf der Frontpage */
         .frontpage-selection {
             margin-bottom: 18px;
             display: flex;
@@ -298,9 +295,7 @@
             transform: translateY(-1px);
         }
 
-        /* ==========================================
-           MODALS
-           ========================================== */
+        /* Modals */
         .modal-backdrop {
             display: none;
             position: fixed;
@@ -321,7 +316,7 @@
             padding: 30px;
             border-radius: 16px;
             width: 92%;
-            max-width: 580px;
+            max-width: 620px;
             box-shadow: 0 20px 40px rgba(15, 34, 43, 0.2);
             position: relative;
         }
@@ -375,26 +370,6 @@
             color: #ef4444;
         }
 
-        .form-section {
-            display: none;
-            animation: fadeIn 0.25s ease;
-        }
-
-        .form-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(4px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -442,6 +417,25 @@
             box-shadow: 0 0 0 3px rgba(108, 180, 219, 0.15);
         }
 
+        /* Sortiment Action-Row im Einstellungsfenster */
+        .sortiment-crud-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .btn-crud {
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            border-radius: 6px;
+        }
+        .btn-crud-add { background: #27ae60; color: white; }
+        .btn-crud-add:hover { background: #219653; }
+        .btn-crud-update { background: #f39c12; color: white; }
+        .btn-crud-update:hover { background: #d35400; }
+        .btn-crud-delete { background: #e74c3c; color: white; }
+        .btn-crud-delete:hover { background: #c0392b; }
+
         .modal-footer {
             display: flex;
             justify-content: flex-end;
@@ -453,7 +447,6 @@
             flex-shrink: 0;
         }
 
-        /* Spezifische Footer-Anpassung für die Druckvorschau */
         .preview-footer-grid {
             display: flex;
             width: 100%;
@@ -735,23 +728,28 @@
                 </datalist>
             </div>
 
-            <div id="sectionInput" class="form-section active">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="inputArtNr">Artikel-Nr.:</label>
-                        <input type="text" id="inputArtNr" value="4040" oninput="updatePreview()" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputSuffix">Zusatz Mitte:</label>
-                        <input type="text" id="inputSuffix" value="QR-Box" oninput="updatePreview()" />
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label for="inputBezeichnung">Bezeichnung unten:</label>
-                        <input type="text" id="inputBezeichnung" value="Elektro-Kleingeräte (ohne Akku)" oninput="updatePreview()" />
-                    </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="inputArtNr">Artikel-Nr.:</label>
+                    <input type="text" id="inputArtNr" value="4040" oninput="updatePreview()" />
                 </div>
+
+                <div class="form-group">
+                    <label for="inputSuffix">Zusatz Mitte:</label>
+                    <input type="text" id="inputSuffix" value="QR-Box" oninput="updatePreview()" />
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="inputBezeichnung">Bezeichnung unten:</label>
+                    <input type="text" id="inputBezeichnung" value="Elektro-Kleingeräte (ohne Akku)" oninput="updatePreview()" />
+                </div>
+            </div>
+
+            <label style="margin-bottom: 10px;">Sortiment verwalten:</label>
+            <div class="sortiment-crud-actions">
+                <button class="btn-crud btn-crud-add" onclick="addCurrentAsNewArticle()">Als neuen Artikel speichern</button>
+                <button class="btn-crud btn-crud-update" onclick="updateSelectedArticle()">Ausgewählten überschreiben</button>
+                <button class="btn-crud btn-crud-delete" onclick="deleteSelectedArticle()">Ausgewählten löschen</button>
             </div>
 
             <div class="modal-footer">
@@ -779,7 +777,6 @@
 
             <div class="modal-footer">
                 <div class="preview-footer-grid">
-                    <!-- Die Grid-Eingaben für Anzahl und Start-Position befinden sich nun hier -->
                     <div class="preview-inputs-block">
                         <div class="form-group">
                             <label for="inputCount">
@@ -815,9 +812,9 @@
 
     <script>
         // ============================================================
-        // SORTIMENT
+        // SORTIMENT INITIAL-DATEN
         // ============================================================
-        const sortimentData = [
+        const defaultSortiment = [
             { artNr: "4040", bez: "Elektro-Kleingeräte (ohne Akku)", zusatzMitte: "QR-Box" },
             { artNr: "4010", bez: "Elektro-Großgeräte", zusatzMitte: "Gitterbox" },
             { artNr: "4020", bez: "Kühlgeräte", zusatzMitte: "Großteil" },
@@ -835,14 +832,37 @@
             { artNr: "4320", bez: "Altöle", zusatzMitte: "Tank" }
         ];
 
+        let sortimentData = [];
+
         window.onload = function() {
+            loadSortiment();
             initDropdown();
             loadDefaults();
             window.addEventListener('resize', scaleModalPreview);
         };
 
+        // Laden & Speichern des Sortiments aus dem LocalStorage
+        function loadSortiment() {
+            const savedSortiment = localStorage.getItem('lavu_studio_sortiment_v8');
+            if (savedSortiment) {
+                try {
+                    sortimentData = JSON.parse(savedSortiment);
+                } catch(e) {
+                    console.error("Fehler beim Laden des Sortiments", e);
+                    sortimentData = [...defaultSortiment];
+                }
+            } else {
+                sortimentData = [...defaultSortiment];
+            }
+        }
+
+        function saveSortimentToStorage() {
+            localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(sortimentData));
+        }
+
         function initDropdown() {
             const select = document.getElementById('sortimentSelect');
+            const currentIndex = select.value;
             select.innerHTML = '';
             sortimentData.forEach((item, index) => {
                 const opt = document.createElement('option');
@@ -850,6 +870,9 @@
                 opt.innerHTML = `[${item.artNr}] ${item.bez}`;
                 select.appendChild(opt);
             });
+            if (currentIndex !== "" && currentIndex < sortimentData.length) {
+                select.value = currentIndex;
+            }
         }
 
         function handlePresetSelection() {
@@ -862,6 +885,80 @@
                 document.getElementById('inputBezeichnung').value = item.bez;
             }
             updatePreview();
+        }
+
+        // ============================================================
+        // SORTIMENT VERWALTUNG (CRUD)
+        // ============================================================
+        function addCurrentAsNewArticle() {
+            const artNr = document.getElementById('inputArtNr').value.trim();
+            const suffix = document.getElementById('inputSuffix').value.trim();
+            const bez = document.getElementById('inputBezeichnung').value.trim();
+
+            if (!artNr || !bez) {
+                alert("Bitte mindestens eine Artikel-Nr. und eine Bezeichnung angeben.");
+                return;
+            }
+
+            const newItem = { artNr: artNr, bez: bez, zusatzMitte: suffix };
+            sortimentData.push(newItem);
+            saveSortimentToStorage();
+            initDropdown();
+            
+            // Auf den neu erstellten Artikel setzen
+            document.getElementById('sortimentSelect').value = sortimentData.length - 1;
+            alert("Artikel erfolgreich als neuen Eintrag ans Sortiment angehängt!");
+            updatePreview();
+        }
+
+        function updateSelectedArticle() {
+            const select = document.getElementById('sortimentSelect');
+            const index = select.value;
+            
+            if (index === "" || !sortimentData[index]) {
+                alert("Kein gültiger Artikel zum Überschreiben ausgewählt.");
+                return;
+            }
+
+            const artNr = document.getElementById('inputArtNr').value.trim();
+            const suffix = document.getElementById('inputSuffix').value.trim();
+            const bez = document.getElementById('inputBezeichnung').value.trim();
+
+            if (!artNr || !bez) {
+                alert("Artikel-Nr. und Bezeichnung dürfen nicht leer sein.");
+                return;
+            }
+
+            sortimentData[index] = { artNr: artNr, bez: bez, zusatzMitte: suffix };
+            saveSortimentToStorage();
+            initDropdown();
+            alert("Ausgewählter Artikel erfolgreich aktualisiert.");
+            updatePreview();
+        }
+
+        function deleteSelectedArticle() {
+            const select = document.getElementById('sortimentSelect');
+            const index = select.value;
+            
+            if (index === "" || !sortimentData[index]) {
+                alert("Kein gültiger Artikel zum Löschen ausgewählt.");
+                return;
+            }
+
+            if (confirm(`Möchtest du den Artikel [${sortimentData[index].artNr}] "${sortimentData[index].bez}" wirklich löschen?`)) {
+                sortimentData.splice(index, 1);
+                saveSortimentToStorage();
+                initDropdown();
+                if(sortimentData.length > 0) {
+                    document.getElementById('sortimentSelect').value = 0;
+                    handlePresetSelection();
+                } else {
+                    document.getElementById('inputArtNr').value = "";
+                    document.getElementById('inputSuffix').value = "";
+                    document.getElementById('inputBezeichnung').value = "";
+                    updatePreview();
+                }
+            }
         }
 
         // ============================================================
@@ -907,7 +1004,7 @@
         }
 
         // ============================================================
-        // LOCAL STORAGE
+        // LOCAL STORAGE - DEFAULTS
         // ============================================================
         function saveDefaults() {
             const defaults = {
@@ -942,7 +1039,9 @@
                     if (defaults.artNr !== undefined) document.getElementById('inputArtNr').value = defaults.artNr;
                     if (defaults.suffix !== undefined) document.getElementById('inputSuffix').value = defaults.suffix;
                     if (defaults.bezeichnung !== undefined) document.getElementById('inputBezeichnung').value = defaults.bezeichnung;
-                    if (defaults.sortimentIndex !== undefined) document.getElementById('sortimentSelect').value = defaults.sortimentIndex;
+                    if (defaults.sortimentIndex !== undefined && defaults.sortimentIndex < sortimentData.length) {
+                        document.getElementById('sortimentSelect').value = defaults.sortimentIndex;
+                    }
                     updatePreview();
                 } catch (e) {
                     console.error("Fehler beim Laden", e);
@@ -960,6 +1059,8 @@
             const thumbnailSheet = document.getElementById('thumbnailSheet');
             const labelSheetModal = document.getElementById('labelSheetModal');
             const labelSheetDirect = document.getElementById('labelSheetDirect');
+
+            if(!thumbnailSheet || !labelSheetModal || !labelSheetDirect) return;
 
             thumbnailSheet.innerHTML = '';
             labelSheetModal.innerHTML = '';
