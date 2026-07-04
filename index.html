@@ -1,4 +1,4 @@
-<!--mediaprint-->
+<!--Article Manager-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LAVU OÖ - Etiketten-Druckstudio v8 (HERMA 4473)</title>
     <link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#1a4b60" />
-<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="theme-color" content="#1a4b60" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <style>
         /* ==========================================
            BENUTZEROBERFLÄCHE (Wird nicht gedruckt)
@@ -54,7 +54,6 @@
             gap: 16px;
         }
 
-        /* Neues Icon-Styling */
         .app-logo {
             width: 46px;
             height: 46px;
@@ -193,7 +192,6 @@
             margin-bottom: 12px;
         }
 
-        /* Sortiment-Auswahl auf der Frontpage */
         .frontpage-selection {
             margin-bottom: 18px;
             display: flex;
@@ -321,9 +319,19 @@
             padding: 30px;
             border-radius: 16px;
             width: 92%;
-            max-width: 580px;
+            max-width: 620px;
             box-shadow: 0 20px 40px rgba(15, 34, 43, 0.2);
             position: relative;
+            max-height: 94vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-scrollable-area {
+            overflow-y: auto;
+            flex: 1;
+            padding-right: 5px;
+            margin-bottom: 10px;
         }
 
         .preview-modal-content {
@@ -411,14 +419,8 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(4px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .form-grid {
@@ -449,8 +451,7 @@
             gap: 5px;
         }
 
-        input,
-        select {
+        input, select {
             padding: 11px 14px;
             border: 1px solid #cbd5e1;
             border-radius: 6px;
@@ -460,38 +461,98 @@
             transition: all 0.2s;
         }
 
-        input:focus,
-        select:focus {
+        input:focus, select:focus {
             outline: none;
             border-color: #6cb4db;
             background-color: #fff;
             box-shadow: 0 0 0 3px rgba(108, 180, 219, 0.15);
         }
 
+        /* CRUD Sortiment Manager */
+        .crud-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 15px;
+        }
+        .crud-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #1a4b60;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .crud-inline-fields {
+            display: grid;
+            grid-template-columns: 80px 110px 1fr auto;
+            gap: 8px;
+            align-items: end;
+            margin-bottom: 12px;
+        }
+        .crud-inline-fields input {
+            padding: 8px 10px;
+            font-size: 0.85rem;
+        }
+        .btn-crud-add {
+            background: #27ae60;
+            color: white;
+            padding: 9px 14px;
+            font-size: 0.85rem;
+            border-radius: 6px;
+        }
+        .btn-crud-add:hover { background: #219653; }
+        
+        .crud-list-container {
+            max-height: 160px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background: white;
+        }
+        .crud-item {
+            display: grid;
+            grid-template-columns: 70px 110px 1fr auto;
+            gap: 8px;
+            padding: 8px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+        .crud-item:last-child { border-bottom: none; }
+        .crud-item .badge-nr {
+            font-weight: bold;
+            color: #54a0cc;
+        }
+        .crud-item .text-suffix {
+            color: #64748b;
+            font-weight: 600;
+        }
+        .btn-delete-item {
+            background: transparent;
+            color: #94a3b8;
+            padding: 4px 8px;
+            font-size: 1.1rem;
+        }
+        .btn-delete-item:hover { color: #ef4444; }
+
         .modal-footer {
             display: flex;
             justify-content: flex-end;
             gap: 12px;
-            margin-top: 20px;
+            margin-top: 15px;
             border-top: 1px solid #f1f5f9;
             padding-top: 15px;
         }
 
-        .btn-save-defaults {
-            background-color: #3498db;
-            color: white;
-        }
-        .btn-save-defaults:hover {
-            background-color: #2980b9;
-        }
-
-        .btn-cancel {
-            background-color: #f1f5f9;
-            color: #475569;
-        }
-        .btn-cancel:hover {
-            background-color: #e2e8f0;
-        }
+        .btn-save-defaults { background-color: #3498db; color: white; }
+        .btn-save-defaults:hover { background-color: #2980b9; }
+        .btn-cancel { background-color: #f1f5f9; color: #475569; }
+        .btn-cancel:hover { background-color: #e2e8f0; }
 
         /* ==========================================
            DRUCK-LAYOUT – HERMA 4473 (70 x 41 mm)
@@ -544,7 +605,7 @@
             justify-content: flex-end;
             margin-top: auto;
             margin-bottom: auto;
-            white-space: nowrap; /* Verhindert das Umbrechen von Nummer, Punkt und Suffix */
+            white-space: nowrap;
         }
 
         .label-middle .num {
@@ -586,60 +647,32 @@
             background-color: #fafbfc;
         }
 
-        #hiddenPrintContainer {
-            display: none;
-        }
+        #hiddenPrintContainer { display: none; }
 
         @media (max-width: 700px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            .preview-sidebar {
-                order: -1;
-            }
-            .action-buttons {
-                flex-direction: column;
-            }
+            .dashboard-grid { grid-template-columns: 1fr; gap: 25px; }
+            .preview-sidebar { order: -1; }
+            .action-buttons { flex-direction: column; }
+            .crud-inline-fields { grid-template-columns: 1fr; gap: 8px; }
         }
 
-@media print {
-            /* Blendat die Benutzeroberfläche und Modals komplett aus */
-            body > :not(#hiddenPrintContainer) {
-                display: none !important;
-            }
-            
-            /* Aktiviert den versteckten Druck-Container */
+        @media print {
+            body > :not(#hiddenPrintContainer) { display: none !important; }
             #hiddenPrintContainer {
                 display: block !important;
                 position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
-                width: 210mm !important;
-                height: 297mm !important;
+                top: 0 !important; left: 0 !important;
+                width: 210mm !important; height: 297mm !important;
             }
-            
-            /* Erzwingt, dass das Grid im Druck erhalten bleibt */
-            #labelSheetDirect {
-                display: grid !important;
-            }
-
-            /* Entfernt die gestrichelten Hilfslinien für den echten Ausdruck */
-            .label {
-                border: 1px solid transparent !important;
-            }
-            
-            @page {
-                size: A4;
-                margin: 0;
-            }
+            #labelSheetDirect { display: grid !important; }
+            .label { border: 1px solid transparent !important; }
+            @page { size: A4; margin: 0; }
         }
     </style>
 </head>
 <body>
 
     <div class="main-card">
-
         <div class="app-header">
             <div class="app-header-left">
                 <img class="app-logo" src="https://avatars.githubusercontent.com/u/297924413?s=400&u=9843148f4e4e6cd0cc18040131acc5403ef4a9ac&v=4" alt="Logo">
@@ -649,13 +682,12 @@
                 </div>
             </div>
             <div class="app-header-right" id="headerStation">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 <span id="headerStationText">106 - ASZ Asten</span>
             </div>
         </div>
 
         <div class="dashboard-grid">
-
             <div class="preview-sidebar">
                 <div class="sidebar-title">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -679,7 +711,6 @@
                 </div>
 
                 <div class="info-title">Aktuelle Konfiguration</div>
-
                 <div class="summary-box">
                     <div class="summary-item"><span class="summary-label">Abfallart:</span> <span id="sumBezeichnung">-</span></div>
                     <div class="summary-item"><span class="summary-label">Artikel-Nr:</span> <span id="sumArtNr">-</span></div>
@@ -689,20 +720,19 @@
 
                 <div class="action-buttons">
                     <button class="btn-primary" onclick="triggerDirectPrint()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
                         Jetzt Ausdrucken
                     </button>
-
                     <button class="btn-secondary" onclick="openSettings()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1-2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1-2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                         Einstellungen
                     </button>
                 </div>
             </div>
-
         </div>
     </div>
 
+    <!-- SETTINGS MODAL -->
     <div id="settingsModal" class="modal-backdrop" onclick="closeSettingsViaBackdrop(event)">
         <div class="modal-content">
             <div class="modal-header">
@@ -710,81 +740,107 @@
                 <button class="btn-close-x" onclick="closeSettings()">&times;</button>
             </div>
 
-            <div class="form-group" style="margin-bottom: 20px;">
-                <label for="inputTop">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                    Standort (ASZ Niederlassung OÖ):
-                </label>
-                <select id="inputTop" onchange="updatePreview()">
-                    <optgroup label="Bezirk Linz-Land">
-                        <option value="106 - ASZ Asten" selected>106 - ASZ Asten</option>
-                        <option value="ASZ Ansfelden">ASZ Ansfelden</option>
-                        <option value="ASZ Enns">ASZ Enns</option>
-                        <option value="ASZ Hörsching">ASZ Hörsching</option>
-                        <option value="ASZ Leonding">ASZ Leonding</option>
-                        <option value="ASZ Neuhofen">ASZ Neuhofen</option>
-                        <option value="ASZ Pasching">ASZ Pasching</option>
-                        <option value="ASZ St. Florian">ASZ St. Florian</option>
-                        <option value="ASZ Traun">ASZ Traun</option>
-                        <option value="ASZ Wilhering">ASZ Wilhering</option>
-                    </optgroup>
-                    <optgroup label="Linz Stadt">
-                        <option value="ASZ Linz-Nebingerstraße">ASZ Linz-Nebingerstraße</option>
-                        <option value="ASZ Linz-Mostnnystraße">ASZ Linz-Mostnnystraße</option>
-                        <option value="ASZ Linz-Wiener Straße">ASZ Linz-Wiener Straße</option>
-                        <option value="ASZ Linz-Dornach">ASZ Linz-Dornach</option>
-                    </optgroup>
-                </select>
-            </div>
-
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="inputCount">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
-                        Anzahl Etiketten (max. 21):
+            <div class="modal-scrollable-area">
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="inputTop">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        Standort (ASZ Niederlassung OÖ):
                     </label>
-                    <input type="number" id="inputCount" value="9" min="1" max="21" oninput="updatePreview()" />
+                    <select id="inputTop" onchange="updatePreview()">
+                        <optgroup label="Bezirk Linz-Land">
+                            <option value="106 - ASZ Asten" selected>106 - ASZ Asten</option>
+                            <option value="ASZ Ansfelden">ASZ Ansfelden</option>
+                            <option value="ASZ Enns">ASZ Enns</option>
+                            <option value="ASZ Hörsching">ASZ Hörsching</option>
+                            <option value="ASZ Leonding">ASZ Leonding</option>
+                            <option value="ASZ Neuhofen">ASZ Neuhofen</option>
+                            <option value="ASZ Pasching">ASZ Pasching</option>
+                            <option value="ASZ St. Florian">ASZ St. Florian</option>
+                            <option value="ASZ Traun">ASZ Traun</option>
+                            <option value="ASZ Wilhering">ASZ Wilhering</option>
+                        </optgroup>
+                        <optgroup label="Linz Stadt">
+                            <option value="ASZ Linz-Nebingerstraße">ASZ Linz-Nebingerstraße</option>
+                            <option value="ASZ Linz-Mostnnystraße">ASZ Linz-Mostnnystraße</option>
+                            <option value="ASZ Linz-Wiener Straße">ASZ Linz-Wiener Straße</option>
+                            <option value="ASZ Linz-Dornach">ASZ Linz-Dornach</option>
+                        </optgroup>
+                    </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="inputStartPos">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                        Start-Position (1-21):
-                    </label>
-                    <input type="number" id="inputStartPos" value="1" min="1" max="21" oninput="updatePreview()" />
-                </div>
-            </div>
-
-            <div class="mode-switcher">
-                <div id="tabSelect" class="mode-tab active" onclick="switchMode('select')">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-                    Modus: Sortiment
-                </div>
-                <div id="tabInput" class="mode-tab" onclick="switchMode('input')">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"/></svg>
-                    Freie Eingabe
-                </div>
-            </div>
-
-            <div id="sectionSelect" class="form-section active">
-                <p style="font-size: 0.9rem; color: #64748b; margin: 0 0 10px 0;">Die Sortiment-Auswahl befindet sich jetzt direkt auf der Startseite.</p>
-            </div>
-
-            <div id="sectionInput" class="form-section">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="inputArtNr">Artikel-Nr.:</label>
-                        <input type="text" id="inputArtNr" value="4040" oninput="updatePreview()" />
+                        <label for="inputCount">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+                            Anzahl Etiketten (max. 21):
+                        </label>
+                        <input type="number" id="inputCount" value="9" min="1" max="21" oninput="updatePreview()" />
                     </div>
 
                     <div class="form-group">
-                        <label for="inputSuffix">Zusatz Mitte:</label>
-                        <input type="text" id="inputSuffix" value="QR-Box" oninput="updatePreview()" />
+                        <label for="inputStartPos">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                            Start-Position (1-21):
+                        </label>
+                        <input type="number" id="inputStartPos" value="1" min="1" max="21" oninput="updatePreview()" />
                     </div>
+                </div>
 
-                    <div class="form-group full-width">
-                        <label for="inputBezeichnung">Bezeichnung unten:</label>
-                        <input type="text" id="inputBezeichnung" value="Elektro-Kleingeräte (ohne Akku)" oninput="updatePreview()" />
+                <div class="mode-switcher">
+                    <div id="tabSelect" class="mode-tab active" onclick="switchMode('select')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg>
+                        Modus: Sortiment
+                    </div>
+                    <div id="tabInput" class="mode-tab" onclick="switchMode('input')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"/></svg>
+                        Freie Eingabe
+                    </div>
+                </div>
+
+                <div id="sectionSelect" class="form-section active">
+                    <p style="font-size: 0.9rem; color: #64748b; margin: 0 0 10px 0;">Die Sortiment-Auswahl befindet sich auf der Startseite.</p>
+                    
+                    <!-- Dynamic Sortiment / Articles CRUD Manager -->
+                    <div class="crud-box">
+                        <div class="crud-title">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                            Sortiment / Artikel verwalten
+                        </div>
+                        <div class="crud-inline-fields">
+                            <div class="form-group">
+                                <label style="font-size:0.7rem;">Art-Nr.</label>
+                                <input type="text" id="crudArtNr" placeholder="4040">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size:0.7rem;">Zusatz Mitte</label>
+                                <input type="text" id="crudZusatz" placeholder="Box">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size:0.7rem;">Bezeichnung unten</label>
+                                <input type="text" id="crudBez" placeholder="Elektro-Kleingeräte...">
+                            </div>
+                            <button class="btn-crud-add" onclick="addArticleItem()">Hinzufügen</button>
+                        </div>
+                        <div class="crud-list-container" id="crudListContainer">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <div id="sectionInput" class="form-section">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="inputArtNr">Artikel-Nr.:</label>
+                            <input type="text" id="inputArtNr" value="4040" oninput="updatePreview()" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputSuffix">Zusatz Mitte:</label>
+                            <input type="text" id="inputSuffix" value="QR-Box" oninput="updatePreview()" />
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="inputBezeichnung">Bezeichnung unten:</label>
+                            <input type="text" id="inputBezeichnung" value="Elektro-Kleingeräte (ohne Akku)" oninput="updatePreview()" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -799,19 +855,18 @@
         </div>
     </div>
 
+    <!-- PREVIEW MODAL -->
     <div id="previewModal" class="modal-backdrop" onclick="closePreviewModalViaBackdrop(event)">
         <div class="modal-content preview-modal-content">
             <div class="modal-header">
                 <span>Vollbild-Druckvorschau (A4-Bogen – HERMA 4473, 21 Etiketten)</span>
                 <button class="btn-close-x" onclick="closePreviewModal()">&times;</button>
             </div>
-
             <div class="modal-body-scroll">
                 <div class="page-container">
                     <div class="print-sheet" id="labelSheetModal"></div>
                 </div>
             </div>
-
             <div class="modal-footer">
                 <button class="btn-primary" onclick="window.print()">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
@@ -829,10 +884,8 @@
     </div>
 
     <script>
-        // ============================================================
-        // SORTIMENT
-        // ============================================================
-        const sortimentData = [
+        // Default Baseline Dataset
+        const defaultSortimentData = [
             { artNr: "4040", bez: "Elektro-Kleingeräte (ohne Akku)", zusatzMitte: "QR-Box" },
             { artNr: "4010", bez: "Elektro-Großgeräte", zusatzMitte: "Gitterbox" },
             { artNr: "4020", bez: "Kühlgeräte", zusatzMitte: "Großteil" },
@@ -850,15 +903,38 @@
             { artNr: "4320", bez: "Altöle", zusatzMitte: "Tank" }
         ];
 
+        let sortimentData = [];
         let aktuellerModus = 'select';
 
         window.onload = function() {
+            loadSortimentData();
             initDropdown();
             loadDefaults();
+            renderCrudList();
         };
+
+        // Load Articles from Storage or use defaults
+        function loadSortimentData() {
+            const savedArticles = localStorage.getItem('lavu_studio_articles_v8');
+            if (savedArticles) {
+                try {
+                    sortimentData = JSON.parse(savedArticles);
+                } catch(e) {
+                    sortimentData = [...defaultSortimentData];
+                }
+            } else {
+                sortimentData = [...defaultSortimentData];
+            }
+        }
+
+        function saveSortimentData() {
+            localStorage.setItem('lavu_studio_articles_v8', JSON.stringify(sortimentData));
+            initDropdown();
+        }
 
         function initDropdown() {
             const select = document.getElementById('sortimentSelect');
+            const currentVal = select.value;
             select.innerHTML = '';
             sortimentData.forEach((item, index) => {
                 const opt = document.createElement('option');
@@ -866,6 +942,9 @@
                 opt.innerHTML = `[${item.artNr}] ${item.bez}`;
                 select.appendChild(opt);
             });
+            if(currentVal !== "" && sortimentData[currentVal]) {
+                select.value = currentVal;
+            }
         }
 
         function switchMode(mode) {
@@ -902,6 +981,58 @@
         }
 
         // ============================================================
+        // ARTICLE MANAGER (CRUD)
+        // ============================================================
+        function renderCrudList() {
+            const container = document.getElementById('crudListContainer');
+            container.innerHTML = '';
+            sortimentData.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'crud-item';
+                div.innerHTML = `
+                    <span class="badge-nr">${item.artNr}</span>
+                    <span class="text-suffix">${item.zusatzMitte}</span>
+                    <span class="text-bez" title="${item.bez}">${item.bez}</span>
+                    <button class="btn-delete-item" onclick="deleteArticleItem(${index})" title="Artikel löschen">&times;</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function addArticleItem() {
+            const artNr = document.getElementById('crudArtNr').value.trim();
+            const zusatz = document.getElementById('crudZusatz').value.trim();
+            const bez = document.getElementById('crudBez').value.trim();
+
+            if (!artNr || !bez) {
+                alert('Bitte mindestens eine Artikel-Nr. und Bezeichnung eingeben!');
+                return;
+            }
+
+            sortimentData.push({ artNr: artNr, bez: bez, zusatzMitte: zusatz || "-" });
+            saveSortimentData();
+            renderCrudList();
+
+            // Clear Input Fields
+            document.getElementById('crudArtNr').value = '';
+            document.getElementById('crudZusatz').value = '';
+            document.getElementById('crudBez').value = '';
+            
+            // Set newly created option active
+            document.getElementById('sortimentSelect').value = sortimentData.length - 1;
+            handlePresetSelection();
+        }
+
+        function deleteArticleItem(index) {
+            if(confirm(`Artikel "${sortimentData[index].bez}" wirklich löschen?`)) {
+                sortimentData.splice(index, 1);
+                saveSortimentData();
+                renderCrudList();
+                handlePresetSelection();
+            }
+        }
+
+        // ============================================================
         // MODALS
         // ============================================================
         function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
@@ -916,12 +1047,10 @@
             if (event.target.id === 'previewModal') closePreviewModal();
         }
 
-        function triggerDirectPrint() {
-            window.print();
-        }
+        function triggerDirectPrint() { window.print(); }
 
         // ============================================================
-        // LOCAL STORAGE
+        // LOCAL STORAGE - DEFAULTS
         // ============================================================
         function saveDefaults() {
             const defaults = {
@@ -940,8 +1069,7 @@
             btn.innerHTML = '✓ Gespeichert!';
             btn.style.backgroundColor = '#27ae60';
             setTimeout(() => {
-                btn.innerHTML =
-                    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Standard sichern';
+                btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Standard sichern';
                 btn.style.backgroundColor = '#3498db';
             }, 1800);
         }
@@ -957,7 +1085,9 @@
                     if (defaults.artNr !== undefined) document.getElementById('inputArtNr').value = defaults.artNr;
                     if (defaults.suffix !== undefined) document.getElementById('inputSuffix').value = defaults.suffix;
                     if (defaults.bezeichnung !== undefined) document.getElementById('inputBezeichnung').value = defaults.bezeichnung;
-                    if (defaults.sortimentIndex !== undefined) document.getElementById('sortimentSelect').value = defaults.sortimentIndex;
+                    if (defaults.sortimentIndex !== undefined && defaults.sortimentIndex < sortimentData.length) {
+                        document.getElementById('sortimentSelect').value = defaults.sortimentIndex;
+                    }
                     if (defaults.modus) {
                         switchMode(defaults.modus);
                     } else {
@@ -1001,12 +1131,10 @@
 
             let HTMLContent = '';
 
-            // 1. Leere Etiketten vor der Startposition
             for (let i = 1; i < startPos; i++) {
                 HTMLContent += `<div class="label empty"></div>`;
             }
 
-            // 2. Bedruckte Etiketten
             for (let i = 0; i < count; i++) {
                 if ((startPos - 1 + i) >= 21) break;
                 HTMLContent += `
@@ -1022,7 +1150,6 @@
                 `;
             }
 
-            // 3. Rest auffüllen
             let currentCells = startPos - 1 + count;
             while (currentCells < 21) {
                 HTMLContent += `<div class="label empty"></div>`;
@@ -1034,49 +1161,15 @@
             labelSheetDirect.innerHTML = HTMLContent;
         }
     </script>
-<script>
-    let deferredPrompt;
-
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('Service Worker erfolgreich registriert!', reg))
-                .catch(err => console.error('Service Worker Registrierung fehlgeschlagen:', err));
-        });
-    }
-
-    // Installations-Event abfangen (Gehört in den Haupt-Thread!)
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        // Zeige den Installations-Banner an
-        const banner = document.getElementById('pwaBanner');
-        if (banner) banner.style.display = 'flex';
-    });
-
-    // Klick auf den Installations-Button handhaben
-    const installBtn = document.getElementById('btnPwaInstall');
-    if (installBtn) {
-        installBtn.addEventListener('click', () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User hat die Installation akzeptiert.');
-                    }
-                    const banner = document.getElementById('pwaBanner');
-                    if (banner) banner.style.display = 'none';
-                    deferredPrompt = null;
-                });
-            }
-        });
-    }
-    // Banner ausblenden, falls bereits erfolgreich installiert
-    window.addEventListener('appinstalled', () => {
-        console.log('LAVU v8 App wurde erfolgreich installiert.');
-        const banner = document.getElementById('pwaBanner');
-        if (banner) banner.style.display = 'none';
-    });
-</script>
+    <script>
+        let deferredPrompt;
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker erfolgreich registriert!', reg))
+                    .catch(err => console.error('Service Worker Registrierung fehlgeschlagen:', err));
+            });
+        }
+    </script>
 </body>
 </html>
