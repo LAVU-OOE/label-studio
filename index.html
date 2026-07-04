@@ -704,86 +704,86 @@
                 <button class="btn-close-x" onclick="closeSettings()">&times;</button>
             </div>
 
-<div class="form-group" style="margin-bottom: 20px;">
+            <div class="form-group" style="margin-bottom: 20px;">
                 <label for="inputTop">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                     Standort (ASZ Niederlassung OÖ):
                 </label>
-                <input type="text" id="inputTop" list="standortOptionen" value="106 - ASZ Asten" oninput="updatePreview()" placeholder="Standort eingeben oder wählen..." />
-                <datalist id="standortOptionen">
+                <!-- Geändert von <input> auf ein echtes <select> für reibungslose Auswahl -->
+                <select id="inputTop" onchange="updatePreview()" style="width: 100%; background-color: #f8fafc;">
                     <!-- Linz-Land & Linz Stadt -->
-                    <option value="106 - ASZ Asten"></option>
-                    <option value="ASZ Ansfelden"></option>
-                    <option value="ASZ Enns"></option>
-                    <option value="ASZ Hörsching"></option>
-                    <option value="ASZ Leonding"></option>
-                    <option value="ASZ Neuhofen"></option>
-                    <option value="ASZ Pasching"></option>
-                    <option value="ASZ St. Florian"></option>
-                    <option value="ASZ Traun"></option>
-                    <option value="ASZ Wilhering"></option>
-                    <option value="ASZ Linz-Nebingerstraße"></option>
-                    <option value="ASZ Linz-Mostnnystraße"></option>
-                    <option value="ASZ Linz-Wiener Straße"></option>
-                    <option value="ASZ Linz-Dornach"></option>
+                    <option value="106 - ASZ Asten">106 - ASZ Asten</option>
+                    <option value="ASZ Ansfelden">ASZ Ansfelden</option>
+                    <option value="ASZ Enns">ASZ Enns</option>
+                    <option value="ASZ Hörsching">ASZ Hörsching</option>
+                    <option value="ASZ Leonding">ASZ Leonding</option>
+                    <option value="ASZ Neuhofen">ASZ Neuhofen</option>
+                    <option value="ASZ Pasching">ASZ Pasching</option>
+                    <option value="ASZ St. Florian">ASZ St. Florian</option>
+                    <option value="ASZ Traun">ASZ Traun</option>
+                    <option value="ASZ Wilhering">ASZ Wilhering</option>
+                    <option value="ASZ Linz-Nebingerstraße">ASZ Linz-Nebingerstraße</option>
+                    <option value="ASZ Linz-Mostnnystraße">ASZ Linz-Mostnnystraße</option>
+                    <option value="ASZ Linz-Wiener Straße">ASZ Linz-Wiener Straße</option>
+                    <option value="ASZ Linz-Dornach">ASZ Linz-Dornach</option>
                     
                     <!-- Wels & Wels-Land -->
-                    <option value="ASZ Wels-Nord"></option>
-                    <option value="ASZ Wels-West"></option>
-                    <option value="ASZ Gunskirchen"></option>
-                    <option value="ASZ Marchtrenk"></option>
-                    <option value="ASZ Thalheim"></option>
-                    <option value="ASZ Lambach"></option>
+                    <option value="ASZ Wels-Nord">ASZ Wels-Nord</option>
+                    <option value="ASZ Wels-West">ASZ Wels-West</option>
+                    <option value="ASZ Gunskirchen">ASZ Gunskirchen</option>
+                    <option value="ASZ Marchtrenk">ASZ Marchtrenk</option>
+                    <option value="ASZ Thalheim">ASZ Thalheim</option>
+                    <option value="ASZ Lambach">ASZ Lambach</option>
                     
                     <!-- Steyr & Steyr-Land -->
-                    <option value="ASZ Steyr"></option>
-                    <option value="ASZ Garsten"></option>
-                    <option value="ASZ Sierning"></option>
-                    <option value="ASZ Bad Hall"></option>
+                    <option value="ASZ Steyr">ASZ Steyr</option>
+                    <option value="ASZ Garsten">ASZ Garsten</option>
+                    <option value="ASZ Sierning">ASZ Sierning</option>
+                    <option value="ASZ Bad Hall">ASZ Bad Hall</option>
                     
                     <!-- Urfahr-Umgebung -->
-                    <option value="ASZ Altenberg"></option>
-                    <option value="ASZ Bad Leonfelden"></option>
-                    <option value="ASZ Gallneukirchen"></option>
-                    <option value="ASZ Ottensheim"></option>
-                    <option value="ASZ Walding"></option>
+                    <option value="ASZ Altenberg">ASZ Altenberg</option>
+                    <option value="ASZ Bad Leonfelden">ASZ Bad Leonfelden</option>
+                    <option value="ASZ Gallneukirchen">ASZ Gallneukirchen</option>
+                    <option value="ASZ Ottensheim">ASZ Ottensheim</option>
+                    <option value="ASZ Walding">ASZ Walding</option>
                     
                     <!-- Freistadt -->
-                    <option value="ASZ Freistadt"></option>
-                    <option value="ASZ Pregarten"></option>
-                    <option value="ASZ Unterweißenbach"></option>
+                    <option value="ASZ Freistadt">ASZ Freistadt</option>
+                    <option value="ASZ Pregarten">ASZ Pregarten</option>
+                    <option value="ASZ Unterweißenbach">ASZ Unterweißenbach</option>
                     
                     <!-- Perg -->
-                    <option value="ASZ Perg"></option>
-                    <option value="ASZ Grein"></option>
-                    <option value="ASZ Schwertberg"></option>
-                    <option value="ASZ St. Georgen/Gusen"></option>
+                    <option value="ASZ Perg">ASZ Perg</option>
+                    <option value="ASZ Grein">ASZ Grein</option>
+                    <option value="ASZ Schwertberg">ASZ Schwertberg</option>
+                    <option value="ASZ St. Georgen/Gusen">ASZ St. Georgen/Gusen</option>
                     
                     <!-- Gmunden & Vöcklabruck -->
-                    <option value="ASZ Gmunden"></option>
-                    <option value="ASZ Bad Ischl"></option>
-                    <option value="ASZ Altmünster"></option>
-                    <option value="ASZ Vöcklabruck"></option>
-                    <option value="ASZ Attnang-Puchheim"></option>
-                    <option value="ASZ Schwanenstadt"></option>
-                    <option value="ASZ Mondsee"></option>
+                    <option value="ASZ Gmunden">ASZ Gmunden</option>
+                    <option value="ASZ Bad Ischl">ASZ Bad Ischl</option>
+                    <option value="ASZ Altmünster">ASZ Altmünster</option>
+                    <option value="ASZ Vöcklabruck">ASZ Vöcklabruck</option>
+                    <option value="ASZ Attnang-Puchheim">ASZ Attnang-Puchheim</option>
+                    <option value="ASZ Schwanenstadt">ASZ Schwanenstadt</option>
+                    <option value="ASZ Mondsee">ASZ Mondsee</option>
                     
                     <!-- Braunau, Ried & Schärding -->
-                    <option value="ASZ Braunau"></option>
-                    <option value="ASZ Mattighofen"></option>
-                    <option value="ASZ Ried im Innkreis"></option>
-                    <option value="ASZ Schärding"></option>
+                    <option value="ASZ Braunau">ASZ Braunau</option>
+                    <option value="ASZ Mattighofen">ASZ Mattighofen</option>
+                    <option value="ASZ Ried im Innkreis">ASZ Ried im Innkreis</option>
+                    <option value="ASZ Schärding">ASZ Schärding</option>
                     
                     <!-- Grieskirchen & Eferding -->
-                    <option value="ASZ Grieskirchen"></option>
-                    <option value="ASZ Bad Schallerbach"></option>
-                    <option value="ASZ Eferding"></option>
+                    <option value="ASZ Grieskirchen">ASZ Grieskirchen</option>
+                    <option value="ASZ Bad Schallerbach">ASZ Bad Schallerbach</option>
+                    <option value="ASZ Eferding">ASZ Eferding</option>
                     
                     <!-- Kirchdorf & Rohrbach -->
-                    <option value="ASZ Kirchdorf"></option>
-                    <option value="ASZ Micheldorf"></option>
-                    <option value="ASZ Rohrbach"></option>
-                </datalist>
+                    <option value="ASZ Kirchdorf">ASZ Kirchdorf</option>
+                    <option value="ASZ Micheldorf">ASZ Micheldorf</option>
+                    <option value="ASZ Rohrbach">ASZ Rohrbach</option>
+                </select>
             </div>
 
             <div class="form-grid">
