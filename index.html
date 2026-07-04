@@ -1,4 +1,3 @@
-<!--7pub-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -6,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LAVU OÖ - Etiketten-Druckstudio v8 (HERMA 4473)</title>
     <link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#1a4b60" />
-<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="theme-color" content="#1a4b60" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <style>
         /* ==========================================
            BENUTZEROBERFLÄCHE (Wird nicht gedruckt)
@@ -102,7 +101,6 @@
             margin-bottom: 30px;
         }
 
-        /* Linke Spalte: Miniaturansicht */
         .preview-sidebar {
             display: flex;
             flex-direction: column;
@@ -175,7 +173,6 @@
             background: rgba(39, 174, 96, 0.95);
         }
 
-        /* Rechte Spalte */
         .info-panel {
             display: flex;
             flex-direction: column;
@@ -296,6 +293,16 @@
             transform: translateY(-1px);
         }
 
+        .btn-crud {
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
         /* Modals */
         .modal-backdrop {
             display: none;
@@ -317,33 +324,28 @@
             padding: 30px;
             border-radius: 16px;
             width: 92%;
-            max-width: 620px;
+            max-width: 580px;
             box-shadow: 0 20px 40px rgba(15, 34, 43, 0.2);
             position: relative;
         }
 
         .preview-modal-content {
-            max-width: 95vw;
-            width: auto;
-            height: 94vh;
+            max-width: 230mm;
             max-height: 94vh;
             display: flex;
             flex-direction: column;
             padding: 20px 30px;
-            overflow: hidden;
         }
 
         .modal-body-scroll {
+            overflow-y: auto;
             flex: 1;
-            padding: 15px;
+            padding: 25px;
             background: #f1f5f9;
             border-radius: 12px;
             display: flex;
             justify-content: center;
-            align-items: center;
             box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            position: relative;
         }
 
         .modal-header {
@@ -356,7 +358,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-shrink: 0;
         }
 
         .btn-close-x {
@@ -369,6 +370,51 @@
         }
         .btn-close-x:hover {
             color: #ef4444;
+        }
+
+        .mode-switcher {
+            display: flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .mode-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .mode-tab.active {
+            background: #1a4b60;
+            color: white;
+            box-shadow: 0 2px 6px rgba(26, 75, 96, 0.15);
+        }
+
+        .form-section {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .form-grid {
@@ -418,53 +464,13 @@
             box-shadow: 0 0 0 3px rgba(108, 180, 219, 0.15);
         }
 
-        /* Sortiment Action-Row im Einstellungsfenster */
-        .sortiment-crud-actions {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .btn-crud {
-            padding: 8px 14px;
-            font-size: 0.85rem;
-            border-radius: 6px;
-        }
-        .btn-crud-add { background: #27ae60; color: white; }
-        .btn-crud-add:hover { background: #219653; }
-        .btn-crud-update { background: #f39c12; color: white; }
-        .btn-crud-update:hover { background: #d35400; }
-        .btn-crud-delete { background: #e74c3c; color: white; }
-        .btn-crud-delete:hover { background: #c0392b; }
-
         .modal-footer {
             display: flex;
             justify-content: flex-end;
-            align-items: flex-end;
-            gap: 20px;
+            gap: 12px;
             margin-top: 20px;
             border-top: 1px solid #f1f5f9;
             padding-top: 15px;
-            flex-shrink: 0;
-        }
-
-        .preview-footer-grid {
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            align-items: flex-end;
-            gap: 30px;
-        }
-
-        .preview-inputs-block {
-            display: flex;
-            gap: 16px;
-            flex: 1;
-            max-width: 450px;
-        }
-
-        .preview-inputs-block .form-group {
-            flex: 1;
         }
 
         .btn-save-defaults {
@@ -492,7 +498,6 @@
             height: 297mm;
             box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
             box-sizing: border-box;
-            transform-origin: center center;
         }
 
         .print-sheet {
@@ -592,14 +597,6 @@
             .action-buttons {
                 flex-direction: column;
             }
-            .preview-footer-grid {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 15px;
-            }
-            .preview-inputs-block {
-                max-width: 100%;
-            }
         }
 
         @media print {
@@ -634,7 +631,6 @@
 <body>
 
     <div class="main-card">
-
         <div class="app-header">
             <div class="app-header-left">
                 <img class="app-logo" src="https://avatars.githubusercontent.com/u/297924413?s=400&u=9843148f4e4e6cd0cc18040131acc5403ef4a9ac&v=4" alt="Logo">
@@ -650,7 +646,6 @@
         </div>
 
         <div class="dashboard-grid">
-
             <div class="preview-sidebar">
                 <div class="sidebar-title">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -674,7 +669,6 @@
                 </div>
 
                 <div class="info-title">Aktuelle Konfiguration</div>
-
                 <div class="summary-box">
                     <div class="summary-item"><span class="summary-label">Abfallart:</span> <span id="sumBezeichnung">-</span></div>
                     <div class="summary-item"><span class="summary-label">Artikel-Nr:</span> <span id="sumArtNr">-</span></div>
@@ -687,14 +681,12 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
                         Jetzt Ausdrucken
                     </button>
-
                     <button class="btn-secondary" onclick="openSettings()">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1-2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                         Einstellungen
                     </button>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -710,105 +702,143 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                     Standort (ASZ Niederlassung OÖ):
                 </label>
-                <!-- Geändert von <input> auf ein echtes <select> für reibungslose Auswahl -->
-                <select id="inputTop" onchange="updatePreview()" style="width: 100%; background-color: #f8fafc;">
-                    <!-- Linz-Land & Linz Stadt -->
-                    <option value="106 - ASZ Asten">106 - ASZ Asten</option>
-                    <option value="ASZ Ansfelden">ASZ Ansfelden</option>
-                    <option value="ASZ Enns">ASZ Enns</option>
-                    <option value="ASZ Hörsching">ASZ Hörsching</option>
-                    <option value="ASZ Leonding">ASZ Leonding</option>
-                    <option value="ASZ Neuhofen">ASZ Neuhofen</option>
-                    <option value="ASZ Pasching">ASZ Pasching</option>
-                    <option value="ASZ St. Florian">ASZ St. Florian</option>
-                    <option value="ASZ Traun">ASZ Traun</option>
-                    <option value="ASZ Wilhering">ASZ Wilhering</option>
-                    <option value="ASZ Linz-Nebingerstraße">ASZ Linz-Nebingerstraße</option>
-                    <option value="ASZ Linz-Mostnnystraße">ASZ Linz-Mostnnystraße</option>
-                    <option value="ASZ Linz-Wiener Straße">ASZ Linz-Wiener Straße</option>
-                    <option value="ASZ Linz-Dornach">ASZ Linz-Dornach</option>
-                    
-                    <!-- Wels & Wels-Land -->
-                    <option value="ASZ Wels-Nord">ASZ Wels-Nord</option>
-                    <option value="ASZ Wels-West">ASZ Wels-West</option>
-                    <option value="ASZ Gunskirchen">ASZ Gunskirchen</option>
-                    <option value="ASZ Marchtrenk">ASZ Marchtrenk</option>
-                    <option value="ASZ Thalheim">ASZ Thalheim</option>
-                    <option value="ASZ Lambach">ASZ Lambach</option>
-                    
-                    <!-- Steyr & Steyr-Land -->
-                    <option value="ASZ Steyr">ASZ Steyr</option>
-                    <option value="ASZ Garsten">ASZ Garsten</option>
-                    <option value="ASZ Sierning">ASZ Sierning</option>
-                    <option value="ASZ Bad Hall">ASZ Bad Hall</option>
-                    
-                    <!-- Urfahr-Umgebung -->
-                    <option value="ASZ Altenberg">ASZ Altenberg</option>
-                    <option value="ASZ Bad Leonfelden">ASZ Bad Leonfelden</option>
-                    <option value="ASZ Gallneukirchen">ASZ Gallneukirchen</option>
-                    <option value="ASZ Ottensheim">ASZ Ottensheim</option>
-                    <option value="ASZ Walding">ASZ Walding</option>
-                    
-                    <!-- Freistadt -->
-                    <option value="ASZ Freistadt">ASZ Freistadt</option>
-                    <option value="ASZ Pregarten">ASZ Pregarten</option>
-                    <option value="ASZ Unterweißenbach">ASZ Unterweißenbach</option>
-                    
-                    <!-- Perg -->
-                    <option value="ASZ Perg">ASZ Perg</option>
-                    <option value="ASZ Grein">ASZ Grein</option>
-                    <option value="ASZ Schwertberg">ASZ Schwertberg</option>
-                    <option value="ASZ St. Georgen/Gusen">ASZ St. Georgen/Gusen</option>
-                    
-                    <!-- Gmunden & Vöcklabruck -->
-                    <option value="ASZ Gmunden">ASZ Gmunden</option>
-                    <option value="ASZ Bad Ischl">ASZ Bad Ischl</option>
-                    <option value="ASZ Altmünster">ASZ Altmünster</option>
-                    <option value="ASZ Vöcklabruck">ASZ Vöcklabruck</option>
-                    <option value="ASZ Attnang-Puchheim">ASZ Attnang-Puchheim</option>
-                    <option value="ASZ Schwanenstadt">ASZ Schwanenstadt</option>
-                    <option value="ASZ Mondsee">ASZ Mondsee</option>
-                    
-                    <!-- Braunau, Ried & Schärding -->
-                    <option value="ASZ Braunau">ASZ Braunau</option>
-                    <option value="ASZ Mattighofen">ASZ Mattighofen</option>
-                    <option value="ASZ Ried im Innkreis">ASZ Ried im Innkreis</option>
-                    <option value="ASZ Schärding">ASZ Schärding</option>
-                    
-                    <!-- Grieskirchen & Eferding -->
-                    <option value="ASZ Grieskirchen">ASZ Grieskirchen</option>
-                    <option value="ASZ Bad Schallerbach">ASZ Bad Schallerbach</option>
-                    <option value="ASZ Eferding">ASZ Eferding</option>
-                    
-                    <!-- Kirchdorf & Rohrbach -->
-                    <option value="ASZ Kirchdorf">ASZ Kirchdorf</option>
-                    <option value="ASZ Micheldorf">ASZ Micheldorf</option>
-                    <option value="ASZ Rohrbach">ASZ Rohrbach</option>
+                <select id="inputTop" onchange="updatePreview()" style="width: 100%;">
+                    <optgroup label="Linz-Land & Linz Stadt">
+                        <option value="106 - ASZ Asten" selected>106 - ASZ Asten</option>
+                        <option value="ASZ Ansfelden">ASZ Ansfelden</option>
+                        <option value="ASZ Enns">ASZ Enns</option>
+                        <option value="ASZ Hörsching">ASZ Hörsching</option>
+                        <option value="ASZ Leonding">ASZ Leonding</option>
+                        <option value="ASZ Neuhofen">ASZ Neuhofen</option>
+                        <option value="ASZ Pasching">ASZ Pasching</option>
+                        <option value="ASZ St. Florian">ASZ St. Florian</option>
+                        <option value="ASZ Traun">ASZ Traun</option>
+                        <option value="ASZ Wilhering">ASZ Wilhering</option>
+                        <option value="ASZ Linz-Nebingerstraße">ASZ Linz-Nebingerstraße</option>
+                        <option value="ASZ Linz-Mostnnystraße">ASZ Linz-Mostnnystraße</option>
+                        <option value="ASZ Linz-Wiener Straße">ASZ Linz-Wiener Straße</option>
+                        <option value="ASZ Linz-Dornach">ASZ Linz-Dornach</option>
+                    </optgroup>
+                    <optgroup label="Wels & Wels-Land">
+                        <option value="ASZ Wels-Nord">ASZ Wels-Nord</option>
+                        <option value="ASZ Wels-West">ASZ Wels-West</option>
+                        <option value="ASZ Gunskirchen">ASZ Gunskirchen</option>
+                        <option value="ASZ Marchtrenk">ASZ Marchtrenk</option>
+                        <option value="ASZ Thalheim">ASZ Thalheim</option>
+                        <option value="ASZ Lambach">ASZ Lambach</option>
+                    </optgroup>
+                    <optgroup label="Steyr & Steyr-Land">
+                        <option value="ASZ Steyr">ASZ Steyr</option>
+                        <option value="ASZ Garsten">ASZ Garsten</option>
+                        <option value="ASZ Sierning">ASZ Sierning</option>
+                        <option value="ASZ Bad Hall">ASZ Bad Hall</option>
+                    </optgroup>
+                    <optgroup label="Urfahr-Umgebung">
+                        <option value="ASZ Altenberg">ASZ Altenberg</option>
+                        <option value="ASZ Bad Leonfelden">ASZ Bad Leonfelden</option>
+                        <option value="ASZ Gallneukirchen">ASZ Gallneukirchen</option>
+                        <option value="ASZ Ottensheim">ASZ Ottensheim</option>
+                        <option value="ASZ Walding">ASZ Walding</option>
+                    </optgroup>
+                    <optgroup label="Freistadt">
+                        <option value="ASZ Freistadt">ASZ Freistadt</option>
+                        <option value="ASZ Pregarten">ASZ Pregarten</option>
+                        <option value="ASZ Unterweißenbach">ASZ Unterweißenbach</option>
+                    </optgroup>
+                    <optgroup label="Perg">
+                        <option value="ASZ Perg">ASZ Perg</option>
+                        <option value="ASZ Grein">ASZ Grein</option>
+                        <option value="ASZ Schwertberg">ASZ Schwertberg</option>
+                        <option value="ASZ St. Georgen/Gusen">ASZ St. Georgen/Gusen</option>
+                    </optgroup>
+                    <optgroup label="Gmunden & Vöcklabruck">
+                        <option value="ASZ Gmunden">ASZ Gmunden</option>
+                        <option value="ASZ Bad Ischl">ASZ Bad Ischl</option>
+                        <option value="ASZ Altmünster">ASZ Altmünster</option>
+                        <option value="ASZ Vöcklabruck">ASZ Vöcklabruck</option>
+                        <option value="ASZ Attnang-Puchheim">ASZ Attnang-Puchheim</option>
+                        <option value="ASZ Schwanenstadt">ASZ Schwanenstadt</option>
+                        <option value="ASZ Mondsee">ASZ Mondsee</option>
+                    </optgroup>
+                    <optgroup label="Innviertel (Braunau, Ried & Schärding)">
+                        <option value="ASZ Braunau">ASZ Braunau</option>
+                        <option value="ASZ Mattighofen">ASZ Mattighofen</option>
+                        <option value="ASZ Ried im Innkreis">ASZ Ried im Innkreis</option>
+                        <option value="ASZ Schärding">ASZ Schärding</option>
+                    </optgroup>
+                    <optgroup label="Grieskirchen & Eferding">
+                        <option value="ASZ Grieskirchen">ASZ Grieskirchen</option>
+                        <option value="ASZ Bad Schallerbach">ASZ Bad Schallerbach</option>
+                        <option value="ASZ Eferding">ASZ Eferding</option>
+                    </optgroup>
+                    <optgroup label="Kirchdorf & Rohrbach">
+                        <option value="ASZ Kirchdorf">ASZ Kirchdorf</option>
+                        <option value="ASZ Micheldorf">ASZ Micheldorf</option>
+                        <option value="ASZ Rohrbach">ASZ Rohrbach</option>
+                    </optgroup>
                 </select>
             </div>
 
             <div class="form-grid">
                 <div class="form-group">
-                    <label for="inputArtNr">Artikel-Nr.:</label>
-                    <input type="text" id="inputArtNr" value="4040" oninput="updatePreview()" />
+                    <label for="inputCount">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+                        Anzahl Etiketten (max. 21):
+                    </label>
+                    <input type="number" id="inputCount" value="9" min="1" max="21" oninput="updatePreview()" />
                 </div>
-
                 <div class="form-group">
-                    <label for="inputSuffix">Zusatz Mitte:</label>
-                    <input type="text" id="inputSuffix" value="QR-Box" oninput="updatePreview()" />
-                </div>
-
-                <div class="form-group full-width">
-                    <label for="inputBezeichnung">Bezeichnung unten:</label>
-                    <input type="text" id="inputBezeichnung" value="Elektro-Kleingeräte (ohne Akku)" oninput="updatePreview()" />
+                    <label for="inputStartPos">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        Start-Position (1-21):
+                    </label>
+                    <input type="number" id="inputStartPos" value="1" min="1" max="21" oninput="updatePreview()" />
                 </div>
             </div>
 
-            <label style="margin-bottom: 10px;">Sortiment verwalten:</label>
-            <div class="sortiment-crud-actions">
-                <button class="btn-crud btn-crud-add" onclick="addCurrentAsNewArticle()">Als neuen Artikel speichern</button>
-                <button class="btn-crud btn-crud-update" onclick="updateSelectedArticle()">Ausgewählten überschreiben</button>
-                <button class="btn-crud btn-crud-delete" onclick="deleteSelectedArticle()">Ausgewählten löschen</button>
+            <div class="mode-switcher">
+                <div id="tabSelect" class="mode-tab active" onclick="switchMode('select')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    Modus: Sortiment
+                </div>
+                <div id="tabInput" class="mode-tab" onclick="switchMode('input')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"/></svg>
+                    Freie Eingabe
+                </div>
+            </div>
+
+            <div id="sectionSelect" class="form-section active">
+                <p style="font-size: 0.9rem; color: #64748b; margin: 0 0 10px 0;">Die Sortiment-Auswahl befindet sich jetzt direkt auf der Startseite.</p>
+            </div>
+
+            <div id="sectionInput" class="form-section">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="inputArtNr">Artikel-Nr.:</label>
+                        <input type="text" id="inputArtNr" value="4040" oninput="updatePreview()" />
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSuffix">Zusatz Mitte:</label>
+                        <input type="text" id="inputSuffix" value="QR-Box" oninput="updatePreview()" />
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="inputBezeichnung">Bezeichnung unten:</label>
+                        <input type="text" id="inputBezeichnung" value="Elektro-Kleingeräte (ohne Akku)" oninput="updatePreview()" />
+                    </div>
+                </div>
+            </div>
+
+            <label style="margin-top: 20px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                Netzwerk-Synchronisation (Option A):
+            </label>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                <button class="btn-crud" style="background: #34495e; color: white; width: 100%;" onclick="verbindeNetzwerkDatei()">
+                    🔗 Zentrale Sortiment-Datei auswählen...
+                </button>
+                <div id="netzwerkStatus" style="font-size: 0.8rem; color: #7f8c8d; text-align: center; font-style: italic;">
+                    Status: Rein lokaler Modus (localStorage)
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -827,38 +857,17 @@
                 <span>Vollbild-Druckvorschau (A4-Bogen – HERMA 4473, 21 Etiketten)</span>
                 <button class="btn-close-x" onclick="closePreviewModal()">&times;</button>
             </div>
-
-            <div class="modal-body-scroll" id="modalBodyScroll">
-                <div class="page-container" id="modalPageContainer">
+            <div class="modal-body-scroll">
+                <div class="page-container">
                     <div class="print-sheet" id="labelSheetModal"></div>
                 </div>
             </div>
-
             <div class="modal-footer">
-                <div class="preview-footer-grid">
-                    <div class="preview-inputs-block">
-                        <div class="form-group">
-                            <label for="inputCount">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
-                                Anzahl Etiketten (max. 21):
-                            </label>
-                            <input type="number" id="inputCount" value="9" min="1" max="21" oninput="updatePreview()" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="inputStartPos">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                                Start-Position (1-21):
-                            </label>
-                            <input type="number" id="inputStartPos" value="1" min="1" max="21" oninput="updatePreview()" />
-                        </div>
-                    </div>
-
-                    <button class="btn-primary" onclick="window.print()" style="height: 44px;">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                        Jetzt Ausdrucken
-                    </button>
-                </div>
+                <button class="btn-primary" onclick="window.print()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                    Jetzt Ausdrucken
+                </button>
+                <button class="btn-cancel" onclick="closePreviewModal()">Schließen</button>
             </div>
         </div>
     </div>
@@ -871,9 +880,12 @@
 
     <script>
         // ============================================================
-        // SORTIMENT INITIAL-DATEN
+        // GLOBALE VARIABLEN & NETZWERK-LOGIK
         // ============================================================
-        const defaultSortiment = [
+        let fileHandle = null;
+        let lastModifiedTime = 0;
+
+        let defaultSortiment = [
             { artNr: "4040", bez: "Elektro-Kleingeräte (ohne Akku)", zusatzMitte: "QR-Box" },
             { artNr: "4010", bez: "Elektro-Großgeräte", zusatzMitte: "Gitterbox" },
             { artNr: "4020", bez: "Kühlgeräte", zusatzMitte: "Großteil" },
@@ -892,36 +904,98 @@
         ];
 
         let sortimentData = [];
+        let aktuellerModus = 'select';
 
         window.onload = function() {
-            loadSortiment();
-            initDropdown();
-            loadDefaults();
-            window.addEventListener('resize', scaleModalPreview);
+            loadSortiment().then(() => {
+                loadDefaults();
+            });
         };
 
-        // Laden & Speichern des Sortiments aus dem LocalStorage
-        function loadSortiment() {
+        // Geteilte Speicher- und Ladefunktionen
+        async function loadSortiment() {
+            if (fileHandle) {
+                try {
+                    const file = await fileHandle.getFile();
+                    if (file.lastModified === lastModifiedTime) return; 
+                    
+                    const text = await file.text();
+                    if (text.trim()) {
+                        sortimentData = JSON.parse(text);
+                        lastModifiedTime = file.lastModified;
+                        initDropdown();
+                        handlePresetSelection();
+                        console.log("Sortiment automatisch aus Netzwerkdatei aktualisiert.");
+                    }
+                    return;
+                } catch (e) {
+                    console.warn("Netzwerkdatei konnte nicht gelesen werden, weiche auf localStorage aus.", e);
+                }
+            }
+
             const savedSortiment = localStorage.getItem('lavu_studio_sortiment_v8');
             if (savedSortiment) {
-                try {
-                    sortimentData = JSON.parse(savedSortiment);
-                } catch(e) {
-                    console.error("Fehler beim Laden des Sortiments", e);
-                    sortimentData = [...defaultSortiment];
-                }
+                try { sortimentData = JSON.parse(savedSortiment); } 
+                catch(e) { sortimentData = [...defaultSortiment]; }
             } else {
                 sortimentData = [...defaultSortiment];
             }
+            initDropdown();
         }
 
-        function saveSortimentToStorage() {
+        async function saveSortimentToStorage() {
             localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(sortimentData));
+            
+            if (fileHandle) {
+                try {
+                    const writable = await fileHandle.createWritable();
+                    await writable.write(JSON.stringify(sortimentData, null, 2));
+                    await writable.close();
+                    
+                    const file = await fileHandle.getFile();
+                    lastModifiedTime = file.lastModified;
+                } catch (e) {
+                    alert("Fehler beim Schreiben in die Netzwerk-Datei. Berechtigungen prüfen!");
+                }
+            }
         }
 
+        async function verbindeNetzwerkDatei() {
+            try {
+                fileHandle = await window.showSaveFilePicker({
+                    suggestedName: 'lavu_sortiment_zentral.json',
+                    types: [{
+                        description: 'JSON-Datei für LAVU Sortiment',
+                        accept: {'application/json': ['.json']},
+                    }],
+                });
+
+                const file = await fileHandle.getFile();
+                const text = await file.text();
+                if (!text.trim()) {
+                    await saveSortimentToStorage();
+                }
+
+                document.getElementById('netzwerkStatus').innerHTML = `🟢 Gekoppelt mit: <b>${file.name}</b>`;
+                document.getElementById('netzwerkStatus').style.color = '#27ae60';
+                
+                await loadSortiment();
+            } catch (e) {
+                console.log("Auswahl abgebrochen oder vom Browser blockiert", e);
+            }
+        }
+
+        // Automatischer Check im Hintergrund alle 5 Sekunden
+        setInterval(() => {
+            if (fileHandle) {
+                loadSortiment();
+            }
+        }, 5000);
+
+        // Dropdown initialisieren
         function initDropdown() {
             const select = document.getElementById('sortimentSelect');
-            const currentIndex = select.value;
+            const aktuellerWert = select.value;
             select.innerHTML = '';
             sortimentData.forEach((item, index) => {
                 const opt = document.createElement('option');
@@ -929,12 +1003,33 @@
                 opt.innerHTML = `[${item.artNr}] ${item.bez}`;
                 select.appendChild(opt);
             });
-            if (currentIndex !== "" && currentIndex < sortimentData.length) {
-                select.value = currentIndex;
+            if(aktuellerWert !== "" && select.options[aktuellerWert]) {
+                select.value = aktuellerWert;
+            }
+        }
+
+        function switchMode(mode) {
+            aktuellerModus = mode;
+            document.getElementById('tabSelect').classList.toggle('active', mode === 'select');
+            document.getElementById('tabInput').classList.toggle('active', mode === 'input');
+            document.getElementById('sectionSelect').classList.toggle('active', mode === 'select');
+            document.getElementById('sectionInput').classList.toggle('active', mode === 'input');
+            if (mode === 'select') {
+                handlePresetSelection();
+            } else {
+                updatePreview();
             }
         }
 
         function handlePresetSelection() {
+            if (aktuellerModus !== 'select') {
+                aktuellerModus = 'select';
+                document.getElementById('tabSelect').classList.add('active');
+                document.getElementById('tabInput').classList.remove('active');
+                document.getElementById('sectionSelect').classList.add('active');
+                document.getElementById('sectionInput').classList.remove('active');
+            }
+
             const select = document.getElementById('sortimentSelect');
             const index = select.value;
             if (index !== "" && sortimentData[index]) {
@@ -947,81 +1042,7 @@
         }
 
         // ============================================================
-        // SORTIMENT VERWALTUNG (CRUD)
-        // ============================================================
-        function addCurrentAsNewArticle() {
-            const artNr = document.getElementById('inputArtNr').value.trim();
-            const suffix = document.getElementById('inputSuffix').value.trim();
-            const bez = document.getElementById('inputBezeichnung').value.trim();
-
-            if (!artNr || !bez) {
-                alert("Bitte mindestens eine Artikel-Nr. und eine Bezeichnung angeben.");
-                return;
-            }
-
-            const newItem = { artNr: artNr, bez: bez, zusatzMitte: suffix };
-            sortimentData.push(newItem);
-            saveSortimentToStorage();
-            initDropdown();
-            
-            // Auf den neu erstellten Artikel setzen
-            document.getElementById('sortimentSelect').value = sortimentData.length - 1;
-            alert("Artikel erfolgreich als neuen Eintrag ans Sortiment angehängt!");
-            updatePreview();
-        }
-
-        function updateSelectedArticle() {
-            const select = document.getElementById('sortimentSelect');
-            const index = select.value;
-            
-            if (index === "" || !sortimentData[index]) {
-                alert("Kein gültiger Artikel zum Überschreiben ausgewählt.");
-                return;
-            }
-
-            const artNr = document.getElementById('inputArtNr').value.trim();
-            const suffix = document.getElementById('inputSuffix').value.trim();
-            const bez = document.getElementById('inputBezeichnung').value.trim();
-
-            if (!artNr || !bez) {
-                alert("Artikel-Nr. und Bezeichnung dürfen nicht leer sein.");
-                return;
-            }
-
-            sortimentData[index] = { artNr: artNr, bez: bez, zusatzMitte: suffix };
-            saveSortimentToStorage();
-            initDropdown();
-            alert("Ausgewählter Artikel erfolgreich aktualisiert.");
-            updatePreview();
-        }
-
-        function deleteSelectedArticle() {
-            const select = document.getElementById('sortimentSelect');
-            const index = select.value;
-            
-            if (index === "" || !sortimentData[index]) {
-                alert("Kein gültiger Artikel zum Löschen ausgewählt.");
-                return;
-            }
-
-            if (confirm(`Möchtest du den Artikel [${sortimentData[index].artNr}] "${sortimentData[index].bez}" wirklich löschen?`)) {
-                sortimentData.splice(index, 1);
-                saveSortimentToStorage();
-                initDropdown();
-                if(sortimentData.length > 0) {
-                    document.getElementById('sortimentSelect').value = 0;
-                    handlePresetSelection();
-                } else {
-                    document.getElementById('inputArtNr').value = "";
-                    document.getElementById('inputSuffix').value = "";
-                    document.getElementById('inputBezeichnung').value = "";
-                    updatePreview();
-                }
-            }
-        }
-
-        // ============================================================
-        // MODALS
+        // MODALS & EVENT HANDLER
         // ============================================================
         function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
         function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
@@ -1029,47 +1050,21 @@
             if (event.target.id === 'settingsModal') closeSettings();
         }
 
-        function openPreviewModal() { 
-            document.getElementById('previewModal').style.display = 'flex'; 
-            setTimeout(scaleModalPreview, 50);
-        }
+        function openPreviewModal() { document.getElementById('previewModal').style.display = 'flex'; }
         function closePreviewModal() { document.getElementById('previewModal').style.display = 'none'; }
         function closePreviewModalViaBackdrop(event) {
             if (event.target.id === 'previewModal') closePreviewModal();
         }
 
-        function triggerDirectPrint() {
-            window.print();
-        }
+        function triggerDirectPrint() { window.print(); }
 
-        function scaleModalPreview() {
-            const bodyScroll = document.getElementById('modalBodyScroll');
-            const pageContainer = document.getElementById('modalPageContainer');
-            if (!bodyScroll || !pageContainer || document.getElementById('previewModal').style.display !== 'flex') return;
-
-            const availableWidth = bodyScroll.clientWidth;
-            const availableHeight = bodyScroll.clientHeight;
-
-            const targetWidth = 793.7;
-            const targetHeight = 1122.5;
-
-            const scaleX = (availableWidth - 30) / targetWidth;
-            const scaleY = (availableHeight - 30) / targetHeight;
-            
-            const finalScale = Math.min(scaleX, scaleY);
-
-            pageContainer.style.transform = `scale(${finalScale})`;
-            pageContainer.style.position = 'absolute';
-        }
-
-        // ============================================================
-        // LOCAL STORAGE - DEFAULTS
-        // ============================================================
+        // Defaults verwalten
         function saveDefaults() {
             const defaults = {
                 topText: document.getElementById('inputTop').value,
                 count: document.getElementById('inputCount').value,
                 startPos: document.getElementById('inputStartPos').value,
+                modus: aktuellerModus,
                 sortimentIndex: document.getElementById('sortimentSelect').value,
                 artNr: document.getElementById('inputArtNr').value,
                 suffix: document.getElementById('inputSuffix').value,
@@ -1081,8 +1076,7 @@
             btn.innerHTML = '✓ Gespeichert!';
             btn.style.backgroundColor = '#27ae60';
             setTimeout(() => {
-                btn.innerHTML =
-                    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Standard sichern';
+                btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Standard sichern';
                 btn.style.backgroundColor = '#3498db';
             }, 1800);
         }
@@ -1098,12 +1092,14 @@
                     if (defaults.artNr !== undefined) document.getElementById('inputArtNr').value = defaults.artNr;
                     if (defaults.suffix !== undefined) document.getElementById('inputSuffix').value = defaults.suffix;
                     if (defaults.bezeichnung !== undefined) document.getElementById('inputBezeichnung').value = defaults.bezeichnung;
-                    if (defaults.sortimentIndex !== undefined && defaults.sortimentIndex < sortimentData.length) {
-                        document.getElementById('sortimentSelect').value = defaults.sortimentIndex;
+                    if (defaults.sortimentIndex !== undefined) document.getElementById('sortimentSelect').value = defaults.sortimentIndex;
+                    if (defaults.modus) {
+                        switchMode(defaults.modus);
+                    } else {
+                        updatePreview();
                     }
-                    updatePreview();
                 } catch (e) {
-                    console.error("Fehler beim Laden", e);
+                    console.error("Fehler beim Laden der Defaults", e);
                     handlePresetSelection();
                 }
             } else {
@@ -1111,15 +1107,11 @@
             }
         }
 
-        // ============================================================
-        // RENDER – 21 Etiketten (3 × 7)
-        // ============================================================
+        // RENDERING (3 x 7 Blöcke)
         function updatePreview() {
             const thumbnailSheet = document.getElementById('thumbnailSheet');
             const labelSheetModal = document.getElementById('labelSheetModal');
             const labelSheetDirect = document.getElementById('labelSheetDirect');
-
-            if(!thumbnailSheet || !labelSheetModal || !labelSheetDirect) return;
 
             thumbnailSheet.innerHTML = '';
             labelSheetModal.innerHTML = '';
@@ -1170,49 +1162,47 @@
             thumbnailSheet.innerHTML = HTMLContent;
             labelSheetModal.innerHTML = HTMLContent;
             labelSheetDirect.innerHTML = HTMLContent;
-            
-            scaleModalPreview();
         }
     </script>
-<script>
-    let deferredPrompt;
+    <script>
+        let deferredPrompt;
 
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('Service Worker erfolgreich registriert!', reg))
-                .catch(err => console.error('Service Worker Registrierung fehlgeschlagen:', err));
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker erfolgreich registriert!', reg))
+                    .catch(err => console.error('Service Worker Registrierung fehlgeschlagen:', err));
+            });
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const banner = document.getElementById('pwaBanner');
+            if (banner) banner.style.display = 'flex';
         });
-    }
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        const banner = document.getElementById('pwaBanner');
-        if (banner) banner.style.display = 'flex';
-    });
-
-    const installBtn = document.getElementById('btnPwaInstall');
-    if (installBtn) {
-        installBtn.addEventListener('click', () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User hat die Installation akzeptiert.');
-                    }
-                    const banner = document.getElementById('pwaBanner');
-                    if (banner) banner.style.display = 'none';
-                    deferredPrompt = null;
-                });
-            }
+        const installBtn = document.getElementById('btnPwaInstall');
+        if (installBtn) {
+            installBtn.addEventListener('click', () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User hat die Installation akzeptiert.');
+                        }
+                        const banner = document.getElementById('pwaBanner');
+                        if (banner) banner.style.display = 'none';
+                        deferredPrompt = null;
+                    });
+                }
+            });
+        }
+        window.addEventListener('appinstalled', () => {
+            console.log('LAVU v8 App wurde erfolgreich installiert.');
+            const banner = document.getElementById('pwaBanner');
+            if (banner) banner.style.display = 'none';
         });
-    }
-    window.addEventListener('appinstalled', () => {
-        console.log('LAVU v8 App wurde erfolgreich installiert.');
-        const banner = document.getElementById('pwaBanner');
-        if (banner) banner.style.display = 'none';
-    });
-</script>
+    </script>
 </body>
 </html>
