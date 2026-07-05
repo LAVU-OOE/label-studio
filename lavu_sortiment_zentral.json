@@ -1,0 +1,77 @@
+[
+  {
+    "artNr": "4040",
+    "bez": "Elektro-Kleingeräte (ohne Akku)",
+    "zusatzMitte": "QR-Box"
+  },
+  {
+    "artNr": "4010",
+    "bez": "Elektro-Großgeräte",
+    "zusatzMitte": "Gitterbox"
+  },
+  {
+    "artNr": "4020",
+    "bez": "Kühlgeräte",
+    "zusatzMitte": "Großteil"
+  },
+  {
+    "artNr": "4030",
+    "bez": "Bildschirmgeräte",
+    "zusatzMitte": "Gitterbox"
+  },
+  {
+    "artNr": "4015",
+    "bez": "Nachtspeicheröfen",
+    "zusatzMitte": "Spezial"
+  },
+  {
+    "artNr": "4050",
+    "bez": "Gasentladungslampen",
+    "zusatzMitte": "Karton"
+  },
+  {
+    "artNr": "3000",
+    "bez": "Altpapier (Deinking-Qualität)",
+    "zusatzMitte": "Container"
+  },
+  {
+    "artNr": "2100",
+    "bez": "Kartonagen (ARA-lizenziert)",
+    "zusatzMitte": "Presse"
+  },
+  {
+    "artNr": "3200",
+    "bez": "Alteisen",
+    "zusatzMitte": "Mulde"
+  },
+  {
+    "artNr": "3210",
+    "bez": "Nichteisen-Metalle",
+    "zusatzMitte": "Box"
+  },
+  {
+    "artNr": "3300",
+    "bez": "Altholz",
+    "zusatzMitte": "AII-Holz"
+  },
+  {
+    "artNr": "3400",
+    "bez": "Speisefett/-öl (Haushalts-Öl)",
+    "zusatzMitte": "Fass"
+  },
+  {
+    "artNr": "3500",
+    "bez": "Altreifen",
+    "zusatzMitte": "Stapel"
+  },
+  {
+    "artNr": "4300",
+    "bez": "Altlacke & Werkstättenabfälle",
+    "zusatzMitte": "Gefahrgut"
+  },
+  {
+    "artNr": "4320",
+    "bez": "Altöle",
+    "zusatzMitte": "Tank"
+  }
+]

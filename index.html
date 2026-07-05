@@ -862,7 +862,7 @@
             <div class="mode-switcher">
                 <div id="tabSelect" class="mode-tab active" onclick="switchMode('select')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-                    Modus: Sortiment
+                    Modus: Sortiment verwalten
                 </div>
                 <div id="tabInput" class="mode-tab" onclick="switchMode('input')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"/></svg>
@@ -871,7 +871,30 @@
             </div>
 
             <div id="sectionSelect" class="form-section active">
-                <p style="font-size: 0.9rem; color: #64748b; margin: 0 0 10px 0;">Die Sortiment-Auswahl befindet sich jetzt direkt auf der Startseite.</p>
+                <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px; background: #fff; max-height: 180px; overflow-y: auto; margin-bottom: 15px;" id="sortimentManagerList"></div>
+                
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px; border-radius: 8px;">
+                    <strong style="font-size: 0.85rem; display:block; margin-bottom: 10px; color: #1a4b60; uppercase; letter-spacing: 0.5px;">Artikel hinzufügen / bearbeiten</strong>
+                    <input type="hidden" id="crudEditIndex" value="-1">
+                    <div class="form-grid" style="grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                        <div class="form-group">
+                            <label>Artikel-Nr:</label>
+                            <input type="text" id="crudArtNr" placeholder="z.B. 4040">
+                        </div>
+                        <div class="form-group">
+                            <label>Zusatz Mitte:</label>
+                            <input type="text" id="crudSuffix" placeholder="z.B. Box">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label>Bezeichnung:</label>
+                        <input type="text" id="crudBez" placeholder="z.B. Elektro-Kleingeräte">
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn-crud" style="background: #27ae60; color: white; flex: 2;" onclick="speichereArtikel()">Speichern</button>
+                        <button class="btn-crud" style="background: #94a3b8; color: white; flex: 1; display: none;" id="btnCancelEdit" onclick="clearCrudForm()">Abbrechen</button>
+                    </div>
+                </div>
             </div>
 
             <div id="sectionInput" class="form-section">
@@ -1026,7 +1049,7 @@
         async function verbindeNetzwerkDatei() {
             try {
                 fileHandle = await window.showSaveFilePicker({
-                    suggestedName: 'lavu_sortiment_zentral.json',
+                    suggestedName: 'lavu_sortiment_db.json',
                     types: [{
                         description: 'JSON-Datei für LAVU Sortiment',
                         accept: {'application/json': ['.json']},
@@ -1055,7 +1078,7 @@
             }
         }, 5000);
 
-        // Dropdown initialisieren
+        // Dropdown initialisieren & CRUD-Liste rendern
         function initDropdown() {
             const select = document.getElementById('sortimentSelect');
             const aktuellerWert = select.value;
@@ -1069,6 +1092,89 @@
             if(aktuellerWert !== "" && select.options[aktuellerWert]) {
                 select.value = aktuellerWert;
             }
+            renderSortimentManager();
+        }
+
+        // ============================================================
+        // SORTIMENT CRUD FUNKTIONEN (DATENBANK ENGINE)
+        // ============================================================
+        function renderSortimentManager() {
+            const container = document.getElementById('sortimentManagerList');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (sortimentData.length === 0) {
+                container.innerHTML = '<div style="color:#94a3b8; font-style:italic; font-size:0.9rem; text-align:center; padding:10px;">Keine Artikel vorhanden.</div>';
+                return;
+            }
+
+            sortimentData.forEach((item, index) => {
+                const row = document.createElement('div');
+                row.style = 'display: flex; justify-content: space-between; align-items: center; padding: 6px 4px; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem;';
+                if (index === sortimentData.length - 1) row.style.borderBottom = 'none';
+
+                row.innerHTML = `
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%; color:#334155;">
+                        <strong>[${item.artNr}]</strong> ${item.bez} <small style="color: #64748b;">(${item.zusatzMitte || ''})</small>
+                    </span>
+                    <div style="display: flex; gap: 4px;">
+                        <button class="btn-crud" style="padding: 3px 6px; background: #3498db; color: white; font-size: 0.75rem;" onclick="editArtikel(${index})" title="Bearbeiten">✏️</button>
+                        <button class="btn-crud" style="padding: 3px 6px; background: #e74c3c; color: white; font-size: 0.75rem;" onclick="deleteArtikel(${index})" title="Löschen">🗑️</button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function editArtikel(index) {
+            const item = sortimentData[index];
+            document.getElementById('crudEditIndex').value = index;
+            document.getElementById('crudArtNr').value = item.artNr;
+            document.getElementById('crudSuffix').value = item.zusatzMitte;
+            document.getElementById('crudBez').value = item.bez;
+            document.getElementById('btnCancelEdit').style.display = 'inline-block';
+        }
+
+        function deleteArtikel(index) {
+            if (confirm(`Möchten Sie den Artikel "${sortimentData[index].bez}" wirklich aus der Datenbank löschen?`)) {
+                sortimentData.splice(index, 1);
+                saveSortimentToStorage();
+                initDropdown();
+                handlePresetSelection();
+            }
+        }
+
+        function clearCrudForm() {
+            document.getElementById('crudEditIndex').value = "-1";
+            document.getElementById('crudArtNr').value = "";
+            document.getElementById('crudSuffix').value = "";
+            document.getElementById('crudBez').value = "";
+            document.getElementById('btnCancelEdit').style.display = 'none';
+        }
+
+        function speichereArtikel() {
+            const artNr = document.getElementById('crudArtNr').value.trim();
+            const zusatzMitte = document.getElementById('crudSuffix').value.trim();
+            const bez = document.getElementById('crudBez').value.trim();
+            const editIndex = parseInt(document.getElementById('crudEditIndex').value);
+
+            if (!artNr || !bez) {
+                alert("Artikel-Nr. und Bezeichnung sind erforderlich!");
+                return;
+            }
+
+            const neuerArtikel = { artNr, bez, zusatzMitte };
+
+            if (editIndex > -1) {
+                sortimentData[editIndex] = neuerArtikel;
+            } else {
+                sortimentData.push(neuerArtikel);
+            }
+
+            saveSortimentToStorage();
+            initDropdown();
+            clearCrudForm();
+            handlePresetSelection();
         }
 
         function switchMode(mode) {
@@ -1085,14 +1191,6 @@
         }
 
         function handlePresetSelection() {
-            if (aktuellerModus !== 'select') {
-                aktuellerModus = 'select';
-                document.getElementById('tabSelect').classList.add('active');
-                document.getElementById('tabInput').classList.remove('active');
-                document.getElementById('sectionSelect').classList.add('active');
-                document.getElementById('sectionInput').classList.remove('active');
-            }
-
             const select = document.getElementById('sortimentSelect');
             const index = select.value;
             if (index !== "" && sortimentData[index]) {
