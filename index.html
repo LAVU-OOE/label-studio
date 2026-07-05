@@ -185,6 +185,15 @@
             width: 100%;
         }
 
+        .info-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 12px;
+        }
+
         .frontpage-selection {
             margin-bottom: 18px;
             display: flex;
@@ -293,6 +302,16 @@
         .btn-secondary:hover {
             background-color: #113342;
             transform: translateY(-1px);
+        }
+
+        .btn-crud {
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
         }
 
         /* Modals */
@@ -742,14 +761,6 @@
             </div>
 
             <div class="form-group" style="margin-bottom: 20px;">
-                <label for="inputGitHubToken">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                    GitHub Personal Access Token (PAT):
-                </label>
-                <input type="password" id="inputGitHubToken" placeholder="ghp_..." style="width: 100%;" />
-            </div>
-
-            <div class="form-group" style="margin-bottom: 20px;">
                 <label for="inputTop">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                     Standort (ASZ Niederlassung OÖ):
@@ -779,23 +790,84 @@
                         <option value="ASZ Thalheim">ASZ Thalheim</option>
                         <option value="ASZ Lambach">ASZ Lambach</option>
                     </optgroup>
+                    <optgroup label="Steyr & Steyr-Land">
+                        <option value="ASZ Steyr">ASZ Steyr</option>
+                        <option value="ASZ Garsten">ASZ Garsten</option>
+                        <option value="ASZ Sierning">ASZ Sierning</option>
+                        <option value="ASZ Bad Hall">ASZ Bad Hall</option>
+                    </optgroup>
+                    <optgroup label="Urfahr-Umgebung">
+                        <option value="ASZ Altenberg">ASZ Altenberg</option>
+                        <option value="ASZ Bad Leonfelden">ASZ Bad Leonfelden</option>
+                        <option value="ASZ Gallneukirchen">ASZ Gallneukirchen</option>
+                        <option value="ASZ Ottensheim">ASZ Ottensheim</option>
+                        <option value="ASZ Walding">ASZ Walding</option>
+                    </optgroup>
+                    <optgroup label="Freistadt">
+                        <option value="ASZ Freistadt">ASZ Freistadt</option>
+                        <option value="ASZ Pregarten">ASZ Pregarten</option>
+                        <option value="ASZ Unterweißenbach">ASZ Unterweißenbach</option>
+                    </optgroup>
+                    <optgroup label="Perg">
+                        <option value="ASZ Perg">ASZ Perg</option>
+                        <option value="ASZ Grein">ASZ Grein</option>
+                        <option value="ASZ Schwertberg">ASZ Schwertberg</option>
+                        <option value="ASZ St. Georgen/Gusen">ASZ St. Georgen/Gusen</option>
+                    </optgroup>
+                    <optgroup label="Gmunden & Vöcklabruck">
+                        <option value="ASZ Gmunden">ASZ Gmunden</option>
+                        <option value="ASZ Bad Ischl">ASZ Bad Ischl</option>
+                        <option value="ASZ Altmünster">ASZ Altmünster</option>
+                        <option value="ASZ Vöcklabruck">ASZ Vöcklabruck</option>
+                        <option value="ASZ Attnang-Puchheim">ASZ Attnang-Puchheim</option>
+                        <option value="ASZ Schwanenstadt">ASZ Schwanenstadt</option>
+                        <option value="ASZ Mondsee">ASZ Mondsee</option>
+                    </optgroup>
+                    <optgroup label="Innviertel (Braunau, Ried & Schärding)">
+                        <option value="ASZ Braunau">ASZ Braunau</option>
+                        <option value="ASZ Mattighofen">ASZ Mattighofen</option>
+                        <option value="ASZ Ried im Innkreis">ASZ Ried im Innkreis</option>
+                        <option value="ASZ Schärding">ASZ Schärding</option>
+                    </optgroup>
+                    <optgroup label="Grieskirchen & Eferding">
+                        <option value="ASZ Grieskirchen">ASZ Grieskirchen</option>
+                        <option value="ASZ Bad Schallerbach">ASZ Bad Schallerbach</option>
+                        <option value="ASZ Eferding">ASZ Eferding</option>
+                    </optgroup>
+                    <optgroup label="Kirchdorf & Rohrbach">
+                        <option value="ASZ Kirchdorf">ASZ Kirchdorf</option>
+                        <option value="ASZ Micheldorf">ASZ Micheldorf</option>
+                        <option value="ASZ Rohrbach">ASZ Rohrbach</option>
+                    </optgroup>
                 </select>
             </div>
 
             <div class="form-grid">
                 <div class="form-group">
-                    <label for="inputCount">Anzahl Etiketten (max. 21):</label>
+                    <label for="inputCount">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+                        Anzahl Etiketten (max. 21):
+                    </label>
                     <input type="number" id="inputCount" value="9" min="1" max="21" oninput="updatePreview()" />
                 </div>
                 <div class="form-group">
-                    <label for="inputStartPos">Start-Position (1-21):</label>
+                    <label for="inputStartPos">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        Start-Position (1-21):
+                    </label>
                     <input type="number" id="inputStartPos" value="1" min="1" max="21" oninput="updatePreview()" />
                 </div>
             </div>
 
             <div class="mode-switcher">
-                <div id="tabSelect" class="mode-tab active" onclick="switchMode('select')">Modus: Sortiment</div>
-                <div id="tabInput" class="mode-tab" onclick="switchMode('input')">Freie Eingabe</div>
+                <div id="tabSelect" class="mode-tab active" onclick="switchMode('select')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    Modus: Sortiment
+                </div>
+                <div id="tabInput" class="mode-tab" onclick="switchMode('input')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"/></svg>
+                    Freie Eingabe
+                </div>
             </div>
 
             <div id="sectionSelect" class="form-section active">
@@ -819,9 +891,17 @@
                 </div>
             </div>
 
-            <div style="margin-top: 15px; margin-bottom: 5px; font-weight: bold; font-size: 0.85rem; color: #475569; text-transform: uppercase;">Synchronisation:</div>
-            <div id="netzwerkStatus" style="font-size: 0.9rem; color: #7f8c8d; padding: 10px; background: #f8fafc; border-radius: 6px; text-align: center; font-style: italic; border: 1px dashed #cbd5e1; margin-bottom: 15px;">
-                Initialisiere...
+            <label style="margin-top: 20px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                Netzwerk-Synchronisation (Option A):
+            </label>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                <button class="btn-crud" style="background: #34495e; color: white; width: 100%;" onclick="verbindeNetzwerkDatei()">
+                    🔗 Zentrale Sortiment-Datei auswählen...
+                </button>
+                <div id="netzwerkStatus" style="font-size: 0.8rem; color: #7f8c8d; text-align: center; font-style: italic;">
+                    Status: Rein lokaler Modus (localStorage)
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -837,7 +917,7 @@
     <div id="previewModal" class="modal-backdrop" onclick="closePreviewModalViaBackdrop(event)">
         <div class="modal-content preview-modal-content">
             <div class="modal-header">
-                <span>Vollbild-Druckvorschau (A4-Bogen – HERMA 4473)</span>
+                <span>Vollbild-Druckvorschau (A4-Bogen – HERMA 4473, 21 Etiketten)</span>
                 <button class="btn-close-x" onclick="closePreviewModal()">&times;</button>
             </div>
             <div class="modal-body-scroll">
@@ -863,143 +943,119 @@
 
     <script>
         // ============================================================
-        // CONFIGURATION: SETTE HIER DEINE CORE-METADATEN FÜR GITHUB
+        // GLOBALE VARIABLEN & NETZWERK-LOGIK
         // ============================================================
-        const GH_CONFIG = {
-            owner: "DEIN_GITHUB_NUTZERNAME",              // z.B. "karl-achleitner"
-            repo: "DEIN_REPOSITORY_NAME",                // Repo-Name, wo die sortiment.json liegt
-            path: "sortiment.json",
-            // Die URL zu deiner GitHub Pages Datei (Cache-Sicherheit wird per JS angehängt):
-            pagesUrl: "https://DEIN_GITHUB_NUTZERNAME.github.io/DEIN_REPOSITORY_NAME/sortiment.json"
-        };
+        let fileHandle = null;
+        let lastModifiedTime = 0;
 
-        // Fallback falls GitHub nicht erreichbar ist oder kein Token hinterlegt wurde
         let defaultSortiment = [
             { artNr: "4040", bez: "Elektro-Kleingeräte (ohne Akku)", zusatzMitte: "QR-Box" },
             { artNr: "4010", bez: "Elektro-Großgeräte", zusatzMitte: "Gitterbox" },
             { artNr: "4020", bez: "Kühlgeräte", zusatzMitte: "Großteil" },
-            { artNr: "4030", bez: "Bildschirmgeräte", zusatzMitte: "Gitterbox" }
+            { artNr: "4030", bez: "Bildschirmgeräte", zusatzMitte: "Gitterbox" },
+            { artNr: "4015", bez: "Nachtspeicheröfen", zusatzMitte: "Spezial" },
+            { artNr: "4050", bez: "Gasentladungslampen", zusatzMitte: "Karton" },
+            { artNr: "3000", bez: "Altpapier (Deinking-Qualität)", zusatzMitte: "Container" },
+            { artNr: "2100", bez: "Kartonagen (ARA-lizenziert)", zusatzMitte: "Presse" },
+            { artNr: "3200", bez: "Alteisen", zusatzMitte: "Mulde" },
+            { artNr: "3210", bez: "Nichteisen-Metalle", zusatzMitte: "Box" },
+            { artNr: "3300", bez: "Altholz", zusatzMitte: "AII-Holz" },
+            { artNr: "3400", bez: "Speisefett/-öl (Haushalts-Öl)", zusatzMitte: "Fass" },
+            { artNr: "3500", bez: "Altreifen", zusatzMitte: "Stapel" },
+            { artNr: "4300", bez: "Altlacke & Werkstättenabfälle", zusatzMitte: "Gefahrgut" },
+            { artNr: "4320", bez: "Altöle", zusatzMitte: "Tank" }
         ];
 
         let sortimentData = [];
-        let currentFileSha = null;
         let aktuellerModus = 'select';
 
         window.onload = function() {
-            loadUIDefaults();
-            loadSortimentFromGitHub();
-            
-            // Regelmäßiger Hintergrundabgleich alle 30 Sekunden
-            setInterval(loadSortimentFromGitHub, 30000);
+            loadSortiment().then(() => {
+                loadDefaults();
+            });
         };
 
-        function getGitHubToken() {
-            return localStorage.getItem('lavu_gh_token') || "";
-        }
-
-        async function loadSortimentFromGitHub() {
-            const statusEl = document.getElementById('netzwerkStatus');
-            const token = getGitHubToken();
-
-            if (!token) {
-                statusEl.innerHTML = `🔑 Bitte GitHub-Token in den Einstellungen eintragen!`;
-                statusEl.style.color = '#ef4444';
-                if (sortimentData.length === 0) {
-                    sortimentData = [...defaultSortiment];
-                    initDropdown();
-                    refreshSelectionAndPreview();
+        // Geteilte Speicher- und Ladefunktionen
+        async function loadSortiment() {
+            if (fileHandle) {
+                try {
+                    const file = await fileHandle.getFile();
+                    if (file.lastModified === lastModifiedTime) return; 
+                    
+                    const text = await file.text();
+                    if (text.trim()) {
+                        sortimentData = JSON.parse(text);
+                        lastModifiedTime = file.lastModified;
+                        initDropdown();
+                        handlePresetSelection();
+                        console.log("Sortiment automatisch aus Netzwerkdatei aktualisiert.");
+                    }
+                    return;
+                } catch (e) {
+                    console.warn("Netzwerkdatei konnte nicht gelesen werden, weiche auf localStorage aus.", e);
                 }
-                return;
             }
 
-            try {
-                // 1. Hole den Inhalt schnell und Cache-frei über GitHub Pages CDN
-                const response = await fetch(`${GH_CONFIG.pagesUrl}?t=${new Date().getTime()}`);
-                if (response.ok) {
-                    sortimentData = await response.json();
-                    statusEl.innerHTML = `🟢 Synchronisiert mit GitHub`;
-                    statusEl.style.color = '#27ae60';
-                } else {
-                    throw new Error("Datei via Pages unvollständig");
-                }
+            const savedSortiment = localStorage.getItem('lavu_studio_sortiment_v8');
+            if (savedSortiment) {
+                try { sortimentData = JSON.parse(savedSortiment); } 
+                catch(e) { sortimentData = [...defaultSortiment]; }
+            } else {
+                sortimentData = [...defaultSortiment];
+            }
+            initDropdown();
+        }
 
-                // 2. Hole parallel den neuesten SHA von der GitHub API (Pflicht für PUT-Schreibvorgänge)
-                const apiResponse = await fetch(`https://api.github.com/repos/${GH_CONFIG.owner}/${GH_CONFIG.repo}/contents/${GH_CONFIG.path}`, {
-                    headers: { "Authorization": `token ${token}` }
-                });
-                if (apiResponse.ok) {
-                    const apiData = await apiResponse.json();
-                    currentFileSha = apiData.sha;
-                }
-
-                initDropdown();
-                refreshSelectionAndPreview();
-
-            } catch (error) {
-                console.error("GitHub Fetch fehlgeschlagen:", error);
-                statusEl.innerHTML = `⚠️ Sync-Fehler (Token / Repository prüfen)`;
-                statusEl.style.color = '#e67e22';
-                if (sortimentData.length === 0) {
-                    sortimentData = [...defaultSortiment];
-                    initDropdown();
-                    refreshSelectionAndPreview();
+        async function saveSortimentToStorage() {
+            localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(sortimentData));
+            
+            if (fileHandle) {
+                try {
+                    const writable = await fileHandle.createWritable();
+                    await writable.write(JSON.stringify(sortimentData, null, 2));
+                    await writable.close();
+                    
+                    const file = await fileHandle.getFile();
+                    lastModifiedTime = file.lastModified;
+                } catch (e) {
+                    alert("Fehler beim Schreiben in die Netzwerk-Datei. Berechtigungen prüfen!");
                 }
             }
         }
 
-        async function saveSortimentToGitHub() {
-            const statusEl = document.getElementById('netzwerkStatus');
-            const token = getGitHubToken();
-
-            if (!token) {
-                alert("Kein GitHub-Token hinterlegt. Speichern in der Cloud abgebrochen!");
-                return false;
-            }
-
-            statusEl.innerHTML = `⏳ Committe Änderungen zu GitHub...`;
-            statusEl.style.color = '#7f8c8d';
-
+        async function verbindeNetzwerkDatei() {
             try {
-                // Vor dem Überschreiben den absolut frischesten SHA ziehen, um Merge-Konflikte zu vermeiden
-                const apiResponse = await fetch(`https://api.github.com/repos/${GH_CONFIG.owner}/${GH_CONFIG.repo}/contents/${GH_CONFIG.path}`, {
-                    headers: { "Authorization": `token ${token}` }
+                fileHandle = await window.showSaveFilePicker({
+                    suggestedName: 'lavu_sortiment_zentral.json',
+                    types: [{
+                        description: 'JSON-Datei für LAVU Sortiment',
+                        accept: {'application/json': ['.json']},
+                    }],
                 });
-                if (apiResponse.ok) {
-                    const apiData = await apiResponse.json();
-                    currentFileSha = apiData.sha;
+
+                const file = await fileHandle.getFile();
+                const text = await file.text();
+                if (!text.trim()) {
+                    await saveSortimentToStorage();
                 }
 
-                const contentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(sortimentData, null, 2))));
+                document.getElementById('netzwerkStatus').innerHTML = `🟢 Gekoppelt mit: <b>${file.name}</b>`;
+                document.getElementById('netzwerkStatus').style.color = '#27ae60';
                 
-                const putResponse = await fetch(`https://api.github.com/repos/${GH_CONFIG.owner}/${GH_CONFIG.repo}/contents/${GH_CONFIG.path}`, {
-                    method: "PUT",
-                    headers: {
-                        "Authorization": `token ${token}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        message: "Update sortiment.json via LAVU App Studio",
-                        content: contentBase64,
-                        sha: currentFileSha
-                    })
-                });
-
-                if (putResponse.ok) {
-                    const putData = await putResponse.json();
-                    currentFileSha = putData.content.sha;
-                    statusEl.innerHTML = `🟢 GitHub erfolgreich aktualisiert`;
-                    statusEl.style.color = '#27ae60';
-                    return true;
-                } else {
-                    throw new Error("API-Fehler beim Senden");
-                }
-            } catch(e) {
-                statusEl.innerHTML = `🔴 Schreibfehler auf GitHub!`;
-                statusEl.style.color = '#ef4444';
-                return false;
+                await loadSortiment();
+            } catch (e) {
+                console.log("Auswahl abgebrochen oder vom Browser blockiert", e);
             }
         }
 
+        // Automatischer Check im Hintergrund alle 5 Sekunden
+        setInterval(() => {
+            if (fileHandle) {
+                loadSortiment();
+            }
+        }, 5000);
+
+        // Dropdown initialisieren
         function initDropdown() {
             const select = document.getElementById('sortimentSelect');
             const aktuellerWert = select.value;
@@ -1012,18 +1068,6 @@
             });
             if(aktuellerWert !== "" && select.options[aktuellerWert]) {
                 select.value = aktuellerWert;
-            }
-        }
-
-        function refreshSelectionAndPreview() {
-            const savedIndex = localStorage.getItem('lavu_last_select_idx');
-            if (savedIndex && document.getElementById('sortimentSelect').options[savedIndex]) {
-                document.getElementById('sortimentSelect').value = savedIndex;
-            }
-            if (aktuellerModus === 'select') {
-                handlePresetSelection();
-            } else {
-                updatePreview();
             }
         }
 
@@ -1041,10 +1085,17 @@
         }
 
         function handlePresetSelection() {
+            if (aktuellerModus !== 'select') {
+                aktuellerModus = 'select';
+                document.getElementById('tabSelect').classList.add('active');
+                document.getElementById('tabInput').classList.remove('active');
+                document.getElementById('sectionSelect').classList.add('active');
+                document.getElementById('sectionInput').classList.remove('active');
+            }
+
             const select = document.getElementById('sortimentSelect');
             const index = select.value;
             if (index !== "" && sortimentData[index]) {
-                localStorage.setItem('lavu_last_select_idx', index);
                 const item = sortimentData[index];
                 document.getElementById('inputArtNr').value = item.artNr;
                 document.getElementById('inputSuffix').value = item.zusatzMitte;
@@ -1053,50 +1104,39 @@
             updatePreview();
         }
 
+        // ============================================================
+        // MODALS & EVENT HANDLER
+        // ============================================================
         function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
         function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
-        function closeSettingsViaBackdrop(event) { if (event.target.id === 'settingsModal') closeSettings(); }
+        function closeSettingsViaBackdrop(event) {
+            if (event.target.id === 'settingsModal') closeSettings();
+        }
+
         function openPreviewModal() { document.getElementById('previewModal').style.display = 'flex'; }
         function closePreviewModal() { document.getElementById('previewModal').style.display = 'none'; }
-        function closePreviewModalViaBackdrop(event) { if (event.target.id === 'previewModal') closePreviewModal(); }
+        function closePreviewModalViaBackdrop(event) {
+            if (event.target.id === 'previewModal') closePreviewModal();
+        }
+
         function triggerDirectPrint() { window.print(); }
 
-        async function saveDefaults() {
-            // LocalStorage-Präferenzen für das Layout auf diesem spezifischen Computer sichern
+        // Defaults verwalten
+        function saveDefaults() {
             const defaults = {
                 topText: document.getElementById('inputTop').value,
                 count: document.getElementById('inputCount').value,
                 startPos: document.getElementById('inputStartPos').value,
                 modus: aktuellerModus,
-                sortimentIndex: document.getElementById('sortimentSelect').value
+                sortimentIndex: document.getElementById('sortimentSelect').value,
+                artNr: document.getElementById('inputArtNr').value,
+                suffix: document.getElementById('inputSuffix').value,
+                bezeichnung: document.getElementById('inputBezeichnung').value
             };
             localStorage.setItem('lavu_studio_defaults_v8', JSON.stringify(defaults));
 
-            // GitHub-Token verschlüsselt/sicher wegsichern
-            const tokenInput = document.getElementById('inputGitHubToken').value.trim();
-            if (tokenInput) {
-                localStorage.setItem('lavu_gh_token', tokenInput);
-            }
-
-            // Wenn im Freitext-Modus gearbeitet wurde, wird der Eintrag dem Array hinzugefügt und zu GitHub hochgeladen
-            if (aktuellerModus === 'input') {
-                const neuArtNr = document.getElementById('inputArtNr').value;
-                const neuSuffix = document.getElementById('inputSuffix').value;
-                const neuBez = document.getElementById('inputBezeichnung').value;
-                
-                const existiertIndex = sortimentData.findIndex(item => item.artNr === neuArtNr);
-                if (existiertIndex !== -1) {
-                    sortimentData[existiertIndex] = { artNr: neuArtNr, bez: neuBez, zusatzMitte: neuSuffix };
-                } else {
-                    sortimentData.push({ artNr: neuArtNr, bez: neuBez, zusatzMitte: neuSuffix });
-                }
-                
-                // Triggere das Update zur GitHub API
-                await saveSortimentToGitHub();
-            }
-
             const btn = document.getElementById('btnSaveDefaults');
-            btn.innerHTML = '✓ Erfolgreich gesichert!';
+            btn.innerHTML = '✓ Gespeichert!';
             btn.style.backgroundColor = '#27ae60';
             setTimeout(() => {
                 btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Standard sichern';
@@ -1104,7 +1144,7 @@
             }, 1800);
         }
 
-        function loadUIDefaults() {
+        function loadDefaults() {
             const saved = localStorage.getItem('lavu_studio_defaults_v8');
             if (saved) {
                 try {
@@ -1112,21 +1152,33 @@
                     if (defaults.topText !== undefined) document.getElementById('inputTop').value = defaults.topText;
                     if (defaults.count !== undefined) document.getElementById('inputCount').value = Math.min(21, defaults.count);
                     if (defaults.startPos !== undefined) document.getElementById('inputStartPos').value = Math.min(21, defaults.startPos);
-                    if (defaults.modus) aktuellerModus = defaults.modus;
-                } catch (e) { console.error(e); }
-            }
-
-            // Token in das geschützte Passwort-Feld zurückladen
-            const savedToken = localStorage.getItem('lavu_gh_token');
-            if (savedToken) {
-                document.getElementById('inputGitHubToken').value = savedToken;
+                    if (defaults.artNr !== undefined) document.getElementById('inputArtNr').value = defaults.artNr;
+                    if (defaults.suffix !== undefined) document.getElementById('inputSuffix').value = defaults.suffix;
+                    if (defaults.bezeichnung !== undefined) document.getElementById('inputBezeichnung').value = defaults.bezeichnung;
+                    if (defaults.sortimentIndex !== undefined) document.getElementById('sortimentSelect').value = defaults.sortimentIndex;
+                    if (defaults.modus) {
+                        switchMode(defaults.modus);
+                    } else {
+                        updatePreview();
+                    }
+                } catch (e) {
+                    console.error("Fehler beim Laden der Defaults", e);
+                    handlePresetSelection();
+                }
+            } else {
+                handlePresetSelection();
             }
         }
 
+        // RENDERING (3 x 7 Blöcke)
         function updatePreview() {
             const thumbnailSheet = document.getElementById('thumbnailSheet');
             const labelSheetModal = document.getElementById('labelSheetModal');
             const labelSheetDirect = document.getElementById('labelSheetDirect');
+
+            thumbnailSheet.innerHTML = '';
+            labelSheetModal.innerHTML = '';
+            labelSheetDirect.innerHTML = '';
 
             const topText = document.getElementById('inputTop').value;
             const artNr = document.getElementById('inputArtNr').value;
@@ -1144,7 +1196,10 @@
             document.getElementById('sumMenge').innerHTML = `${count}x (ab Position ${startPos})`;
 
             let HTMLContent = '';
-            for (let i = 1; i < startPos; i++) HTMLContent += `<div class="label empty"></div>`;
+
+            for (let i = 1; i < startPos; i++) {
+                HTMLContent += `<div class="label empty"></div>`;
+            }
 
             for (let i = 0; i < count; i++) {
                 if ((startPos - 1 + i) >= 21) break;
@@ -1172,9 +1227,9 @@
             labelSheetDirect.innerHTML = HTMLContent;
         }
     </script>
-    
     <script>
         let deferredPrompt;
+
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -1182,6 +1237,35 @@
                     .catch(err => console.error('Service Worker Registrierung fehlgeschlagen:', err));
             });
         }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const banner = document.getElementById('pwaBanner');
+            if (banner) banner.style.display = 'flex';
+        });
+
+        const installBtn = document.getElementById('btnPwaInstall');
+        if (installBtn) {
+            installBtn.addEventListener('click', () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User hat die Installation akzeptiert.');
+                        }
+                        const banner = document.getElementById('pwaBanner');
+                        if (banner) banner.style.display = 'none';
+                        deferredPrompt = null;
+                    });
+                }
+            });
+        }
+        window.addEventListener('appinstalled', () => {
+            console.log('LAVU v8 App wurde erfolgreich installiert.');
+            const banner = document.getElementById('pwaBanner');
+            if (banner) banner.style.display = 'none';
+        });
     </script>
 </body>
 </html>
