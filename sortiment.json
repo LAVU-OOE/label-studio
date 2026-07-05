@@ -1,0 +1,392 @@
+[
+  {
+    "artNr": "4040",
+    "bez": "Elektro-Kleingeräte",
+    "zusatzMitte": "QR-Box"
+  },
+  {
+    "artNr": "4010",
+    "bez": "Elektro-Großgeräte",
+    "zusatzMitte": "Gitterbox"
+  },
+  {
+    "artNr": "4020",
+    "bez": "Kühlgeräte",
+    "zusatzMitte": "Großteil"
+  },
+  {
+    "artNr": "4030",
+    "bez": "Bildschirmgeräte",
+    "zusatzMitte": "Gitterbox"
+  },
+  {
+    "artNr": "4015",
+    "bez": "Nachtspeicheröfen",
+    "zusatzMitte": "Spezial"
+  },
+  {
+    "artNr": "4050",
+    "bez": "Gasentladungslampen",
+    "zusatzMitte": "Karton"
+  },
+  {
+    "artNr": "4051",
+    "bez": "Gasentladungslampen Sonderformen",
+    "zusatzMitte": "Karton"
+  },
+  {
+    "artNr": "4100",
+    "bez": "Gerätebatterien",
+    "zusatzMitte": "Fass"
+  },
+  {
+    "artNr": "4110",
+    "bez": "Fahrzeugbatterien",
+    "zusatzMitte": "Box"
+  },
+  {
+    "artNr": "4111",
+    "bez": "Lithium-Batterien",
+    "zusatzMitte": "Spezialfass"
+  },
+  {
+    "artNr": "4120",
+    "bez": "Ni-Cd Akkumulatoren",
+    "zusatzMitte": "Fass"
+  },
+  {
+    "artNr": "4125",
+    "bez": "Traktionsbatterien",
+    "zusatzMitte": "Großteil"
+  },
+  {
+    "artNr": "4200",
+    "bez": "Altöle",
+    "zusatzMitte": "Tank"
+  },
+  {
+    "artNr": "4221",
+    "bez": "Feuerlöscher",
+    "zusatzMitte": "Gitterbox"
+  },
+  {
+    "artNr": "4230",
+    "bez": "Gasflaschen",
+    "zusatzMitte": "Gestell"
+  },
+  {
+    "artNr": "4250",
+    "bez": "Altöl",
+    "zusatzMitte": "Tank"
+  },
+  {
+    "artNr": "4260",
+    "bez": "Lösemittel-Wassergemische",
+    "zusatzMitte": "Fass"
+  },
+  {
+    "artNr": "4270",
+    "bez": "Säurengemische",
+    "zusatzMitte": "IBC"
+  },
+  {
+    "artNr": "4275",
+    "bez": "Laugengemische",
+    "zusatzMitte": "IBC"
+  },
+  {
+    "artNr": "4280",
+    "bez": "Ölverunreinigtes Erdmaterial",
+    "zusatzMitte": "Mulde"
+  },
+  {
+    "artNr": "4300",
+    "bez": "Altlacke & Werkstättenabfälle",
+    "zusatzMitte": "Gefahrgut"
+  },
+  {
+    "artNr": "4305",
+    "bez": "Lack- & Farbschlamm",
+    "zusatzMitte": "Fass"
+  },
+  {
+    "artNr": "4310",
+    "bez": "Kunststoffemballagen (mit schädlichen Restinhalten)",
+    "zusatzMitte": "Gefahrgut"
+  },
+  {
+    "artNr": "4320",
+    "bez": "Öl-/Wassergemische & Emulsionen",
+    "zusatzMitte": "Tank"
+  },
+  {
+    "artNr": "4325",
+    "bez": "Ölschlamm & Ölgatsch",
+    "zusatzMitte": "Fass"
+  },
+  {
+    "artNr": "4330",
+    "bez": "Schädlingsbekämpfungs- & Chemikalienreste",
+    "zusatzMitte": "Gefahrgutbox"
+  },
+  {
+    "artNr": "4340",
+    "bez": "Altmedikamente (ungsortierte Arzneien)",
+    "zusatzMitte": "Karton"
+  },
+  {
+    "artNr": "4350",
+    "bez": "Altmedikamente (vorsortiert)",
+    "zusatzMitte": "Karton"
+  },
+  {
+    "artNr": "4360",
+    "bez": "Spraydosen (mit Restinhalt)",
+    "zusatzMitte": "Fass"
+  },
+  {
+    "artNr": "4380",
+    "bez": "Kondensatoren",
+    "zusatzMitte": "Fass"
+  },
+  {
+    "artNr": "4390",
+    "bez": "XPS-Dämmplatten",
+    "zusatzMitte": "Sack"
+  },
+  {
+    "artNr": "4395",
+    "bez": "Mineralwolle",
+    "zusatzMitte": "Sack"
+  },
+  {
+    "artNr": "4420",
+    "bez": "Asbestzement/Eternit",
+    "zusatzMitte": "BigBag"
+  },
+  {
+    "artNr": "4421",
+    "bez": "Gewerbeabfall",
+    "zusatzMitte": "Presscontainer"
+  },
+  {
+    "artNr": "4430",
+    "bez": "Netze & Schnüre",
+    "zusatzMitte": "Mulde"
+  },
+  {
+    "artNr": "4450",
+    "bez": "Dispersionsfarben",
+    "zusatzMitte": "Eimer"
+  },
+  {
+    "artNr": "4460",
+    "bez": "Altmedikamente (vorsortiert)",
+    "zusatzMitte": "Karton"
+  },
+  {
+    "artNr": "4461",
+    "bez": "Altmedikamente (vorsortiert/Apotheken)",
+    "zusatzMitte": "Karton"
+  },
+  {
+    "artNr": "4464",
+    "bez": "Injektionsnadeln",
+    "zusatzMitte": "QR-Box"
+  },
+  {
+    "artNr": "4465",
+    "bez": "Injektionsnadeln (aus Spitälern)",
+    "zusatzMitte": "QR-Box"
+  },
+  {
+    "artNr": "5100",
+    "bez": "Ungefährliche medizinische Abfälle",
+    "zusatzMitte": "Sack"
+  },
+  {
+    "artNr": "3000",
+    "bez": "Altpapier (Deinking-Qualität)",
+    "zusatzMitte": "Container"
+  },
+  {
+    "artNr": "3005",
+    "bez": "Datenschutzpapier",
+    "zusatzMitte": "Sicherheitsbehälter"
+  },
+  {
+    "artNr": "3200",
+    "bez": "Alteisen",
+    "zusatzMitte": "Mulde"
+  },
+  {
+    "artNr": "3210",
+    "bez": "Nichteisen-Metalle",
+    "zusatzMitte": "Box"
+  },
+  {
+    "artNr": "3211",
+    "bez": "Armaturen & Messing",
+    "zusatzMitte": "Box"
+  },
+  {
+    "artNr": "3212",
+    "bez": "Alu-Kaffeekapseln",
+    "zusatzMitte": "Tonne"
+  },
+  {
+    "artNr": "3220",
+    "bez": "Kabelschrott",
+    "zusatzMitte": "Box"
+  },
+  {
+    "artNr": "3300",
+    "bez": "Altholz",
+    "zusatzMitte": "AII-Holz"
+  },
+  {
+    "artNr": "3310",
+    "bez": "Altfenster PVC",
+    "zusatzMitte": "Gestell"
+  },
+  {
+    "artNr": "3315",
+    "bez": "Altfenster",
+    "zusatzMitte": "Gestell"
+  },
+  {
+    "artNr": "3320",
+    "bez": "Flachglas",
+    "zusatzMitte": "Gestell"
+  },
+  {
+    "artNr": "3400",
+    "bez": "Speisefett/-öl (Haushalts-Öl)",
+    "zusatzMitte": "Fass"
+  },
+  {
+    "artNr": "3405",
+    "bez": "Speisefett/-öl (Gastro-Öl)",
+    "zusatzMitte": "Fass"
+  },
+  {
+    "artNr": "3410",
+    "bez": "Speisefett/-öl (in Kleingebinden)",
+    "zusatzMitte": "Fass"
+  },
+  {
+    "artNr": "3430",
+    "bez": "Kerzen",
+    "zusatzMitte": "Karton"
+  },
+  {
+    "artNr": "3500",
+    "bez": "Altreifen",
+    "zusatzMitte": "Stapel"
+  },
+  {
+    "artNr": "3520",
+    "bez": "Hartkunststoffe",
+    "zusatzMitte": "Mulde"
+  },
+  {
+    "artNr": "3526",
+    "bez": "Kunststoff-Mülltonnen",
+    "zusatzMitte": "Großteil"
+  },
+  {
+    "artNr": "3540",
+    "bez": "Kunststoff-Sonstige Folien",
+    "zusatzMitte": "Sack"
+  },
+  {
+    "artNr": "3560",
+    "bez": "Filmmaterial",
+    "zusatzMitte": "Karton"
+  },
+  {
+    "artNr": "3572",
+    "bez": "Compact-Disk (CD)",
+    "zusatzMitte": "Box"
+  },
+  {
+    "artNr": "3580",
+    "bez": "Sonderreifen",
+    "zusatzMitte": "Stapel"
+  },
+  {
+    "artNr": "3585",
+    "bez": "Reifen m. Felgen",
+    "zusatzMitte": "Stapel"
+  },
+  {
+    "artNr": "3600",
+    "bez": "Mineralischer Bauschutt",
+    "zusatzMitte": "Mulde"
+  },
+  {
+    "artNr": "3610",
+    "bez": "Gipskarton",
+    "zusatzMitte": "Mulde"
+  },
+  {
+    "artNr": "3700",
+    "bez": "Altholz",
+    "zusatzMitte": "Mulde"
+  },
+  {
+    "artNr": "3805",
+    "bez": "Ersatzbrennstoff",
+    "zusatzMitte": "Mulde"
+  },
+  {
+    "artNr": "2100",
+    "bez": "Kartonagen (ARA-lizenziert)",
+    "zusatzMitte": "Presse"
+  },
+  {
+    "artNr": "2200",
+    "bez": "Metallverpackungen",
+    "zusatzMitte": "Container"
+  },
+  {
+    "artNr": "2210",
+    "bez": "Metallverpackungen - geöffnete Gasbehältnisse",
+    "zusatzMitte": "Gitterbox"
+  },
+  {
+    "artNr": "2300",
+    "bez": "Glasverpackungen",
+    "zusatzMitte": "Container"
+  },
+  {
+    "artNr": "2400",
+    "bez": "Getränke-Verbundkartons",
+    "zusatzMitte": "Sack"
+  },
+  {
+    "artNr": "2500",
+    "bez": "Eimer & Kanister",
+    "zusatzMitte": "Gitterbox"
+  },
+  {
+    "artNr": "2540",
+    "bez": "Kunststoff Verpackungsfolien",
+    "zusatzMitte": "Presse"
+  },
+  {
+    "artNr": "2565",
+    "bez": "EPS-Styropor",
+    "zusatzMitte": "Sack"
+  },
+  {
+    "artNr": "2580",
+    "bez": "Holzverpackungen",
+    "zusatzMitte": "Mulde"
+  },
+  {
+    "artNr": "2590",
+    "bez": "Keramikverpackungen",
+    "zusatzMitte": "Kiste"
+  }
+]
