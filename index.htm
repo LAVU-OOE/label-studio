@@ -1,2223 +1,1283 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ASZ Asten · Terminal & Office</title>
-    <!-- Bootstrap 5 -->
-    <link id="bootstrapCss" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Material Icons & Roboto Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LAVU OÖ - Etiketten-Druckstudio v8 (HERMA 4473)</title>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#1a4b60" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <style>
-        /* ----- Theme Variables ----- */
-        :root {
-            --bg-primary: #0f212e;
-            --bg-secondary: #162a38;
-            --bg-card: #0f212e;
-            --bg-input: rgba(255,255,255,0.06);
-            --bg-item: rgba(255,255,255,0.04);
-            --bg-item-hover: rgba(255,255,255,0.08);
-            --text-primary: #e0edf5;
-            --text-secondary: #8bc1e0;
-            --text-muted: #6a8a9a;
-            --border-color: #1f3a4a;
-            --border-light: #2a5a6a;
-            --shadow-color: rgba(0,0,0,0.5);
-            --card-border: #2a5a6a;
-            --card-active-border: #4a9abf;
-            --btn-bg: rgba(31,93,122,0.2);
-            --btn-hover: rgba(31,93,122,0.4);
-            --btn-text: #8ac0da;
-            --badge-bg: rgba(31,93,122,0.25);
-            --badge-text: #8ac0da;
-            --dot-color: #2ecc71;
-            --dot-offline: #e74c3c;
-            --scrollbar-color: #1f3a4a;
-            --count-color: #7ac0e0;
-            --font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-            --header-height: 50px;
-            --footer-height: 40px;
-        }
-        [data-bs-theme="light"] {
-            --bg-primary: #e8edf2;
-            --bg-secondary: #d5dee8;
-            --bg-card: #ffffff;
-            --bg-input: rgba(0,0,0,0.04);
-            --bg-item: rgba(0,0,0,0.02);
-            --bg-item-hover: rgba(0,0,0,0.06);
-            --text-primary: #1a2f3e;
-            --text-secondary: #0f212e;
-            --text-muted: #5a7a8a;
-            --border-color: #b8c9da;
-            --border-light: #a0b8c8;
-            --shadow-color: rgba(0,0,0,0.12);
-            --card-border: #b8c9da;
-            --card-active-border: #1f5d7a;
-            --btn-bg: rgba(31,93,122,0.08);
-            --btn-hover: rgba(31,93,122,0.16);
-            --btn-text: #1f5d7a;
-            --badge-bg: rgba(31,93,122,0.08);
-            --badge-text: #1f5d7a;
-            --dot-color: #27ae60;
-            --dot-offline: #e74c3c;
-            --scrollbar-color: #b8c9da;
-            --count-color: #1f5d7a;
-        }
-
-        /* ----- Material Design ----- */
-        .material-design {
-            --bg-primary: #f5f5f5;
-            --bg-secondary: #ffffff;
-            --bg-card: #ffffff;
-            --bg-input: rgba(0,0,0,0.04);
-            --bg-item: rgba(0,0,0,0.02);
-            --bg-item-hover: rgba(0,0,0,0.06);
-            --text-primary: #1a1a1a;
-            --text-secondary: #1f5d7a;
-            --text-muted: #757575;
-            --border-color: #e0e0e0;
-            --border-light: #bdbdbd;
-            --shadow-color: rgba(0,0,0,0.1);
-            --card-border: #e0e0e0;
-            --card-active-border: #1f5d7a;
-            --btn-bg: rgba(31,93,122,0.08);
-            --btn-hover: rgba(31,93,122,0.16);
-            --btn-text: #1f5d7a;
-            --badge-bg: rgba(31,93,122,0.08);
-            --badge-text: #1f5d7a;
-            --dot-color: #4caf50;
-            --dot-offline: #e74c3c;
-            --scrollbar-color: #bdbdbd;
-            --count-color: #1f5d7a;
-            --font-family: 'Roboto', 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
-        .material-design [data-bs-theme="light"] {
-            --bg-primary: #f5f5f5;
-            --bg-secondary: #ffffff;
-        }
-        .material-design.dark-theme {
-            --bg-primary: #121212;
-            --bg-secondary: #1e1e1e;
-            --bg-card: #1e1e1e;
-            --bg-input: rgba(255,255,255,0.06);
-            --bg-item: rgba(255,255,255,0.04);
-            --bg-item-hover: rgba(255,255,255,0.08);
-            --text-primary: #e0e0e0;
-            --text-secondary: #90caf9;
-            --text-muted: #9e9e9e;
-            --border-color: #333333;
-            --border-light: #444444;
-            --shadow-color: rgba(0,0,0,0.4);
-            --card-border: #333333;
-            --card-active-border: #90caf9;
-            --btn-bg: rgba(144,202,249,0.12);
-            --btn-hover: rgba(144,202,249,0.24);
-            --btn-text: #90caf9;
-            --badge-bg: rgba(144,202,249,0.12);
-            --badge-text: #90caf9;
-            --dot-color: #4caf50;
-            --dot-offline: #e74c3c;
-            --scrollbar-color: #444444;
-            --count-color: #90caf9;
-        }
-
-        /* ----- Reset & Base ----- */
+        /* ==========================================
+           BENUTZEROBERFLÄCHE (Wird nicht gedruckt)
+           ========================================== */
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
-            font-family: var(--font-family);
         }
-        html, body {
-            height: 100%;
-            overflow: hidden;
-        }
+
         body {
-            background: var(--bg-primary);
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 20px;
+            color: #2c3e50;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 8px;
             min-height: 100vh;
-            min-height: 100dvh;
-            transition: background 0.3s ease;
         }
 
-        .material-icons {
-            font-family: 'Material Icons';
-            font-weight: normal;
-            font-style: normal;
-            font-size: 22px;
-            line-height: 1;
-            letter-spacing: normal;
-            text-transform: none;
-            display: inline-block;
-            white-space: nowrap;
-            word-wrap: normal;
-            direction: ltr;
-            -webkit-font-feature-settings: 'liga';
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* ----- Main Container ----- */
-        .app-container {
-            max-width: 1600px;
+        .main-card {
+            background: #ffffff;
             width: 100%;
-            height: 100vh;
-            height: 100dvh;
-            max-height: 1000px;
-            background: var(--bg-primary);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px var(--shadow-color), inset 0 1px 0 rgba(255,255,255,0.05);
-            padding: clamp(10px, 1.5vw, 20px);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            max-width: 750px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(26, 75, 96, 0.08);
+            padding: 35px;
+            border: 1px solid #eef2f5;
         }
 
-        /* ----- Header - Kompakt ----- */
+        /* App-Header */
         .app-header {
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 6px 12px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: clamp(6px, 0.8vh, 10px);
-            margin-bottom: clamp(8px, 1vh, 12px);
-            flex-shrink: 0;
-            transition: border-color 0.3s ease;
-            min-height: 40px;
-        }
-        .app-title {
-            display: flex;
-            align-items: center;
-            gap: clamp(6px, 1vw, 14px);
+            border-bottom: 2px solid #eef2f5;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
             flex-wrap: wrap;
-        }
-        .app-title h1 {
-            font-weight: 700;
-            font-size: clamp(1rem, 1.8vw, 1.5rem);
-            letter-spacing: -0.3px;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin: 0;
-            font-family: var(--font-family);
-        }
-        .app-title h1 i {
-            color: #3a8aaf;
-            font-size: clamp(0.9rem, 1.4vw, 1.2rem);
-        }
-        .app-title .badge {
-            background: var(--badge-bg);
-            color: var(--badge-text);
-            padding: 2px clamp(8px, 1vw, 14px);
-            border-radius: 40px;
-            font-size: clamp(0.55rem, 0.8vw, 0.75rem);
-            font-weight: 600;
-            border: 1px solid var(--border-light);
-            white-space: nowrap;
-            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-        .app-title .title-icons {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: var(--text-muted);
-            font-size: clamp(0.7rem, 0.9vw, 0.9rem);
-        }
-        .app-title .title-icons i {
-            color: var(--text-muted);
+            gap: 15px;
         }
 
-        .app-status {
+        .app-header-left {
             display: flex;
             align-items: center;
-            gap: clamp(6px, 1vw, 14px);
-            flex-wrap: wrap;
+            gap: 16px;
         }
-        .sync-status {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: var(--text-muted);
-            font-size: clamp(0.55rem, 0.7vw, 0.7rem);
-            font-weight: 500;
-        }
-        .sync-status .dot {
-            width: clamp(8px, 0.8vw, 10px);
-            height: clamp(8px, 0.8vw, 10px);
+
+        .app-logo {
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
-            background: var(--dot-color);
-            box-shadow: 0 0 12px rgba(46, 204, 113, 0.3);
-            animation: pulse 2s infinite;
-            flex-shrink: 0;
-            transition: background 0.3s ease;
-        }
-        .sync-status .dot.offline {
-            background: var(--dot-offline);
-            box-shadow: 0 0 12px rgba(231, 76, 60, 0.3);
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            object-fit: cover;
+            border: 2px solid #1a4b60;
+            box-shadow: 0 2px 8px rgba(26, 75, 96, 0.15);
         }
 
-        .theme-toggle {
-            background: var(--bg-input);
-            border: 1px solid var(--border-light);
-            border-radius: 30px;
-            padding: clamp(2px, 0.3vh, 4px) clamp(6px, 0.6vw, 10px);
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: clamp(0.6rem, 0.7vw, 0.75rem);
-            touch-action: manipulation;
+        .app-header-title {
+            color: #1a4b60;
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+
+        .app-header-subtitle {
+            font-size: 0.85rem;
+            color: #6cb4db;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-top: 3px;
+        }
+
+        .app-header-right {
+            color: #27ae60;
+            font-size: 1.1rem;
+            font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 4px;
-            font-family: var(--font-family);
-        }
-        .theme-toggle:hover {
-            background: var(--btn-hover);
-        }
-
-        .view-toggle {
-            display: flex;
-            gap: 3px;
-            background: var(--bg-input);
-            border-radius: 30px;
-            padding: 3px;
-            border: 1px solid var(--border-color);
-        }
-        .view-toggle button {
-            background: transparent;
-            border: none;
-            padding: clamp(3px, 0.4vh, 6px) clamp(8px, 0.8vw, 14px);
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: clamp(0.55rem, 0.7vw, 0.75rem);
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: 0.2s;
-            touch-action: manipulation;
+            gap: 8px;
+            background: #e8f8f5;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+            box-shadow: 0 2px 6px rgba(39, 174, 96, 0.04);
             white-space: nowrap;
-            font-family: var(--font-family);
-        }
-        .view-toggle button.active {
-            background: #1f5d7a;
-            color: white;
-            box-shadow: 0 0 15px rgba(31, 93, 122, 0.25);
-        }
-        .view-toggle button:hover:not(.active) {
-            background: var(--bg-item-hover);
         }
 
-        /* ----- Main Grid - 3 Spalten Layout ----- */
-        .app-grid {
-            display: flex;
-            flex-direction: row;
-            gap: clamp(10px, 1.5vw, 18px);
-            flex: 1;
-            min-height: 0;
-            overflow: hidden;
+        /* Dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 35px;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
-        /* ----- Linke Spalte: Materialauswahl (kompakt) ----- */
-        .terminal-panel {
-            flex: 1.2;
-            min-width: 0;
-            background: var(--bg-secondary);
-            border-radius: clamp(12px, 1.5vw, 16px);
-            padding: clamp(8px, 1vw, 14px);
-            border: 1px solid var(--border-color);
+        .preview-sidebar {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px dashed #cbd5e1;
+            width: 100%;
+        }
+
+        .sidebar-title {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .thumbnail-wrapper {
+            position: relative;
+            width: 168px;
+            height: 238px;
+            border: 1px solid #cbd5e1;
+            background: white;
+            border-radius: 8px;
             overflow: hidden;
-            transition: background 0.3s ease, border-color 0.3s ease;
-        }
-        .terminal-panel.hidden {
-            display: none;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .filter-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: clamp(4px, 0.5vw, 8px);
-            margin-bottom: clamp(6px, 0.6vh, 10px);
-            background: var(--bg-input);
-            padding: clamp(4px, 0.4vw, 8px) clamp(8px, 0.8vw, 12px);
-            border-radius: 40px;
-            border: 1px solid var(--border-color);
-            flex-shrink: 0;
-            transition: background 0.3s ease, border-color 0.3s ease;
+        .thumbnail-wrapper:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 24px rgba(26, 75, 96, 0.15);
+            border-color: #1a4b60;
         }
-        .filter-bar input {
-            flex: 2;
-            min-width: 80px;
-            border: none;
-            background: var(--bg-input);
-            padding: clamp(4px, 0.5vh, 8px) clamp(8px, 0.8vw, 12px);
-            border-radius: 30px;
-            font-size: clamp(0.7rem, 0.8vw, 0.85rem);
-            color: var(--text-primary);
-            border: 1px solid var(--border-light);
-            transition: 0.15s;
-            touch-action: manipulation;
-            font-family: var(--font-family);
+
+        .scaled-sheet-container {
+            transform: scale(0.20);
+            transform-origin: top left;
+            width: 210mm;
+            height: 297mm;
+            pointer-events: none;
         }
-        .filter-bar input:focus {
-            outline: none;
-            border-color: #3a8aaf;
-            background: var(--bg-item-hover);
-            box-shadow: 0 0 0 2px rgba(31, 93, 122, 0.15);
-        }
-        .filter-bar input::placeholder {
-            color: var(--text-muted);
-            font-size: clamp(0.6rem, 0.7vw, 0.75rem);
-        }
-        .block-selector {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: clamp(2px, 0.3vw, 6px);
-        }
-        .block-selector span {
-            font-weight: 600;
-            color: var(--text-secondary);
-            font-size: clamp(0.55rem, 0.6vw, 0.7rem);
-            font-family: var(--font-family);
-        }
-        .block-btn {
-            background: transparent;
-            border: 1px solid var(--border-light);
-            padding: clamp(2px, 0.3vh, 4px) clamp(6px, 0.6vw, 10px);
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: clamp(0.5rem, 0.55vw, 0.65rem);
-            cursor: pointer;
-            transition: 0.15s;
-            color: var(--text-muted);
-            touch-action: manipulation;
-            white-space: nowrap;
-            font-family: var(--font-family);
-        }
-        .block-btn.active {
-            background: #1f5d7a;
-            border-color: #3a8aaf;
+
+        .thumbnail-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 75, 96, 0.9);
             color: white;
-            box-shadow: 0 0 10px rgba(31, 93, 122, 0.2);
-        }
-        .block-btn:hover:not(.active) {
-            background: var(--bg-item-hover);
-        }
-        .block-btn:active {
-            transform: scale(0.95);
-        }
-
-        .material-list {
-            flex: 1;
-            overflow-y: auto;
-            padding-right: 3px;
-            margin-top: 2px;
-            min-height: 0;
-            -webkit-overflow-scrolling: touch;
-        }
-        .material-list::-webkit-scrollbar {
-            width: 3px;
-        }
-        .material-list::-webkit-scrollbar-thumb {
-            background: var(--scrollbar-color);
-            border-radius: 6px;
-        }
-        .material-list {
-            scrollbar-width: thin;
-            scrollbar-color: var(--scrollbar-color) transparent;
-        }
-
-        .material-item {
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px 0;
+            transition: background 0.2s;
+            backdrop-filter: blur(2px);
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            gap: clamp(4px, 0.5vw, 8px);
-            padding: clamp(4px, 0.5vh, 8px) clamp(6px, 0.6vw, 10px);
-            margin-bottom: clamp(2px, 0.2vh, 4px);
-            background: var(--bg-item);
-            border-radius: 40px;
-            border: 1px solid var(--border-color);
-            transition: 0.15s;
-            cursor: default;
-            flex-wrap: wrap;
+            gap: 5px;
         }
-        .material-item:hover {
-            background: var(--bg-item-hover);
-            border-color: var(--border-light);
+
+        .thumbnail-wrapper:hover .thumbnail-overlay {
+            background: rgba(39, 174, 96, 0.95);
         }
-        .material-item .code {
+
+        .info-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .info-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 12px;
+        }
+
+        .frontpage-selection {
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .frontpage-selection label {
+            font-size: 0.8rem;
             font-weight: 700;
-            color: #7ac0e0;
-            font-size: clamp(0.7rem, 0.8vw, 0.85rem);
-            flex-shrink: 0;
-            min-width: 36px;
+            margin-bottom: 6px;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .material-item .desc {
-            flex: 1;
-            margin: 0 clamp(3px, 0.4vw, 6px);
-            font-weight: 500;
-            color: var(--text-primary);
-            font-size: clamp(0.6rem, 0.7vw, 0.75rem);
-            min-width: 50px;
-            line-height: 1.2;
-        }
-        .material-item .container-badge {
-            background: var(--badge-bg);
-            padding: 1px clamp(4px, 0.4vw, 8px);
-            border-radius: 30px;
-            font-size: clamp(0.45rem, 0.5vw, 0.55rem);
+
+        .frontpage-selection select {
+            padding: 12px 14px;
+            border: 2px solid #6cb4db;
+            border-radius: 8px;
+            font-size: 1rem;
             font-weight: 600;
-            color: var(--badge-text);
-            border: 1px solid var(--border-light);
-            white-space: nowrap;
-            flex-shrink: 0;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .material-item .item-controls {
-            display: flex;
-            align-items: center;
-            gap: clamp(2px, 0.3vw, 6px);
-            flex-shrink: 0;
-        }
-        .material-item .qty-btn {
-            background: var(--btn-bg);
-            border: 1px solid var(--border-light);
-            border-radius: 30px;
-            width: clamp(22px, 2vw, 30px);
-            height: clamp(22px, 2vw, 30px);
-            font-weight: 700;
-            color: var(--btn-text);
+            color: #1a4b60;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(108, 180, 219, 0.1);
+            transition: all 0.2s;
             cursor: pointer;
-            transition: 0.15s;
-            font-size: clamp(0.65rem, 0.7vw, 0.8rem);
-            display: inline-flex;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .frontpage-selection select:focus {
+            outline: none;
+            border-color: #1a4b60;
+            box-shadow: 0 0 0 3px rgba(26, 75, 96, 0.15);
+        }
+
+        .summary-box {
+            background: #f8fafc;
+            border-left: 4px solid #6cb4db;
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 25px;
+            border-top: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            width: 100%;
+        }
+
+        .summary-item {
+            margin-bottom: 8px;
+            font-size: 1rem;
+            color: #334155;
+            word-break: break-word;
+        }
+        .summary-item:last-child {
+            margin-bottom: 0;
+        }
+        .summary-label {
+            font-weight: 600;
+            color: #1a4b60;
+            width: 110px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+        }
+
+        button {
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
             align-items: center;
             justify-content: center;
-            touch-action: manipulation;
-            flex-shrink: 0;
-            font-family: var(--font-family);
+            gap: 10px;
         }
-        .material-item .qty-btn:hover:not(:disabled) {
-            background: var(--btn-hover);
-            border-color: #3a8aaf;
+
+        .btn-primary {
+            background-color: #27ae60;
             color: white;
-        }
-        .material-item .qty-btn:active:not(:disabled) {
-            transform: scale(0.9);
-        }
-        .material-item .qty-btn:disabled {
-            opacity: 0.25;
-            cursor: not-allowed;
-        }
-        .material-item .qty-btn.minus-btn {
-            color: #cc8888;
-        }
-        .material-item .qty-btn.minus-btn:hover:not(:disabled) {
-            background: rgba(200, 80, 80, 0.15);
-            border-color: #aa5555;
-            color: #ff8888;
-        }
-        .material-item .item-count {
-            font-weight: 700;
-            color: var(--count-color);
-            font-size: clamp(0.7rem, 0.8vw, 0.85rem);
-            min-width: 16px;
-            text-align: center;
-            transition: color 0.3s ease;
-        }
-        .material-item .item-count.zero {
-            color: var(--text-muted);
+            flex: 2;
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.2);
         }
 
-        /* ----- Mittlere Spalte: Karteikärtchen (groß) ----- */
-        .card-panel {
-            flex: 1.6;
-            min-width: 0;
-            background: var(--bg-secondary);
-            border-radius: clamp(12px, 1.5vw, 16px);
-            padding: clamp(10px, 1.2vw, 16px);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transition: background 0.3s ease, border-color 0.3s ease;
-        }
-        .card-panel.hidden {
-            display: none;
+        .btn-primary:hover {
+            background-color: #219653;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(39, 174, 96, 0.25);
         }
 
-        .card-panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: clamp(4px, 0.5vh, 8px);
-            margin-bottom: clamp(6px, 0.6vh, 10px);
-            flex-shrink: 0;
-        }
-        .card-panel-header h4 {
-            font-weight: 600;
-            color: var(--text-secondary);
-            font-size: clamp(0.8rem, 1vw, 1rem);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin: 0;
-            font-family: var(--font-family);
-        }
-        .card-panel-header h4 i {
-            font-size: clamp(0.7rem, 0.9vw, 0.9rem);
-        }
-        .card-panel-header .print-actions {
-            display: flex;
-            gap: clamp(4px, 0.4vw, 8px);
-        }
-        .card-panel-header .print-actions button {
-            background: var(--btn-bg);
-            border: 1px solid var(--border-light);
-            border-radius: 20px;
-            padding: clamp(2px, 0.2vh, 4px) clamp(6px, 0.5vw, 10px);
-            font-weight: 600;
-            font-size: clamp(0.5rem, 0.5vw, 0.65rem);
-            color: var(--btn-text);
-            cursor: pointer;
-            transition: 0.15s;
-            touch-action: manipulation;
-            white-space: nowrap;
-            font-family: var(--font-family);
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-        }
-        .card-panel-header .print-actions button:hover:not(:disabled) {
-            background: var(--btn-hover);
-            border-color: #3a8aaf;
+        .btn-secondary {
+            background-color: #1a4b60;
             color: white;
-        }
-        .card-panel-header .print-actions button:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-        .card-panel-header .print-actions button i {
-            font-size: clamp(0.5rem, 0.5vw, 0.65rem);
-        }
-        .card-panel-header .card-count {
-            color: var(--text-muted);
-            font-size: clamp(0.65rem, 0.7vw, 0.8rem);
-        }
-
-        .card-stack-container {
-            position: relative;
             flex: 1;
-            min-height: 120px;
-            perspective: 1200px;
-            touch-action: pan-y;
-            cursor: grab;
+            box-shadow: 0 4px 12px rgba(26, 75, 96, 0.15);
         }
-        .card-stack-container:active {
-            cursor: grabbing;
+
+        .btn-secondary:hover {
+            background-color: #113342;
+            transform: translateY(-1px);
         }
-        .card-stack {
-            position: relative;
-            width: 100%;
-            height: 100%;
+
+        .btn-crud {
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
         }
-        .card-item {
-            position: absolute;
+
+        /* Modals */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--bg-card);
-            border: 2.5px solid var(--card-border);
-            border-radius: clamp(14px, 2vw, 20px);
-            padding: clamp(16px, 2.5vw, 30px) clamp(18px, 3vw, 36px);
-            font-family: 'Courier New', monospace;
-            font-size: clamp(0.85rem, 1.2vw, 1.1rem);
-            line-height: 2;
-            color: var(--text-primary);
-            text-align: right;
-            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-            backface-visibility: hidden;
-            box-shadow: 0 4px 16px var(--shadow-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            user-select: none;
-            -webkit-user-select: none;
-            will-change: transform;
-            touch-action: none;
-        }
-        .card-item.active {
-            transform: translateX(0) scale(1) rotate(0deg);
-            opacity: 1;
-            z-index: 10;
-            box-shadow: 0 12px 48px var(--shadow-color), 0 0 40px rgba(31, 93, 122, 0.12);
-            border-color: var(--card-active-border);
-        }
-        .card-item.prev {
-            transform: translateX(clamp(-40px, -6vw, -70px)) scale(0.88) rotate(-3deg);
-            opacity: 0.25;
-            z-index: 5;
-            filter: blur(0.5px);
-        }
-        .card-item.next {
-            transform: translateX(clamp(40px, 6vw, 70px)) scale(0.88) rotate(3deg);
-            opacity: 0.25;
-            z-index: 5;
-            filter: blur(0.5px);
-        }
-        .card-item.hidden {
-            transform: translateX(clamp(60px, 10vw, 120px)) scale(0.8) rotate(5deg);
-            opacity: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
-        .card-item .card-site {
-            font-weight: 700;
-            font-size: clamp(0.9rem, 1.3vw, 1.2rem);
-            color: var(--text-secondary);
-            margin-bottom: 2px;
-        }
-        .card-item .card-code {
-            font-weight: 700;
-            color: #7ac0e0;
-            font-size: clamp(1.2rem, 1.8vw, 1.6rem);
-        }
-        .card-item .card-container {
-            font-weight: 600;
-            color: var(--badge-text);
-            font-size: clamp(0.8rem, 1vw, 1rem);
-        }
-        .card-item .card-desc {
-            font-size: clamp(0.8rem, 1.1vw, 1rem);
-        }
-        .card-item .card-index {
-            position: absolute;
-            top: clamp(10px, 1.2vh, 16px);
-            left: clamp(14px, 1.8vw, 24px);
-            font-size: clamp(0.55rem, 0.6vw, 0.7rem);
-            color: var(--text-muted);
-            font-weight: 600;
-            background: rgba(0,0,0,0.2);
-            padding: 1px clamp(8px, 0.8vw, 14px);
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-        }
-        .card-item .card-select-hint {
-            position: absolute;
-            bottom: clamp(10px, 1.2vh, 16px);
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: clamp(0.45rem, 0.5vw, 0.55rem);
-            color: var(--text-muted);
-            opacity: 0.4;
-            background: rgba(0,0,0,0.2);
-            padding: 1px clamp(10px, 1vw, 16px);
-            border-radius: 20px;
-            white-space: nowrap;
-            pointer-events: none;
-            border: 1px solid var(--border-color);
-        }
-
-        .card-dots {
-            display: flex;
-            justify-content: center;
-            gap: clamp(5px, 0.6vw, 8px);
-            margin-top: clamp(4px, 0.4vh, 8px);
-            padding: 2px 0;
-            flex-shrink: 0;
-            flex-wrap: wrap;
-        }
-        .card-dot {
-            width: clamp(8px, 0.8vw, 11px);
-            height: clamp(8px, 0.8vw, 11px);
-            border-radius: 50%;
-            background: var(--border-color);
-            border: 1px solid var(--border-light);
-            padding: 0;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            flex-shrink: 0;
-            touch-action: manipulation;
-        }
-        .card-dot.active {
-            background: #1f5d7a;
-            border-color: #3a8aaf;
-            transform: scale(1.35);
-            box-shadow: 0 0 16px rgba(31, 93, 122, 0.35);
-        }
-        .card-dot:active {
-            transform: scale(0.85);
-        }
-
-        .card-nav {
-            display: flex;
+            background: rgba(15, 34, 43, 0.55);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
             justify-content: center;
             align-items: center;
-            gap: clamp(10px, 1.2vw, 18px);
-            margin-top: clamp(4px, 0.4vh, 8px);
-            padding: 2px 0;
-            flex-shrink: 0;
-            flex-wrap: wrap;
-        }
-        .card-nav button {
-            background: var(--btn-bg);
-            border: 1px solid var(--border-light);
-            border-radius: 30px;
-            padding: clamp(4px, 0.5vh, 8px) clamp(10px, 1vw, 16px);
-            font-weight: 700;
-            color: var(--btn-text);
-            cursor: pointer;
-            transition: 0.15s;
-            font-size: clamp(0.6rem, 0.7vw, 0.8rem);
-            display: inline-flex;
-            align-items: center;
-            gap: clamp(3px, 0.4vw, 6px);
-            touch-action: manipulation;
-            white-space: nowrap;
-            font-family: var(--font-family);
-        }
-        .card-nav button:hover:not(:disabled) {
-            background: var(--btn-hover);
-            border-color: #3a8aaf;
-            color: white;
-        }
-        .card-nav button:active:not(:disabled) {
-            transform: scale(0.95);
-        }
-        .card-nav button:disabled {
-            opacity: 0.25;
-            cursor: not-allowed;
-        }
-        .card-nav .counter {
-            font-weight: 700;
-            color: var(--text-secondary);
-            font-size: clamp(0.8rem, 0.9vw, 1rem);
-            min-width: clamp(45px, 5vw, 65px);
-            text-align: center;
-            background: rgba(0,0,0,0.15);
-            padding: clamp(2px, 0.3vh, 4px) clamp(8px, 0.8vw, 14px);
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
+            animation: fadeIn 0.2s ease;
+            padding: 10px;
         }
 
-        .card-empty {
-            text-align: center;
-            color: var(--text-muted);
-            font-style: italic;
-            padding: 20px 10px;
-            background: var(--bg-item);
+        .modal-content {
+            background: white;
+            padding: 30px;
             border-radius: 16px;
-            border: 2px dashed var(--border-color);
-            font-family: 'Courier New', monospace;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: clamp(0.8rem, 0.9vw, 0.95rem);
+            width: 100%;
+            max-width: 580px;
+            box-shadow: 0 20px 40px rgba(15, 34, 43, 0.2);
+            position: relative;
+            max-height: 95vh;
+            overflow-y: auto;
         }
 
-        /* ----- Rechte Spalte: Frachtliste (kompakt) ----- */
-        .office-panel {
-            flex: 0.9;
-            min-width: 0;
-            background: var(--bg-secondary);
-            border-radius: clamp(12px, 1.5vw, 16px);
-            padding: clamp(8px, 1vw, 14px);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transition: background 0.3s ease, border-color 0.3s ease;
-        }
-        .office-panel.hidden {
-            display: none;
-        }
-
-        .office-header {
+        .modal-header {
+            font-size: 1.35rem;
+            font-weight: bold;
+            color: #1a4b60;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: clamp(4px, 0.5vh, 8px);
-            margin-bottom: clamp(6px, 0.6vh, 10px);
-            flex-shrink: 0;
+            gap: 10px;
         }
-        .office-header h3 {
-            font-weight: 600;
-            color: var(--text-secondary);
-            font-size: clamp(0.75rem, 0.9vw, 0.95rem);
+
+        .btn-close-x {
+            background: transparent;
+            font-size: 1.8rem;
+            color: #94a3b8;
+            padding: 0;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .btn-close-x:hover {
+            color: #ef4444;
+        }
+
+        .mode-switcher {
+            display: flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .mode-tab {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .mode-tab.active {
+            background: #1a4b60;
+            color: white;
+            box-shadow: 0 2px 6px rgba(26, 75, 96, 0.15);
+        }
+
+        .form-section {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             gap: 5px;
-            margin: 0;
-            font-family: var(--font-family);
-        }
-        .office-header h3 i {
-            font-size: clamp(0.7rem, 0.8vw, 0.85rem);
-        }
-        .office-header .count-badge {
-            background: #1f5d7a;
-            color: white;
-            border-radius: 30px;
-            padding: 0 clamp(8px, 0.8vw, 14px);
-            font-weight: 700;
-            font-size: clamp(0.7rem, 0.8vw, 0.85rem);
-            line-height: clamp(22px, 2.5vh, 28px);
-            border: 1px solid #3a8aaf;
-            flex-shrink: 0;
         }
 
-        .office-list {
-            flex: 1;
-            overflow-y: auto;
-            padding-right: 3px;
-            -webkit-overflow-scrolling: touch;
-        }
-        .office-list::-webkit-scrollbar {
-            width: 3px;
-        }
-        .office-list::-webkit-scrollbar-thumb {
-            background: var(--scrollbar-color);
+        input,
+        select {
+            padding: 11px 14px;
+            border: 1px solid #cbd5e1;
             border-radius: 6px;
-        }
-        .office-list {
-            scrollbar-width: thin;
-            scrollbar-color: var(--scrollbar-color) transparent;
+            font-size: 0.95rem;
+            color: #334155;
+            background-color: #f8fafc;
+            transition: all 0.2s;
+            width: 100%;
+            max-width: 100%;
         }
 
-        .office-item {
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #6cb4db;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(108, 180, 219, 0.15);
+        }
+
+        .modal-footer {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: clamp(3px, 0.4vw, 6px);
-            padding: clamp(3px, 0.3vh, 6px) clamp(4px, 0.4vw, 8px);
-            background: var(--bg-item);
-            border-radius: 30px;
-            margin-bottom: clamp(2px, 0.2vh, 4px);
-            border: 1px solid var(--border-color);
-            transition: background 0.3s ease, border-color 0.3s ease;
-        }
-        .office-item:hover {
-            background: var(--bg-item-hover);
-        }
-        .office-item .o-code {
-            font-weight: 700;
-            color: #7ac0e0;
-            flex-shrink: 0;
-            min-width: 34px;
-            font-size: clamp(0.65rem, 0.7vw, 0.8rem);
-        }
-        .office-item .o-desc {
-            flex: 1;
-            margin: 0 clamp(2px, 0.3vw, 6px);
-            font-weight: 500;
-            color: var(--text-primary);
-            font-size: clamp(0.55rem, 0.6vw, 0.7rem);
-            min-width: 30px;
-            line-height: 1.2;
-        }
-        .office-item .o-container {
-            background: var(--badge-bg);
-            padding: 1px clamp(4px, 0.4vw, 8px);
-            border-radius: 20px;
-            font-size: clamp(0.45rem, 0.45vw, 0.55rem);
-            font-weight: 600;
-            color: var(--badge-text);
-            border: 1px solid var(--border-light);
-            white-space: nowrap;
-            flex-shrink: 0;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .office-item .o-time {
-            font-size: clamp(0.4rem, 0.4vw, 0.5rem);
-            color: var(--text-muted);
-            flex-shrink: 0;
-            min-width: 40px;
-            text-align: right;
-        }
-        .office-item .o-delete {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: clamp(0.7rem, 0.7vw, 0.85rem);
-            padding: 0 clamp(2px, 0.2vw, 4px);
-            transition: 0.15s;
-            touch-action: manipulation;
-            flex-shrink: 0;
-        }
-        .office-item .o-delete:hover {
-            color: #e06666;
-        }
-        .office-item .o-delete:active {
-            transform: scale(0.85);
-        }
-
-        .office-empty {
-            text-align: center;
-            color: var(--text-muted);
-            font-style: italic;
-            padding: 20px 6px;
-            font-size: clamp(0.7rem, 0.7vw, 0.8rem);
-        }
-
-        .office-footer {
-            margin-top: auto;
-            padding-top: clamp(6px, 0.6vh, 10px);
-            border-top: 1px solid var(--border-color);
-            flex-shrink: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap;
-        }
-        .office-footer button {
-            background: transparent;
-            border: 1px solid #aa5555;
-            border-radius: 30px;
-            padding: clamp(2px, 0.2vh, 4px) clamp(8px, 0.6vw, 12px);
-            color: #cc8888;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: clamp(0.5rem, 0.5vw, 0.65rem);
-            touch-action: manipulation;
-            font-family: var(--font-family);
-            white-space: nowrap;
-        }
-        .office-footer button:hover {
-            background: rgba(200, 80, 80, 0.12);
-        }
-        .office-footer span {
-            color: var(--text-muted);
-            font-size: clamp(0.45rem, 0.45vw, 0.55rem);
-        }
-
-        /* ----- Terminal Actions (kompakt) ----- */
-        .terminal-actions {
-            display: flex;
-            gap: clamp(4px, 0.4vw, 8px);
             justify-content: flex-end;
-            margin-top: clamp(4px, 0.4vh, 8px);
-            flex-shrink: 0;
+            gap: 12px;
+            margin-top: 20px;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 15px;
             flex-wrap: wrap;
-        }
-        .terminal-actions button {
-            background: transparent;
-            border: 1px solid var(--border-light);
-            padding: clamp(2px, 0.2vh, 4px) clamp(8px, 0.6vw, 14px);
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.15s;
-            color: var(--text-muted);
-            font-size: clamp(0.5rem, 0.5vw, 0.65rem);
-            touch-action: manipulation;
-            white-space: nowrap;
-            font-family: var(--font-family);
-        }
-        .terminal-actions button:active {
-            transform: scale(0.95);
-        }
-        .terminal-actions .clear-btn {
-            color: #cc8888;
-        }
-        .terminal-actions .clear-btn:hover {
-            background: rgba(200, 80, 80, 0.12);
-            border-color: #aa5555;
-        }
-        .terminal-actions .sample-btn {
-            border-color: #2a6a7a;
-            background: rgba(31, 93, 122, 0.12);
-            color: var(--btn-text);
-        }
-        .terminal-actions .sample-btn:hover {
-            background: var(--btn-hover);
-        }
-        .terminal-actions .sync-btn {
-            border-color: #2ecc71;
-            color: #5cdb9a;
-            background: rgba(46, 204, 113, 0.06);
-        }
-        .terminal-actions .sync-btn:hover {
-            background: rgba(46, 204, 113, 0.15);
         }
 
-        /* ----- Footer (kompakt) ----- */
-        .app-footer {
-            margin-top: clamp(6px, 0.6vh, 10px);
-            font-size: clamp(0.5rem, 0.5vw, 0.6rem);
-            color: var(--text-muted);
-            border-top: 1px solid var(--border-color);
-            padding-top: clamp(4px, 0.4vh, 8px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-shrink: 0;
-            flex-wrap: wrap;
-            gap: 4px;
-            transition: border-color 0.3s ease, color 0.3s ease;
-            min-height: 28px;
-        }
-        .app-footer .footer-left {
-            display: flex;
-            align-items: center;
-            gap: clamp(4px, 0.4vw, 8px);
-            color: var(--text-muted);
-        }
-        .app-footer .footer-left i {
-            color: var(--dot-color);
-            font-size: clamp(0.4rem, 0.4vw, 0.5rem);
-            transition: color 0.3s ease;
-        }
-        .app-footer .footer-left i.offline {
-            color: var(--dot-offline);
-        }
-        .app-footer .footer-right {
-            display: flex;
-            align-items: center;
-            gap: clamp(4px, 0.4vw, 8px);
-        }
-        .app-footer .footer-right .design-toggle {
-            display: flex;
-            gap: 2px;
-            background: var(--bg-input);
-            border-radius: 20px;
-            padding: 2px;
-            border: 1px solid var(--border-color);
-        }
-        .app-footer .footer-right .design-toggle button {
-            background: transparent;
-            border: none;
-            padding: clamp(1px, 0.2vh, 2px) clamp(4px, 0.4vw, 8px);
-            border-radius: 16px;
-            font-weight: 500;
-            font-size: clamp(0.45rem, 0.4vw, 0.55rem);
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: 0.2s;
-            touch-action: manipulation;
-            white-space: nowrap;
-            font-family: var(--font-family);
-        }
-        .app-footer .footer-right .design-toggle button.active {
-            background: #1f5d7a;
+        .btn-save-defaults {
+            background-color: #3498db;
             color: white;
-            box-shadow: 0 0 8px rgba(31, 93, 122, 0.15);
         }
-        .app-footer .footer-right .design-toggle button:hover:not(.active) {
-            background: var(--bg-item-hover);
+        .btn-save-defaults:hover {
+            background-color: #2980b9;
         }
-        .app-footer .footer-right .theme-toggle-sm {
-            background: var(--bg-input);
-            border: 1px solid var(--border-light);
-            border-radius: 20px;
-            padding: clamp(1px, 0.2vh, 2px) clamp(4px, 0.4vw, 8px);
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: clamp(0.5rem, 0.5vw, 0.6rem);
-            touch-action: manipulation;
+
+        .btn-cancel {
+            background-color: #f1f5f9;
+            color: #475569;
+        }
+        .btn-cancel:hover {
+            background-color: #e2e8f0;
+        }
+
+        /* ==========================================
+           OPTIMIERTE RESPONSIVE MODAL- & BLATTSKALIERUNG
+           ========================================== */
+        .preview-modal-content {
+            max-width: 90vw;
+            width: 600px;
+            max-height: 95vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 30px;
+        }
+
+        .modal-body-scroll {
+            flex: 1;
+            padding: 25px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow: hidden;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+            container-type: inline-size;
+        }
+
+        .page-container {
+            background: #ffffff;
+            width: 210mm;
+            height: 297mm;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
+            box-sizing: border-box;
+            flex-shrink: 0;
+            transform-origin: top center;
+            transform: scale(calc(100cqw / 794));
+        }
+
+        .print-sheet {
+            width: 210mm;
+            height: 297mm;
+            box-sizing: border-box;
+            padding: 5mm 0mm 5mm 0mm;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(7, 1fr);
+            gap: 0;
+            background: white;
+        }
+
+        @container (min-width: 794px) {
+            .page-container {
+                transform: scale(1);
+            }
+        }
+
+        /* ==========================================
+           RESPONSIVE BREAKPOINTS (UI Optimierung)
+           ========================================== */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            .main-card {
+                padding: 20px;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .preview-sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .app-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .app-header-right {
+                width: 100%;
+                justify-content: center;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            .modal-content {
+                padding: 20px;
+            }
+            .modal-footer button {
+                width: 100%;
+            }
+        }
+
+        /* ==========================================
+           DRUCK-LAYOUT – HERMA 4473 (70 x 41 mm)
+           ========================================== */
+        .label {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 3.5mm 4mm 3.5mm 4mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            background-color: #fff;
+            border: 1px dashed #e2e8f0;
+            overflow: hidden;
+        }
+
+        .label-top {
+            text-align: right;
+            font-size: 11pt;
+            font-weight: bold;
+            color: #1a4b60;
+            letter-spacing: 0.3px;
+        }
+
+        .label-middle {
             display: flex;
             align-items: center;
-            gap: 3px;
-            font-family: var(--font-family);
-        }
-        .app-footer .footer-right .theme-toggle-sm:hover {
-            background: var(--btn-hover);
-        }
-        .app-footer .device-info {
-            color: var(--text-muted);
-            font-size: clamp(0.4rem, 0.4vw, 0.5rem);
+            justify-content: flex-end;
+            margin-top: auto;
+            margin-bottom: auto;
+            white-space: nowrap;
         }
 
-        /* ----- EC-Card Größe für Druck ----- */
+        .label-middle .num {
+            font-size: 21pt;
+            font-weight: bold;
+            color: #54a0cc;
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .label-middle .sep {
+            font-size: 16pt;
+            color: #1a4b60;
+            font-weight: bold;
+            margin: 0 5px;
+        }
+
+        .label-middle .suffix {
+            font-size: 13pt;
+            font-weight: bold;
+            color: #1a4b60;
+        }
+
+        .label-bottom {
+            font-size: 9pt;
+            font-style: italic;
+            text-align: right;
+            color: #111111;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.1;
+            letter-spacing: -0.1px;
+        }
+
+        .label.empty {
+            border: 1px dashed #f8fafc;
+            background-color: #fafbfc;
+        }
+
+        #hiddenPrintContainer {
+            display: none;
+        }
+
         @media print {
-            /* ... print styles ... */
-        }
+            body > :not(#hiddenPrintContainer) {
+                display: none !important;
+            }
+            
+            #hiddenPrintContainer {
+                display: block !important;
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 210mm !important;
+                height: 297mm !important;
+            }
+            
+            #labelSheetDirect {
+                display: grid !important;
+            }
 
-        /* ----- Responsive ----- */
-        @media (max-width: 1024px) {
-            .app-grid {
-                gap: 8px;
+            .page-container, .print-sheet {
+                transform: none !important;
+                width: 210mm !important;
+                height: 297mm !important;
             }
-            .terminal-panel { flex: 1; }
-            .card-panel { flex: 1.4; }
-            .office-panel { flex: 0.8; }
-        }
-        @media (max-width: 768px) {
-            .app-grid {
-                flex-direction: column;
-                gap: 6px;
+
+            .label {
+                border: 1px solid transparent !important;
             }
-            .terminal-panel {
-                flex: 0 0 auto;
-                max-height: 35vh;
-                min-height: 120px;
+            
+            @page {
+                size: A4;
+                margin: 0;
             }
-            .card-panel {
-                flex: 1;
-                min-height: 120px;
-            }
-            .office-panel {
-                flex: 0 0 auto;
-                max-height: 30vh;
-                min-height: 80px;
-            }
-            .app-container {
-                height: 100vh;
-                height: 100dvh;
-                max-height: none;
-                border-radius: 16px;
-                padding: 8px;
-            }
-            .view-toggle button {
-                padding: 2px 8px;
-                font-size: 0.6rem;
-            }
-            .card-panel-header .print-actions button {
-                font-size: 0.5rem;
-                padding: 1px 5px;
-            }
-            .material-item .desc {
-                font-size: 0.7rem;
-            }
-            .office-item .o-desc {
-                font-size: 0.6rem;
-            }
-        }
-        @media (max-width: 480px) {
-            body { padding: 4px; }
-            .app-container {
-                border-radius: 12px;
-                padding: 6px;
-                height: 100vh;
-                height: 100dvh;
-            }
-            .app-title h1 { font-size: 0.95rem; }
-            .app-title .badge { font-size: 0.5rem; padding: 1px 6px; }
-            .view-toggle button { font-size: 0.5rem; padding: 2px 6px; }
-            .sync-status { font-size: 0.5rem; }
-            .sync-status .dot { width: 6px; height: 6px; }
-            .terminal-panel { max-height: 30vh; padding: 6px; }
-            .card-panel { padding: 6px; min-height: 100px; }
-            .office-panel { max-height: 25vh; padding: 6px; }
-            .card-item { padding: 10px 12px; font-size: 0.65rem; }
-            .card-item .card-site { font-size: 0.7rem; }
-            .card-item .card-code { font-size: 0.85rem; }
-            .material-item { padding: 3px 6px; }
-            .material-item .desc { font-size: 0.6rem; }
-            .material-item .qty-btn { width: 18px; height: 18px; font-size: 0.6rem; }
-            .filter-bar input { font-size: 0.6rem; padding: 3px 6px; }
-            .block-btn { font-size: 0.45rem; padding: 2px 5px; }
-            .office-item { padding: 2px 4px; }
-            .office-item .o-code { font-size: 0.55rem; min-width: 28px; }
-            .office-item .o-desc { font-size: 0.5rem; }
-            .office-item .o-container { font-size: 0.4rem; padding: 1px 4px; }
-            .office-item .o-time { font-size: 0.35rem; min-width: 30px; }
-            .card-nav button { font-size: 0.55rem; padding: 3px 8px; }
-            .card-nav .counter { font-size: 0.65rem; min-width: 35px; padding: 1px 6px; }
-            .card-dot { width: 6px; height: 6px; }
-            .terminal-actions button { font-size: 0.45rem; padding: 1px 6px; }
-            .office-footer button { font-size: 0.45rem; padding: 1px 6px; }
-            .office-footer span { font-size: 0.4rem; }
-            .app-footer { font-size: 0.4rem; min-height: 20px; padding-top: 3px; }
-            .app-footer .footer-right .design-toggle button { font-size: 0.4rem; padding: 1px 4px; }
-            .app-footer .footer-right .theme-toggle-sm { font-size: 0.45rem; padding: 1px 4px; }
-            .card-panel-header h4 { font-size: 0.65rem; }
-            .card-panel-header .print-actions button { font-size: 0.4rem; padding: 1px 4px; }
-            .card-panel-header .card-count { font-size: 0.55rem; }
         }
     </style>
 </head>
 <body>
-<div class="app-container" id="app">
-    <!-- Header - Kompakt -->
-    <div class="app-header">
-        <div class="app-title">
-            <h1><i class="fas fa-recycle"></i>ASZ Asten</h1>
-            <span class="badge"><i class="fas fa-map-pin"></i> 106</span>
-            <div class="title-icons">
-                <i class="fas fa-clipboard-list" title="Frachtliste"></i>
-                <i class="fas fa-desktop" title="Büro-Dashboard"></i>
-            </div>
-        </div>
-        <div class="app-status">
-            <button class="theme-toggle" id="themeToggle" title="Theme umschalten">
-                <i class="fas fa-moon" id="themeIcon"></i> <span id="themeLabel">Dunkel</span>
-            </button>
-            <div class="sync-status">
-                <span class="dot" id="syncDot"></span>
-                <span id="syncLabel">sync</span>
-            </div>
-            <div class="view-toggle">
-                <button class="active" data-view="terminal" id="viewTerminalBtn"><i class="fas fa-terminal"></i></button>
-                <button data-view="office" id="viewOfficeBtn"><i class="fas fa-list"></i></button>
-            </div>
-        </div>
-    </div>
 
-    <!-- Main Grid - 3 Spalten -->
-    <div class="app-grid">
-        <!-- Linke Spalte: Materialauswahl -->
-        <div class="terminal-panel" id="terminalPanel">
-            <div class="filter-bar">
-                <input type="text" id="materialSearch" placeholder="🔍 Suchen" inputmode="search">
-                <div class="block-selector">
-                    <span>Block:</span>
-                    <button class="block-btn active" data-block="all">Alle</button>
-                    <button class="block-btn" data-block="1000">1000</button>
-                    <button class="block-btn" data-block="2000">2000</button>
-                    <button class="block-btn" data-block="3000">3000</button>
-                    <button class="block-btn" data-block="4000">4000</button>
-                    <button class="block-btn" data-block="4300">4300</button>
-                    <button class="block-btn" data-block="9000">9000</button>
+    <div class="main-card">
+        <div class="app-header">
+            <div class="app-header-left">
+                <img class="app-logo" src="https://avatars.githubusercontent.com/u/297924413?s=400&u=9843148f4e4e6cd0cc18040131acc5403ef4a9ac&v=4" alt="Logo">
+                <div>
+                    <div class="app-header-title">LAVU OÖ</div>
+                    <div class="app-header-subtitle">Etiketten-Druckstudio v8</div>
                 </div>
             </div>
-            <div class="material-list" id="materialListContainer"></div>
-            <div class="terminal-actions">
-                <button class="clear-btn" id="clearBasketBtn"><i class="fas fa-trash-alt"></i> Leeren</button>
-                <button class="sample-btn" id="addSampleBtn"><i class="fas fa-plus-circle"></i> Beispiel</button>
-                <button class="sync-btn" id="syncNowBtn"><i class="fas fa-sync-alt"></i> Sync</button>
+            <div class="app-header-right" id="headerStation">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span id="headerStationText">106 - ASZ Asten</span>
             </div>
         </div>
 
-        <!-- Mittlere Spalte: Karteikärtchen -->
-        <div class="card-panel" id="cardPanel">
-            <div class="card-panel-header">
-                <h4><i class="fas fa-id-card"></i> Karteikärtchen</h4>
-                <div class="print-actions">
-                    <button id="printSingleBtn" title="Aktuelle Karte drucken"><i class="fas fa-print"></i> Einzel</button>
-                    <button id="printAllBtn" title="Alle Karten drucken"><i class="fas fa-print"></i> Alle</button>
+        <div class="dashboard-grid">
+            <div class="preview-sidebar">
+                <div class="sidebar-title">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Live-Vorschau
                 </div>
-                <span class="card-count" id="cardCountLabel">0</span>
+                <div class="thumbnail-wrapper" onclick="openPreviewModal()" title="Klicken für vollständige A4-Großansicht">
+                    <div class="scaled-sheet-container">
+                        <div class="print-sheet" id="thumbnailSheet"></div>
+                    </div>
+                    <div class="thumbnail-overlay">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        Großansicht
+                    </div>
+                </div>
             </div>
-            <div class="card-stack-container" id="cardStackContainer">
-                <div class="card-empty">Keine Karteikärtchen<br>Füge Materialien hinzu</div>
-            </div>
-            <div class="card-dots" id="cardDots"></div>
-            <div class="card-nav">
-                <button id="cardPrevBtn" disabled><i class="fas fa-chevron-left"></i></button>
-                <span class="counter" id="cardCounter">0 / 0</span>
-                <button id="cardNextBtn" disabled><i class="fas fa-chevron-right"></i></button>
+
+            <div class="info-panel">
+                <div class="frontpage-selection">
+                    <label for="sortimentSelect">Abfallart aus Sortiment wählen:</label>
+                    <select id="sortimentSelect" onchange="handlePresetSelection()"></select>
+                </div>
+
+                <div class="info-title">Aktuelle Konfiguration</div>
+                <div class="summary-box">
+                    <div class="summary-item"><span class="summary-label">Abfallart:</span> <span id="sumBezeichnung">-</span></div>
+                    <div class="summary-item"><span class="summary-label">Artikel-Nr:</span> <span id="sumArtNr">-</span></div>
+                    <div class="summary-item"><span class="summary-label">Zusatztext:</span> <span id="sumSuffix">-</span></div>
+                    <div class="summary-item"><span class="summary-label">Menge / Start:</span> <span id="sumMenge">-</span></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-primary" onclick="triggerDirectPrint()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                        Jetzt Ausdrucken
+                    </button>
+                    <button class="btn-secondary" onclick="openSettings()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1-2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        Einstellungen
+                    </button>
+                </div>
             </div>
         </div>
+    </div>
 
-        <!-- Rechte Spalte: Frachtliste -->
-        <div class="office-panel hidden" id="officePanel">
-            <div class="office-header">
-                <h3><i class="fas fa-clipboard-list"></i> Frachtliste</h3>
-                <span class="count-badge" id="officeCount">0</span>
+    <div id="settingsModal" class="modal-backdrop" onclick="closeSettingsViaBackdrop(event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>Druck- & Standorteinstellungen</span>
+                <button class="btn-close-x" onclick="closeSettings()">&times;</button>
             </div>
-            <div class="office-list" id="officeListContainer">
-                <div class="office-empty">📭 Keine Fracht</div>
+
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label for="inputTop">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Standort (ASZ Niederlassung OÖ):
+                </label>
+                <select id="inputTop" onchange="updatePreview()" style="width: 100%;">
+                    <optgroup label="Linz-Land & Linz Stadt">
+                        <option value="106 - ASZ Asten" selected>106 - ASZ Asten</option>
+                        <option value="ASZ Ansfelden">ASZ Ansfelden</option>
+                        <option value="ASZ Enns">ASZ Enns</option>
+                        <option value="ASZ Hörsching">ASZ Hörsching</option>
+                        <option value="ASZ Leonding">ASZ Leonding</option>
+                        <option value="ASZ Neuhofen">ASZ Neuhofen</option>
+                        <option value="ASZ Pasching">ASZ Pasching</option>
+                        <option value="ASZ St. Florian">ASZ St. Florian</option>
+                        <option value="ASZ Traun">ASZ Traun</option>
+                        <option value="ASZ Wilhering">ASZ Wilhering</option>
+                        <option value="ASZ Linz-Nebingerstraße">ASZ Linz-Nebingerstraße</option>
+                        <option value="ASZ Linz-Mostnnystraße">ASZ Linz-Mostnnystraße</option>
+                        <option value="ASZ Linz-Wiener Straße">ASZ Linz-Wiener Straße</option>
+                        <option value="ASZ Linz-Dornach">ASZ Linz-Dornach</option>
+                    </optgroup>
+                    <optgroup label="Wels & Wels-Land">
+                        <option value="ASZ Wels-Nord">ASZ Wels-Nord</option>
+                        <option value="ASZ Wels-West">ASZ Wels-West</option>
+                        <option value="ASZ Gunskirchen">ASZ Gunskirchen</option>
+                        <option value="ASZ Marchtrenk">ASZ Marchtrenk</option>
+                        <option value="ASZ Thalheim">ASZ Thalheim</option>
+                        <option value="ASZ Lambach">ASZ Lambach</option>
+                    </optgroup>
+                    <optgroup label="Steyr & Steyr-Land">
+                        <option value="ASZ Steyr">ASZ Steyr</option>
+                        <option value="ASZ Garsten">ASZ Garsten</option>
+                        <option value="ASZ Sierning">ASZ Sierning</option>
+                        <option value="ASZ Bad Hall">ASZ Bad Hall</option>
+                    </optgroup>
+                    <optgroup label="Urfahr-Umgebung">
+                        <option value="ASZ Altenberg">ASZ Altenberg</option>
+                        <option value="ASZ Bad Leonfelden">ASZ Bad Leonfelden</option>
+                        <option value="ASZ Gallneukirchen">ASZ Gallneukirchen</option>
+                        <option value="ASZ Ottensheim">ASZ Ottensheim</option>
+                        <option value="ASZ Walding">ASZ Walding</option>
+                    </optgroup>
+                    <optgroup label="Freistadt">
+                        <option value="ASZ Freistadt">ASZ Freistadt</option>
+                        <option value="ASZ Pregarten">ASZ Pregarten</option>
+                        <option value="ASZ Unterweißenbach">ASZ Unterweißenbach</option>
+                    </optgroup>
+                    <optgroup label="Perg">
+                        <option value="ASZ Perg">ASZ Perg</option>
+                        <option value="ASZ Grein">ASZ Grein</option>
+                        <option value="ASZ Schwertberg">ASZ Schwertberg</option>
+                        <option value="ASZ St. Georgen/Gusen">ASZ St. Georgen/Gusen</option>
+                    </optgroup>
+                    <optgroup label="Gmunden & Vöcklabruck">
+                        <option value="ASZ Gmunden">ASZ Gmunden</option>
+                        <option value="ASZ Bad Ischl">ASZ Bad Ischl</option>
+                        <option value="ASZ Altmünster">ASZ Altmünster</option>
+                        <option value="ASZ Vöcklabruck">ASZ Vöcklabruck</option>
+                        <option value="ASZ Attnang-Puchheim">ASZ Attnang-Puchheim</option>
+                        <option value="ASZ Schwanenstadt">ASZ Schwanenstadt</option>
+                        <option value="ASZ Mondsee">ASZ Mondsee</option>
+                    </optgroup>
+                    <optgroup label="Innviertel (Braunau, Ried & Schärding)">
+                        <option value="ASZ Braunau">ASZ Braunau</option>
+                        <option value="ASZ Mattighofen">ASZ Mattighofen</option>
+                        <option value="ASZ Ried im Innkreis">ASZ Ried im Innkreis</option>
+                        <option value="ASZ Schärding">ASZ Schärding</option>
+                    </optgroup>
+                    <optgroup label="Grieskirchen & Eferding">
+                        <option value="ASZ Grieskirchen">ASZ Grieskirchen</option>
+                        <option value="ASZ Bad Schallerbach">ASZ Bad Schallerbach</option>
+                        <option value="ASZ Eferding">ASZ Eferding</option>
+                    </optgroup>
+                    <optgroup label="Kirchdorf & Rohrbach">
+                        <option value="ASZ Kirchdorf">ASZ Kirchdorf</option>
+                        <option value="ASZ Micheldorf">ASZ Micheldorf</option>
+                        <option value="ASZ Rohrbach">ASZ Rohrbach</option>
+                    </optgroup>
+                </select>
             </div>
-            <div class="office-footer">
-                <button id="officeClearBtn"><i class="fas fa-trash-alt"></i> Alle löschen</button>
-                <span id="officeLastSync">Sync: —</span>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="inputCount">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+                        Anzahl Etiketten (max. 21):
+                    </label>
+                    <input type="number" id="inputCount" value="9" min="1" max="21" oninput="updatePreview()" />
+                </div>
+                <div class="form-group">
+                    <label for="inputStartPos">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        Start-Position (1-21):
+                    </label>
+                    <input type="number" id="inputStartPos" value="1" min="1" max="21" oninput="updatePreview()" />
+                </div>
+            </div>
+
+            <div class="mode-switcher">
+                <div id="tabSelect" class="mode-tab active" onclick="switchMode('select')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    Modus: Sortiment
+                </div>
+                <div id="tabInput" class="mode-tab" onclick="switchMode('input')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"/></svg>
+                    Freie Eingabe
+                </div>
+            </div>
+
+            <div id="sectionSelect" class="form-section active">
+                <p style="font-size: 0.9rem; color: #64748b; margin: 0 0 10px 0;">Die Sortiment-Auswahl befindet sich jetzt direkt auf der Startseite.</p>
+            </div>
+
+            <div id="sectionInput" class="form-section">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="inputArtNr">Artikel-Nr.:</label>
+                        <input type="text" id="inputArtNr" value="4040" oninput="updatePreview()" />
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSuffix">Zusatz Mitte:</label>
+                        <input type="text" id="inputSuffix" value="QR-Box" oninput="updatePreview()" />
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="inputBezeichnung">Bezeichnung unten:</label>
+                        <input type="text" id="inputBezeichnung" value="Elektro-Kleingeräte (ohne Akku)" oninput="updatePreview()" />
+                    </div>
+                </div>
+            </div>
+
+            <label style="margin-top: 20px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                Netzwerk-Synchronisation (Option A):
+            </label>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                <button class="btn-crud" style="background: #34495e; color: white; width: 100%;" onclick="verbindeNetzwerkDatei()">
+                    🔗 Zentrale Sortiment-Datei auswählen...
+                </button>
+                <div id="netzwerkStatus" style="font-size: 0.8rem; color: #7f8c8d; text-align: center; font-style: italic;">
+                    Status: Rein lokaler Modus (localStorage)
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="btnSaveDefaults" class="btn-save-defaults" onclick="saveDefaults()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                    Standard sichern
+                </button>
+                <button class="btn-cancel" onclick="closeSettings()">Fertig</button>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <div class="app-footer">
-        <div class="footer-left">
-            <i class="fas fa-circle" id="footerSyncIcon"></i>
-            <span id="footerSyncText">synchronisiert</span>
-            <span class="device-info" id="deviceInfo">💻 Browser</span>
-        </div>
-        <div class="footer-right">
-            <div class="design-toggle">
-                <button class="active" id="designBootstrapBtn">BS</button>
-                <button id="designMaterialBtn">MD</button>
+    <div id="previewModal" class="modal-backdrop" onclick="closePreviewModalViaBackdrop(event)">
+        <div class="modal-content preview-modal-content">
+            <div class="modal-header">
+                <span>Vollbild-Druckvorschau (A4-Bogen – HERMA 4473, 21 Etiketten)</span>
+                <button class="btn-close-x" onclick="closePreviewModal()">&times;</button>
             </div>
-            <button class="theme-toggle-sm" id="themeToggleSm" title="Theme">
-                <i class="fas fa-moon" id="themeIconSm"></i>
-            </button>
+            <div class="modal-body-scroll">
+                <div class="page-container">
+                    <div class="print-sheet" id="labelSheetModal"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" onclick="window.print()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                    Jetzt Ausdrucken
+                </button>
+                <button class="btn-cancel" onclick="closePreviewModal()">Schließen</button>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    (function() {
-        // ============================================================
-        //  KOMPLETTE LAVU-ARTIKEL-LISTE
-        // ============================================================
+    <div id="hiddenPrintContainer">
+        <div class="page-container">
+            <div class="print-sheet" id="labelSheetDirect"></div>
+        </div>
+    </div>
 
-        const materials = [];
-        const block1000 = [
-            { code: '1501', desc: 'Großmöbel (ReVital)', container: 'Container 10m³' },
-            { code: '1506', desc: 'Hausrat (ReVital)', container: 'Container 10m³' },
-            { code: '1510', desc: 'Elektro-Großgeräte Wiederverwendung', container: 'Gitterbox' },
-            { code: '1511', desc: 'Elektro-Kleingeräte Wiederverwendung', container: 'QR-Box' }
+    <script>
+        // ============================================================
+        // GLOBALE VARIABLEN & NETZWERK-LOGIK
+        // ============================================================
+        let fileHandle = null;
+        let lastModifiedTime = 0;
+
+        let defaultSortiment = [
+            { artNr: "4040", bez: "Elektro-Kleingeräte (ohne Akku)", zusatzMitte: "QR-Box" },
+            { artNr: "4010", bez: "Elektro-Großgeräte", zusatzMitte: "Gitterbox" },
+            { artNr: "4020", bez: "Kühlgeräte", zusatzMitte: "Großteil" },
+            { artNr: "4030", bez: "Bildschirmgeräte", zusatzMitte: "Gitterbox" },
+            { artNr: "4015", bez: "Nachtspeicheröfen", zusatzMitte: "Spezial" },
+            { artNr: "4050", bez: "Gasentladungslampen", zusatzMitte: "Karton" },
+            { artNr: "3000", bez: "Altpapier (Deinking-Qualität)", zusatzMitte: "Container" },
+            { artNr: "2100", bez: "Kartonagen (ARA-lizenziert)", zusatzMitte: "Presse" },
+            { artNr: "3200", bez: "Alteisen", zusatzMitte: "Mulde" },
+            { artNr: "3210", bez: "Nichteisen-Metalle", zusatzMitte: "Box" },
+            { artNr: "3300", bez: "Altholz", zusatzMitte: "AII-Holz" },
+            { artNr: "3400", bez: "Speisefett/-öl (Haushalts-Öl)", zusatzMitte: "Fass" },
+            { artNr: "3500", bez: "Altreifen", zusatzMitte: "Stapel" },
+            { artNr: "4300", bez: "Altlacke & Werkstättenabfälle", zusatzMitte: "Gefahrgut" },
+            { artNr: "4320", bez: "Altöle", zusatzMitte: "Tank" }
         ];
-        block1000.forEach(item => materials.push({ ...item, block: '1000' }));
 
-        const block2000 = [
-            { code: '2110', desc: 'Altpapier (Zeitungen, Illustrierte)', container: 'Papier-Container' },
-            { code: '2120', desc: 'Kartonagen (Wellpappe)', container: 'Container 10m³' },
-            { code: '2210', desc: 'Verpackungsglas Weiß', container: 'Glas-Container' },
-            { code: '2220', desc: 'Verpackungsglas Bunt', container: 'Glas-Container' },
-            { code: '2310', desc: 'Flachglas / Fensterglas', container: 'Container 5m³' },
-            { code: '2510', desc: 'PET-Flaschen transparent', container: 'Sack / BigBag' },
-            { code: '2511', desc: 'PET-Flaschen bunt', container: 'Sack / BigBag' },
-            { code: '2520', desc: 'Kunststoff-Hohlkörper (>5L)', container: 'Gitterbox' },
-            { code: '2540', desc: 'PE-Folie transparent (LDPE)', container: 'Sack' },
-            { code: '2541', desc: 'PE-Folie bunt / Gewerbefolie', container: 'Sack' },
-            { code: '2550', desc: 'Getränkekartons', container: 'Container 10m³' },
-            { code: '2570', desc: 'Styropor (EPS) rein', container: 'Sack' },
-            { code: '2571', desc: 'Styropor (EPS) Baustelle', container: 'Container' },
-            { code: '2580', desc: 'Hartkunststoffe (Spielzeug, Möbel)', container: 'Container 10m³' }
-        ];
-        block2000.forEach(item => materials.push({ ...item, block: '2000' }));
+        let sortimentData = [];
+        let aktuellerModus = 'select';
 
-        const block3000 = [
-            { code: '3010', desc: 'Altholz stofflich (A I / A II)', container: 'Container 10m³' },
-            { code: '3020', desc: 'Altholz thermisch (A III)', container: 'Container 10m³' },
-            { code: '3030', desc: 'Altholz verunreinigt / imprägniert', container: 'Container 10m³' },
-            { code: '3510', desc: 'Alteisen / Mischschrott', container: 'Container 5m³' },
-            { code: '3520', desc: 'Kabelschrott (Cu/Al isoliert)', container: 'Container' },
-            { code: '3530', desc: 'Aluminium (Profile, Bleche)', container: 'Container' },
-            { code: '3540', desc: 'Buntmetalle (Cu, Messing)', container: 'Container' }
-        ];
-        block3000.forEach(item => materials.push({ ...item, block: '3000' }));
+        window.onload = function() {
+            loadSortiment().then(() => {
+                loadDefaults();
+            });
+        };
 
-        const block4000 = [
-            { code: '4010', desc: 'Elektro-Großgeräte', container: 'Container 10m³' },
-            { code: '4020', desc: 'Kühl- und Klimageräte', container: 'Container' },
-            { code: '4030', desc: 'Bildschirmgeräte (TV, Monitore)', container: 'Container' },
-            { code: '4040', desc: 'Elektro-Kleingeräte (ohne Akku)', container: 'QR-Box' },
-            { code: '4041', desc: 'Kleingeräte mit Li-Akku', container: 'Sonderbox' },
-            { code: '4050', desc: 'Gasentladungslampen stabförmig', container: 'Sammelbox' },
-            { code: '4051', desc: 'Gasentladungslampen Sonderformen', container: 'Sammelbox' },
-            { code: '4110', desc: 'Gerätebatterien (Fass / Box)', container: 'Batterie-Fass' },
-            { code: '4120', desc: 'Lithium-Batterien / Akkus', container: 'Sonderbox' },
-            { code: '4130', desc: 'Fahrzeugbatterien', container: 'Batterie-Container' }
-        ];
-        block4000.forEach(item => materials.push({ ...item, block: '4000' }));
-
-        const block4300 = [
-            { code: '4310', desc: 'Altöl mineralisch', container: 'Kanister / Fass' },
-            { code: '4315', desc: 'Speiseöl / Altfett', container: 'Kanister' },
-            { code: '4320', desc: 'Dispersionsfarben (Wasserbasis)', container: 'Gebinde' },
-            { code: '4325', desc: 'Lacke und Lösemittel', container: 'Gebinde' },
-            { code: '4340', desc: 'Altmedikamente', container: 'Sammelbox' },
-            { code: '4350', desc: 'Spraydosen mit Restinhalt', container: 'Sonderbox' },
-            { code: '4385', desc: 'Mineralwolle / KMF (Sack)', container: 'ASZ-Sack' },
-            { code: '4390', desc: 'Asbestzement / Eternit mix', container: 'BigBag' },
-            { code: '4963', desc: 'kostenpfl. Mineralwolle (Sack)', container: 'ASZ-Sack' }
-        ];
-        block4300.forEach(item => materials.push({ ...item, block: '4300' }));
-
-        const block9000 = [
-            { code: '9110', desc: 'Bauschutt rein (Ziegel, Beton)', container: 'Container 10m³' },
-            { code: '9120', desc: 'Bauschutt sortiert / Ytong', container: 'Container 10m³' },
-            { code: '9140', desc: 'Gipskartonplatten rein', container: 'Container 10m³' },
-            { code: '9510', desc: 'Sperrmüll', container: 'Container 10m³' },
-            { code: '9520', desc: 'Altreifen ohne Felge', container: 'Reifen-Container' },
-            { code: '9521', desc: 'Altreifen mit Felge', container: 'Reifen-Container' }
-        ];
-        block9000.forEach(item => materials.push({ ...item, block: '9000' }));
-
-        materials.sort((a, b) => parseInt(a.code) - parseInt(b.code));
-
-        console.log(`📦 ${materials.length} LAVU-Artikel geladen`);
-
-        // ============================================================
-        //  STATE
-        // ============================================================
-
-        let basket = [];
-        let activeBlock = 'all';
-        let currentCardIndex = 0;
-        let currentView = 'terminal';
-        let syncHistory = [];
-        let darkTheme = true;
-        let currentDesign = 'bootstrap';
-
-        const STORAGE_KEY = 'asz_fracht_data';
-        const HISTORY_KEY = 'asz_sync_history';
-        const THEME_KEY = 'asz_theme';
-        const DESIGN_KEY = 'asz_design';
-
-        // DOM Refs
-        const materialListEl = document.getElementById('materialListContainer');
-        const cardStackContainer = document.getElementById('cardStackContainer');
-        const cardDots = document.getElementById('cardDots');
-        const cardCounter = document.getElementById('cardCounter');
-        const cardCountLabel = document.getElementById('cardCountLabel');
-        const cardPrevBtn = document.getElementById('cardPrevBtn');
-        const cardNextBtn = document.getElementById('cardNextBtn');
-        const searchInput = document.getElementById('materialSearch');
-        const terminalPanel = document.getElementById('terminalPanel');
-        const officePanel = document.getElementById('officePanel');
-        const cardPanel = document.getElementById('cardPanel');
-        const officeListContainer = document.getElementById('officeListContainer');
-        const officeCount = document.getElementById('officeCount');
-        const officeLastSync = document.getElementById('officeLastSync');
-        const syncDot = document.getElementById('syncDot');
-        const syncLabel = document.getElementById('syncLabel');
-        const footerSyncIcon = document.getElementById('footerSyncIcon');
-        const footerSyncText = document.getElementById('footerSyncText');
-        const deviceInfo = document.getElementById('deviceInfo');
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const themeLabel = document.getElementById('themeLabel');
-        const themeToggleSm = document.getElementById('themeToggleSm');
-        const themeIconSm = document.getElementById('themeIconSm');
-        const designBootstrapBtn = document.getElementById('designBootstrapBtn');
-        const designMaterialBtn = document.getElementById('designMaterialBtn');
-        const bootstrapCss = document.getElementById('bootstrapCss');
-        const printSingleBtn = document.getElementById('printSingleBtn');
-        const printAllBtn = document.getElementById('printAllBtn');
-
-        // ============================================================
-        //  DESIGN & THEME
-        // ============================================================
-
-        function loadDesign() {
-            try {
-                const stored = localStorage.getItem(DESIGN_KEY);
-                if (stored === 'material') currentDesign = 'material';
-                else currentDesign = 'bootstrap';
-            } catch (e) { currentDesign = 'bootstrap'; }
-            applyDesign();
-        }
-
-        function applyDesign() {
-            const container = document.querySelector('.app-container');
-            if (currentDesign === 'material') {
-                container.classList.add('material-design');
-                if (darkTheme) container.classList.add('dark-theme');
-                else container.classList.remove('dark-theme');
-                document.documentElement.style.setProperty('--font-family', "'Roboto', 'Segoe UI', system-ui, sans-serif");
-            } else {
-                container.classList.remove('material-design');
-                container.classList.remove('dark-theme');
-                document.documentElement.style.setProperty('--font-family', "'Segoe UI', Roboto, system-ui, sans-serif");
-                bootstrapCss.disabled = false;
-            }
-            if (darkTheme) {
-                document.documentElement.setAttribute('data-bs-theme', 'dark');
-                themeIcon.className = 'fas fa-moon';
-                themeLabel.textContent = 'Dunkel';
-                themeIconSm.className = 'fas fa-moon';
-            } else {
-                document.documentElement.setAttribute('data-bs-theme', 'light');
-                themeIcon.className = 'fas fa-sun';
-                themeLabel.textContent = 'Hell';
-                themeIconSm.className = 'fas fa-sun';
-            }
-            try { localStorage.setItem(DESIGN_KEY, currentDesign); } catch (e) {}
-            designBootstrapBtn.classList.toggle('active', currentDesign === 'bootstrap');
-            designMaterialBtn.classList.toggle('active', currentDesign === 'material');
-        }
-
-        function setDesign(design) {
-            currentDesign = design;
-            applyDesign();
-            renderAll();
-        }
-
-        function loadTheme() {
-            try {
-                const stored = localStorage.getItem(THEME_KEY);
-                if (stored !== null) darkTheme = stored === 'true';
-            } catch (e) {}
-            applyDesign();
-        }
-
-        function toggleTheme() {
-            darkTheme = !darkTheme;
-            applyDesign();
-        }
-
-        themeToggle.addEventListener('click', toggleTheme);
-        themeToggleSm.addEventListener('click', toggleTheme);
-
-        // ============================================================
-        //  LOCAL STORAGE
-        // ============================================================
-
-        function loadFromStorage() {
-            try {
-                const stored = localStorage.getItem(STORAGE_KEY);
-                if (stored) {
-                    const data = JSON.parse(stored);
-                    basket = data.basket || [];
-                    syncHistory = data.history || [];
-                    return true;
+        // Geteilte Speicher- und Ladefunktionen
+        async function loadSortiment() {
+            if (fileHandle) {
+                try {
+                    const file = await fileHandle.getFile();
+                    if (file.lastModified === lastModifiedTime) return; 
+                    
+                    const text = await file.text();
+                    if (text.trim()) {
+                        sortimentData = JSON.parse(text);
+                        lastModifiedTime = file.lastModified;
+                        initDropdown();
+                        handlePresetSelection();
+                        console.log("Sortiment automatisch aus Netzwerkdatei aktualisiert.");
+                    }
+                    return;
+                } catch (e) {
+                    console.warn("Netzwerkdatei konnte nicht gelesen werden, weiche auf localStorage aus.", e);
                 }
-                return false;
-            } catch (e) { return false; }
+            }
+
+            const savedSortiment = localStorage.getItem('lavu_studio_sortiment_v8');
+            if (savedSortiment) {
+                try { sortimentData = JSON.parse(savedSortiment); } 
+                catch(e) { sortimentData = [...defaultSortiment]; }
+            } else {
+                sortimentData = [...defaultSortiment];
+            }
+            initDropdown();
         }
 
-        function saveToStorage() {
+        async function saveSortimentToStorage() {
+            localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(sortimentData));
+            
+            if (fileHandle) {
+                try {
+                    const writable = await fileHandle.createWritable();
+                    await writable.write(JSON.stringify(sortimentData, null, 2));
+                    await writable.close();
+                    
+                    const file = await fileHandle.getFile();
+                    lastModifiedTime = file.lastModified;
+                } catch (e) {
+                    alert("Fehler beim Schreiben in die Netzwerk-Datei. Berechtigungen prüfen!");
+                }
+            }
+        }
+
+        async function verbindeNetzwerkDatei() {
             try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify({
-                    basket: basket,
-                    history: syncHistory,
-                    lastUpdated: new Date().toISOString()
-                }));
-                return true;
-            } catch (e) { return false; }
+                fileHandle = await window.showSaveFilePicker({
+                    suggestedName: 'lavu_sortiment_zentral.json',
+                    types: [{
+                        description: 'JSON-Datei für LAVU Sortiment',
+                        accept: {'application/json': ['.json']},
+                    }],
+                });
+
+                const file = await fileHandle.getFile();
+                const text = await file.text();
+                if (!text.trim()) {
+                    await saveSortimentToStorage();
+                }
+
+                document.getElementById('netzwerkStatus').innerHTML = `🟢 Gekoppelt mit: <b>${file.name}</b>`;
+                document.getElementById('netzwerkStatus').style.color = '#27ae60';
+                
+                await loadSortiment();
+            } catch (e) {
+                console.log("Auswahl abgebrochen oder vom Browser blockiert", e);
+            }
         }
 
-        function loadHistory() {
-            try {
-                const stored = localStorage.getItem(HISTORY_KEY);
-                if (stored) syncHistory = JSON.parse(stored);
-            } catch (e) { syncHistory = []; }
+        // Automatischer Check im Hintergrund alle 5 Sekunden
+        setInterval(() => {
+            if (fileHandle) {
+                loadSortiment();
+            }
+        }, 5000);
+
+        // Dropdown initialisieren
+        function initDropdown() {
+            const select = document.getElementById('sortimentSelect');
+            const aktuellerWert = select.value;
+            select.innerHTML = '';
+            sortimentData.forEach((item, index) => {
+                const opt = document.createElement('option');
+                opt.value = index;
+                opt.innerHTML = `[${item.artNr}] ${item.bez}`;
+                select.appendChild(opt);
+            });
+            if(aktuellerWert !== "" && select.options[aktuellerWert]) {
+                select.value = aktuellerWert;
+            }
         }
 
-        function saveHistory() {
-            try { localStorage.setItem(HISTORY_KEY, JSON.stringify(syncHistory)); } catch (e) {}
+        function switchMode(mode) {
+            aktuellerModus = mode;
+            document.getElementById('tabSelect').classList.toggle('active', mode === 'select');
+            document.getElementById('tabInput').classList.toggle('active', mode === 'input');
+            document.getElementById('sectionSelect').classList.toggle('active', mode === 'select');
+            document.getElementById('sectionInput').classList.toggle('active', mode === 'input');
+            if (mode === 'select') {
+                handlePresetSelection();
+            } else {
+                updatePreview();
+            }
+        }
+
+        function handlePresetSelection() {
+            if (aktuellerModus !== 'select') {
+                aktuellerModus = 'select';
+                document.getElementById('tabSelect').classList.add('active');
+                document.getElementById('tabInput').classList.remove('active');
+                document.getElementById('sectionSelect').classList.add('active');
+                document.getElementById('sectionInput').classList.remove('active');
+            }
+
+            const select = document.getElementById('sortimentSelect');
+            const index = select.value;
+            if (index !== "" && sortimentData[index]) {
+                const item = sortimentData[index];
+                document.getElementById('inputArtNr').value = item.artNr;
+                document.getElementById('inputSuffix').value = item.zusatzMitte;
+                document.getElementById('inputBezeichnung').value = item.bez;
+            }
+            updatePreview();
         }
 
         // ============================================================
-        //  BASKET HELPER
+        // MODALS & EVENT HANDLER
         // ============================================================
-
-        function getItemCount(code) {
-            return basket.filter(item => item.code === code).length;
+        function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
+        function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
+        function closeSettingsViaBackdrop(event) {
+            if (event.target.id === 'settingsModal') closeSettings();
         }
 
-        function getTotalItems() {
-            return basket.length;
+        function openPreviewModal() { document.getElementById('previewModal').style.display = 'flex'; }
+        function closePreviewModal() { document.getElementById('previewModal').style.display = 'none'; }
+        function closePreviewModalViaBackdrop(event) {
+            if (event.target.id === 'previewModal') closePreviewModal();
         }
 
-        function addToBasket(code) {
-            const mat = materials.find(m => m.code === code);
-            if (!mat) return;
-            basket.push({ ...mat, id: Date.now() + '_' + Math.random().toString(36).substr(2, 6) });
-            saveToStorage();
-            addSyncHistory('add', `${mat.code} · ${mat.desc} (+1)`);
-            renderAll();
+        function triggerDirectPrint() { window.print(); }
+
+        // Defaults verwalten
+        function saveDefaults() {
+            const defaults = {
+                topText: document.getElementById('inputTop').value,
+                count: document.getElementById('inputCount').value,
+                startPos: document.getElementById('inputStartPos').value,
+                modus: aktuellerModus,
+                sortimentIndex: document.getElementById('sortimentSelect').value,
+                artNr: document.getElementById('inputArtNr').value,
+                suffix: document.getElementById('inputSuffix').value,
+                bezeichnung: document.getElementById('inputBezeichnung').value
+            };
+            localStorage.setItem('lavu_studio_defaults_v8', JSON.stringify(defaults));
+
+            const btn = document.getElementById('btnSaveDefaults');
+            btn.innerHTML = '✓ Gespeichert!';
+            btn.style.backgroundColor = '#27ae60';
+            setTimeout(() => {
+                btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Standard sichern';
+                btn.style.backgroundColor = '#3498db';
+            }, 1800);
         }
 
-        function removeFromBasket(code) {
-            const idx = basket.findIndex(item => item.code === code);
-            if (idx === -1) return;
-            basket.splice(idx, 1);
-            if (currentCardIndex >= basket.length) currentCardIndex = Math.max(0, basket.length - 1);
-            saveToStorage();
-            addSyncHistory('remove', `${code} (-1)`);
-            renderAll();
+        // Defaults laden
+        function loadDefaults() {
+            const saved = localStorage.getItem('lavu_studio_defaults_v8');
+            if (saved) {
+                try {
+                    const defaults = JSON.parse(saved);
+                    if (defaults.topText !== undefined) document.getElementById('inputTop').value = defaults.topText;
+                    if (defaults.count !== undefined) document.getElementById('inputCount').value = Math.min(21, defaults.count);
+                    if (defaults.startPos !== undefined) document.getElementById('inputStartPos').value = Math.min(21, defaults.startPos);
+                    if (defaults.artNr !== undefined) document.getElementById('inputArtNr').value = defaults.artNr;
+                    if (defaults.suffix !== undefined) document.getElementById('inputSuffix').value = defaults.suffix;
+                    if (defaults.bezeichnung !== undefined) document.getElementById('inputBezeichnung').value = defaults.bezeichnung;
+                    if (defaults.sortimentIndex !== undefined) document.getElementById('sortimentSelect').value = defaults.sortimentIndex;
+                    if (defaults.modus) {
+                        switchMode(defaults.modus);
+                    } else {
+                        updatePreview();
+                    }
+                } catch (e) {
+                    console.error("Fehler beim Laden der Defaults", e);
+                    handlePresetSelection();
+                }
+            } else {
+                handlePresetSelection();
+            }
         }
 
-        function removeSpecificItem(id) {
-            const idx = basket.findIndex(item => item.id === id);
-            if (idx === -1) return;
-            basket.splice(idx, 1);
-            if (currentCardIndex >= basket.length) currentCardIndex = Math.max(0, basket.length - 1);
-            saveToStorage();
-            addSyncHistory('remove', `Einzelnes Item entfernt`);
-            renderAll();
-        }
+        // RENDERING (3 x 7 Blöcke)
+        function updatePreview() {
+            const thumbnailSheet = document.getElementById('thumbnailSheet');
+            const labelSheetModal = document.getElementById('labelSheetModal');
+            const labelSheetDirect = document.getElementById('labelSheetDirect');
 
-        function clearBasket() {
-            basket = [];
-            currentCardIndex = 0;
-            saveToStorage();
-            addSyncHistory('clear', 'Alle Artikel entfernt');
-            renderAll();
-        }
+            thumbnailSheet.innerHTML = '';
+            labelSheetModal.innerHTML = '';
+            labelSheetDirect.innerHTML = '';
 
-        // ============================================================
-        //  DRUCK FUNKTIONEN
-        // ============================================================
+            const topText = document.getElementById('inputTop').value;
+            const artNr = document.getElementById('inputArtNr').value;
+            const suffix = document.getElementById('inputSuffix').value;
+            const bezeichnung = document.getElementById('inputBezeichnung').value;
 
-        function printSingleCard() {
-            if (basket.length === 0) return;
-            printCards([basket[currentCardIndex]]);
-        }
+            document.getElementById('headerStationText').innerHTML = topText;
+            document.getElementById('sumBezeichnung').innerHTML = bezeichnung;
+            document.getElementById('sumArtNr').innerHTML = artNr;
+            document.getElementById('sumSuffix').innerHTML = suffix;
 
-        function printAllCards() {
-            if (basket.length === 0) return;
-            printCards(basket);
-        }
+            const count = Math.max(1, Math.min(21, parseInt(document.getElementById('inputCount').value) || 1));
+            const startPos = Math.max(1, Math.min(21, parseInt(document.getElementById('inputStartPos').value) || 1));
 
-        function printCards(cards) {
-            const siteLine = 'ASZ Asten · Standort 106';
-            let cardsHtml = '';
-            cards.forEach(item => {
-                cardsHtml += `
-                    <div class="card-item">
-                        <div class="card-site">${siteLine}</div>
-                        <div><span class="card-code">${item.code}</span> · <span class="card-container">${item.container}</span></div>
-                        <div class="card-desc">${item.desc}</div>
+            document.getElementById('sumMenge').innerHTML = `${count}x (ab Position ${startPos})`;
+
+            let HTMLContent = '';
+
+            for (let i = 1; i < startPos; i++) {
+                HTMLContent += `<div class="label empty"></div>`;
+            }
+
+            for (let i = 0; i < count; i++) {
+                if ((startPos - 1 + i) >= 21) break;
+                HTMLContent += `
+                    <div class="label">
+                        <div class="label-top">${topText}</div>
+                        <div class="label-middle">
+                            <span class="num">${artNr}</span>
+                            <span class="sep">·</span>
+                            <span class="suffix">${suffix}</span>
+                        </div>
+                        <div class="label-bottom" title="${bezeichnung}">${bezeichnung}</div>
                     </div>
                 `;
-            });
-
-            const printWindow = window.open('', '_blank', 'width=500,height=500');
-            if (!printWindow) {
-                alert('Bitte Popups erlauben, um zu drucken.');
-                return;
             }
 
-            printWindow.document.write(`
-                <html>
-                <head>
-                    <title>LAVU Karteikärtchen</title>
-                    <style>
-                        * { margin: 0; padding: 0; box-sizing: border-box; }
-                        body { 
-                            font-family: 'Courier New', monospace; 
-                            padding: 20px; 
-                            background: white; 
-                            display: flex; 
-                            flex-wrap: wrap; 
-                            justify-content: center; 
-                            gap: 4mm;
-                            min-height: 100vh;
-                            align-content: flex-start;
-                        }
-                        .card-item {
-                            width: 85.6mm;
-                            height: 53.98mm;
-                            border: 1.5px solid #003b57;
-                            border-radius: 4mm;
-                            padding: 5mm 6mm;
-                            text-align: right;
-                            background: white;
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: center;
-                            page-break-inside: avoid;
-                            break-inside: avoid;
-                            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-                        }
-                        .card-item .card-site {
-                            font-weight: 700;
-                            font-size: 3mm;
-                            color: #003b57;
-                            margin-bottom: 1mm;
-                            letter-spacing: 0.3px;
-                        }
-                        .card-item .card-code {
-                            font-weight: 700;
-                            color: #004466;
-                            font-size: 4mm;
-                        }
-                        .card-item .card-container {
-                            font-weight: 600;
-                            color: #1f4c61;
-                            font-size: 2.8mm;
-                        }
-                        .card-item .card-desc {
-                            font-size: 2.8mm;
-                            color: #002b3f;
-                            margin-top: 0.5mm;
-                        }
-                        @media print {
-                            body { padding: 8mm; gap: 3mm; }
-                            .card-item { box-shadow: none; }
-                        }
-</style>
-</head>
-<body>
-    ${cardsHtml}
+            let currentCells = startPos - 1 + count;
+            while (currentCells < 21) {
+                HTMLContent += `<div class="label empty"></div>`;
+                currentCells++;
+            }
+
+            thumbnailSheet.innerHTML = HTMLContent;
+            labelSheetModal.innerHTML = HTMLContent;
+            labelSheetDirect.innerHTML = HTMLContent;
+        }
+    </script>
     <script>
-        window.print();
-        setTimeout(() => window.close(), 1500);
-    <\/script>
-</body></html>
-`);
-printWindow.document.close();
-}
+        let deferredPrompt;
 
-// ============================================================
-//  RENDER FUNKTIONEN
-// ============================================================
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker erfolgreich registriert!', reg))
+                    .catch(err => console.error('Service Worker Registrierung fehlgeschlagen:', err));
+            });
+        }
 
-function renderAll() {
-renderMaterialList();
-renderCardStack();
-updateOfficeDashboard();
-updateSyncStatus(true);
-}
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const banner = document.getElementById('pwaBanner');
+            if (banner) banner.style.display = 'flex';
+        });
 
-function renderMaterialList() {
-const searchTerm = searchInput.value.toLowerCase().trim();
-let filtered = materials.filter(m => {
-if (activeBlock !== 'all' && m.block !== activeBlock) return false;
-if (searchTerm) {
-return m.code.includes(searchTerm) || m.desc.toLowerCase().includes(searchTerm);
-}
-return true;
-});
-if (filtered.length === 0) {
-materialListEl.innerHTML = `<div style="padding: 20px 10px; color: var(--text-muted); text-align:center;font-size:0.85rem;">Keine Materialien</div>`;
-return;
-}
-let html = '';
-filtered.forEach(m => {
-const count = getItemCount(m.code);
-html += `
-    <div class="material-item">
-        <span class="code">${m.code}</span>
-        <span class="desc">${m.desc}</span>
-        <span class="container-badge"><i class="fas fa-box"></i> ${m.container}</span>
-        <div class="item-controls">
-            <button class="qty-btn minus-btn" data-code="${m.code}" ${count === 0 ? 'disabled' : ''}>
-                <i class="fas fa-minus"></i>
-            </button>
-            <span class="item-count ${count === 0 ? 'zero' : ''}">${count}</span>
-            <button class="qty-btn plus-btn" data-code="${m.code}">
-                <i class="fas fa-plus"></i>
-            </button>
-        </div>
-    </div>
-`;
-});
-materialListEl.innerHTML = html;
-
-document.querySelectorAll('.plus-btn').forEach(btn => {
-btn.addEventListener('click', function() {
-addToBasket(this.dataset.code);
-});
-});
-document.querySelectorAll('.minus-btn').forEach(btn => {
-btn.addEventListener('click', function() {
-removeFromBasket(this.dataset.code);
-});
-});
-}
-
-function renderCardStack() {
-if (basket.length === 0) {
-cardStackContainer.innerHTML = `<div class="card-empty">Keine Karteikärtchen<br>Füge Materialien hinzu</div>`;
-cardDots.innerHTML = '';
-cardCounter.textContent = '0 / 0';
-cardCountLabel.textContent = '0';
-cardPrevBtn.disabled = true;
-cardNextBtn.disabled = true;
-printSingleBtn.disabled = true;
-printAllBtn.disabled = true;
-return;
-}
-
-if (currentCardIndex >= basket.length) currentCardIndex = basket.length - 1;
-if (currentCardIndex < 0) currentCardIndex = 0;
-
-let html = '<div class="card-stack">';
-const total = basket.length;
-const activeIdx = currentCardIndex;
-
-basket.forEach((item, idx) => {
-let positionClass = 'hidden';
-if (idx === activeIdx) positionClass = 'active';
-else if (idx === activeIdx - 1) positionClass = 'prev';
-else if (idx === activeIdx + 1) positionClass = 'next';
-else positionClass = 'hidden';
-
-html += `
-    <div class="card-item ${positionClass}" data-index="${idx}">
-        <span class="card-index">${idx + 1} / ${total}</span>
-        <div class="card-site">ASZ Asten · 106</div>
-        <div><span class="card-code">${item.code}</span> · <span class="card-container">${item.container}</span></div>
-        <div class="card-desc">${item.desc}</div>
-        <div class="card-select-hint"><i class="fas fa-hand-pointer"></i> Zum Auswählen</div>
-    </div>
-`;
-});
-html += '</div>';
-cardStackContainer.innerHTML = html;
-
-cardCountLabel.textContent = total;
-printSingleBtn.disabled = false;
-printAllBtn.disabled = false;
-
-let dotsHtml = '';
-for (let i = 0; i < total; i++) {
-dotsHtml += `<button class="card-dot ${i === activeIdx ? 'active' : ''}" data-index="${i}"></button>`;
-}
-cardDots.innerHTML = dotsHtml;
-document.querySelectorAll('.card-dot').forEach(dot => {
-dot.addEventListener('click', function() {
-const idx = parseInt(this.dataset.index);
-if (idx !== currentCardIndex) {
-currentCardIndex = idx;
-renderCardStack();
-}
-});
-});
-
-cardCounter.textContent = `${activeIdx + 1} / ${total}`;
-cardPrevBtn.disabled = (activeIdx === 0);
-cardNextBtn.disabled = (activeIdx === total - 1);
-
-document.querySelectorAll('.card-item').forEach(card => {
-card.addEventListener('click', function() {
-const idx = parseInt(this.dataset.index);
-if (idx !== currentCardIndex && idx >= 0 && idx < basket.length) {
-currentCardIndex = idx;
-renderCardStack();
-}
-});
-});
-
-setupCardSwipe();
-}
-
-function updateOfficeDashboard() {
-const list = document.getElementById('officeListContainer');
-const count = document.getElementById('officeCount');
-
-if (basket.length === 0) {
-list.innerHTML = `<div class="office-empty">📭 Keine Fracht</div>`;
-count.textContent = '0';
-return;
-}
-
-let html = '';
-basket.forEach((item, idx) => {
-const time = new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
-html += `
-    <div class="office-item">
-        <span class="o-code">${item.code}</span>
-        <span class="o-desc">${item.desc}</span>
-        <span class="o-container">${item.container}</span>
-        <span class="o-time">${time}</span>
-        <button class="o-delete" data-id="${item.id}"><i class="fas fa-times"></i></button>
-    </div>
-`;
-});
-list.innerHTML = html;
-count.textContent = basket.length;
-
-document.querySelectorAll('.o-delete').forEach(btn => {
-btn.addEventListener('click', function() {
-removeSpecificItem(this.dataset.id);
-});
-});
-
-if (syncHistory.length > 0) {
-const last = new Date(syncHistory[0].timestamp);
-officeLastSync.textContent = `Sync: ${last.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}`;
-} else {
-officeLastSync.textContent = 'Sync: —';
-}
-}
-
-function performSync() {
-const remoteData = loadFromStorage() ? { basket: basket, history: syncHistory } : null;
-if (remoteData && remoteData.basket) {
-const localIds = new Set(basket.map(item => item.id));
-remoteData.basket.forEach(item => {
-if (!localIds.has(item.id)) basket.push(item);
-});
-syncHistory = remoteData.history || [];
-saveToStorage();
-addSyncHistory('sync', `Sync durchgeführt (${basket.length} Artikel)`);
-} else {
-saveToStorage();
-addSyncHistory('sync', `Initialer Sync (${basket.length} Artikel)`);
-}
-renderAll();
-updateSyncStatus(true);
-return true;
-}
-
-function addSyncHistory(action, message) {
-const entry = {
-timestamp: new Date().toISOString(),
-action: action,
-message: message,
-count: getTotalItems()
-};
-syncHistory.unshift(entry);
-if (syncHistory.length > 100) syncHistory = syncHistory.slice(0, 100);
-saveHistory();
-}
-
-function updateSyncStatus(connected) {
-const dot = document.getElementById('syncDot');
-const label = document.getElementById('syncLabel');
-const footerIcon = document.getElementById('footerSyncIcon');
-const footerText = document.getElementById('footerSyncText');
-
-if (connected) {
-dot.className = 'dot';
-label.textContent = 'sync';
-footerIcon.className = 'fas fa-circle';
-footerIcon.style.color = 'var(--dot-color)';
-footerText.textContent = 'synchronisiert';
-} else {
-dot.className = 'dot offline';
-label.textContent = 'offline';
-footerIcon.className = 'fas fa-circle offline';
-footerText.textContent = 'offline';
-}
-}
-
-// ----- Swipe -----
-let touchStartX = 0, touchStartY = 0;
-let isSwiping = false;
-let mouseDownX = 0, mouseDownY = 0;
-let isMouseDragging = false;
-
-function setupCardSwipe() {
-const container = cardStackContainer;
-if (!container) return;
-container.removeEventListener('touchstart', handleTouchStart);
-container.removeEventListener('touchmove', handleTouchMove);
-container.removeEventListener('touchend', handleTouchEnd);
-container.removeEventListener('mousedown', handleMouseDown);
-document.removeEventListener('mousemove', handleMouseMove);
-document.removeEventListener('mouseup', handleMouseUp);
-container.addEventListener('touchstart', handleTouchStart, { passive: true });
-container.addEventListener('touchmove', handleTouchMove, { passive: false });
-container.addEventListener('touchend', handleTouchEnd, { passive: true });
-container.addEventListener('mousedown', handleMouseDown);
-document.addEventListener('mousemove', handleMouseMove);
-document.addEventListener('mouseup', handleMouseUp);
-}
-
-function handleTouchStart(e) {
-const touch = e.touches[0];
-touchStartX = touch.clientX;
-touchStartY = touch.clientY;
-isSwiping = false;
-}
-
-function handleTouchMove(e) {
-if (touchStartX === 0) return;
-const touch = e.touches[0];
-const deltaX = touch.clientX - touchStartX;
-const deltaY = touch.clientY - touchStartY;
-if (Math.abs(deltaX) > 15 && Math.abs(deltaX) > Math.abs(deltaY) * 0.7) {
-isSwiping = true;
-e.preventDefault();
-const activeCard = document.querySelector('.card-item.active');
-if (activeCard) {
-const clamped = Math.max(-80, Math.min(80, deltaX));
-activeCard.style.transform = `translateX(${clamped}px) scale(1) rotate(${clamped * 0.02}deg)`;
-activeCard.style.transition = 'none';
-}
-}
-}
-
-function handleTouchEnd(e) {
-if (!isSwiping || touchStartX === 0) {
-touchStartX = 0;
-resetCardTransform();
-return;
-}
-const touch = e.changedTouches[0];
-const deltaX = touch.clientX - touchStartX;
-touchStartX = 0;
-isSwiping = false;
-resetCardTransform();
-if (deltaX < -50 && currentCardIndex < basket.length - 1) {
-currentCardIndex++;
-renderCardStack();
-} else if (deltaX > 50 && currentCardIndex > 0) {
-currentCardIndex--;
-renderCardStack();
-}
-}
-
-function handleMouseDown(e) {
-if (basket.length === 0) return;
-mouseDownX = e.clientX;
-mouseDownY = e.clientY;
-isMouseDragging = false;
-}
-
-function handleMouseMove(e) {
-if (mouseDownX === 0) return;
-const deltaX = e.clientX - mouseDownX;
-const deltaY = e.clientY - mouseDownY;
-if (Math.abs(deltaX) > 15 && Math.abs(deltaX) > Math.abs(deltaY) * 0.7) {
-isMouseDragging = true;
-const activeCard = document.querySelector('.card-item.active');
-if (activeCard) {
-const clamped = Math.max(-80, Math.min(80, deltaX));
-activeCard.style.transform = `translateX(${clamped}px) scale(1) rotate(${clamped * 0.02}deg)`;
-activeCard.style.transition = 'none';
-}
-}
-}
-
-function handleMouseUp(e) {
-if (mouseDownX === 0) return;
-const deltaX = e.clientX - mouseDownX;
-const wasDragging = isMouseDragging;
-mouseDownX = 0;
-isMouseDragging = false;
-resetCardTransform();
-if (wasDragging) {
-if (deltaX < -50 && currentCardIndex < basket.length - 1) {
-currentCardIndex++;
-renderCardStack();
-} else if (deltaX > 50 && currentCardIndex > 0) {
-currentCardIndex--;
-renderCardStack();
-}
-}
-}
-
-function resetCardTransform() {
-const activeCard = document.querySelector('.card-item.active');
-if (activeCard) {
-activeCard.style.transition = 'transform 0.3s cubic-bezier(0.23, 1, 0.32, 1)';
-activeCard.style.transform = '';
-setTimeout(() => { if (activeCard) activeCard.style.transition = ''; }, 350);
-}
-}
-
-// ============================================================
-//  NAVIGATION & EVENTS
-// ============================================================
-
-cardPrevBtn.addEventListener('click', function() {
-if (currentCardIndex > 0) { currentCardIndex--; renderCardStack(); }
-});
-cardNextBtn.addEventListener('click', function() {
-if (currentCardIndex < basket.length - 1) { currentCardIndex++; renderCardStack(); }
-});
-
-document.addEventListener('keydown', function(e) {
-if (basket.length === 0) return;
-if (e.target.tagName === 'INPUT') return;
-if (e.key === 'ArrowLeft' && currentCardIndex > 0) {
-e.preventDefault(); currentCardIndex--; renderCardStack();
-} else if (e.key === 'ArrowRight' && currentCardIndex < basket.length - 1) {
-e.preventDefault(); currentCardIndex++; renderCardStack();
-}
-});
-
-printSingleBtn.addEventListener('click', printSingleCard);
-printAllBtn.addEventListener('click', printAllCards);
-
-document.getElementById('viewTerminalBtn').addEventListener('click', function() {
-currentView = 'terminal';
-document.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('active'));
-this.classList.add('active');
-terminalPanel.classList.remove('hidden');
-officePanel.classList.add('hidden');
-cardPanel.classList.remove('hidden');
-});
-document.getElementById('viewOfficeBtn').addEventListener('click', function() {
-currentView = 'office';
-document.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('active'));
-this.classList.add('active');
-terminalPanel.classList.add('hidden');
-officePanel.classList.remove('hidden');
-cardPanel.classList.add('hidden');
-updateOfficeDashboard();
-});
-
-designBootstrapBtn.addEventListener('click', function() { setDesign('bootstrap'); });
-designMaterialBtn.addEventListener('click', function() { setDesign('material'); });
-
-document.getElementById('clearBasketBtn').addEventListener('click', function() {
-if (basket.length === 0) return;
-clearBasket();
-});
-
-document.getElementById('addSampleBtn').addEventListener('click', function() {
-const sampleCodes = ['2110', '2120', '4050'];
-let added = 0;
-sampleCodes.forEach(code => {
-const mat = materials.find(m => m.code === code);
-if (mat) {
-basket.push({ ...mat, id: Date.now() + '_' + Math.random().toString(36).substr(2, 6) });
-added++;
-}
-});
-if (added > 0) {
-currentCardIndex = basket.length - 1;
-saveToStorage();
-addSyncHistory('sample', `${added} Beispiel-Artikel hinzugefügt`);
-renderAll();
-}
-});
-
-document.getElementById('syncNowBtn').addEventListener('click', function() {
-const btn = this;
-btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-btn.disabled = true;
-setTimeout(() => {
-performSync();
-btn.innerHTML = '<i class="fas fa-sync-alt"></i> Sync';
-btn.disabled = false;
-updateOfficeDashboard();
-}, 400);
-});
-
-document.getElementById('officeClearBtn').addEventListener('click', function() {
-if (basket.length === 0) return;
-if (confirm('Alle Frachtdaten löschen?')) clearBasket();
-});
-
-document.querySelectorAll('.block-btn').forEach(btn => {
-btn.addEventListener('click', function() {
-document.querySelectorAll('.block-btn').forEach(b => b.classList.remove('active'));
-this.classList.add('active');
-activeBlock = this.dataset.block;
-renderMaterialList();
-});
-});
-
-searchInput.addEventListener('input', renderMaterialList);
-
-// ============================================================
-//  INITIALISIERUNG
-// ============================================================
-
-function init() {
-loadDesign();
-loadTheme();
-const hasData = loadFromStorage();
-if (!hasData || basket.length === 0) {
-basket = [];
-syncHistory = [];
-saveToStorage();
-}
-loadHistory();
-
-const isMobile = window.innerWidth < 768;
-deviceInfo.textContent = isMobile ? '📱 Tablet' : '💻 PC';
-
-renderAll();
-
-setTimeout(() => {
-performSync();
-updateOfficeDashboard();
-}, 800);
-
-setInterval(() => {
-performSync();
-updateOfficeDashboard();
-}, 30000);
-
-console.log('🔄 ASZ Asten System gestartet');
-console.log(`📦 ${getTotalItems()} Artikel, 📚 ${materials.length} LAVU-Artikel`);
-console.log(`🎨 Design: ${currentDesign}`);
-}
-
-init();
-})();
-</script>
+        const installBtn = document.getElementById('btnPwaInstall');
+        if (installBtn) {
+            installBtn.addEventListener('click', () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User hat die Installation akzeptiert.');
+                        }
+                        const banner = document.getElementById('pwaBanner');
+                        if (banner) banner.style.display = 'none';
+                        deferredPrompt = null;
+                    });
+                }
+            });
+        }
+        window.addEventListener('appinstalled', () => {
+            console.log('LAVU v8 App wurde erfolgreich installiert.');
+            const banner = document.getElementById('pwaBanner');
+            if (banner) banner.style.display = 'none';
+        });
+    </script>
 </body>
 </html>
