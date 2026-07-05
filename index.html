@@ -1,3 +1,4 @@
+<!---->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -45,6 +46,8 @@
             border-bottom: 2px solid #eef2f5;
             padding-bottom: 20px;
             margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .app-header-left {
@@ -90,6 +93,7 @@
             border-radius: 8px;
             border-left: 4px solid #27ae60;
             box-shadow: 0 2px 6px rgba(39, 174, 96, 0.04);
+            white-space: nowrap;
         }
 
         /* Dashboard */
@@ -109,6 +113,7 @@
             padding: 20px;
             border-radius: 12px;
             border: 1px dashed #cbd5e1;
+            width: 100%;
         }
 
         .sidebar-title {
@@ -178,6 +183,7 @@
             flex-direction: column;
             justify-content: center;
             height: 100%;
+            width: 100%;
         }
 
         .info-title {
@@ -215,6 +221,8 @@
             box-shadow: 0 2px 8px rgba(108, 180, 219, 0.1);
             transition: all 0.2s;
             cursor: pointer;
+            width: 100%;
+            max-width: 100%;
         }
 
         .frontpage-selection select:focus {
@@ -232,12 +240,14 @@
             border-top: 1px solid #e2e8f0;
             border-right: 1px solid #e2e8f0;
             border-bottom: 1px solid #e2e8f0;
+            width: 100%;
         }
 
         .summary-item {
             margin-bottom: 8px;
             font-size: 1rem;
             color: #334155;
+            word-break: break-word;
         }
         .summary-item:last-child {
             margin-bottom: 0;
@@ -247,11 +257,13 @@
             color: #1a4b60;
             width: 110px;
             display: inline-block;
+            flex-shrink: 0;
         }
 
         .action-buttons {
             display: flex;
             gap: 15px;
+            width: 100%;
         }
 
         button {
@@ -317,16 +329,19 @@
             justify-content: center;
             align-items: center;
             animation: fadeIn 0.2s ease;
+            padding: 10px;
         }
 
         .modal-content {
             background: white;
             padding: 30px;
             border-radius: 16px;
-            width: 92%;
+            width: 100%;
             max-width: 580px;
             box-shadow: 0 20px 40px rgba(15, 34, 43, 0.2);
             position: relative;
+            max-height: 95vh;
+            overflow-y: auto;
         }
 
         .preview-modal-content {
@@ -335,17 +350,26 @@
             display: flex;
             flex-direction: column;
             padding: 20px 30px;
+            width: 100%;
         }
 
         .modal-body-scroll {
             overflow-y: auto;
+            overflow-x: auto;
             flex: 1;
             padding: 25px;
             background: #f1f5f9;
             border-radius: 12px;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
+            align-items: flex-start;
             box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        @media (min-width: 900px) {
+            .modal-body-scroll {
+                justify-content: center;
+            }
         }
 
         .modal-header {
@@ -358,6 +382,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 10px;
         }
 
         .btn-close-x {
@@ -379,10 +404,13 @@
             border-radius: 8px;
             margin-bottom: 20px;
             border: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: 4px;
         }
 
         .mode-tab {
             flex: 1;
+            min-width: 120px;
             text-align: center;
             padding: 10px 15px;
             font-weight: bold;
@@ -454,6 +482,8 @@
             color: #334155;
             background-color: #f8fafc;
             transition: all 0.2s;
+            width: 100%;
+            max-width: 100%;
         }
 
         input:focus,
@@ -471,6 +501,7 @@
             margin-top: 20px;
             border-top: 1px solid #f1f5f9;
             padding-top: 15px;
+            flex-wrap: wrap;
         }
 
         .btn-save-defaults {
@@ -490,6 +521,51 @@
         }
 
         /* ==========================================
+           RESPONSIVE BREAKPOINTS (UI Optimierung)
+           ========================================== */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            .main-card {
+                padding: 20px;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .preview-sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .app-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .app-header-right {
+                width: 100%;
+                justify-content: center;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            .modal-content {
+                padding: 20px;
+            }
+            .modal-footer button {
+                width: 100%;
+            }
+        }
+
+        /* ==========================================
            DRUCK-LAYOUT – HERMA 4473 (70 x 41 mm)
            ========================================== */
         .page-container {
@@ -498,6 +574,7 @@
             height: 297mm;
             box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
             box-sizing: border-box;
+            flex-shrink: 0;
         }
 
         .print-sheet {
@@ -584,19 +661,6 @@
 
         #hiddenPrintContainer {
             display: none;
-        }
-
-        @media (max-width: 700px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            .preview-sidebar {
-                order: -1;
-            }
-            .action-buttons {
-                flex-direction: column;
-            }
         }
 
         @media print {
