@@ -1443,24 +1443,31 @@
             updatePreview();
         }
 
+// Dynamically scales the preview sheet container inside the modal to fit the exact viewport dimensions
         function scalePreviewToFit() {
             const container = document.querySelector('.modal-body-scroll');
             const target = document.getElementById('modalPageContainer');
             
             if (!container || !target) return;
 
+            // Reset rules temporarily to properly sample baseline offset properties
             target.style.transform = 'none';
+            target.style.position = 'static';
 
             const targetWidth = target.offsetWidth;
             const targetHeight = target.offsetHeight;
 
+            // Available context dimensions with a small bounding padding area
             const availableWidth = container.clientWidth - 40; 
             const availableHeight = container.clientHeight - 40;
 
+            // Discover limiting constraints across aspect configurations
             const scaleX = availableWidth / targetWidth;
             const scaleY = availableHeight / targetHeight;
-            const scale = Math.min(scaleX, scaleY, 1);
+            const scale = Math.min(scaleX, scaleY, 1); // Clamp to 1 so small viewports don't upscale/blur layout details
 
+            // FIX: Absolute position decouples it from flexbox overflow alignment constraints
+            target.style.position = 'absolute';
             target.style.transformOrigin = 'center center';
             target.style.transform = `scale(${scale})`;
         }
