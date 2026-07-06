@@ -6,7 +6,7 @@
     <title>LAVU OÖ - Etiketten-Druckstudio v8 (HERMA 4473)</title>
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#1a4b60" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link class="icon" type="image/svg+xml" href="favicon.svg" />
     <style>
         /* ==========================================
            BENUTZEROBERFLÄCHE (Wird nicht gedruckt)
@@ -45,6 +45,8 @@
             border-bottom: 2px solid #eef2f5;
             padding-bottom: 20px;
             margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .app-header-left {
@@ -90,6 +92,7 @@
             border-radius: 8px;
             border-left: 4px solid #27ae60;
             box-shadow: 0 2px 6px rgba(39, 174, 96, 0.04);
+            white-space: nowrap;
         }
 
         /* Dashboard */
@@ -109,6 +112,7 @@
             padding: 20px;
             border-radius: 12px;
             border: 1px dashed #cbd5e1;
+            width: 100%;
         }
 
         .sidebar-title {
@@ -173,20 +177,26 @@
             background: rgba(39, 174, 96, 0.95);
         }
 
+        /* Interaktives Highlight-Styling für Etiketten EXKLUSIV in der Grossansicht */
+        #labelSheetModal .label {
+            cursor: pointer !important;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
+        }
+        #labelSheetModal .label:hover {
+            background-color: #e8f8f5 !important;
+            border-color: #27ae60 !important;
+        }
+        #labelSheetModal .label.empty:hover {
+            background-color: #f1f5f9 !important;
+            border-color: #1a4b60 !important;
+        }
+
         .info-panel {
             display: flex;
             flex-direction: column;
             justify-content: center;
             height: 100%;
-        }
-
-        .info-title {
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 12px;
+            width: 100%;
         }
 
         .frontpage-selection {
@@ -215,6 +225,8 @@
             box-shadow: 0 2px 8px rgba(108, 180, 219, 0.1);
             transition: all 0.2s;
             cursor: pointer;
+            width: 100%;
+            max-width: 100%;
         }
 
         .frontpage-selection select:focus {
@@ -232,12 +244,14 @@
             border-top: 1px solid #e2e8f0;
             border-right: 1px solid #e2e8f0;
             border-bottom: 1px solid #e2e8f0;
+            width: 100%;
         }
 
         .summary-item {
             margin-bottom: 8px;
             font-size: 1rem;
             color: #334155;
+            word-break: break-word;
         }
         .summary-item:last-child {
             margin-bottom: 0;
@@ -247,11 +261,13 @@
             color: #1a4b60;
             width: 110px;
             display: inline-block;
+            flex-shrink: 0;
         }
 
         .action-buttons {
             display: flex;
             gap: 15px;
+            width: 100%;
         }
 
         button {
@@ -317,35 +333,45 @@
             justify-content: center;
             align-items: center;
             animation: fadeIn 0.2s ease;
+            padding: 10px;
         }
 
         .modal-content {
             background: white;
             padding: 30px;
             border-radius: 16px;
-            width: 92%;
+            width: 100%;
             max-width: 580px;
             box-shadow: 0 20px 40px rgba(15, 34, 43, 0.2);
             position: relative;
+            max-height: 95vh;
+            overflow-y: auto;
         }
 
         .preview-modal-content {
-            max-width: 230mm;
-            max-height: 94vh;
+            width: 100vw;
+            height: 100vh;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            border-radius: 0 !important;
             display: flex;
             flex-direction: column;
             padding: 20px 30px;
+            width: 100%;
+            overflow: hidden;
         }
 
         .modal-body-scroll {
-            overflow-y: auto;
+            overflow: hidden;
             flex: 1;
             padding: 25px;
             background: #f1f5f9;
             border-radius: 12px;
             display: flex;
             justify-content: center;
+            align-items: center;
             box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: relative;
         }
 
         .modal-header {
@@ -358,6 +384,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 10px;
         }
 
         .btn-close-x {
@@ -379,10 +406,13 @@
             border-radius: 8px;
             margin-bottom: 20px;
             border: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: 4px;
         }
 
         .mode-tab {
             flex: 1;
+            min-width: 120px;
             text-align: center;
             padding: 10px 15px;
             font-weight: bold;
@@ -454,6 +484,8 @@
             color: #334155;
             background-color: #f8fafc;
             transition: all 0.2s;
+            width: 100%;
+            max-width: 100%;
         }
 
         input:focus,
@@ -471,6 +503,7 @@
             margin-top: 20px;
             border-top: 1px solid #f1f5f9;
             padding-top: 15px;
+            flex-wrap: wrap;
         }
 
         .btn-save-defaults {
@@ -489,6 +522,71 @@
             background-color: #e2e8f0;
         }
 
+        /* CRUD Item list layout view styles */
+        .crud-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 10px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+        }
+        .crud-item-row:last-child {
+            border-bottom: none;
+        }
+        .crud-item-info {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-right: 10px;
+        }
+
+        /* ==========================================
+           RESPONSIVE BREAKPOINTS (UI Optimierung)
+           ========================================== */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            .main-card {
+                padding: 20px;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .preview-sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .app-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .app-header-right {
+                width: 100%;
+                justify-content: center;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            .modal-content {
+                padding: 20px;
+            }
+            .modal-footer button {
+                width: 100%;
+            }
+        }
+
         /* ==========================================
            DRUCK-LAYOUT – HERMA 4473 (70 x 41 mm)
            ========================================== */
@@ -498,6 +596,7 @@
             height: 297mm;
             box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
             box-sizing: border-box;
+            flex-shrink: 0;
         }
 
         .print-sheet {
@@ -517,114 +616,138 @@
             height: 100%;
             box-sizing: border-box;
             padding: 3.5mm 4mm 3.5mm 4mm;
+            border: 1px dashed #cbd5e1;
+            position: relative;
+            background: white;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-            background-color: #fff;
-            border: 1px dashed #e2e8f0;
-            overflow: hidden;
         }
 
         .label-top {
-            text-align: right;
-            font-size: 11pt;
+            font-size: 7pt;
             font-weight: bold;
-            color: #1a4b60;
+            color: #4a5568;
+            text-transform: uppercase;
             letter-spacing: 0.3px;
+            border-bottom: 0.8px solid #cbd5e1;
+            padding-bottom: 1.5mm;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .label-middle {
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            margin-top: auto;
-            margin-bottom: auto;
-            white-space: nowrap;
+            justify-content: space-between;
+            gap: 2mm;
+            flex: 1;
+            padding: 1.5mm 0;
+            overflow: hidden;
         }
 
-        .label-middle .num {
-            font-size: 21pt;
-            font-weight: bold;
-            color: #54a0cc;
-            letter-spacing: -0.5px;
+        .label-artnr {
+            font-size: 24pt;
+            font-weight: 900;
+            color: #000000;
+            font-family: 'Arial Black', Impact, sans-serif;
             line-height: 1;
+            letter-spacing: -0.5px;
         }
 
-        .label-middle .sep {
-            font-size: 16pt;
-            color: #1a4b60;
+        .label-suffix {
+            font-size: 11pt;
             font-weight: bold;
-            margin: 0 5px;
-        }
-
-        .label-middle .suffix {
-            font-size: 13pt;
-            font-weight: bold;
-            color: #1a4b60;
-        }
-
-        .label-bottom {
-            font-size: 9pt;
-            font-style: italic;
-            text-align: right;
-            color: #111111;
-            font-weight: bold;
+            color: #4a5568;
+            border: 1.5px solid #000;
+            padding: 0.6mm 1.8mm;
+            border-radius: 3px;
+            text-transform: uppercase;
             white-space: nowrap;
+            transform: rotate(-2deg);
+            box-shadow: 1px 1px 0px #000;
+            background: #fff;
+            max-width: 60%;
             overflow: hidden;
             text-overflow: ellipsis;
-            line-height: 1.1;
-            letter-spacing: -0.1px;
+        }
+
+        .label-bottom-text {
+            font-size: 10pt;
+            font-weight: 800;
+            color: #000000;
+            line-height: 1.2;
+            word-break: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.4em;
+            text-transform: uppercase;
         }
 
         .label.empty {
-            border: 1px dashed #f8fafc;
-            background-color: #fafbfc;
+            border: 1px dashed #e2e8f0;
+            background: #fafafa;
+        }
+        .label.empty * {
+            display: none !important;
+        }
+
+        /* Browser-Drucklayouts forcieren */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 0 !important;
+            }
+            html, body {
+                background: white;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .main-card, .modal-backdrop, #pwaBanner {
+                display: none !important;
+            }
+            #hiddenPrintContainer {
+                display: block !important;
+            }
+            .page-container {
+                box-shadow: none !important;
+                margin: 0 !important;
+                page-break-after: avoid;
+                page-break-before: avoid;
+                transform: none !important;
+            }
+            .label {
+                border: 1px solid transparent !important;
+            }
         }
 
         #hiddenPrintContainer {
             display: none;
         }
 
-        @media (max-width: 700px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            .preview-sidebar {
-                order: -1;
-            }
-            .action-buttons {
-                flex-direction: column;
-            }
-        }
-
-        @media print {
-            body > :not(#hiddenPrintContainer) {
-                display: none !important;
-            }
-            
-            #hiddenPrintContainer {
-                display: block !important;
-                position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
-                width: 210mm !important;
-                height: 297mm !important;
-            }
-            
-            #labelSheetDirect {
-                display: grid !important;
-            }
-
-            .label {
-                border: 1px solid transparent !important;
-            }
-            
-            @page {
-                size: A4;
-                margin: 0;
-            }
+        /* Custom Banner */
+        .pwa-banner {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: #1a4b60;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 9999;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+            animation: fadeIn 0.4s ease;
         }
     </style>
 </head>
@@ -633,14 +756,14 @@
     <div class="main-card">
         <div class="app-header">
             <div class="app-header-left">
-                <img class="app-logo" src="https://avatars.githubusercontent.com/u/297924413?s=400&u=9843148f4e4e6cd0cc18040131acc5403ef4a9ac&v=4" alt="Logo">
+                <img src="logo.png" alt="LAVU Logo" class="app-logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%231a4b60\' stroke-width=\'2\'><circle cx=\'12\' cy=\'12\' r=\'10\'/><path d=\'M8 14s1.5 2 4 2 4-2 4-2\'/><line x1=\'9\' y1=\'9\' x2=\'9.01\' y2=\'9\'/><line x1=\'15\' y1=\'9\' x2=\'15.01\' y2=\'9\'/></svg>'">
                 <div>
                     <div class="app-header-title">LAVU OÖ</div>
-                    <div class="app-header-subtitle">Etiketten-Druckstudio v8</div>
+                    <div class="app-header-subtitle">Etiketten-Studio v8</div>
                 </div>
             </div>
-            <div class="app-header-right" id="headerStation">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div class="app-header-right">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 <span id="headerStationText">106 - ASZ Asten</span>
             </div>
         </div>
@@ -649,7 +772,7 @@
             <div class="preview-sidebar">
                 <div class="sidebar-title">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                    Live-Vorschau
+                    Vorschau
                 </div>
                 <div class="thumbnail-wrapper" onclick="openPreviewModal()" title="Klicken für vollständige A4-Großansicht">
                     <div class="scaled-sheet-container">
@@ -657,7 +780,7 @@
                     </div>
                     <div class="thumbnail-overlay">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                        Großansicht
+                        Auswählen & Drucken
                     </div>
                 </div>
             </div>
@@ -673,17 +796,17 @@
                     <div class="summary-item"><span class="summary-label">Abfallart:</span> <span id="sumBezeichnung">-</span></div>
                     <div class="summary-item"><span class="summary-label">Artikel-Nr:</span> <span id="sumArtNr">-</span></div>
                     <div class="summary-item"><span class="summary-label">Zusatztext:</span> <span id="sumSuffix">-</span></div>
-                    <div class="summary-item"><span class="summary-label">Menge / Start:</span> <span id="sumMenge">-</span></div>
+                    <div class="summary-item"><span class="summary-label">Menge / Pos:</span> <span id="sumDetails">-</span></div>
                 </div>
 
                 <div class="action-buttons">
-                    <button class="btn-primary" onclick="triggerDirectPrint()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                        Jetzt Ausdrucken
+                    <button class="btn-primary" onclick="openPreviewModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        Bogen einrichten & drucken
                     </button>
                     <button class="btn-secondary" onclick="openSettings()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1-2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                        Einstellungen
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        Optionen
                     </button>
                 </div>
             </div>
@@ -721,68 +844,24 @@
                     </optgroup>
                     <optgroup label="Wels & Wels-Land">
                         <option value="ASZ Wels-Nord">ASZ Wels-Nord</option>
-                        <option value="ASZ Wels-West">ASZ Wels-West</option>
-                        <option value="ASZ Gunskirchen">ASZ Gunskirchen</option>
+                        <option value="ASZ Wels-Kenten">ASZ Wels-Kenten</option>
                         <option value="ASZ Marchtrenk">ASZ Marchtrenk</option>
+                        <option value="ASZ Gunskirchen">ASZ Gunskirchen</option>
                         <option value="ASZ Thalheim">ASZ Thalheim</option>
-                        <option value="ASZ Lambach">ASZ Lambach</option>
                     </optgroup>
                     <optgroup label="Steyr & Steyr-Land">
                         <option value="ASZ Steyr">ASZ Steyr</option>
+                        <option value="ASZ Bad Hall">ASZ Bad Hall</option>
                         <option value="ASZ Garsten">ASZ Garsten</option>
                         <option value="ASZ Sierning">ASZ Sierning</option>
-                        <option value="ASZ Bad Hall">ASZ Bad Hall</option>
-                    </optgroup>
-                    <optgroup label="Urfahr-Umgebung">
-                        <option value="ASZ Altenberg">ASZ Altenberg</option>
-                        <option value="ASZ Bad Leonfelden">ASZ Bad Leonfelden</option>
-                        <option value="ASZ Gallneukirchen">ASZ Gallneukirchen</option>
-                        <option value="ASZ Ottensheim">ASZ Ottensheim</option>
-                        <option value="ASZ Walding">ASZ Walding</option>
-                    </optgroup>
-                    <optgroup label="Freistadt">
-                        <option value="ASZ Freistadt">ASZ Freistadt</option>
-                        <option value="ASZ Pregarten">ASZ Pregarten</option>
-                        <option value="ASZ Unterweißenbach">ASZ Unterweißenbach</option>
-                    </optgroup>
-                    <optgroup label="Perg">
-                        <option value="ASZ Perg">ASZ Perg</option>
-                        <option value="ASZ Grein">ASZ Grein</option>
-                        <option value="ASZ Schwertberg">ASZ Schwertberg</option>
-                        <option value="ASZ St. Georgen/Gusen">ASZ St. Georgen/Gusen</option>
-                    </optgroup>
-                    <optgroup label="Gmunden & Vöcklabruck">
-                        <option value="ASZ Gmunden">ASZ Gmunden</option>
-                        <option value="ASZ Bad Ischl">ASZ Bad Ischl</option>
-                        <option value="ASZ Altmünster">ASZ Altmünster</option>
-                        <option value="ASZ Vöcklabruck">ASZ Vöcklabruck</option>
-                        <option value="ASZ Attnang-Puchheim">ASZ Attnang-Puchheim</option>
-                        <option value="ASZ Schwanenstadt">ASZ Schwanenstadt</option>
-                        <option value="ASZ Mondsee">ASZ Mondsee</option>
-                    </optgroup>
-                    <optgroup label="Innviertel (Braunau, Ried & Schärding)">
-                        <option value="ASZ Braunau">ASZ Braunau</option>
-                        <option value="ASZ Mattighofen">ASZ Mattighofen</option>
-                        <option value="ASZ Ried im Innkreis">ASZ Ried im Innkreis</option>
-                        <option value="ASZ Schärding">ASZ Schärding</option>
-                    </optgroup>
-                    <optgroup label="Grieskirchen & Eferding">
-                        <option value="ASZ Grieskirchen">ASZ Grieskirchen</option>
-                        <option value="ASZ Bad Schallerbach">ASZ Bad Schallerbach</option>
-                        <option value="ASZ Eferding">ASZ Eferding</option>
-                    </optgroup>
-                    <optgroup label="Kirchdorf & Rohrbach">
-                        <option value="ASZ Kirchdorf">ASZ Kirchdorf</option>
-                        <option value="ASZ Micheldorf">ASZ Micheldorf</option>
-                        <option value="ASZ Rohrbach">ASZ Rohrbach</option>
                     </optgroup>
                 </select>
             </div>
 
-            <div class="form-grid">
+            <div class="form-grid" style="margin-bottom: 20px;">
                 <div class="form-group">
                     <label for="inputCount">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                         Anzahl Etiketten (max. 21):
                     </label>
                     <input type="number" id="inputCount" value="9" min="1" max="21" oninput="updatePreview()" />
@@ -799,45 +878,77 @@
             <div class="mode-switcher">
                 <div id="tabSelect" class="mode-tab active" onclick="switchMode('select')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-                    Modus: Sortiment
+                    Sortiment wählen
                 </div>
                 <div id="tabInput" class="mode-tab" onclick="switchMode('input')">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"/></svg>
-                    Freie Eingabe
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                    Datenbank verwalten
                 </div>
             </div>
 
             <div id="sectionSelect" class="form-section active">
-                <p style="font-size: 0.9rem; color: #64748b; margin: 0 0 10px 0;">Die Sortiment-Auswahl befindet sich jetzt direkt auf der Startseite.</p>
-            </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="inputSortimentUrl">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                        Zentrale Sortiment-URL (GitHub Raw JSON):
+                    </label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="url" id="inputSortimentUrl" placeholder="https://raw.githubusercontent.com/.../sortiment.json" style="flex: 1;" />
+                        <button class="btn-crud" style="background: #27ae60; color: white; padding: 0 16px;" onclick="speichereUndLadeUrl()">Laden</button>
+                    </div>
+                </div>
+                <div id="netzwerkStatus" style="font-size: 0.8rem; color: #7f8c8d; text-align: center; font-style: italic; margin-bottom: 15px;">
+                    Status: Rein lokaler Modus (localStorage)
+                </div>
 
-            <div id="sectionInput" class="form-section">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="inputArtNr">Artikel-Nr.:</label>
-                        <input type="text" id="inputArtNr" value="4040" oninput="updatePreview()" />
+                <div style="border-top: 1px solid #f1f5f9; padding-top: 15px; margin-top: 15px;">
+                    <div class="info-title" style="margin-bottom: 10px;">Manuelle Eingabe (Überschreiben)</div>
+                    <div class="form-grid" style="margin-bottom: 10px;">
+                        <div class="form-group">
+                            <label for="inputArtNr">Artikel-Nr.:</label>
+                            <input type="text" id="inputArtNr" oninput="updatePreview()" placeholder="z.B. 4040" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputSuffix">Zusatztext:</label>
+                            <input type="text" id="inputSuffix" oninput="updatePreview()" placeholder="z.B. QR-Box" />
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputSuffix">Zusatz Mitte:</label>
-                        <input type="text" id="inputSuffix" value="QR-Box" oninput="updatePreview()" />
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="inputBezeichnung">Bezeichnung unten:</label>
-                        <input type="text" id="inputBezeichnung" value="Elektro-Kleingeräte (ohne Akku)" oninput="updatePreview()" />
+                        <label for="inputBezeichnung">Abfallbezeichnung:</label>
+                        <input type="text" id="inputBezeichnung" oninput="updatePreview()" placeholder="z.B. Elektro-Kleingeräte" />
                     </div>
                 </div>
             </div>
 
-            <label style="margin-top: 20px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-                Netzwerk-Synchronisation (Option A):
-            </label>
-            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
-                <button class="btn-crud" style="background: #34495e; color: white; width: 100%;" onclick="verbindeNetzwerkDatei()">
-                    🔗 Zentrale Sortiment-Datei auswählen...
-                </button>
-                <div id="netzwerkStatus" style="font-size: 0.8rem; color: #7f8c8d; text-align: center; font-style: italic;">
-                    Status: Rein lokaler Modus (localStorage)
+            <div id="sectionInput" class="form-section">
+                <input type="hidden" id="crudEditIndex" value="-1" />
+                <div class="form-grid" style="margin-bottom: 12px;">
+                    <div class="form-group">
+                        <label for="crudArtNr">Artikel-Nr.:</label>
+                        <input type="text" id="crudArtNr" placeholder="z.B. 4040" />
+                    </div>
+                    <div class="form-group">
+                        <label for="crudSuffix">Zusatztext (Mitte):</label>
+                        <input type="text" id="crudSuffix" placeholder="z.B. QR-Box" />
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label for="crudBez">Abfallbezeichnung:</label>
+                    <input type="text" id="crudBez" placeholder="z.B. Elektro-Kleingeräte" />
+                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <button class="btn-crud" style="background: #27ae60; color: white; flex: 1;" onclick="speichereArtikel()">💾 Artikel speichern</button>
+                    <button id="btnCancelEdit" class="btn-crud" style="background: #7f8c8d; color: white; display: none;" onclick="clearCrudForm()">Abbrechen</button>
+                </div>
+
+                <div style="margin-top: 15px; margin-bottom: 15px; padding-top: 12px; border-top: 1px dashed #cbd5e1;">
+                    <button class="btn-crud" style="background: #34495e; color: white; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;" onclick="exportiereSortimentAlsJson()">
+                        📥 Aktuelle Datenbank als JSON herunterladen
+                    </button>
+                </div>
+
+                <label>Aktuelle Einträge im lokalen Workspace:</label>
+                <div id="crudListContainer" style="max-height: 180px; overflow-y: auto; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc; padding: 5px;">
                 </div>
             </div>
 
@@ -851,14 +962,15 @@
         </div>
     </div>
 
+    <!-- Vollbild-Druckvorschau Modal mit Klick-Auswahl -->
     <div id="previewModal" class="modal-backdrop" onclick="closePreviewModalViaBackdrop(event)">
         <div class="modal-content preview-modal-content">
             <div class="modal-header">
-                <span>Vollbild-Druckvorschau (A4-Bogen – HERMA 4473, 21 Etiketten)</span>
+                <span>Interaktiver A4-Druckbogen (HERMA 4473, 21 Etiketten – Klicken zum Einrichten)</span>
                 <button class="btn-close-x" onclick="closePreviewModal()">&times;</button>
             </div>
             <div class="modal-body-scroll">
-                <div class="page-container">
+                <div class="page-container" id="modalPageContainer">
                     <div class="print-sheet" id="labelSheetModal"></div>
                 </div>
             </div>
@@ -878,203 +990,455 @@
         </div>
     </div>
 
+    <!-- Aktualisiertes PWA Banner -->
+    <div id="pwaBanner" class="pwa-banner">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.5rem;">📱</span>
+            <div>
+                <b style="display: block;">LAVU Studio v8 installieren</b>
+                <span style="font-size: 0.8rem; opacity: 0.9;">Für eine schnellere Nutzung direkt in deiner App Übersicht.</span>
+            </div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+            <button id="btnPwaInstall" style="background: white; color: #1a4b60; padding: 8px 14px; font-size: 0.85rem; border-radius: 6px;">Installieren</button>
+            <button onclick="document.getElementById('pwaBanner').style.display='none'" style="background: transparent; color: white; padding: 4px; font-size: 1.2rem;">&times;</button>
+        </div>
+    </div>
+
     <script>
         // ============================================================
         // GLOBALE VARIABLEN & NETZWERK-LOGIK
         // ============================================================
-        let fileHandle = null;
-        let lastModifiedTime = 0;
-
         let defaultSortiment = [
             { artNr: "4040", bez: "Elektro-Kleingeräte (ohne Akku)", zusatzMitte: "QR-Box" },
             { artNr: "4010", bez: "Elektro-Großgeräte", zusatzMitte: "Gitterbox" },
-            { artNr: "4020", bez: "Kühlgeräte", zusatzMitte: "Großteil" },
-            { artNr: "4030", bez: "Bildschirmgeräte", zusatzMitte: "Gitterbox" },
-            { artNr: "4015", bez: "Nachtspeicheröfen", zusatzMitte: "Spezial" },
-            { artNr: "4050", bez: "Gasentladungslampen", zusatzMitte: "Karton" },
-            { artNr: "3000", bez: "Altpapier (Deinking-Qualität)", zusatzMitte: "Container" },
-            { artNr: "2100", bez: "Kartonagen (ARA-lizenziert)", zusatzMitte: "Presse" },
-            { artNr: "3200", bez: "Alteisen", zusatzMitte: "Mulde" },
-            { artNr: "3210", bez: "Nichteisen-Metalle", zusatzMitte: "Box" },
-            { artNr: "3300", bez: "Altholz", zusatzMitte: "AII-Holz" },
-            { artNr: "3400", bez: "Speisefett/-öl (Haushalts-Öl)", zusatzMitte: "Fass" },
-            { artNr: "3500", bez: "Altreifen", zusatzMitte: "Stapel" },
-            { artNr: "4300", bez: "Altlacke & Werkstättenabfälle", zusatzMitte: "Gefahrgut" },
-            { artNr: "4320", bez: "Altöle", zusatzMitte: "Tank" }
+            { artNr: "4020", bez: "Kühlgeräte", zusatzMitte: "Kühlgeräte" },
+            { artNr: "4030", bez: "Bildschirmgeräte / TV", zusatzMitte: "TV-Box" },
+            { artNr: "1550", bez: "Bauschutt (Kleinmengen)", zusatzMitte: "Mulde" },
+            { artNr: "1610", bez: "Altholz (Stofflich)", zusatzMitte: "Holzbox" },
+            { artNr: "1620", bez: "Altholz (Thermisch)", zusatzMitte: "Holzbox" },
+            { artNr: "1210", bez: "Altmetall / Schrott", zusatzMitte: "Schrottbox" },
+            { artNr: "1720", bez: "Verpackungshohlglas", zusatzMitte: "Glas-Hub" },
+            { artNr: "1730", bez: "Flachglas", zusatzMitte: "Gestell" },
+            { artNr: "1410", bez: "Altpapier (Kartonagen)", zusatzMitte: "Presse" },
+            { artNr: "5110", bez: "Problemstoffe (Haushalt)", zusatzMitte: "Problo-Box" },
+            { artNr: "1820", bez: "Altreifen (mit Felgen)", zusatzMitte: "Reifenlager" },
+            { artNr: "1810", bez: "Altreifen (ohne Felgen)", zusatzMitte: "Reifenlager" },
+            { artNr: "4050", bez: "Gasentladungslampen", zusatzMitte: "Lampen-Box" }
         ];
 
         let sortimentData = [];
-        let aktuellerModus = 'select';
+        let aktuellerModus = 'select'; 
 
-        window.onload = function() {
-            loadSortiment().then(() => {
-                loadDefaults();
-            });
-        };
+        window.addEventListener('DOMContentLoaded', async () => {
+            loadDefaults();
+            
+            const savedUrl = localStorage.getItem('lavu_sortiment_url');
+            if (savedUrl) {
+                document.getElementById('inputSortimentUrl').value = savedUrl;
+                document.getElementById('netzwerkStatus').innerHTML = `⏳ Verbinde...`;
+                document.getElementById('netzwerkStatus').style.color = '#f39c12';
+            }
+            
+            await loadSortiment();
+            updatePreview();
+        });
 
-        // Geteilte Speicher- und Ladefunktionen
         async function loadSortiment() {
-            if (fileHandle) {
+            const url = localStorage.getItem('lavu_sortiment_url');
+            if (url) {
                 try {
-                    const file = await fileHandle.getFile();
-                    if (file.lastModified === lastModifiedTime) return; 
-                    
-                    const text = await file.text();
-                    if (text.trim()) {
-                        sortimentData = JSON.parse(text);
-                        lastModifiedTime = file.lastModified;
+                    const response = await fetch(url, { cache: "no-store" });
+                    if (!response.ok) throw new Error("Netzwerkantwort war fehlerhaft");
+                    const data = await response.json();
+                    if (Array.isArray(data) && data.length > 0) {
+                        sortimentData = data;
+                        localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(sortimentData));
+                        document.getElementById('netzwerkStatus').innerHTML = `🟢 Verbunden mit GitHub-Repository`;
+                        document.getElementById('netzwerkStatus').style.color = '#27ae60';
                         initDropdown();
-                        handlePresetSelection();
-                        console.log("Sortiment automatisch aus Netzwerkdatei aktualisiert.");
+                        return;
                     }
-                    return;
                 } catch (e) {
-                    console.warn("Netzwerkdatei konnte nicht gelesen werden, weiche auf localStorage aus.", e);
+                    console.warn("Fehler beim Laden von GitHub URL, weiche auf cache / localStorage aus.", e);
+                    document.getElementById('netzwerkStatus').innerHTML = `⚠️ GitHub Offline! Lokaler Cache geladen.`;
+                    document.getElementById('netzwerkStatus').style.color = '#e74c3c';
                 }
             }
 
             const savedSortiment = localStorage.getItem('lavu_studio_sortiment_v8');
             if (savedSortiment) {
-                try { sortimentData = JSON.parse(savedSortiment); } 
-                catch(e) { sortimentData = [...defaultSortiment]; }
+                try {
+                    sortimentData = JSON.parse(savedSortiment);
+                } catch(e) {
+                    sortimentData = [...defaultSortiment];
+                }
             } else {
                 sortimentData = [...defaultSortiment];
             }
             initDropdown();
         }
 
-        async function saveSortimentToStorage() {
-            localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(sortimentData));
-            
-            if (fileHandle) {
-                try {
-                    const writable = await fileHandle.createWritable();
-                    await writable.write(JSON.stringify(sortimentData, null, 2));
-                    await writable.close();
-                    
-                    const file = await fileHandle.getFile();
-                    lastModifiedTime = file.lastModified;
-                } catch (e) {
-                    alert("Fehler beim Schreiben in die Netzwerk-Datei. Berechtigungen prüfen!");
-                }
+        async function speichereUndLadeUrl() {
+            const urlInput = document.getElementById('inputSortimentUrl').value.trim();
+            if (!urlInput) {
+                localStorage.removeItem('lavu_sortiment_url');
+                document.getElementById('netzwerkStatus').innerHTML = `Status: Rein lokaler Modus (localStorage)`;
+                document.getElementById('netzwerkStatus').style.color = '#7f8c8d';
+                sortimentData = [...defaultSortiment];
+                localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(sortimentData));
+                initDropdown();
+                handlePresetSelection();
+                alert("Verlinkung entfernt. Standard-Sortiment geladen.");
+                return;
             }
+
+            let finalUrl = urlInput;
+            if (finalUrl.includes("github.com") && !finalUrl.includes("raw.githubusercontent.com")) {
+                finalUrl = finalUrl.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/");
+                document.getElementById('inputSortimentUrl').value = finalUrl;
+            }
+
+            localStorage.setItem('lavu_sortiment_url', finalUrl);
+            document.getElementById('netzwerkStatus').innerHTML = `⏳ Verbinde...`;
+            document.getElementById('netzwerkStatus').style.color = '#f39c12';
+            await loadSortiment();
         }
 
-        async function verbindeNetzwerkDatei() {
-            try {
-                fileHandle = await window.showSaveFilePicker({
-                    suggestedName: 'lavu_sortiment_zentral.json',
-                    types: [{
-                        description: 'JSON-Datei für LAVU Sortiment',
-                        accept: {'application/json': ['.json']},
-                    }],
-                });
-
-                const file = await fileHandle.getFile();
-                const text = await file.text();
-                if (!text.trim()) {
-                    await saveSortimentToStorage();
-                }
-
-                document.getElementById('netzwerkStatus').innerHTML = `🟢 Gekoppelt mit: <b>${file.name}</b>`;
-                document.getElementById('netzwerkStatus').style.color = '#27ae60';
-                
-                await loadSortiment();
-            } catch (e) {
-                console.log("Auswahl abgebrochen oder vom Browser blockiert", e);
-            }
-        }
-
-        // Automatischer Check im Hintergrund alle 5 Sekunden
         setInterval(() => {
-            if (fileHandle) {
+            const url = localStorage.getItem('lavu_sortiment_url');
+            if (url && aktuellerModus === 'select') {
                 loadSortiment();
             }
-        }, 5000);
+        }, 30000);
 
-        // Dropdown initialisieren
         function initDropdown() {
             const select = document.getElementById('sortimentSelect');
             const aktuellerWert = select.value;
             select.innerHTML = '';
+
             sortimentData.forEach((item, index) => {
                 const opt = document.createElement('option');
                 opt.value = index;
-                opt.innerHTML = `[${item.artNr}] ${item.bez}`;
+                opt.textContent = `${item.artNr} - ${item.bez}`;
                 select.appendChild(opt);
             });
-            if(aktuellerWert !== "" && select.options[aktuellerWert]) {
+
+            if (aktuellerWert !== "" && aktuellerWert < sortimentData.length) {
                 select.value = aktuellerWert;
+            } else {
+                select.value = "0";
             }
+            
+            renderCrudList();
         }
 
+        // ============================================================
+        // CRUD / DATENBANK VERWALTUNGS LOGIK
+        // ============================================================
         function switchMode(mode) {
             aktuellerModus = mode;
             document.getElementById('tabSelect').classList.toggle('active', mode === 'select');
             document.getElementById('tabInput').classList.toggle('active', mode === 'input');
             document.getElementById('sectionSelect').classList.toggle('active', mode === 'select');
             document.getElementById('sectionInput').classList.toggle('active', mode === 'input');
-            if (mode === 'select') {
+        }
+
+        function renderCrudList() {
+            const container = document.getElementById('crudListContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            sortimentData.forEach((item, index) => {
+                const row = document.createElement('div');
+                row.className = 'crud-item-row';
+                row.innerHTML = `
+                    <div class="crud-item-info">
+                        <b>${item.artNr}</b> - ${item.bez} <span style="color:#7f8c8d; font-size:0.75rem;">(${item.zusatzMitte || '-'})</span>
+                    </div>
+                    <div style="display: flex; gap: 4px;">
+                        <button class="btn-crud" style="padding: 3px 6px; background: #3498db; color: white; font-size: 0.75rem;" onclick="editArtikel(${index})" title="Bearbeiten">✏️</button>
+                        <button class="btn-crud" style="padding: 3px 6px; background: #e74c3c; color: white; font-size: 0.75rem;" onclick="deleteArtikel(${index})" title="Löschen">🗑️</button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function editArtikel(index) {
+            const item = sortimentData[index];
+            document.getElementById('crudEditIndex').value = index;
+            document.getElementById('crudArtNr').value = item.artNr;
+            document.getElementById('crudSuffix').value = item.zusatzMitte || "";
+            document.getElementById('crudBez').value = item.bez;
+            document.getElementById('btnCancelEdit').style.display = 'inline-block';
+        }
+
+        function deleteArtikel(index) {
+            if (confirm(`Möchten Sie den Artikel "${sortimentData[index].bez}" wirklich aus der Datenbank löschen?`)) {
+                sortimentData.splice(index, 1);
+                localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(sortimentData));
+                initDropdown();
                 handlePresetSelection();
+            }
+        }
+
+        function clearCrudForm() {
+            document.getElementById('crudEditIndex').value = "-1";
+            document.getElementById('crudArtNr').value = "";
+            document.getElementById('crudSuffix').value = "";
+            document.getElementById('crudBez').value = "";
+            document.getElementById('btnCancelEdit').style.display = 'none';
+        }
+
+        function speichereArtikel() {
+            const artNr = document.getElementById('crudArtNr').value.trim();
+            const zusatzMitte = document.getElementById('crudSuffix').value.trim();
+            const bez = document.getElementById('crudBez').value.trim();
+            const editIndex = parseInt(document.getElementById('crudEditIndex').value);
+
+            if (!artNr || !bez) {
+                alert("Artikel-Nr. und Bezeichnung sind erforderlich!");
+                return;
+            }
+
+            const neuerArtikel = { artNr, bez, zusatzMitte };
+
+            if (editIndex > -1) {
+                sortimentData[editIndex] = neuerArtikel;
             } else {
+                sortimentData.push(neuerArtikel);
+            }
+
+            localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(sortimentData));
+            initDropdown();
+            clearCrudForm();
+            handlePresetSelection();
+        }
+
+        function exportiereSortimentAlsJson() {
+            if (!sortimentData || sortimentData.length === 0) {
+                alert("Es sind keine Sortimentsdaten zum Exportieren vorhanden.");
+                return;
+            }
+            try {
+                const jsonString = JSON.stringify(sortimentData, null, 2);
+                const blob = new Blob([jsonString], { type: "application/json;charset=utf-8;" });
+                const url = URL.createObjectURL(blob);
+                
+                const downloadLink = document.createElement("a");
+                downloadLink.href = url;
+                downloadLink.download = "sortiment.json";
+                
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                
+                document.body.removeChild(downloadLink);
+                URL.revokeObjectURL(url);
+            } catch (feh) {
+                console.error("Fehler beim Exportieren:", feh);
+                alert("Export fehlgeschlagen: " + feh.message);
+            }
+        }
+
+        // ============================================================
+        // PRESET & VORSCHAU LOGIK
+        // ============================================================
+        function handlePresetSelection() {
+            const select = document.getElementById('sortimentSelect');
+            if (!select || select.value === "") return;
+
+            const index = parseInt(select.value);
+            const item = sortimentData[index];
+
+            if (item) {
+                document.getElementById('inputArtNr').value = item.artNr;
+                document.getElementById('inputSuffix').value = item.zusatzMitte || "";
+                document.getElementById('inputBezeichnung').value = item.bez;
                 updatePreview();
             }
         }
 
-        function handlePresetSelection() {
-            if (aktuellerModus !== 'select') {
-                aktuellerModus = 'select';
-                document.getElementById('tabSelect').classList.add('active');
-                document.getElementById('tabInput').classList.remove('active');
-                document.getElementById('sectionSelect').classList.add('active');
-                document.getElementById('sectionInput').classList.remove('active');
+        function getAktuelleEingabe() {
+            return {
+                topText: document.getElementById('inputTop').value,
+                artNr: document.getElementById('inputArtNr').value.trim(),
+                suffix: document.getElementById('inputSuffix').value.trim(),
+                bezeichnung: document.getElementById('inputBezeichnung').value.trim(),
+                count: parseInt(document.getElementById('inputCount').value) || 0,
+                startPos: parseInt(document.getElementById('inputStartPos').value) || 1
+            };
+        }
+
+        function updatePreview() {
+            const daten = getAktuelleEingabe();
+
+            document.getElementById('sumBezeichnung').textContent = daten.bezeichnung || '-';
+            document.getElementById('sumArtNr').textContent = daten.artNr || '-';
+            document.getElementById('sumSuffix').textContent = daten.suffix || '-';
+            document.getElementById('sumDetails').textContent = `${daten.count}x ab Position ${daten.startPos}`;
+            document.getElementById('headerStationText').textContent = daten.topText;
+
+            renderSheetLayout('thumbnailSheet', daten);
+            renderSheetLayout('labelSheetModal', daten);
+            renderSheetLayout('labelSheetDirect', daten);
+            
+            if (document.getElementById('previewModal').style.display === 'flex') {
+                scalePreviewToFit();
+            }
+        }
+
+        function renderSheetLayout(targetId, daten) {
+            const sheet = document.getElementById(targetId);
+            if (!sheet) return;
+            sheet.innerHTML = '';
+
+            const maxEtiketten = 21;
+            const startIdx = daten.startPos - 1; 
+            const endIdx = startIdx + daten.count;
+
+            for (let i = 0; i < maxEtiketten; i++) {
+                const labelDiv = document.createElement('div');
+
+                if (i >= startIdx && i < endIdx) {
+                    labelDiv.className = 'label';
+                    labelDiv.innerHTML = `
+                        <div class="label-top">${daten.topText}</div>
+                        <div class="label-middle">
+                            <div class="label-artnr">${daten.artNr}</div>
+                            ${daten.suffix ? `<div class="label-suffix">${daten.suffix}</div>` : ''}
+                        </div>
+                        <div class="label-bottom-text">${daten.bezeichnung}</div>
+                    `;
+                    
+                    if (targetId === 'labelSheetModal') {
+                        labelDiv.addEventListener('click', () => {
+                            handleLabelClick(i + 1, 'remove');
+                        });
+                    }
+                } else {
+                    labelDiv.className = 'label empty';
+                    
+                    if (targetId === 'labelSheetModal') {
+                        labelDiv.addEventListener('click', () => {
+                            handleLabelClick(i + 1, 'add');
+                        });
+                    }
+                }
+                sheet.appendChild(labelDiv);
+            }
+        }
+
+        function handleLabelClick(clickedPos, action) {
+            const countInput = document.getElementById('inputCount');
+            const startPosInput = document.getElementById('inputStartPos');
+            
+            let currentCount = parseInt(countInput.value) || 0;
+            let currentStart = parseInt(startPosInput.value) || 1;
+            let currentEnd = currentStart + currentCount - 1;
+
+            if (action === 'add') {
+                if (currentCount === 0) {
+                    currentStart = clickedPos;
+                    currentCount = 1;
+                } else if (clickedPos < currentStart) {
+                    currentStart = clickedPos;
+                    currentCount = currentEnd - currentStart + 1;
+                } else if (clickedPos > currentEnd) {
+                    currentCount = clickedPos - currentStart + 1;
+                }
+            } else if (action === 'remove') {
+                if (clickedPos === currentStart) {
+                    currentStart++;
+                    currentCount--;
+                } else if (clickedPos === currentEnd) {
+                    currentCount--;
+                } else {
+                    currentCount = clickedPos - currentStart;
+                }
             }
 
-            const select = document.getElementById('sortimentSelect');
-            const index = select.value;
-            if (index !== "" && sortimentData[index]) {
-                const item = sortimentData[index];
-                document.getElementById('inputArtNr').value = item.artNr;
-                document.getElementById('inputSuffix').value = item.zusatzMitte;
-                document.getElementById('inputBezeichnung').value = item.bez;
-            }
+            currentCount = Math.max(0, Math.min(21, currentCount));
+            currentStart = Math.max(1, Math.min(21, currentStart));
+
+            countInput.value = currentCount;
+            startPosInput.value = currentStart;
+            
             updatePreview();
         }
 
-        // ============================================================
-        // MODALS & EVENT HANDLER
-        // ============================================================
-        function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
-        function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
-        function closeSettingsViaBackdrop(event) {
-            if (event.target.id === 'settingsModal') closeSettings();
+        function scalePreviewToFit() {
+            const container = document.querySelector('.modal-body-scroll');
+            const target = document.getElementById('modalPageContainer');
+            
+            if (!container || !target) return;
+
+            target.style.transform = 'none';
+
+            const targetWidth = target.offsetWidth;
+            const targetHeight = target.offsetHeight;
+
+            const availableWidth = container.clientWidth - 40; 
+            const availableHeight = container.clientHeight - 40;
+
+            const scaleX = availableWidth / targetWidth;
+            const scaleY = availableHeight / targetHeight;
+            const scale = Math.min(scaleX, scaleY, 1);
+
+            target.style.transformOrigin = 'center center';
+            target.style.transform = `scale(${scale})`;
         }
 
-        function openPreviewModal() { document.getElementById('previewModal').style.display = 'flex'; }
-        function closePreviewModal() { document.getElementById('previewModal').style.display = 'none'; }
-        function closePreviewModalViaBackdrop(event) {
-            if (event.target.id === 'previewModal') closePreviewModal();
+        // ============================================================
+        // MODALS MANAGEMENT
+        // ============================================================
+        function openSettings() {
+            document.getElementById('settingsModal').style.display = 'flex';
+            renderCrudList();
+        }
+        function closeSettings() {
+            document.getElementById('settingsModal').style.display = 'none';
+        }
+        function closeSettingsViaBackdrop(e) {
+            if (e.target.id === 'settingsModal') closeSettings();
+        }
+        function openPreviewModal() {
+            updatePreview();
+            document.getElementById('previewModal').style.display = 'flex';
+            setTimeout(scalePreviewToFit, 50);
+        }
+        function closePreviewModal() {
+            document.getElementById('previewModal').style.display = 'none';
+        }
+        function closePreviewModalViaBackdrop(e) {
+            if (e.target.id === 'previewModal') closePreviewModal();
         }
 
-        function triggerDirectPrint() { window.print(); }
+        window.addEventListener('resize', () => {
+            if (document.getElementById('previewModal').style.display === 'flex') {
+                scalePreviewToFit();
+            }
+        });
 
-        // Defaults verwalten
+        // ============================================================
+        // DEFAULTS MANAGEMENT
+        // ============================================================
         function saveDefaults() {
             const defaults = {
                 topText: document.getElementById('inputTop').value,
                 count: document.getElementById('inputCount').value,
                 startPos: document.getElementById('inputStartPos').value,
-                modus: aktuellerModus,
                 sortimentIndex: document.getElementById('sortimentSelect').value,
                 artNr: document.getElementById('inputArtNr').value,
                 suffix: document.getElementById('inputSuffix').value,
                 bezeichnung: document.getElementById('inputBezeichnung').value
             };
-            localStorage.setItem('lavu_studio_defaults_v8', JSON.stringify(defaults));
 
+            localStorage.setItem('lavu_studio_defaults_v8', JSON.stringify(defaults));
             const btn = document.getElementById('btnSaveDefaults');
             btn.innerHTML = '✓ Gespeichert!';
             btn.style.backgroundColor = '#27ae60';
+
             setTimeout(() => {
                 btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Standard sichern';
                 btn.style.backgroundColor = '#3498db';
@@ -1092,81 +1456,22 @@
                     if (defaults.artNr !== undefined) document.getElementById('inputArtNr').value = defaults.artNr;
                     if (defaults.suffix !== undefined) document.getElementById('inputSuffix').value = defaults.suffix;
                     if (defaults.bezeichnung !== undefined) document.getElementById('inputBezeichnung').value = defaults.bezeichnung;
-                    if (defaults.sortimentIndex !== undefined) document.getElementById('sortimentSelect').value = defaults.sortimentIndex;
-                    if (defaults.modus) {
-                        switchMode(defaults.modus);
-                    } else {
-                        updatePreview();
+                    if (defaults.sortimentIndex !== undefined) {
+                        setTimeout(() => {
+                            document.getElementById('sortimentSelect').value = defaults.sortimentIndex;
+                            handlePresetSelection();
+                        }, 100);
                     }
                 } catch (e) {
-                    console.error("Fehler beim Laden der Defaults", e);
-                    handlePresetSelection();
+                    console.warn("Fehler beim Verarbeiten lokaler Defaults.", e);
                 }
-            } else {
-                handlePresetSelection();
             }
         }
 
-        // RENDERING (3 x 7 Blöcke)
-        function updatePreview() {
-            const thumbnailSheet = document.getElementById('thumbnailSheet');
-            const labelSheetModal = document.getElementById('labelSheetModal');
-            const labelSheetDirect = document.getElementById('labelSheetDirect');
-
-            thumbnailSheet.innerHTML = '';
-            labelSheetModal.innerHTML = '';
-            labelSheetDirect.innerHTML = '';
-
-            const topText = document.getElementById('inputTop').value;
-            const artNr = document.getElementById('inputArtNr').value;
-            const suffix = document.getElementById('inputSuffix').value;
-            const bezeichnung = document.getElementById('inputBezeichnung').value;
-
-            document.getElementById('headerStationText').innerHTML = topText;
-            document.getElementById('sumBezeichnung').innerHTML = bezeichnung;
-            document.getElementById('sumArtNr').innerHTML = artNr;
-            document.getElementById('sumSuffix').innerHTML = suffix;
-
-            const count = Math.max(1, Math.min(21, parseInt(document.getElementById('inputCount').value) || 1));
-            const startPos = Math.max(1, Math.min(21, parseInt(document.getElementById('inputStartPos').value) || 1));
-
-            document.getElementById('sumMenge').innerHTML = `${count}x (ab Position ${startPos})`;
-
-            let HTMLContent = '';
-
-            for (let i = 1; i < startPos; i++) {
-                HTMLContent += `<div class="label empty"></div>`;
-            }
-
-            for (let i = 0; i < count; i++) {
-                if ((startPos - 1 + i) >= 21) break;
-                HTMLContent += `
-                    <div class="label">
-                        <div class="label-top">${topText}</div>
-                        <div class="label-middle">
-                            <span class="num">${artNr}</span>
-                            <span class="sep">·</span>
-                            <span class="suffix">${suffix}</span>
-                        </div>
-                        <div class="label-bottom" title="${bezeichnung}">${bezeichnung}</div>
-                    </div>
-                `;
-            }
-
-            let currentCells = startPos - 1 + count;
-            while (currentCells < 21) {
-                HTMLContent += `<div class="label empty"></div>`;
-                currentCells++;
-            }
-
-            thumbnailSheet.innerHTML = HTMLContent;
-            labelSheetModal.innerHTML = HTMLContent;
-            labelSheetDirect.innerHTML = HTMLContent;
-        }
-    </script>
-    <script>
+        // ============================================================
+        // SERVICE WORKER & PWA SYSTEM INSTALLER
+        // ============================================================
         let deferredPrompt;
-
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -1189,7 +1494,7 @@
                     deferredPrompt.prompt();
                     deferredPrompt.userChoice.then((choiceResult) => {
                         if (choiceResult.outcome === 'accepted') {
-                            console.log('User hat die Installation akzeptiert.');
+                            console.log('User hat die Installation von LAVU Etiketten-Druckstudio akzeptiert.');
                         }
                         const banner = document.getElementById('pwaBanner');
                         if (banner) banner.style.display = 'none';
@@ -1199,7 +1504,7 @@
             });
         }
         window.addEventListener('appinstalled', () => {
-            console.log('LAVU v8 App wurde erfolgreich installiert.');
+            console.log('LAVU Etiketten-Druckstudio wurde erfolgreich installiert.');
             const banner = document.getElementById('pwaBanner');
             if (banner) banner.style.display = 'none';
         });
