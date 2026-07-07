@@ -1,6 +1,7 @@
 # LAVU OÖ - Etiketten-Druckstudio v8 (HERMA 4473)
 ## Anwendungsdokumentation und Datenübersicht
 
+
 Dieses Dokument enthält eine strukturierte Markdown-Zusammenfassung der Web-Anwendung **LAVU OÖ - Etiketten-Druckstudio v8**. Die App dient zum Drucken von normierten Abfallentsorgungs-Etiketten basierend auf dem Vorlagenformat **HERMA 4473**.
 
 ---
