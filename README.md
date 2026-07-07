@@ -1,58 +1,28 @@
-# ASZ Asten - Material Management UI
+# LAVU OÖ - Etiketten-Druckstudio v8 🏷️🖨️
 
-Touch-optimized on-site terminal and live monitor for container management at the ASZ Asten recycling center. A minimalist, real-time web interface
-for the Asten recycling center. Based on HTML5 and local data synchronization. It allows on-site staff to quickly record container fill levels via tablet and instantly reflects the status on the dashboard on their office PC.
+Ein schlankes, datenschutzfreundliches und offline-fähiges Web-Tool (PWA) zur schnellen Generierung und zum passgenauen Druck von Abfall- und Materialetiketten auf **HERMA 4473 Bogen** (3 × 7 Etiketten pro A4-Seite, 70 × 41 mm). 
 
-## 🚀 Quick Start
+Optimiert für den Einsatz in Altstoffsammelzentren (ASZ) in Oberösterreich, bietet dieses Tool ein interaktives Layout-Management, bei dem benutzte oder freie Druckpositionen direkt per Klick zugewiesen werden können.
 
-Since the project is currently designed as a standalone, lightweight web app, no complex installation is necessary:
+## ✨ Features
 
-1. Download the file `index.html`.
+* **Perfekte Passform:** Exakt abgestimmt auf das Format **HERMA 4473** (70 × 41 mm).
+* **Interaktiver A4-Druckbogen:** Vorschau anklicken, um Etiketten flexibel hinzuzufügen oder zu entfernen (schont angefangene Etikettenbögen!).
+* **Zentrale Datenpflege:** Lädt das Artikelsortiment standardmäßig dynamisch als JSON direkt aus diesem GitHub-Repository.
+* **Offline-First (PWA):** Vollständig als Progressive Web App installierbar. Läuft dank Service Worker und `localStorage`-Caching auch bei Netzwerkunterbrechungen stabil.
+* **Flexibler Workspace:** Integrierte CRUD-Funktionen zum Bearbeiten, Hinzufügen und Löschen von Artikeln im lokalen Cache inklusive JSON-Export.
+* **Standort-Vorauswahl:** Schnelle Anpassung der Kopfzeile für oberösterreichische Bezirke und ASZ-Standorte (z.B. *106 - ASZ Asten*).
 
-2. Save the file to your office PC (e.g., in a shared network folder).
+---
 
-3. **Office View:** Open the file in your browser on your office PC and click on **"Switch View (Office PC)"** in the upper right corner.
+## 🛠️ Repository-Struktur
 
-4. **Container Terminal (Tablet):** Open the same file on the tablet (via the network path). Changes are synchronized thanks to local storage.
+Für die vollständige Funktionalität der PWA sollte das Repository mindestens folgende Dateien im Root-Verzeichnis enthalten:
 
-## 🛠️ Features
-
-- **Container Terminal:** Large, touch-friendly tiles for the most important waste categories (scrap wood, construction waste, bulky waste, etc.).
-
-- **Three-Stage Status:** Empty/Ready (Green), 75% Full (Yellow), Critical/Full (Red with flashing light).
-
-- **Office Dashboard:** Live monitoring of all container statuses, including a continuous activity log.
-
-- **Data Export:** Ability to export the daily log as a `.csv` file for Excel with one click.
-
-
-## 📈 Future Enhancements
-
-- Switching from `localStorage` to a local Node.js/Python server if synchronization needs to scale across multiple separate devices/networks.
-
-<hr>
-
-# ASZ Asten - Material Management UI
-
-Touch-optimiertes Platz-Terminal und Live-Monitor für die Containerverwaltung des ASZ Asten. Ein minimalistisches, echtzeitfähiges Web-Interface 
-für das Altstoffsammelzentrum Asten. Basiert auf HTML5 und lokalem Datensync. Es ermöglicht dem Personal auf dem Platz die schnelle Erfassung von 
-Container-Füllständen via Tablet und spiegelt den Status sofort auf das Dashboard im Büro-PC.
-
-## 🚀 Schnellstart
-
-Da das Projekt aktuell als eigenständige, leichtgewichtige Web-App konzipiert ist, ist keine komplexe Installation notwendig:
-
-1. Laden Sie die Datei `index.html` herunter.
-2. Speichern Sie die Datei auf dem Büro-PC (z.B. in einem freigegebenen Netzwerkordner).
-3. **Büro-Ansicht:** Öffnen Sie die Datei im Browser auf dem Büro-PC und klicken Sie oben rechts auf **"Ansicht wechseln (Büro PC)"**.
-4. **Platz-Terminal (Tablet):** Öffnen Sie dieselbe Datei auf dem Tablet (über den Netzwerkpfad). Änderungen werden dank lokalem Speicher synchronisiert.
-
-## 🛠️ Funktionen
-
-- **Platz-Terminal:** Große, berührungsfreundliche Kacheln für die wichtigsten Abfallkategorien (Altholz, Bauschutt, Sperrmüll, etc.).
-- **Drei-Stufen-Status:** Leer/Bereit (Grün), 75% Voll (Gelb), Kritisch/Voll (Rot mit Blinksignal).
-- **Büro-Dashboard:** Live-Überwachung aller Container-Zustände inklusive fortlaufendem Aktivitätsprotokoll.
-- **Datenexport:** Möglichkeit, das Tagesprotokoll mit einem Klick als `.csv`-Datei für Excel zu exportieren.
-
-## 📈 Zukünftige Erweiterungen
-- Umstellung von `localStorage` auf einen lokalen Node.js/Python-Server, falls die Synchronisation über mehrere separate Geräte/Netzwerke hinweg skaliert werden muss.
+```text
+├── index.html        # Die Hauptanwendung (UI, Logik & Druck-CSS)
+├── sortiment.json    # Die zentrale Artikeldatenbank (GitHub-Raw-Quelle)
+├── manifest.json     # PWA-Konfiguration für die App-Installation
+├── sw.js             # Service Worker für den Offline-Betrieb
+├── favicon.svg       # App-Icon im Vektorformat
+└── logo.png          # Sender-Logo für die App-Kopfzeile
