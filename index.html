@@ -39,16 +39,17 @@
         <pre id="readme-content">Lade Dokumentation...</pre>
     </div>
 
-    <script>
-        const targetFile = '/app/';
+<script>
+        // Zeige direkt auf die konkrete Startdatei in deinem Unterordner
+        const targetFile = '/app/index.html'; 
         const fallbackFile = 'README.md';
 
-        // Step 1: Check if the main application file exists
-        fetch(targetFile, { method: 'HEAD' })
+        // Wir nutzen GET, da HEAD auf Verzeichnisse/Dateien oft von Servern blockiert wird
+        fetch(targetFile, { method: 'GET' })
             .then(response => {
                 if (response.ok) {
-                    // Success: Redirect without breaking the browser history back-button
-                    window.location.replace(targetFile);
+                    // Weiterleitung zum Unterordner /app/
+                    window.location.replace('/app/');
                 } else {
                     loadFallback();
                 }
@@ -57,7 +58,6 @@
                 loadFallback();
             });
 
-        // Step 2: If app.html is missing, fetch and print the README.md
         function loadFallback() {
             document.getElementById('loader').classList.add('hidden');
             document.getElementById('readme-fallback').classList.remove('hidden');
