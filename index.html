@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<meta name="apple-mobile-web-app-title" content="LAVU-OOE" />
-<link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="LAVU-OOE" />
+    <link rel="manifest" href="site.webmanifest" />
     <title>Wird geladen...</title>
     <style>
         body {
@@ -34,22 +34,22 @@
 
     <div id="readme-fallback" class="container hidden">
         <h1>ℹ️ Dokumentation (Fallback)</h1>
-        <p>Die Hauptanwendung (<code>app.html</code>) konnte nicht geladen werden. Nachfolgend finden Sie die System-Dokumentation:</p>
+        <p>Die Hauptanwendung konnte nicht geladen werden. Nachfolgend finden Sie die System-Dokumentation:</p>
         <hr>
         <pre id="readme-content">Lade Dokumentation...</pre>
     </div>
 
-<script>
-        // Zeige direkt auf die konkrete Startdatei in deinem Unterordner
-        const targetFile = '/app/index.html'; 
+    <script>
+        // Nutze relative Pfade ohne den führenden Schrägstrich, 
+        // damit GitHub Pages das Verzeichnis korrekt auflöst.
+        const targetFile = 'app/index.html'; 
         const fallbackFile = 'README.md';
 
-        // Wir nutzen GET, da HEAD auf Verzeichnisse/Dateien oft von Servern blockiert wird
         fetch(targetFile, { method: 'GET' })
             .then(response => {
                 if (response.ok) {
-                    // Weiterleitung zum Unterordner /app/
-                    window.location.replace('/app/');
+                    // Weiterleitung in den relativen Unterordner 'app/'
+                    window.location.replace('app/');
                 } else {
                     loadFallback();
                 }
