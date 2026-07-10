@@ -898,7 +898,7 @@
                         Jetzt Drucken
                     </button>
                     <button class="bs" onclick="o2()">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/><circle cx="12" cy="12" r="3"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                         Sortiment verwalten
                     </button>
                 </div>
@@ -1338,34 +1338,24 @@
         });
 
         // --------------------------------------------------------------
-        // Erweiterte Logik zum Ausblenden des PWA-Banners bei Interaktion 
-        // mit Buttons, Dropdowns, Modals und Schließen-Symbolen.
+        // ERWEITERTE LOGIK: Das PWA-Banner wird bei jedem onclick-Ereignis 
+        // ausgeblendet, außer beim Klick auf den Installations-Button (#b3).
         // --------------------------------------------------------------
         document.addEventListener('click', (event) => {
             const target = event.target;
+            // Prüfen, ob der Klick auf dem Installations-Button oder einem seiner Kinder erfolgt
+            const isInstallButton = target.closest('#b3');
             
-            // Prüfen, ob das geklickte Element oder ein Vorfahre ein Button, 
-            // ein select-Element, ein Modal (Layer) oder ein .bx-Element ist.
-            const clickedButton = target.closest('button');
-            const clickedDropdown = target.closest('select');
-            const clickedModalLayer = target.closest('.mb');
-            const clickedCloseBtn = target.closest('.bx');
-
-            // Bedingung: Es wurde auf ein Element geklickt, das zur definierten Gruppe gehört,
-            // aber NICHT auf den Installations-Button (#b3).
-            if ((clickedButton && clickedButton.id !== 'b3') || 
-                clickedDropdown || 
-                clickedModalLayer || 
-                clickedCloseBtn) {
-                
+            // Wenn der Klick NICHT auf dem Installations-Button war und das Banner sichtbar ist,
+            // dann blende es sanft aus.
+            if (!isInstallButton) {
                 const banner = document.getElementById('pwaBanner');
                 if (banner && banner.style.display === 'flex') {
-                    // Sanftes Ausblenden mit Übergang
                     banner.style.opacity = '0';
                     setTimeout(() => {
                         banner.style.display = 'none';
-                        banner.style.opacity = ''; // Zurücksetzen für zukünftige Einblendungen
-                    }, 500); // Passt zur CSS-Transition-Dauer (0.5s)
+                        banner.style.opacity = '';
+                    }, 500);
                 }
             }
         });
