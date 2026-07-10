@@ -8,6 +8,7 @@
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#1a4b60" />
     <style>
+        /* --- Ihr bestehendes CSS (unverändert) --- */
         * {
             box-sizing: border-box;
         }
@@ -1336,25 +1337,35 @@
             if (a63) a63.style.display = 'none';
         });
 
-        // Global event listener to fade out pwaBanner when interacting with buttons, modals, close symbols, or dropdown selections
+        // --------------------------------------------------------------
+        // Erweiterte Logik zum Ausblenden des PWA-Banners bei Interaktion 
+        // mit Buttons, Dropdowns, Modals und Schließen-Symbolen.
+        // --------------------------------------------------------------
         document.addEventListener('click', (event) => {
             const target = event.target;
             
-            // Check if the user interacted with any designated interface elements
+            // Prüfen, ob das geklickte Element oder ein Vorfahre ein Button, 
+            // ein select-Element, ein Modal (Layer) oder ein .bx-Element ist.
             const clickedButton = target.closest('button');
             const clickedDropdown = target.closest('select');
             const clickedModalLayer = target.closest('.mb');
             const clickedCloseBtn = target.closest('.bx');
 
-            // Trigger fade out if an element was clicked, provided it wasn't the PWA installation button
-            if ((clickedButton && clickedButton.id !== 'b3') || clickedDropdown || clickedModalLayer || clickedCloseBtn) {
+            // Bedingung: Es wurde auf ein Element geklickt, das zur definierten Gruppe gehört,
+            // aber NICHT auf den Installations-Button (#b3).
+            if ((clickedButton && clickedButton.id !== 'b3') || 
+                clickedDropdown || 
+                clickedModalLayer || 
+                clickedCloseBtn) {
+                
                 const banner = document.getElementById('pwaBanner');
                 if (banner && banner.style.display === 'flex') {
+                    // Sanftes Ausblenden mit Übergang
                     banner.style.opacity = '0';
                     setTimeout(() => {
                         banner.style.display = 'none';
-                        banner.style.opacity = ''; // Reset opacity configuration for potential next dynamic call
-                    }, 500); // Synchronized with the 0.5s CSS opacity transition
+                        banner.style.opacity = ''; // Zurücksetzen für zukünftige Einblendungen
+                    }, 500); // Passt zur CSS-Transition-Dauer (0.5s)
                 }
             }
         });
