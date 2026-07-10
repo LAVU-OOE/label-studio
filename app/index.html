@@ -181,16 +181,17 @@
             right: 0;
             background: rgba(26, 75, 96, 0.9);
             color: white;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: bold;
             text-align: center;
-            padding: 8px 0;
+            padding: 8px 4px;
             transition: background 0.2s;
             backdrop-filter: blur(2px);
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
+            white-space: nowrap;
         }
 
         .tw:hover .to {
@@ -861,9 +862,9 @@
                     <div class="sc">
                         <div class="psh" id="t1"></div>
                     </div>
-                    <div class="to">
+                    <div class="to" id="fmt-overlay">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                        Auswählen & Drucken
+                        HERMA 4473 (21 Etiketten)
                     </div>
                 </div>
             </div>
@@ -1386,6 +1387,12 @@
             
             document.getElementById('s1').value = a29.topText;
             document.getElementById('i1').value = a29.topText;
+
+            // Update Format-Anzeige im Overlay (HERMA 4473)
+            document.getElementById('fmt-overlay').innerHTML = `
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                HERMA 4473 (21 Etiketten)
+            `;
 
             r2('t1', a29);
             r2('mdl', a29);
