@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LAVU OÖ - Etiketten-Druckstudio v8 (HERMA 4473)</title>
+    <link class="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#1a4b60" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 20px;
+            color: #2c3e50;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .crd {
+            background: #ffffff;
+            width: 100%;
+            max-width: 750px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(26, 75, 96, 0.08);
+            padding: 35px;
+            border: 1px solid #eef2f5;
+        }
+
+        .hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eef2f5;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .hdr-l {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lg {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #1a4b60;
+            box-shadow: 0 2px 8px rgba(26, 75, 96, 0.15);
+        }
+
+        .hdr-ttl {
+            color: #1a4b60;
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+
+        .hdr-sub {
+            font-size: 0.85rem;
+            color: #6cb4db;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-top: 3px;
+        }
+
+        .hdr-r {
+            color: #27ae60;
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #e8f8f5;
+            padding: 4px 12px;
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+            box-shadow: 0 2px 6px rgba(39, 174, 96, 0.04);
+            white-space: nowrap;
+        }
+
+        .sel-hdr {
+            background: transparent;
+            border: none;
+            color: #27ae60;
+            font-size: 1.1rem;
+            font-weight: bold;
+            font-family: inherit;
+            outline: none;
+            cursor: pointer;
+            padding: 4px 20px 4px 4px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2327ae60' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+            background-repeat: no-repeat;
+            background-position: right center;
+            width: auto;
+        }
+
+        .sel-hdr:focus {
+            box-shadow: none;
+            background-color: transparent;
+        }
+
+        .db {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 35px;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .ps {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px dashed #cbd5e1;
+            width: 100%;
+        }
+
+        .ps-ttl {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tw {
+            position: relative;
+            width: 168px;
+            height: 238px;
+            border: 1px solid #cbd5e1;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tw:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 24px rgba(26, 75, 96, 0.15);
+            border-color: #1a4b60;
+        }
+
+        .sc {
+            transform: scale(0.20);
+            transform-origin: top left;
+            width: 210mm;
+            height: 297mm;
+            pointer-events: none;
+        }
+
+        .to {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 75, 96, 0.9);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px 0;
+            transition: background 0.2s;
+            backdrop-filter: blur(2px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tw:hover .to {
+            background: rgba(39, 174, 96, 0.95);
+        }
+
+        #mdl .lb {
+            cursor: pointer !important;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
+        }
+        #mdl .lb:hover {
+            background-color: #e8f8f5 !important;
+            border-color: #27ae60 !important;
+        }
+        #mdl .lb.e:hover {
+            background-color: #f1f5f9 !important;
+            border-color: #1a4b60 !important;
+        }
+
+        .ip {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .fps {
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fps label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .fps select {
+            padding: 12px 14px;
+            border: 2px solid #6cb4db;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a4b60;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(108, 180, 219, 0.1);
+            transition: all 0.2s;
+            cursor: pointer;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .fps select:focus {
+            outline: none;
+            border-color: #1a4b60;
+            box-shadow: 0 0 0 3px rgba(26, 75, 96, 0.15);
+        }
+
+        .sb {
+            background: #f8fafc;
+            border-left: 4px solid #6cb4db;
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 25px;
+            border-top: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            width: 100%;
+        }
+
+        .si {
+            margin-bottom: 8px;
+            font-size: 1rem;
+            color: #334155;
+            word-break: break-word;
+        }
+        .si:last-child {
+            margin-bottom: 0;
+        }
+        .sl {
+            font-weight: 600;
+            color: #1a4b60;
+            width: 110px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .ab {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+        }
+
+        button {
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .bp {
+            background-color: #27ae60;
+            color: white;
+            flex: 2;
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.2);
+        }
+
+        .bp:hover {
+            background-color: #219653;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(39, 174, 96, 0.25);
+        }
+
+        .bs {
+            background-color: #1a4b60;
+            color: white;
+            flex: 1;
+            box-shadow: 0 4px 12px rgba(26, 75, 96, 0.15);
+        }
+
+        .bs:hover {
+            background-color: #113342;
+            transform: translateY(-1px);
+        }
+
+        .bc {
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .ftr {
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            text-align: center;
+            font-weight: 500;
+            width: 100%;
+            max-width: 750px;
+        }
+
+        .ftr span {
+            color: #e74c3c;
+        }
+
+        .mb {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 34, 43, 0.55);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fdin 0.2s ease;
+            padding: 10px;
+        }
+
+        .mc {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 580px;
+            box-shadow: 0 20px 40px rgba(15, 34, 43, 0.2);
+            position: relative;
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+
+        .mpc {
+            width: 100vw;
+            height: 100vh;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            border-radius: 0 !important;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 30px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .mbs {
+            overflow: hidden;
+            flex: 1;
+            padding: 25px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .mh {
+            font-size: 1.35rem;
+            font-weight: bold;
+            color: #1a4b60;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bx {
+            background: transparent;
+            font-size: 1.8rem;
+            color: #94a3b8;
+            padding: 0;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .bx:hover {
+            color: #ef4444;
+        }
+
+        .ms {
+            display: flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .mt {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .mt.a {
+            background: #1a4b60;
+            color: white;
+            box-shadow: 0 2px 6px rgba(26, 75, 96, 0.15);
+        }
+
+        .fs {
+            display: none;
+            animation: fdin 0.25s ease;
+        }
+
+        .fs.a {
+            display: block;
+        }
+
+        @keyframes fdin {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fg {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .fv {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fv.fw {
+            grid-column: span 2;
+        }
+
+        label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        input,
+        select {
+            padding: 11px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: #334155;
+            background-color: #f8fafc;
+            transition: all 0.2s;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #6cb4db;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(108, 180, 219, 0.15);
+        }
+
+        .mf {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 20px;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .bsd {
+            background-color: #3498db;
+            color: white;
+        }
+        .bsd:hover {
+            background-color: #2980b9;
+        }
+
+        .bcn {
+            background-color: #f1f5f9;
+            color: #475569;
+        }
+        .bcn:hover {
+            background-color: #e2e8f0;
+        }
+
+        .cir {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 10px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+        }
+        .cir:last-child {
+            border-bottom: none;
+        }
+        .cii {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            .crd {
+                padding: 20px;
+            }
+            .db {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .ps {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .hdr {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .hdr-r {
+                width: 100%;
+                justify-content: center;
+            }
+            .ab {
+                flex-direction: column;
+            }
+            .fg {
+                grid-template-columns: 1fr;
+            }
+            .fv.fw {
+                grid-column: span 1;
+            }
+            .mc {
+                padding: 20px;
+            }
+            .mf button {
+                width: 100%;
+            }
+        }
+
+        .mpc {
+            max-width: 90vw;
+            width: 600px;
+            max-height: 95vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 30px;
+        }
+
+        .mbs {
+            flex: 1;
+            padding: 25px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow: hidden;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+            container-type: inline-size;
+        }
+
+        .pc {
+            background: #ffffff;
+            width: 210mm;
+            height: 297mm;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
+
+        .psh {
+            width: 210mm;
+            height: 297mm;
+            box-sizing: border-box;
+            padding: 5mm 0mm 5mm 0mm;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(7, 1fr);
+            gap: 0;
+            background: white;
+        }
+
+        @container (min-width: 794px) {
+            .pc {
+                transform: scale(1);
+            }
+        }
+
+        .lb {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 3.5mm 4mm 3.5mm 4mm;
+            border: 1px dashed #cbd5e1;
+            position: relative;
+            background: white;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .lbt {
+            font-size: 7pt;
+            font-weight: bold;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-bottom: 0.8px solid #cbd5e1;
+            padding-bottom: 1.5mm;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lbm {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2mm;
+            flex: 1;
+            padding: 1.5mm 0;
+            overflow: hidden;
+        }
+
+        .lba {
+            font-size: 24pt;
+            font-weight: 900;
+            color: #000000;
+            font-family: 'Arial Black', Impact, sans-serif;
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+
+        .lbs {
+            font-size: 11pt;
+            font-weight: bold;
+            color: #4a5568;
+            border: 1.5px solid #000;
+            padding: 0.6mm 1.8mm;
+            border-radius: 3px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            transform: rotate(-2deg);
+            box-shadow: 1px 1px 0px #000;
+            background: #fff;
+            max-width: 60%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lbb {
+            font-size: 10pt;
+            font-weight: 800;
+            color: #000000;
+            line-height: 1.2;
+            word-break: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.4em;
+            text-transform: uppercase;
+        }
+
+        .lb.e {
+            border: 1px dashed #e2e8f0;
+            background: #fafafa;
+        }
+        .lb.e * {
+            display: none !important;
+        }
+
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 0 !important;
+            }
+            html, body {
+                background: white;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .crd, .mb, #pwaBanner, .ftr {
+                display: none !important;
+            }
+            #hpc {
+                display: block !important;
+            }
+            .pc {
+                box-shadow: none !important;
+                margin: 0 !important;
+                page-break-after: avoid;
+                page-break-before: avoid;
+                transform: none !important;
+            }
+            .lb {
+                border: 1px solid transparent !important;
+            }
+        }
+
+        #hpc {
+            display: none;
+        }
+
+        .pwb {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: #1a4b60;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 9999;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+            animation: fdin 0.4s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="crd">
+        <div class="hdr">
+            <div class="hdr-l">
+                <img src="logo.png" alt="LAVU Logo" class="lg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%231a4b60\' stroke-width=\'2\'><circle cx=\'12\' cy=\'12\' r=\'10\'/><path d=\'M8 14s1.5 2 4 2 4-2 4-2\'/><line x1=\'9\' y1=\'9\' x2=\'9.01\' y2=\'9\'/><line x1=\'15\' y1=\'9\' x2=\'15.01\' y2=\'9\'/></svg>'">
+                <div>
+                    <div class="hdr-ttl">LAVU OÖ</div>
+                    <div class="hdr-sub">Etiketten-Studio v8</div>
+                </div>
+            </div>
+            <div class="hdr-r">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <select id="s1" class="sel-hdr" onchange="x1(this.value)">
+                    <optgroup label="Linz-Land & Linz Stadt">
+                        <option value="106 - ASZ Asten" selected>106 - ASZ Asten</option>
+                        <option value="ASZ Ansfelden">ASZ Ansfelden</option>
+                        <option value="ASZ Enns">ASZ Enns</option>
+                        <option value="ASZ Hörsching">ASZ Hörsching</option>
+                        <option value="ASZ Leonding">ASZ Leonding</option>
+                        <option value="ASZ Neuhofen">ASZ Neuhofen</option>
+                        <option value="ASZ Pasching">ASZ Pasching</option>
+                        <option value="ASZ St. Florian">ASZ St. Florian</option>
+                        <option value="ASZ Traun">ASZ Traun</option>
+                        <option value="ASZ Wilhering">ASZ Wilhering</option>
+                        <option value="ASZ Linz-Nebingerstraße">ASZ Linz-Nebingerstraße</option>
+                        <option value="ASZ Linz-Mostnnystraße">ASZ Linz-Mostnnystraße</option>
+                        <option value="ASZ Linz-Wiener Straße">ASZ Linz-Wiener Straße</option>
+                        <option value="ASZ Linz-Dornach">ASZ Linz-Dornach</option>
+                    </optgroup>
+                    <optgroup label="Wels & Wels-Land">
+                        <option value="ASZ Wels-Nord">ASZ Wels-Nord</option>
+                        <option value="ASZ Wels-Kenten">ASZ Wels-Kenten</option>
+                        <option value="ASZ Marchtrenk">ASZ Marchtrenk</option>
+                        <option value="ASZ Gunskirchen">ASZ Gunskirchen</option>
+                        <option value="ASZ Thalheim">ASZ Thalheim</option>
+                    </optgroup>
+                    <optgroup label="Steyr & Steyr-Land">
+                        <option value="ASZ Steyr">ASZ Steyr</option>
+                        <option value="ASZ Bad Hall">ASZ Bad Hall</option>
+                        <option value="ASZ Garsten">ASZ Garsten</option>
+                        <option value="ASZ Sierning">ASZ Sierning</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+
+        <div class="db">
+            <div class="ps">
+                <div class="ps-ttl">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Vorschau
+                </div>
+                <div class="tw" onclick="o1()" title="Klicken für vollständige A4-Großansicht">
+                    <div class="sc">
+                        <div class="psh" id="t1"></div>
+                    </div>
+                    <div class="to">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        Auswählen & Drucken
+                    </div>
+                </div>
+            </div>
+
+            <div class="ip">
+                <div class="fps">
+                    <label for="s2">Abfallart aus Sortiment wählen:</label>
+                    <select id="s2" onchange="p1()"></select>
+                </div>
+
+                <div class="info-title">Aktuelle Konfiguration</div>
+                <div class="sb">
+                    <div class="si"><span class="sl">Abfallart:</span> <span id="d1">-</span></div>
+                    <div class="si"><span class="sl">Artikel-Nr:</span> <span id="d2">-</span></div>
+                    <div class="si"><span class="sl">Lademittel:</span> <span id="d3">-</span></div>
+                    <div class="si"><span class="sl">Menge / Pos:</span> <span id="d4">-</span></div>
+                </div>
+
+                <div class="ab">
+                    <button class="bp" onclick="window.print()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                        Jetzt Drucken
+                    </button>
+                    <button class="bs" onclick="o2()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        Optionen
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ftr" style="display: flex; justify-content: center; align-items: center; gap: 6px; flex-wrap: wrap;">
+        Built with <span style="color: #e74c3c;">&hearts;</span> by Karli
+        <span style="color: #cbd5e1;">|</span>
+        <a href="https://github.com/7pub" target="_blank" style="display: inline-flex; align-items: center; gap: 5px; color: inherit; text-decoration: none; transition: color 0.2s;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+        </a>
+    </div>
+
+    <div id="m1" class="mb" onclick="c1(event)">
+        <div class="mc">
+            <div class="mh">
+                <span>Druck- & Standorteinstellungen</span>
+                <button class="bx" onclick="c2()">&times;</button>
+            </div>
+
+            <div class="fv" style="margin-bottom: 20px;">
+                <label for="i1">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Standort (ASZ Niederlassung OÖ):
+                </label>
+                <select id="i1" onchange="x2(this.value)" style="width: 100%;">
+                    <optgroup label="Linz-Land & Linz Stadt">
+                        <option value="106 - ASZ Asten" selected>106 - ASZ Asten</option>
+                        <option value="ASZ Ansfelden">ASZ Ansfelden</option>
+                        <option value="ASZ Enns">ASZ Enns</option>
+                        <option value="ASZ Hörsching">ASZ Hörsching</option>
+                        <option value="ASZ Leonding">ASZ Leonding</option>
+                        <option value="ASZ Neuhofen">ASZ Neuhofen</option>
+                        <option value="ASZ Pasching">ASZ Pasching</option>
+                        <option value="ASZ St. Florian">ASZ St. Florian</option>
+                        <option value="ASZ Traun">ASZ Traun</option>
+                        <option value="ASZ Wilhering">ASZ Wilhering</option>
+                        <option value="ASZ Linz-Nebingerstraße">ASZ Linz-Nebingerstraße</option>
+                        <option value="ASZ Linz-Mostnnystraße">ASZ Linz-Mostnnystraße</option>
+                        <option value="ASZ Linz-Wiener Straße">ASZ Linz-Wiener Straße</option>
+                        <option value="ASZ Linz-Dornach">ASZ Linz-Dornach</option>
+                    </optgroup>
+                    <optgroup label="Wels & Wels-Land">
+                        <option value="ASZ Wels-Nord">ASZ Wels-Nord</option>
+                        <option value="ASZ Wels-Kenten">ASZ Wels-Kenten</option>
+                        <option value="ASZ Marchtrenk">ASZ Marchtrenk</option>
+                        <option value="ASZ Gunskirchen">ASZ Gunskirchen</option>
+                        <option value="ASZ Thalheim">ASZ Thalheim</option>
+                    </optgroup>
+                    <optgroup label="Steyr & Steyr-Land">
+                        <option value="ASZ Steyr">ASZ Steyr</option>
+                        <option value="ASZ Bad Hall">ASZ Bad Hall</option>
+                        <option value="ASZ Garsten">ASZ Garsten</option>
+                        <option value="ASZ Sierning">ASZ Sierning</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="fg" style="margin-bottom: 20px;">
+                <div class="fv">
+                    <label for="i2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        Anzahl Etiketten (max. 21):
+                    </label>
+                    <input type="number" id="i2" value="21" min="1" max="21" oninput="u1()" />
+                </div>
+                <div class="fv">
+                    <label for="i3">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        Start-Position (1-21):
+                    </label>
+                    <input type="number" id="i3" value="1" min="1" max="21" oninput="u1()" />
+                </div>
+            </div>
+
+            <div class="ms">
+                <div id="t2" class="mt a" onclick="m2('select')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    Sortiment wählen
+                </div>
+                <div id="t3" class="mt" onclick="m2('input')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                    Datenbank verwalten
+                </div>
+            </div>
+
+            <div id="s3" class="fs a">
+                <div class="fv" style="margin-bottom: 15px;">
+                    <label for="i4">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                        Zentrale Sortiment-URL (GitHub Raw JSON):
+                    </label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="url" id="i4" value="https://raw.githubusercontent.com/LAVU-OOE/Etiketten-Druckstudio/refs/heads/main/sortiment.json" placeholder="https://raw.githubusercontent.com/.../sortiment.json" style="flex: 1;" />
+                        <button class="bc" style="background: #27ae60; color: white; padding: 0 16px;" onclick="f1()">Laden</button>
+                    </div>
+                </div>
+                <div id="n1" style="font-size: 0.8rem; color: #7f8c8d; text-align: center; font-style: italic; margin-bottom: 15px;">
+                    Status: Rein lokaler Modus (localStorage)
+                </div>
+
+                <div style="border-top: 1px solid #f1f5f9; padding-top: 15px; margin-top: 15px;">
+                    <div class="info-title" style="margin-bottom: 10px;">Manuelle Eingabe (Überschreiben)</div>
+                    <div class="fg" style="margin-bottom: 10px;">
+                        <div class="fv">
+                            <label for="i5">Artikel-Nr.:</label>
+                            <input type="text" id="i5" oninput="u1()" placeholder="z.B. 4040" />
+                        </div>
+                        <div class="fv">
+                            <label for="i6">Lademittel:</label>
+                            <input type="text" id="i6" oninput="u1()" placeholder="z.B. QR-Box" />
+                        </div>
+                    </div>
+                    <div class="fv">
+                        <label for="i7">Abfallbezeichnung:</label>
+                        <input type="text" id="i7" oninput="u1()" placeholder="z.B. Elektro-Kleingeräte" />
+                    </div>
+                </div>
+            </div>
+
+            <div id="s4" class="fs">
+                <input type="hidden" id="e1" value="-1" />
+                <div class="fg" style="margin-bottom: 12px;">
+                    <div class="fv">
+                        <label for="c1">Artikel-Nr.:</label>
+                        <input type="text" id="c1" placeholder="z.B. 4040" />
+                    </div>
+                    <div class="fv">
+                        <label for="c2">Lademittel:</label>
+                        <input type="text" id="c2" placeholder="z.B. QR-Box" />
+                    </div>
+                </div>
+                <div class="fv" style="margin-bottom: 12px;">
+                    <label for="c3">Abfallbezeichnung:</label>
+                    <input type="text" id="c3" placeholder="z.B. Elektro-Kleingeräte" />
+                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <button class="bc" style="background: #27ae60; color: white; flex: 1;" onclick="s5()">💾 Artikel speichern</button>
+                    <button id="b1" class="bc" style="background: #7f8c8d; color: white; display: none;" onclick="c3()">Abbrechen</button>
+                </div>
+
+                <div style="margin-top: 15px; margin-bottom: 15px; padding-top: 12px; border-top: 1px dashed #cbd5e1;">
+                    <button class="bc" style="background: #34495e; color: white; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;" onclick="e2()">
+                        📥 Aktuelle Datenbank als JSON herunterladen
+                    </button>
+                </div>
+
+                <label>Aktuelle Einträge im lokalen Workspace:</label>
+                <div id="c4" style="max-height: 180px; overflow-y: auto; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc; padding: 5px;">
+                </div>
+            </div>
+
+            <div class="mf">
+                <button id="b2" class="bsd" onclick="s6()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                    Standard sichern
+                </button>
+                <button class="bcn" onclick="c2()">Fertig</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="m2" class="mb" onclick="c4(event)">
+        <div class="mc mpc">
+            <div class="mh">
+                <span>Interaktiver A4-Druckbogen<br/>(HERMA 4473, 21 Etiketten)</span>
+                <button class="bx" onclick="c5()">&times;</button>
+            </div>
+            <div class="mbs">
+                <div class="pc" id="p1">
+                    <div class="psh" id="mdl"></div>
+                </div>
+            </div>
+            <div class="mf">
+                <button class="bp" onclick="window.print()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                    Jetzt Drucken
+                </button>
+                <button class="bcn" onclick="c5()">Schließen</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="hpc">
+        <div class="pc">
+            <div class="psh" id="d5"></div>
+        </div>
+    </div>
+
+    <div id="pwaBanner" class="pwb">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.5rem;">📱</span>
+            <div>
+                <b style="display: block;">LAVU Studio v8 installieren</b>
+                <span style="font-size: 0.8rem; opacity: 0.9;">Für eine schnellere Nutzung direkt in deiner App Übersicht.</span>
+            </div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+            <button id="b3" style="background: white; color: #1a4b60; padding: 8px 14px; font-size: 0.85rem; border-radius: 6px;">Installieren</button>
+            <button onclick="document.getElementById('pwaBanner').style.display='none'" style="background: transparent; color: white; padding: 4px; font-size: 1.2rem;">&times;</button>
+        </div>
+    </div>
+
+    <script>
+        let a1 = [
+            { artNr: "4040", bez: "Elektro-Kleingeräte (ohne Akku)", zusatzMitte: "QR-Box" },
+            { artNr: "4010", bez: "Elektro-Großgeräte", zusatzMitte: "Gitterbox" },
+            { artNr: "4020", bez: "Kühlgeräte", zusatzMitte: "Kühlgeräte" },
+            { artNr: "4030", bez: "Bildschirmgeräte / TV", zusatzMitte: "TV-Box" },
+            { artNr: "1550", bez: "Bauschutt (Kleinmengen)", zusatzMitte: "Mulde" },
+            { artNr: "1610", bez: "Altholz (Stofflich)", zusatzMitte: "Holzbox" },
+            { artNr: "1620", bez: "Altholz (Thermisch)", zusatzMitte: "Holzbox" },
+            { artNr: "1210", bez: "Altmetall / Schrott", zusatzMitte: "Schrottbox" },
+            { artNr: "1720", bez: "Verpackungshohlglas", zusatzMitte: "Glas-Hub" },
+            { artNr: "1730", bez: "Flachglas", zusatzMitte: "Gestell" },
+            { artNr: "1410", bez: "Altpapier (Kartonagen)", zusatzMitte: "Presse" },
+            { artNr: "5110", bez: "Problemstoffe (Haushalt)", zusatzMitte: "Problo-Box" },
+            { artNr: "1820", bez: "Altreifen (mit Felgen)", zusatzMitte: "Reifenlager" },
+            { artNr: "1810", bez: "Altreifen (ohne Felgen)", zusatzMitte: "Reifenlager" },
+            { artNr: "4050", bez: "Gasentladungslampen", zusatzMitte: "Lampen-Box" }
+        ];
+
+        let a2 = [];
+        let a3 = 'select';
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            s7();
+            
+            let a4 = localStorage.getItem('lavu_sortiment_url');
+            if (!a4) {
+                a4 = "https://raw.githubusercontent.com/LAVU-OOE/Etiketten-Druckstudio/refs/heads/main/sortiment.json";
+                localStorage.setItem('lavu_sortiment_url', a4);
+            }
+            
+            document.getElementById('i4').value = a4;
+            document.getElementById('n1').innerHTML = `⏳ Verbinde...`;
+            document.getElementById('n1').style.color = '#f39c12';
+            
+            await f2();
+            u1();
+        });
+
+        async function f2() {
+            const a4 = localStorage.getItem('lavu_sortiment_url');
+            if (a4) {
+                try {
+                    const a5 = await fetch(a4, { cache: "no-store" });
+                    if (!a5.ok) throw new Error("Netzwerkantwort war fehlerhaft");
+                    const a6 = await a5.json();
+                    if (Array.isArray(a6) && a6.length > 0) {
+                        a2 = a6;
+                        localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(a2));
+                        document.getElementById('n1').innerHTML = `🟢 Verbunden mit GitHub-Repository`;
+                        document.getElementById('n1').style.color = '#27ae60';
+                        i1();
+                        return;
+                    }
+                } catch (e) {
+                    console.warn("Fehler beim Laden von GitHub URL, weiche auf cache / localStorage aus.", e);
+                    document.getElementById('n1').innerHTML = `⚠️ GitHub Offline! Lokaler Cache geladen.`;
+                    document.getElementById('n1').style.color = '#e74c3c';
+                }
+            }
+
+            const a7 = localStorage.getItem('lavu_studio_sortiment_v8');
+            if (a7) {
+                try {
+                    a2 = JSON.parse(a7);
+                } catch(e) {
+                    a2 = [...a1];
+                }
+            } else {
+                a2 = [...a1];
+            }
+            i1();
+        }
+
+        async function f1() {
+            const a8 = document.getElementById('i4').value.trim();
+            if (!a8) {
+                localStorage.removeItem('lavu_sortiment_url');
+                document.getElementById('n1').innerHTML = `Status: Rein lokaler Modus (localStorage)`;
+                document.getElementById('n1').style.color = '#7f8c8d';
+                a2 = [...a1];
+                localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(a2));
+                i1();
+                p1();
+                alert("Verlinkung entfernt. Standard-Sortiment geladen.");
+                return;
+            }
+
+            let a9 = a8;
+            if (a9.includes("github.com") && !a9.includes("raw.githubusercontent.com")) {
+                a9 = a9.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/");
+                document.getElementById('i4').value = a9;
+            }
+
+            localStorage.setItem('lavu_sortiment_url', a9);
+            document.getElementById('n1').innerHTML = `⏳ Verbinde...`;
+            document.getElementById('n1').style.color = '#f39c12';
+            await f2();
+        }
+
+        setInterval(() => {
+            const a4 = localStorage.getItem('lavu_sortiment_url');
+            if (a4 && a3 === 'select') {
+                f2();
+            }
+        }, 30000);
+
+        function i1() {
+            const a10 = document.getElementById('s2');
+            const a11 = a10.value;
+            a10.innerHTML = '';
+
+            a2.forEach((a12, a13) => {
+                const a14 = document.createElement('option');
+                a14.value = a13;
+                a14.textContent = `${a12.artNr} - ${a12.bez}`;
+                a10.appendChild(a14);
+            });
+
+            if (a11 !== "" && a11 < a2.length) {
+                a10.value = a11;
+            } else {
+                a10.value = "0";
+            }
+            
+            r1();
+        }
+
+        function x1(a15) {
+            document.getElementById('i1').value = a15;
+            u1();
+        }
+
+        function x2(a15) {
+            document.getElementById('s1').value = a15;
+            u1();
+        }
+
+        function m2(a16) {
+            a3 = a16;
+            document.getElementById('t2').classList.toggle('a', a16 === 'select');
+            document.getElementById('t3').classList.toggle('a', a16 === 'input');
+            document.getElementById('s3').classList.toggle('a', a16 === 'select');
+            document.getElementById('s4').classList.toggle('a', a16 === 'input');
+        }
+
+        function r1() {
+            const a17 = document.getElementById('c4');
+            if (!a17) return;
+            a17.innerHTML = '';
+
+            a2.forEach((a12, a13) => {
+                const a18 = document.createElement('div');
+                a18.className = 'cir';
+                a18.innerHTML = `
+                    <div class="cii">
+                        <b>${a12.artNr}</b> - ${a12.bez} <span style="color:#7f8c8d; font-size:0.75rem;">(${a12.zusatzMitte || '-'})</span>
+                    </div>
+                    <div style="display: flex; gap: 4px;">
+                        <button class="bc" style="padding: 3px 6px; background: #3498db; color: white; font-size: 0.75rem;" onclick="e3(${a13})" title="Bearbeiten">✏️</button>
+                        <button class="bc" style="padding: 3px 6px; background: #e74c3c; color: white; font-size: 0.75rem;" onclick="d1(${a13})" title="Löschen">🗑️</button>
+                    </div>
+                `;
+                a17.appendChild(a18);
+            });
+        }
+
+        function e3(a13) {
+            const a12 = a2[a13];
+            document.getElementById('e1').value = a13;
+            document.getElementById('c1').value = a12.artNr;
+            document.getElementById('c2').value = a12.zusatzMitte || "";
+            document.getElementById('c3').value = a12.bez;
+            document.getElementById('b1').style.display = 'inline-block';
+        }
+
+        function d1(a13) {
+            if (confirm(`Möchten Sie den Artikel "${a2[a13].bez}" wirklich aus der Datenbank löschen?`)) {
+                a2.splice(a13, 1);
+                localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(a2));
+                i1();
+                p1();
+            }
+        }
+
+        function c3() {
+            document.getElementById('e1').value = "-1";
+            document.getElementById('c1').value = "";
+            document.getElementById('c2').value = "";
+            document.getElementById('c3').value = "";
+            document.getElementById('b1').style.display = 'none';
+        }
+
+        function s5() {
+            const a19 = document.getElementById('c1').value.trim();
+            const a20 = document.getElementById('c2').value.trim();
+            const a21 = document.getElementById('c3').value.trim();
+            const a22 = parseInt(document.getElementById('e1').value);
+
+            if (!a19 || !a21) {
+                alert("Artikel-Nr. und Bezeichnung sind erforderlich!");
+                return;
+            }
+
+            const a23 = { artNr: a19, bez: a21, zusatzMitte: a20 };
+
+            if (a22 > -1) {
+                a2[a22] = a23;
+            } else {
+                a2.push(a23);
+            }
+
+            localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(a2));
+            i1();
+            c3();
+            p1();
+        }
+
+        function e2() {
+            if (!a2 || a2.length === 0) {
+                alert("Es sind keine Sortimentsdaten zum Exportieren vorhanden.");
+                return;
+            }
+            try {
+                const a24 = JSON.stringify(a2, null, 2);
+                const a25 = new Blob([a24], { type: "application/json;charset=utf-8;" });
+                const a26 = URL.createObjectURL(a25);
+                
+                const a27 = document.createElement("a");
+                a27.href = a26;
+                a27.download = "sortiment.json";
+                
+                document.body.appendChild(a27);
+                a27.click();
+                
+                document.body.removeChild(a27);
+                URL.revokeObjectURL(a26);
+            } catch (a28) {
+                console.error("Fehler beim Exportieren:", a28);
+                alert("Export fehlgeschlagen: " + a28.message);
+            }
+        }
+
+        function p1() {
+            const a10 = document.getElementById('s2');
+            if (!a10 || a10.value === "") return;
+
+            const a13 = parseInt(a10.value);
+            const a12 = a2[a13];
+
+            if (a12) {
+                document.getElementById('i5').value = a12.artNr;
+                document.getElementById('i6').value = a12.zusatzMitte || "";
+                document.getElementById('i7').value = a12.bez;
+                u1();
+            }
+        }
+
+        function g1() {
+            return {
+                topText: document.getElementById('i1').value,
+                artNr: document.getElementById('i5').value.trim(),
+                suffix: document.getElementById('i6').value.trim(),
+                bezeichnung: document.getElementById('i7').value.trim(),
+                count: parseInt(document.getElementById('i2').value) || 0,
+                startPos: parseInt(document.getElementById('i3').value) || 1
+            };
+        }
+
+        function u1() {
+            const a29 = g1();
+
+            document.getElementById('d1').textContent = a29.bezeichnung || '-';
+            document.getElementById('d2').textContent = a29.artNr || '-';
+            document.getElementById('d3').textContent = a29.suffix || '-';
+            document.getElementById('d4').textContent = `${a29.count}x ab Position ${a29.startPos}`;
+            
+            document.getElementById('s1').value = a29.topText;
+            document.getElementById('i1').value = a29.topText;
+
+            r2('t1', a29);
+            r2('mdl', a29);
+            r2('d5', a29);
+            
+            if (document.getElementById('m2').style.display === 'flex') {
+                s8();
+            }
+        }
+
+        function r2(a30, a29) {
+            const a31 = document.getElementById(a30);
+            if (!a31) return;
+            a31.innerHTML = '';
+
+            const a32 = 21;
+            const a33 = a29.startPos - 1;
+            const a34 = a33 + a29.count;
+
+            for (let a35 = 0; a35 < a32; a35++) {
+                const a36 = document.createElement('div');
+
+                if (a35 >= a33 && a35 < a34) {
+                    a36.className = 'lb';
+                    a36.innerHTML = `
+                        <div class="lbt">${a29.topText}</div>
+                        <div class="lbm">
+                            <div class="lba">${a29.artNr}</div>
+                            ${a29.suffix ? `<div class="lbs">${a29.suffix}</div>` : ''}
+                        </div>
+                        <div class="lbb">${a29.bezeichnung}</div>
+                    `;
+                    
+                    if (a30 === 'mdl') {
+                        a36.addEventListener('click', () => {
+                            h1(a35 + 1, 'remove');
+                        });
+                    }
+                } else {
+                    a36.className = 'lb e';
+                    
+                    if (a30 === 'mdl') {
+                        a36.addEventListener('click', () => {
+                            h1(a35 + 1, 'add');
+                        });
+                    }
+                }
+                a31.appendChild(a36);
+            }
+        }
+
+        function h1(a37, a38) {
+            const a39 = document.getElementById('i2');
+            const a40 = document.getElementById('i3');
+            
+            let a41 = parseInt(a39.value) || 0;
+            let a42 = parseInt(a40.value) || 1;
+            let a43 = a42 + a41 - 1;
+
+            if (a38 === 'add') {
+                if (a41 === 0) {
+                    a42 = a37;
+                    a41 = 1;
+                } else if (a37 < a42) {
+                    a42 = a37;
+                    a41 = a43 - a42 + 1;
+                } else if (a37 > a43) {
+                    a41 = a37 - a42 + 1;
+                }
+            } else if (a38 === 'remove') {
+                if (a37 === a42) {
+                    a42++;
+                    a41--;
+                } else if (a37 === a43) {
+                    a41--;
+                } else {
+                    a41 = a37 - a42;
+                }
+            }
+
+            a41 = Math.max(0, Math.min(21, a41));
+            a42 = Math.max(1, Math.min(21, a42));
+
+            a39.value = a41;
+            a40.value = a42;
+            
+            u1();
+        }
+
+        function s8() {
+            const a44 = document.querySelector('.mbs');
+            const a45 = document.getElementById('p1');
+            
+            if (!a44 || !a45) return;
+
+            a45.style.transform = 'none';
+            a45.style.position = 'static';
+
+            const a46 = a45.offsetWidth;
+            const a47 = a45.offsetHeight;
+
+            const a48 = a44.clientWidth - 40;
+            const a49 = a44.clientHeight - 40;
+
+            const a50 = a48 / a46;
+            const a51 = a49 / a47;
+            const a52 = Math.min(a50, a51, 1);
+
+            a45.style.position = 'absolute';
+            a45.style.top = '50%';
+            a45.style.left = '50%';
+            a45.style.transformOrigin = 'center center';
+            a45.style.transform = `translate(-50%, -50%) scale(${a52})`;
+        }
+        
+        function o2() {
+            document.getElementById('m1').style.display = 'flex';
+            r1();
+        }
+        function c2() {
+            document.getElementById('m1').style.display = 'none';
+        }
+        function c1(a53) {
+            if (a53.target.id === 'm1') c2();
+        }
+        function o1() {
+            u1();
+            document.getElementById('m2').style.display = 'flex';
+            setTimeout(s8, 50);
+        }
+        function c5() {
+            document.getElementById('m2').style.display = 'none';
+        }
+        function c4(a53) {
+            if (a53.target.id === 'm2') c5();
+        }
+
+        window.addEventListener('resize', () => {
+            if (document.getElementById('m2').style.display === 'flex') {
+                s8();
+            }
+        });
+
+        function s6() {
+            const a54 = {
+                topText: document.getElementById('i1').value,
+                count: document.getElementById('i2').value,
+                startPos: document.getElementById('i3').value,
+                sortimentIndex: document.getElementById('s2').value,
+                artNr: document.getElementById('i5').value,
+                suffix: document.getElementById('i6').value,
+                bezeichnung: document.getElementById('i7').value
+            };
+
+            localStorage.setItem('lavu_studio_defaults_v8', JSON.stringify(a54));
+            const a55 = document.getElementById('b2');
+            a55.innerHTML = '✓ Gespeichert!';
+            a55.style.backgroundColor = '#27ae60';
+
+            setTimeout(() => {
+                a55.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Standard sichern';
+                a55.style.backgroundColor = '#3498db';
+            }, 1800);
+        }
+
+        function s7() {
+            const a56 = localStorage.getItem('lavu_studio_defaults_v8');
+            if (a56) {
+                try {
+                    const a54 = JSON.parse(a56);
+                    if (a54.topText !== undefined) {
+                        document.getElementById('i1').value = a54.topText;
+                        document.getElementById('s1').value = a54.topText;
+                    }
+                    if (a54.count !== undefined) document.getElementById('i2').value = Math.min(21, a54.count);
+                    if (a54.startPos !== undefined) document.getElementById('i3').value = Math.min(21, a54.startPos);
+                    if (a54.artNr !== undefined) document.getElementById('i5').value = a54.artNr;
+                    if (a54.suffix !== undefined) document.getElementById('i6').value = a54.suffix;
+                    if (a54.bezeichnung !== undefined) document.getElementById('i7').value = a54.bezeichnung;
+                    if (a54.sortimentIndex !== undefined) {
+                        setTimeout(() => {
+                            document.getElementById('s2').value = a54.sortimentIndex;
+                            p1();
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.warn("Fehler beim Verarbeiten lokaler Defaults.", e);
+                }
+            }
+        }
+
+        let a57;
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(a58 => {
+                        console.log('Service Worker erfolgreich registriert!', a58);
+                        a58.update();
+
+                        a58.addEventListener('updatefound', () => {
+                            const a59 = a58.installing;
+                            a59.addEventListener('statechange', () => {
+                                if (a59.state === 'installed') {
+                                    if (navigator.serviceWorker.controller) {
+                                        a59.postMessage({ action: 'skipWaiting' });
+                                    }
+                                }
+                            });
+                        });
+                    })
+                    .catch(a60 => console.error('Service Worker Registrierung fehlgeschlagen:', a60));
+            });
+
+            let a61 = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!a61) {
+                    a61 = true;
+                    window.location.reload(true);
+                }
+            });
+        }
+
+        window.addEventListener('beforeinstallprompt', (a62) => {
+            a62.preventDefault();
+            a57 = a62;
+            const a63 = document.getElementById('pwaBanner');
+            if (a63) a63.style.display = 'flex';
+        });
+
+        const a64 = document.getElementById('b3');
+        if (a64) {
+            a64.addEventListener('click', () => {
+                if (a57) {
+                    a57.prompt();
+                    a57.userChoice.then((a65) => {
+                        if (a65.outcome === 'accepted') {
+                            console.log('User hat die Installation von LAVU Etiketten-Druckstudio akzeptiert.');
+                        }
+                        const a63 = document.getElementById('pwaBanner');
+                        if (a63) a63.style.display = 'none';
+                        a57 = null;
+                    });
+                }
+            });
+        }
+        window.addEventListener('appinstalled', () => {
+            console.log('LAVU Etiketten-Druckstudio wurde erfolgreich installiert.');
+            const a63 = document.getElementById('pwaBanner');
+            if (a63) a63.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
