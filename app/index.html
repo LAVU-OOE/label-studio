@@ -1152,21 +1152,21 @@
         let currentFormatKey = "4473";
 
         let a1 = [
-            { artNr: "4040", bez: "Elektro-Kleingeräte (ohne Akku)", zusatzMitte: "QR-Box" },
-            { artNr: "4010", bez: "Elektro-Großgeräte", zusatzMitte: "Gitterbox" },
-            { artNr: "4020", bez: "Kühlgeräte", zusatzMitte: "Kühlgeräte" },
-            { artNr: "4030", bez: "Bildschirmgeräte / TV", zusatzMitte: "TV-Box" },
-            { artNr: "1550", bez: "Bauschutt (Kleinmengen)", zusatzMitte: "Mulde" },
-            { artNr: "1610", bez: "Altholz (Stofflich)", zusatzMitte: "Holzbox" },
-            { artNr: "1620", bez: "Altholz (Thermisch)", zusatzMitte: "Holzbox" },
-            { artNr: "1210", bez: "Altmetall / Schrott", zusatzMitte: "Schrottbox" },
-            { artNr: "1720", bez: "Verpackungshohlglas", zusatzMitte: "Glas-Hub" },
-            { artNr: "1730", bez: "Flachglas", zusatzMitte: "Gestell" },
-            { artNr: "1410", bez: "Altpapier (Kartonagen)", zusatzMitte: "Presse" },
-            { artNr: "5110", bez: "Problemstoffe (Haushalt)", zusatzMitte: "Problo-Box" },
-            { artNr: "1820", bez: "Altreifen (mit Felgen)", zusatzMitte: "Reifenlager" },
-            { artNr: "1810", bez: "Altreifen (ohne Felgen)", zusatzMitte: "Reifenlager" },
-            { artNr: "4050", bez: "Gasentladungslampen", zusatzMitte: "Lampen-Box" }
+            { artNr: "4040", bez: "Elektro-Kleingeräte (ohne Akku)", geb: "QR-Box" },
+            { artNr: "4010", bez: "Elektro-Großgeräte", geb: "Gitterbox" },
+            { artNr: "4020", bez: "Kühlgeräte", geb: "Kühlgeräte" },
+            { artNr: "4030", bez: "Bildschirmgeräte / TV", geb: "TV-Box" },
+            { artNr: "1550", bez: "Bauschutt (Kleinmengen)", geb: "Mulde" },
+            { artNr: "1610", bez: "Altholz (Stofflich)", geb: "Holzbox" },
+            { artNr: "1620", bez: "Altholz (Thermisch)", geb: "Holzbox" },
+            { artNr: "1210", bez: "Altmetall / Schrott", geb: "Schrottbox" },
+            { artNr: "1720", bez: "Verpackungshohlglas", geb: "Glas-Hub" },
+            { artNr: "1730", bez: "Flachglas", geb: "Gestell" },
+            { artNr: "1410", bez: "Altpapier (Kartonagen)", geb: "Presse" },
+            { artNr: "5110", bez: "Problemstoffe (Haushalt)", geb: "Problo-Box" },
+            { artNr: "1820", bez: "Altreifen (mit Felgen)", geb: "Reifenlager" },
+            { artNr: "1810", bez: "Altreifen (ohne Felgen)", geb: "Reifenlager" },
+            { artNr: "4050", bez: "Gasentladungslampen", geb: "Lampen-Box" }
         ];
 
         let a2 = [];
@@ -1339,7 +1339,7 @@
                 a18.className = 'cir';
                 a18.innerHTML = `
                     <div class="cii">
-                        <b>${a12.artNr}</b> - ${a12.bez} <span style="color:#7f8c8d; font-size:0.75rem;">(${a12.zusatzMitte || '-'})</span>
+                        <b>${a12.artNr}</b> - ${a12.bez} <span style="color:#7f8c8d; font-size:0.75rem;">(${a12.geb || '-'})</span>
                     </div>
                     <div style="display: flex; gap: 4px;">
                         <button class="bc" style="padding: 3px 6px; background: #3498db; color: white; font-size: 0.75rem;" onclick="e3(${a13})" title="Bearbeiten">✏️</button>
@@ -1354,7 +1354,7 @@
             const a12 = a2[a13];
             document.getElementById('e1').value = a13;
             document.getElementById('c1').value = a12.artNr;
-            document.getElementById('c2').value = a12.zusatzMitte || "";
+            document.getElementById('c2').value = a12.geb || "";
             document.getElementById('c3').value = a12.bez;
             document.getElementById('b1').style.display = 'inline-block';
         }
@@ -1387,7 +1387,7 @@
                 return;
             }
 
-            const a23 = { artNr: a19, bez: a21, zusatzMitte: a20 };
+            const a23 = { artNr: a19, bez: a21, geb: a20 };
 
             if (a22 > -1) {
                 a2[a22] = a23;
@@ -1435,7 +1435,7 @@
 
             if (a12) {
                 document.getElementById('i5').value = a12.artNr;
-                document.getElementById('i6').value = a12.zusatzMitte || "";
+                document.getElementById('i6').value = a12.geb || "";
                 document.getElementById('i7').value = a12.bez;
                 u1();
             }
