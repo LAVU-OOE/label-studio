@@ -1200,44 +1200,87 @@
             }
         }, 30000);
 
-function i1() {
+        function i1() {
             const selectArt = document.getElementById('s2_art');
             const selectName = document.getElementById('s2_name');
             if (!selectArt || !selectName) return;
 
-            // Sortiert das Sortiment primär nach der Artikelnummer von niedrig nach hoch
-            a2.sort((a, b) => {
-                const numA = parseInt(a.artNr) || 0;
-                const numB = parseInt(b.artNr) || 0;
-                return numA - numB;
+            // Merke den aktuell ausgewählten Eintrag vor der Neu-Sortierung anhand der ArtNr
+            const currentSelectedIdx = selectArt.value;
+            let currentArtNr = "";
+            if (currentSelectedIdx !== "" && a2[currentSelectedIdx]) {
+                currentArtNr = a2[currentSelectedIdx].artNr;
+            }
+
+            // 1. Erstelle zwei separate Kopien des Arrays für die jeweilige Sortierung
+            // Kopie für Artikelnummern (Numerisch sortiert von niedrig zu hoch)
+            const sortedByArt = [...a2].sort((a, b) => {
+                return (parseInt(a.artNr) || 0) - (parseInt(b.artNr) || 0);
             });
 
-            const currentVal = selectArt.value || "0";
+            // Kopie für Bezeichnungen (Alphabetisch sortiert von A bis Z)
+            const sortedByName = [...a2].sort((a, b) => {
+                return a.bez.localeCompare(b.bez, 'de', { sensitivity: 'base' });
+            });
 
             selectArt.innerHTML = '';
             selectName.innerHTML = '';
 
-            a2.forEach((item, index) => {
+            // 2. Befülle das Artikelnummer-Dropdown (jeder Option-Value ist die echte ArtNr)
+            sortedByArt.forEach((item) => {
                 const optArt = document.createElement('option');
-                optArt.value = index; // Der Index sichert die fehlerfreie Zuordnung bei syncDropdowns
+                optArt.value = item.artNr; 
                 optArt.textContent = item.artNr;
                 selectArt.appendChild(optArt);
+            });
 
+            // 3. Befülle das Bezeichnungs-Dropdown (jeder Option-Value ist die echte ArtNr zur Verknüpfung)
+            sortedByName.forEach((item) => {
                 const optName = document.createElement('option');
-                optName.value = index;
+                optName.value = item.artNr; // Die ArtNr dient hier als Brücke zum Gegenstück
                 optName.textContent = item.bez;
                 selectName.appendChild(optName);
             });
 
-            if (currentVal !== "" && parseInt(currentVal) < a2.length) {
-                selectArt.value = currentVal;
-                selectName.value = currentVal;
-            } else {
-                selectArt.value = "0";
-                selectName.value = "0";
+            // 4. Auswahlzustand wiederherstellen (oder auf den ersten Eintrag setzen)
+            if (currentArtNr !== "") {
+                selectArt.value = currentArtNr;
+                selectName.value = currentArtNr;
+            } else if (sortedByArt.length > 0) {
+                selectArt.value = sortedByArt[0].artNr;
+                selectName.value = sortedByArt[0].artNr;
             }
+
             r1();
             p1();
+        }
+
+        function syncDropdowns(selectedArtNr) {
+            const selectArt = document.getElementById('s2_art');
+            const selectName = document.getElementById('s2_name');
+            
+            // Beide Dropdowns springen synchron auf dieselbe Artikelnummer
+            if (selectArt) selectArt.value = selectedArtNr;
+            if (selectName) selectName.value = selectedArtNr;
+            
+            p1();
+            s7();
+        }
+
+        function p1() { //mark
+            const selectArt = document.getElementById('s2_art');
+            if (!selectArt || selectArt.value === "") return;
+
+            // Da selectArt.value jetzt die echte ArtNr hält, suchen wir das Objekt im a2-Array
+            const currentArtNr = selectArt.value;
+            const item = a2.find(i => i.artNr === currentArtNr);
+            
+            if (item) {
+                document.getElementById('i5').value = item.artNr;
+                document.getElementById('i6').value = item.geb || "";
+                document.getElementById('i7').value = item.bez;
+                u1();
+            }
         }
 
         function syncDropdowns(selectedIndex) {
