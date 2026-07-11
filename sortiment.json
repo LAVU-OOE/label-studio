@@ -2,22 +2,32 @@
   {
     "artNr": "4040",
     "bez": "Elektro-Kleingeräte",
-    "geb": "QR-Box"
+    "geb": "AB"
+  },
+    {
+    "artNr": "4041",
+    "bez": "Elektro-Kleingeräte,schadst. f.",
+    "geb": "Qbox"
   },
   {
     "artNr": "4010",
     "bez": "Elektro-Großgeräte",
-    "geb": "Gitterbox"
+    "geb": "EUP"
   },
   {
     "artNr": "4020",
     "bez": "Kühlgeräte",
-    "geb": "Großteil"
+    "geb": "FP"
   },
   {
     "artNr": "4030",
     "bez": "Bildschirmgeräte",
-    "geb": "Gitterbox"
+    "geb": "TPg"
+  },
+    {
+    "artNr": "4031",
+    "bez": "Flachbildschirmgeräte",
+    "geb": "AB"
   },
   {
     "artNr": "4015",
@@ -101,8 +111,9 @@
   },
   {
     "artNr": "4300",
+    "abfC": "55502",
     "bez": "Altlacke & Werkstättenabfälle",
-    "geb": "Gefahrgut"
+    "geb": "ASP = 800I-IBC"
   },
   {
     "artNr": "4305",
@@ -136,8 +147,9 @@
   },
   {
     "artNr": "4350",
-    "bez": "Altmedikamente (vorsortiert)",
-    "geb": "Karton"
+    "abfC": "59803",
+    "bez": "Spraydosen (mit Restinhalt)",
+    "geb": "F200 = 200l Fass"
   },
   {
     "artNr": "4360",
@@ -160,16 +172,6 @@
     "geb": "Sack"
   },
   {
-    "artNr": "4420",
-    "bez": "Asbestzement/Eternit",
-    "geb": "BigBag"
-  },
-  {
-    "artNr": "4421",
-    "bez": "Gewerbeabfall",
-    "geb": "Presscontainer"
-  },
-  {
     "artNr": "4430",
     "bez": "Netze & Schnüre",
     "geb": "Mulde"
@@ -177,7 +179,7 @@
   {
     "artNr": "4450",
     "bez": "Dispersionsfarben",
-    "geb": "Eimer"
+    "geb": "AB"
   },
   {
     "artNr": "4460",
@@ -207,7 +209,7 @@
   {
     "artNr": "3000",
     "bez": "Altpapier (Deinking-Qualität)",
-    "geb": "Container"
+    "geb": "AB"
   },
   {
     "artNr": "3005",
@@ -215,34 +217,29 @@
     "geb": "Sicherheitsbehälter"
   },
   {
-    "artNr": "3200",
-    "bez": "Alteisen",
-    "geb": "Mulde"
-  },
-  {
     "artNr": "3210",
     "bez": "Nichteisen-Metalle",
-    "geb": "Box"
+    "geb": "Vbox"
   },
   {
     "artNr": "3211",
     "bez": "Armaturen & Messing",
-    "geb": "Box"
+    "geb": "F200"
   },
   {
     "artNr": "3212",
     "bez": "Alu-Kaffeekapseln",
-    "geb": "Tonne"
+    "geb": "F200"
   },
   {
     "artNr": "3220",
     "bez": "Kabelschrott",
-    "geb": "Box"
+    "geb": "AB"
   },
   {
     "artNr": "3300",
-    "bez": "Altholz",
-    "geb": "AII-Holz"
+    "bez": "Flachglas",
+    "geb": "AB"
   },
   {
     "artNr": "3310",
@@ -251,8 +248,8 @@
   },
   {
     "artNr": "3315",
-    "bez": "Altfenster",
-    "geb": "Gestell"
+    "bez": "Altfenste PVC",
+    "geb": "RUP"
   },
   {
     "artNr": "3320",
@@ -327,7 +324,7 @@
   {
     "artNr": "3610",
     "bez": "Gipskarton",
-    "geb": "Mulde"
+    "geb": "AB"
   },
   {
     "artNr": "3700",
@@ -347,7 +344,7 @@
   {
     "artNr": "2200",
     "bez": "Metallverpackungen",
-    "geb": "Container"
+    "geb": "AB"
   },
   {
     "artNr": "2210",
@@ -365,14 +362,19 @@
     "geb": "Sack"
   },
   {
-    "artNr": "2500",
+    "artNr": "2520",
     "bez": "Eimer & Kanister",
-    "geb": "Gitterbox"
+    "geb": "EUP"
   },
   {
     "artNr": "2540",
     "bez": "Kunststoff Verpackungsfolien",
     "geb": "Presse"
+  },
+  {
+    "artNr": "2555",
+    "bez": "Big-Bags",
+    "geb": "EUP"
   },
   {
     "artNr": "2565",
@@ -388,5 +390,15 @@
     "artNr": "2590",
     "bez": "Keramikverpackungen",
     "geb": "Kiste"
+  },
+  {
+    "artNr": "9900",
+    "bez": "Hilfsgebinde",
+    "geb": "RUP"
+  },
+  {
+    "artNr": "1000",
+    "bez": "Textilen",
+    "geb": "TPg"
   }
 ]
