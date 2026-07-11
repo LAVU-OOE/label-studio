@@ -898,7 +898,7 @@
     </div>
 
     <div class="ftr" style="display: flex; justify-content: center; align-items: center; gap: 6px; flex-wrap: wrap;">
-        Built with <span style="color: #e74c3c; font-size: 1.2em;">&hearts;</span> by Karli
+        Built with <span style="color: #e74c3c;">&hearts;</span> by Karli
         <span style="color: #cbd5e1;">|</span>
         <a href="https://github.com/7pub" target="_blank" style="display: inline-flex; align-items: center; gap: 5px; color: inherit; text-decoration: none; transition: color 0.2s;">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
@@ -989,7 +989,7 @@
                         Zentrale Sortiment-URL (GitHub Raw JSON):
                     </label>
                     <div style="display: flex; gap: 8px;">
-                        <input type="url" id="i4" value="https://raw.githubusercontent.com/LAVU-OOE/Etiketten-Druckstudio/refs/heads/main/sortiment.json" placeholder="https://raw.githubusercontent.com/.../sortiment.json" style="flex: 1;" />
+                        <input type="url" id="i4" value="" placeholder="Lokale sortiment.json oder GitHub-Link" style="flex: 1;" />
                         <button class="bc" style="background: #27ae60; color: white; padding: 0 16px;" onclick="f1()">Laden</button>
                     </div>
                 </div>
@@ -1151,7 +1151,8 @@
 
         let currentFormatKey = "4473";
 
-        let a1 = [
+        // Vordefiniertes lokales Fallback-Sortiment, falls sortiment.json offline/nicht erreichbar ist
+        let fallbackSortiment = [
             { artNr: "4040", bez: "Elektro-Kleingeräte (ohne Akku)", geb: "QR-Box" },
             { artNr: "4010", bez: "Elektro-Großgeräte", geb: "Gitterbox" },
             { artNr: "4020", bez: "Kühlgeräte", geb: "Kühlgeräte" },
@@ -1177,8 +1178,9 @@
             s7();
             
             let a4 = localStorage.getItem('lavu_sortiment_url');
-            if (!a4) {
-                a4 = "https://raw.githubusercontent.com/LAVU-OOE/Etiketten-Druckstudio/refs/heads/main/sortiment.json";
+            if (a4 === null) {
+                // Wenn noch nie gesetzt, versuchen wir standardmäßig die lokale sortiment.json abzufragen
+                a4 = "sortiment.json";
                 localStorage.setItem('lavu_sortiment_url', a4);
             }
             
@@ -1223,36 +1225,44 @@
         }
 
         async function f2() {
-            const a4 = localStorage.getItem('lavu_sortiment_url');
-            if (a4) {
-                try {
-                    const a5 = await fetch(a4, { cache: "no-store" });
-                    if (!a5.ok) throw new Error("Netzwerkantwort war fehlerhaft");
-                    const a6 = await a5.json();
-                    if (Array.isArray(a6) && a6.length > 0) {
-                        a2 = a6;
-                        localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(a2));
-                        document.getElementById('n1').innerHTML = `🟢 Verbunden mit GitHub-Repository`;
-                        document.getElementById('n1').style.color = '#27ae60';
-                        i1();
-                        return;
+            let a4 = localStorage.getItem('lavu_sortiment_url') || "sortiment.json";
+            
+            try {
+                const a5 = await fetch(a4, { cache: "no-store" });
+                if (!a5.ok) throw new Error("Netzwerkantwort war fehlerhaft");
+                const a6 = await a5.json();
+                if (Array.isArray(a6) && a6.length > 0) {
+                    a2 = a6;
+                    localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(a2));
+                    if (a4 === "sortiment.json") {
+                        document.getElementById('n1').innerHTML = `🟢 Lokale sortiment.json erfolgreich aktiv`;
+                    } else {
+                        document.getElementById('n1').innerHTML = `🟢 Verbunden mit externem JSON Repository`;
                     }
-                } catch (e) {
-                    console.warn("Fehler beim Laden von GitHub URL, weiche auf cache / localStorage aus.", e);
-                    document.getElementById('n1').innerHTML = `⚠️ GitHub Offline! Lokaler Cache geladen.`;
-                    document.getElementById('n1').style.color = '#e74c3c';
+                    document.getElementById('n1').style.color = '#27ae60';
+                    i1();
+                    return;
                 }
+            } catch (e) {
+                console.warn("Fehler beim Abrufen der JSON-Quelle, weiche auf cache / localStorage aus.", e);
+                if (a4 === "sortiment.json") {
+                    document.getElementById('n1').innerHTML = `⚠️ Keine lokale sortiment.json gefunden. Cache geladen.`;
+                } else {
+                    document.getElementById('n1').innerHTML = `⚠️ Remote JSON Offline! Lokaler Cache geladen.`;
+                }
+                document.getElementById('n1').style.color = '#e74c3c';
             }
 
+            // Fallback-Hierarchie: localStorage -> Hardcoded fallbackSortiment Array
             const a7 = localStorage.getItem('lavu_studio_sortiment_v8');
             if (a7) {
                 try {
                     a2 = JSON.parse(a7);
                 } catch(e) {
-                    a2 = [...a1];
+                    a2 = [...fallbackSortiment];
                 }
             } else {
-                a2 = [...a1];
+                a2 = [...fallbackSortiment];
             }
             i1();
         }
@@ -1260,14 +1270,12 @@
         async function f1() {
             const a8 = document.getElementById('i4').value.trim();
             if (!a8) {
-                localStorage.removeItem('lavu_sortiment_url');
-                document.getElementById('n1').innerHTML = `Status: Rein lokaler Modus (localStorage)`;
-                document.getElementById('n1').style.color = '#7f8c8d';
-                a2 = [...a1];
-                localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(a2));
-                i1();
+                // Wenn die URL gelöscht wird, setzen wir auf die lokale Datei standardmäßig zurück
+                localStorage.setItem('lavu_sortiment_url', 'sortiment.json');
+                document.getElementById('i4').value = 'sortiment.json';
+                await f2();
                 p1();
-                alert("Verlinkung entfernt. Standard-Sortiment geladen.");
+                alert("Verlinkung zurückgesetzt auf lokale sortiment.json.");
                 return;
             }
 
@@ -1473,7 +1481,6 @@
             document.getElementById('s1').value = a29.topText;
             document.getElementById('i1').value = a29.topText;
 
-            // Hier wird das Etiketten-Format dynamisch in die obere Titelzeile eingetragen
             document.getElementById('fmt-overlay').innerHTML = `
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 ${f.name}
