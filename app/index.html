@@ -1205,6 +1205,9 @@
             const selectName = document.getElementById('s2_name');
             if (!selectArt || !selectName) return;
 
+            // Sortiert das Array a2 alphabetisch nach der Bezeichnung (bez)
+            a2.sort((a, b) => a.bez.localeCompare(b.bez, 'de', { sensitivity: 'base' }));
+
             const currentVal = selectArt.value || "0";
 
             selectArt.innerHTML = '';
