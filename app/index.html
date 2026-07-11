@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LAVU OÖ - Etiketten-Druckstudio v8 (HERMA 4473)</title>
+    <title>LAVU OÖ - Etiketten-Druckstudio v9</title>
     <link class="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#1a4b60" />
@@ -342,11 +342,11 @@
         }
 
         .ftr {
-            margin-top: 30px;
-            font-size: 0.85rem;
+            margin-top: 10px; /*30px*/
+            font-size: 0.75rem; /*0.85rem*/
             color: #7f8c8d;
             text-align: center;
-            font-weight: 500;
+            font-weight: 100; /*500*/
             width: 100%;
             max-width: 750px;
         }
@@ -653,10 +653,8 @@
             width: 210mm;
             height: 297mm;
             box-sizing: border-box;
-            padding: 5mm 0mm 5mm 0mm;
+            padding: 5mm 2mm 5mm 2mm;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(7, 1fr);
             gap: 0;
             background: white;
         }
@@ -671,7 +669,7 @@
             width: 100%;
             height: 100%;
             box-sizing: border-box;
-            padding: 3.5mm 4mm 3.5mm 4mm;
+            padding: 2.5mm 3.5mm;
             border: 1px dashed #cbd5e1;
             position: relative;
             background: white;
@@ -688,7 +686,7 @@
             text-transform: uppercase;
             letter-spacing: 0.3px;
             border-bottom: 0.8px solid #cbd5e1;
-            padding-bottom: 1.5mm;
+            padding-bottom: 1mm;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -700,12 +698,12 @@
             justify-content: space-between;
             gap: 2mm;
             flex: 1;
-            padding: 1.5mm 0;
+            padding: 1mm 0;
             overflow: hidden;
         }
 
         .lba {
-            font-size: 24pt;
+            font-size: 20pt;
             font-weight: 900;
             color: #000000;
             font-family: 'Arial Black', Impact, sans-serif;
@@ -714,11 +712,11 @@
         }
 
         .lbs {
-            font-size: 11pt;
+            font-size: 10pt;
             font-weight: bold;
             color: #4a5568;
             border: 1.5px solid #000;
-            padding: 0.6mm 1.8mm;
+            padding: 0.4mm 1.5mm;
             border-radius: 3px;
             text-transform: uppercase;
             white-space: nowrap;
@@ -731,7 +729,7 @@
         }
 
         .lbb {
-            font-size: 10pt;
+            font-size: 9pt;
             font-weight: 800;
             color: #000000;
             line-height: 1.2;
@@ -814,7 +812,7 @@
                 <img src="logo.png" alt="LAVU Logo" class="lg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%231a4b60\' stroke-width=\'2\'><circle cx=\'12\' cy=\'12\' r=\'10\'/><path d=\'M8 14s1.5 2 4 2 4-2 4-2\'/><line x1=\'9\' y1=\'9\' x2=\'9.01\' y2=\'9\'/><line x1=\'15\' y1=\'9\' x2=\'15.01\' y2=\'9\'/></svg>'">
                 <div>
                     <div class="hdr-ttl">LAVU OÖ</div>
-                    <div class="hdr-sub">Etiketten-Studio v8</div>
+                    <div class="hdr-sub">Etiketten-Studio v9</div>
                 </div>
             </div>
             <div class="hdr-r">
@@ -864,8 +862,7 @@
                         <div class="psh" id="t1"></div>
                     </div>
                     <div class="to" id="fmt-overlay">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                        HERMA 4473 (21 Etiketten)
+                        Formate werden geladen...
                     </div>
                 </div>
             </div>
@@ -917,7 +914,7 @@
                 <button class="bx" onclick="c2()">&times;</button>
             </div>
 
-            <div class="fv" style="margin-bottom: 20px;">
+            <div class="fv" style="margin-bottom: 15px;">
                 <label for="i1">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                     Standort (ASZ Niederlassung OÖ):
@@ -955,20 +952,22 @@
                 </select>
             </div>
 
+            <div class="fv" style="margin-bottom: 20px;">
+                <label for="labelFormatSelect">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+                    Etiketten-Format wählen:
+                </label>
+                <select id="labelFormatSelect" onchange="changeFormat(this.value)"></select>
+            </div>
+
             <div class="fg" style="margin-bottom: 20px;">
                 <div class="fv">
-                    <label for="i2">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                        Anzahl Etiketten (max. 21):
-                    </label>
-                    <input type="number" id="i2" value="21" min="1" max="21" oninput="u1()" />
+                    <label for="i2" id="lblCount">Anzahl Etiketten:</label>
+                    <input type="number" id="i2" value="21" min="1" oninput="u1()" />
                 </div>
                 <div class="fv">
-                    <label for="i3">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                        Start-Position (1-21):
-                    </label>
-                    <input type="number" id="i3" value="1" min="1" max="21" oninput="u1()" />
+                    <label for="i3" id="lblStartPos">Start-Position:</label>
+                    <input type="number" id="i3" value="1" min="1" oninput="u1()" />
                 </div>
             </div>
 
@@ -1062,7 +1061,7 @@
     <div id="m2" class="mb" onclick="c4(event)">
         <div class="mc mpc">
             <div class="mh">
-                <span>Interaktiver A4-Druckbogen<br/>(HERMA 4473, 21 Etiketten)</span>
+                <span id="modalTitle">Interaktiver A4-Druckbogen</span>
                 <button class="bx" onclick="c5()">&times;</button>
             </div>
             <div class="mbs">
@@ -1090,7 +1089,7 @@
         <div style="display: flex; align-items: center; gap: 10px;">
             <span style="font-size: 1.5rem;">📱</span>
             <div>
-                <b style="display: block;">LAVU Studio v8 installieren</b>
+                <b style="display: block;">LAVU Studio v9 installieren</b>
                 <span style="font-size: 0.8rem; opacity: 0.9;">Für eine schnellere Nutzung direkt in deiner App Übersicht.</span>
             </div>
         </div>
@@ -1101,6 +1100,58 @@
     </div>
 
     <script>
+        // Definition aller 46 übermittelten Herma Etiketten Formate
+        const formats = {
+            "4473": { cols: 3, rows: 7, name: "HERMA 4473 (70 x 41 mm)" },
+            "4429": { cols: 3, rows: 8, name: "HERMA 4429 (70 x 35 mm)" },
+            "4450": { cols: 3, rows: 9, name: "HERMA 4450 (70 x 32 mm)" },
+            "8638": { cols: 3, rows: 8, name: "HERMA 8638 (70 x 36 mm)" },
+            "4633": { cols: 3, rows: 8, name: "HERMA 4633 (70 x 36 mm)" },
+            "4453": { cols: 3, rows: 8, name: "HERMA 4453 (70 x 36 mm)" },
+            "4263": { cols: 3, rows: 8, name: "HERMA 4263 (70 x 33,8 mm)" },
+            "4618": { cols: 3, rows: 5, name: "HERMA 4618 (70 x 50,8 mm)" },
+            "4612": { cols: 3, rows: 10, name: "HERMA 4612 (70 x 29,7 mm)" },
+            "4426": { cols: 2, rows: 4, name: "HERMA 4426 (105 x 70 mm)" },
+            "4472": { cols: 2, rows: 2, name: "HERMA 4472 (78,7 x 139,7 mm)" },
+            "4634": { cols: 3, rows: 7, name: "HERMA 4634 (70 x 41 mm)" },
+            "4624": { cols: 2, rows: 4, name: "HERMA 4624 (97 x 67,7 mm)" },
+            "4451": { cols: 3, rows: 7, name: "HERMA 4451 (70 x 42 mm)" },
+            "4414": { cols: 3, rows: 8, name: "HERMA 4414 (70 x 36 mm)" },
+            "8634": { cols: 3, rows: 7, name: "HERMA 8634 (70 x 42,3 mm)" },
+            "5054": { cols: 3, rows: 7, name: "HERMA 5054 (70 x 42,3 mm)" },
+            "4668": { cols: 3, rows: 7, name: "HERMA 4668 (70 x 42,3 mm)" },
+            "4616": { cols: 3, rows: 7, name: "HERMA 4616 (70 x 42,3 mm)" },
+            "8644": { cols: 3, rows: 8, name: "HERMA 8644 (70 x 37 mm)" },
+            "4615": { cols: 3, rows: 8, name: "HERMA 4615 (70 x 37 mm)" },
+            "4657": { cols: 3, rows: 1, name: "HERMA 4657 (70 x 297 mm)" },
+            "4455": { cols: 3, rows: 11, name: "HERMA 4455 (70 x 25,4 mm)" },
+            "4443": { cols: 3, rows: 8, name: "HERMA 4443 (70 x 36 mm)" },
+            "4415": { cols: 3, rows: 7, name: "HERMA 4415 (70 x 42 mm)" },
+            "4475": { cols: 2, rows: 7, name: "HERMA 4475 (105 x 41 mm)" },
+            "4361": { cols: 3, rows: 7, name: "HERMA 4361 (70 x 42 mm)" },
+            "4390": { cols: 3, rows: 8, name: "HERMA 4390 (70 x 37 mm)" },
+            "4617": { cols: 3, rows: 4, name: "HERMA 4617 (70 x 67,7 mm)" },
+            "4360": { cols: 3, rows: 8, name: "HERMA 4360 (70 x 36 mm)" },
+            "4279": { cols: 3, rows: 4, name: "HERMA 4279 (70 x 67,7 mm)" },
+            "4464": { cols: 3, rows: 8, name: "HERMA 4464 (70 x 37 mm)" },
+            "5077": { cols: 2, rows: 4, name: "HERMA 5077 (99,1 x 67,7 mm)" },
+            "4269": { cols: 2, rows: 4, name: "HERMA 4269 (99,1 x 67,7 mm)" },
+            "4459": { cols: 3, rows: 17, name: "HERMA 4459 (70 x 16,9 mm)" },
+            "4278": { cols: 3, rows: 5, name: "HERMA 4278 (70 x 50,8 mm)" },
+            "5055": { cols: 3, rows: 5, name: "HERMA 5055 (70 x 50,8 mm)" },
+            "4456": { cols: 3, rows: 10, name: "HERMA 4456 (70 x 29,7 mm)" },
+            "4441": { cols: 3, rows: 7, name: "HERMA 4441 (70 x 42 mm)" },
+            "4623": { cols: 2, rows: 7, name: "HERMA 4623 (97 x 42,3 mm)" },
+            "8645": { cols: 2, rows: 4, name: "HERMA 8645 (105 x 74 mm)" },
+            "5062": { cols: 2, rows: 4, name: "HERMA 5062 (105 x 74 mm)" },
+            "4626": { cols: 2, rows: 4, name: "HERMA 4626 (105 x 74 mm)" },
+            "4470": { cols: 2, rows: 4, name: "HERMA 4470 (105 x 74 mm)" },
+            "4462": { cols: 2, rows: 8, name: "HERMA 4462 (105 x 37 mm)" },
+            "4359": { cols: 2, rows: 4, name: "HERMA 4359 (97 x 67,7 mm)" }
+        };
+
+        let currentFormatKey = "4473"; // Standard-Fall
+
         let a1 = [
             { artNr: "4040", bez: "Elektro-Kleingeräte (ohne Akku)", zusatzMitte: "QR-Box" },
             { artNr: "4010", bez: "Elektro-Großgeräte", zusatzMitte: "Gitterbox" },
@@ -1123,6 +1174,7 @@
         let a3 = 'select';
 
         window.addEventListener('DOMContentLoaded', async () => {
+            initFormatSelect();
             s7();
             
             let a4 = localStorage.getItem('lavu_sortiment_url');
@@ -1138,6 +1190,39 @@
             await f2();
             u1();
         });
+
+        function initFormatSelect() {
+            const select = document.getElementById('labelFormatSelect');
+            select.innerHTML = '';
+            for (const key in formats) {
+                const opt = document.createElement('option');
+                opt.value = key;
+                opt.textContent = formats[key].name;
+                if (key === currentFormatKey) opt.selected = true;
+                select.appendChild(opt);
+            }
+        }
+
+        function changeFormat(key) {
+            currentFormatKey = key;
+            const f = formats[key];
+            const maxLabels = f.cols * f.rows;
+            
+            // Passt die Min/Max Limits dynamisch im Formular an
+            const i2 = document.getElementById('i2');
+            const i3 = document.getElementById('i3');
+            
+            document.getElementById('lblCount').textContent = `Anzahl Etiketten (max. ${maxLabels}):`;
+            document.getElementById('lblStartPos').textContent = `Start-Position (1-${maxLabels}):`;
+            
+            i2.max = maxLabels;
+            i3.max = maxLabels;
+            
+            if (parseInt(i2.value) > maxLabels) i2.value = maxLabels;
+            if (parseInt(i3.value) > maxLabels) i3.value = 1;
+            
+            u1();
+        }
 
         async function f2() {
             const a4 = localStorage.getItem('lavu_sortiment_url');
@@ -1371,6 +1456,7 @@
 
         function u1() {
             const a29 = g1();
+            const f = formats[currentFormatKey];
 
             document.getElementById('d0').textContent = a29.topText || '-';
             document.getElementById('d1').textContent = a29.bezeichnung || '-';
@@ -1389,11 +1475,13 @@
             document.getElementById('s1').value = a29.topText;
             document.getElementById('i1').value = a29.topText;
 
-            // Update Format-Anzeige im Overlay (HERMA 4473)
+            // Dynamischer Info-Text im Template-Overlay
             document.getElementById('fmt-overlay').innerHTML = `
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                HERMA 4473 (21 Etiketten)
+                ${f.name}
             `;
+            
+            document.getElementById('modalTitle').innerHTML = `Interaktiver A4-Druckbogen<br/><small style="font-size:0.85rem; font-weight:normal; color:#64748b;">${f.name}</small>`;
 
             r2('t1', a29);
             r2('mdl', a29);
@@ -1409,11 +1497,17 @@
             if (!a31) return;
             a31.innerHTML = '';
 
-            const a32 = 21;
+            const f = formats[currentFormatKey];
+            const maxLabels = f.cols * f.rows;
+            
+            // Setzt das CSS Grid dynamisch basierend auf Spalten & Zeilen des gewählten Formats
+            a31.style.gridTemplateColumns = `repeat(${f.cols}, 1fr)`;
+            a31.style.gridTemplateRows = `repeat(${f.rows}, 1fr)`;
+
             const a33 = a29.startPos - 1;
             const a34 = a33 + a29.count;
 
-            for (let a35 = 0; a35 < a32; a35++) {
+            for (let a35 = 0; a35 < maxLabels; a35++) {
                 const a36 = document.createElement('div');
 
                 if (a35 >= a33 && a35 < a34) {
@@ -1446,6 +1540,9 @@
         }
 
         function h1(a37, a38) {
+            const f = formats[currentFormatKey];
+            const maxLabels = f.cols * f.rows;
+            
             const a39 = document.getElementById('i2');
             const a40 = document.getElementById('i3');
             
@@ -1474,8 +1571,8 @@
                 }
             }
 
-            a41 = Math.max(0, Math.min(21, a41));
-            a42 = Math.max(1, Math.min(21, a42));
+            a41 = Math.max(0, Math.min(maxLabels, a41));
+            a42 = Math.max(1, Math.min(maxLabels, a42));
 
             a39.value = a41;
             a40.value = a42;
@@ -1538,17 +1635,21 @@
         });
 
         function s6() {
+            const f = formats[currentFormatKey];
+            const maxLabels = f.cols * f.rows;
+            
             const a54 = {
                 topText: document.getElementById('i1').value,
-                count: document.getElementById('i2').value,
-                startPos: document.getElementById('i3').value,
+                count: Math.min(maxLabels, document.getElementById('i2').value),
+                startPos: Math.min(maxLabels, document.getElementById('i3').value),
                 sortimentIndex: document.getElementById('s2').value,
                 artNr: document.getElementById('i5').value,
                 suffix: document.getElementById('i6').value,
-                bezeichnung: document.getElementById('i7').value
+                bezeichnung: document.getElementById('i7').value,
+                formatKey: currentFormatKey
             };
 
-            localStorage.setItem('lavu_studio_defaults_v8', JSON.stringify(a54));
+            localStorage.setItem('lavu_studio_defaults_v9', JSON.stringify(a54));
             const a55 = document.getElementById('b2');
             a55.innerHTML = '✓ Gespeichert!';
             a55.style.backgroundColor = '#27ae60';
@@ -1560,16 +1661,24 @@
         }
 
         function s7() {
-            const a56 = localStorage.getItem('lavu_studio_defaults_v8');
+            const a56 = localStorage.getItem('lavu_studio_defaults_v9') || localStorage.getItem('lavu_studio_defaults_v8');
             if (a56) {
                 try {
                     const a54 = JSON.parse(a56);
+                    if (a54.formatKey !== undefined && formats[a54.formatKey]) {
+                        currentFormatKey = a54.formatKey;
+                        document.getElementById('labelFormatSelect').value = currentFormatKey;
+                    }
+                    
+                    const f = formats[currentFormatKey];
+                    const maxLabels = f.cols * f.rows;
+                    
                     if (a54.topText !== undefined) {
                         document.getElementById('i1').value = a54.topText;
                         document.getElementById('s1').value = a54.topText;
                     }
-                    if (a54.count !== undefined) document.getElementById('i2').value = Math.min(21, a54.count);
-                    if (a54.startPos !== undefined) document.getElementById('i3').value = Math.min(21, a54.startPos);
+                    if (a54.count !== undefined) document.getElementById('i2').value = Math.min(maxLabels, a54.count);
+                    if (a54.startPos !== undefined) document.getElementById('i3').value = Math.min(maxLabels, a54.startPos);
                     if (a54.artNr !== undefined) document.getElementById('i5').value = a54.artNr;
                     if (a54.suffix !== undefined) document.getElementById('i6').value = a54.suffix;
                     if (a54.bezeichnung !== undefined) document.getElementById('i7').value = a54.bezeichnung;
@@ -1579,9 +1688,13 @@
                             p1();
                         }, 100);
                     }
+                    
+                    changeFormat(currentFormatKey);
                 } catch (e) {
                     console.warn("Fehler beim Verarbeiten lokaler Defaults.", e);
                 }
+            } else {
+                changeFormat(currentFormatKey);
             }
         }
 
@@ -1620,7 +1733,6 @@
             a62.preventDefault();
             a57 = a62;
 
-            // 1. Zählen aufeinanderfolgender Aktualisierungen mit sessionStorage
             let refreshCount = parseInt(sessionStorage.getItem('pwa_refresh_count') || '0');
             const navEntries = performance.getEntriesByType('navigation');
             const isReload = navEntries.length > 0 && navEntries[0].type === 'reload';
@@ -1632,7 +1744,6 @@
             }
             sessionStorage.setItem('pwa_refresh_count', refreshCount);
 
-            // 2. Bedingungen überprüfen (Anderer Referrer ODER mindestens zweimal in Folge aktualisiert)
             const isTargetReferrer = document.referrer === 'https://lavu-ooe.github.io/Etiketten-Druckstudio/app';
             const shouldShow = !isTargetReferrer || refreshCount >= 2;
 
@@ -1643,10 +1754,8 @@
                     a63.style.opacity = '1';
                     a63.style.transition = 'opacity 1s ease';
 
-                    // 3. Nach 6 Sekunden (6000ms) ausblenden lassen
                     setTimeout(() => {
                         a63.style.opacity = '0';
-                        // Nach Beendigung der 1-sekündigen CSS-Transition auf display: none setzen
                         setTimeout(() => {
                             a63.style.display = 'none';
                         }, 1000);
