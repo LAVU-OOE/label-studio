@@ -187,7 +187,7 @@
             overflow: hidden;
             cursor: pointer;
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s, border-color 0.25s;
         }
 
         .tw:hover {
@@ -202,6 +202,7 @@
             width: 210mm;
             height: 297mm;
             pointer-events: none;
+            will-change: transform;
         }
 
         .to {
@@ -226,6 +227,63 @@
 
         .tw:hover .to {
             background: rgba(39, 174, 96, 0.95);
+        }
+
+        /* Zoom Slider Styles */
+        .zoom-container {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 100%;
+        }
+        .zoom-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+        }
+        .zoom-slider-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .zoom-slider {
+            flex: 1;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #cbd5e1;
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+        .zoom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #1a4b60;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .zoom-slider::-webkit-slider-thumb:hover {
+            background: #27ae60;
+        }
+        .zoom-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border: none;
+            border-radius: 50%;
+            background: #1a4b60;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .zoom-slider::-moz-range-thumb:hover {
+            background: #27ae60;
         }
 
         #mdl .lb {
@@ -441,7 +499,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 10px;
-            }
+        }
 
         .bx {
             background: transparent;
@@ -911,13 +969,25 @@
                 </div>
                 <div class="ps">
                     <div class="tw" onclick="o1()" id="layout-title-attr" title="Klicken für vollständige A4-Großansicht">
-                        <div class="sc">
+                        <div class="sc" id="previewScaleContainer">
                             <div class="psh" id="t1"></div>
                         </div>
                         <div class="to" id="txt-print-layout">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 2px;"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
                             Druck-Layout
                         </div>
+                    </div>
+                </div>
+                
+                <div class="zoom-container">
+                    <div class="zoom-label">
+                        <span id="txt-zoom">Zoom</span>
+                        <span id="zoomVal">100%</span>
+                    </div>
+                    <div class="zoom-slider-wrapper">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input type="range" id="zoomSlider" class="zoom-slider" min="50" max="300" value="100" oninput="applyFastZoom(this.value)" />
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
                     </div>
                 </div>
             </div>
@@ -1159,7 +1229,8 @@
                 netSuccessLocal: "🟢 Lokale sortiment.json erfolgreich aktiv",
                 netSuccessRemote: "🟢 Verbunden mit externem JSON Repository",
                 netFallbackLocal: "⚠️ Keine lokale sortiment.json gefunden. Cache geladen.",
-                netFallbackRemote: "⚠️ Remote JSON Offline! Lokaler Cache geladen."
+                netFallbackRemote: "⚠️ Remote JSON Offline! Lokaler Cache geladen.",
+                txtZoom: "Zoom"
             },
             en: {
                 studioV9: "Label Studio v9",
@@ -1202,7 +1273,8 @@
                 netSuccessLocal: "🟢 Local sortiment.json active successfully",
                 netSuccessRemote: "🟢 Connected to remote JSON Repository",
                 netFallbackLocal: "⚠️ No local sortiment.json found. Cache loaded.",
-                netFallbackRemote: "⚠️ Remote JSON Offline! Local cache loaded."
+                netFallbackRemote: "⚠️ Remote JSON Offline! Local cache loaded.",
+                txtZoom: "Zoom"
             }
         };
 
@@ -1264,6 +1336,11 @@
             document.getElementById('n1').style.color = '#f39c12';
             await f2();
             u1();
+            
+            // Load saved zoom level if present
+            const savedZoom = localStorage.getItem('lavu_preview_zoom') || '100';
+            document.getElementById('zoomSlider').value = savedZoom;
+            applyFastZoom(savedZoom);
         });
 
         function toggleLanguage() {
@@ -1315,9 +1392,22 @@
             document.getElementById('b3').textContent = t.btnPwaInstall;
             
             document.getElementById('layout-title-attr').setAttribute('title', t.layoutTitleAttr);
+            document.getElementById('txt-zoom').textContent = t.txtZoom;
 
             // Re-eval formatting limits text strings
             changeFormat(currentFormatKey);
+        }
+
+        // Fast Zoom Logic using CSS Transforms
+        function applyFastZoom(value) {
+            document.getElementById('zoomVal').textContent = value + '%';
+            const scaleFactor = (value / 100) * 0.20; // Base layout preview size scale factor is 0.20
+            
+            const element = document.getElementById('previewScaleContainer');
+            if (element) {
+                element.style.transform = `scale(${scaleFactor})`;
+            }
+            localStorage.setItem('lavu_preview_zoom', value);
         }
 
         function initFormatSelects() {
@@ -1616,7 +1706,7 @@
                 URL.revokeObjectURL(a26);
             } catch (a28) {
                 console.error("Fehler beim Exportieren:", a28);
-                alert("Export fehlgeschlagen: " + a28.message);
+                alert("Export failed: " + a28.message);
             }
         }
 
