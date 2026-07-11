@@ -342,11 +342,11 @@
         }
 
         .ftr {
-            margin-top: 10px; /*30px*/
-            font-size: 0.75rem; /*0.85rem*/
+            margin-top: 30px;
+            font-size: 0.85rem;
             color: #7f8c8d;
             text-align: center;
-            font-weight: 100; /*500*/
+            font-weight: 500;
             width: 100%;
             max-width: 750px;
         }
@@ -853,23 +853,23 @@
 
         <div class="db">
             <div class="ps">
-                <div class="ps-ttl">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                    Druck-Layout
+                <div class="ps-ttl" id="fmt-overlay">
+                    Format wird geladen...
                 </div>
                 <div class="tw" onclick="o1()" title="Klicken für vollständige A4-Großansicht">
                     <div class="sc">
                         <div class="psh" id="t1"></div>
                     </div>
-                    <div class="to" id="fmt-overlay">
-                        Formate werden geladen...
+                    <div class="to">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 2px;"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                        Druck-Layout
                     </div>
                 </div>
             </div>
 
             <div class="ip">
                 <div class="fps">
-                    <label for="s2" style="display:none;">Abfallart aus Sortiment wählen:</label>
+                    <label for="s2">Abfallart aus Sortiment wählen:</label>
                     <select id="s2" onchange="p1()"></select>
                 </div>
 
@@ -1100,7 +1100,6 @@
     </div>
 
     <script>
-        // Definition aller 46 übermittelten Herma Etiketten Formate
         const formats = {
             "4473": { cols: 3, rows: 7, name: "HERMA 4473 (70 x 41 mm)" },
             "4429": { cols: 3, rows: 8, name: "HERMA 4429 (70 x 35 mm)" },
@@ -1150,7 +1149,7 @@
             "4359": { cols: 2, rows: 4, name: "HERMA 4359 (97 x 67,7 mm)" }
         };
 
-        let currentFormatKey = "4473"; // Standard-Fall
+        let currentFormatKey = "4473";
 
         let a1 = [
             { artNr: "4040", bez: "Elektro-Kleingeräte (ohne Akku)", zusatzMitte: "QR-Box" },
@@ -1208,7 +1207,6 @@
             const f = formats[key];
             const maxLabels = f.cols * f.rows;
             
-            // Passt die Min/Max Limits dynamisch im Formular an
             const i2 = document.getElementById('i2');
             const i3 = document.getElementById('i3');
             
@@ -1475,9 +1473,9 @@
             document.getElementById('s1').value = a29.topText;
             document.getElementById('i1').value = a29.topText;
 
-            // Dynamischer Info-Text im Template-Overlay
+            // Hier wird das Etiketten-Format dynamisch in die obere Titelzeile eingetragen
             document.getElementById('fmt-overlay').innerHTML = `
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 ${f.name}
             `;
             
@@ -1500,7 +1498,6 @@
             const f = formats[currentFormatKey];
             const maxLabels = f.cols * f.rows;
             
-            // Setzt das CSS Grid dynamisch basierend auf Spalten & Zeilen des gewählten Formats
             a31.style.gridTemplateColumns = `repeat(${f.cols}, 1fr)`;
             a31.style.gridTemplateRows = `repeat(${f.rows}, 1fr)`;
 
