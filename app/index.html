@@ -118,7 +118,7 @@
 
         .db {
             display: grid;
-            grid-template-columns: 1fr 240px; /* Invertiert: ip (links, flexibel) und ps (rechts, fixiert) */
+            grid-template-columns: 240px 1fr;
             gap: 35px;
             align-items: center;
             margin-bottom: 30px;
@@ -220,14 +220,23 @@
         }
 
         .fps {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             display: flex;
             flex-direction: column;
         }
 
-        /* Modernisiertes Design für die Sortiment-Dropdowns */
+        .fps label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+/* Modernisiertes Design für die Sortiment-Dropdowns */
         .fps select {
-            padding: 12px 40px 12px 14px;
+            padding: 12px 40px 12px 14px; /* Mehr Platz rechts für den custom Pfeil */
             border: 2px solid #cbd5e1;
             border-radius: 10px;
             font-size: 0.95rem;
@@ -239,15 +248,17 @@
             cursor: pointer;
             width: 100%;
             max-width: 100%;
-            appearance: none;
+            appearance: none; /* Entfernt den Standard-Browser-Pfeil */
             -webkit-appearance: none;
             -moz-appearance: none;
+            /* Moderner, dezenter Custom-Pfeil */
             background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
             background-repeat: no-repeat;
             background-position: right 14px center;
             background-size: 14px;
         }
 
+        /* Hover- & Fokus-Zustände für ein dynamisches UI-Gefühl */
         .fps select:hover {
             border-color: #6cb4db;
             box-shadow: 0 4px 12px rgba(108, 180, 219, 0.1);
@@ -258,6 +269,18 @@
             border-color: #1a4b60;
             box-shadow: 0 0 0 4px rgba(26, 75, 96, 0.12);
             background-color: #fff;
+        }
+
+        /* Styling für die kleinen Spalten-Überschriften über den Dropdowns */
+        .fps style span {
+            font-family: inherit;
+            letter-spacing: 0.5px;
+        }
+
+        .fps select:focus {
+            outline: none;
+            border-color: #1a4b60;
+            box-shadow: 0 0 0 3px rgba(26, 75, 96, 0.15);
         }
 
         .sb {
@@ -592,6 +615,9 @@
                 grid-template-columns: 1fr;
                 gap: 25px;
             }
+            .ps {
+                order: -1;
+            }
         }
 
         @media (max-width: 520px) {
@@ -858,15 +884,31 @@
         </div>
 
         <div class="db">
+            <div class="ps">
+                <div class="ps-ttl" id="fmt-overlay">
+                    Format wird geladen...
+                </div>
+                <div class="tw" onclick="o1()" title="Klicken für vollständige A4-Großansicht">
+                    <div class="sc">
+                        <div class="psh" id="t1"></div>
+                    </div>
+                    <div class="to">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 2px;"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                        Druck-Layout
+                    </div>
+                </div>
+            </div>
+
             <div class="ip">
                 <div class="fps">
+                    <label>Abfallart aus Sortiment wählen:</label>
                     <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 12px; width: 100%;">
                         <div>
-                            <span style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 6px;">Art.Nr.</span>
+                            <span style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 4px;">Art.Nr.</span>
                             <select id="s2_art" onchange="syncDropdowns(this.value)"></select>
                         </div>
                         <div>
-                            <span style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 6px;">Bezeichnung</span>
+                            <span style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 4px;">Bezeichnung</span>
                             <select id="s2_name" onchange="syncDropdowns(this.value)"></select>
                         </div>
                     </div>
@@ -891,21 +933,6 @@
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                         Optionen
                     </button>
-                </div>
-            </div>
-
-            <div class="ps">
-                <div class="ps-ttl" id="fmt-overlay">
-                    Format wird geladen...
-                </div>
-                <div class="tw" onclick="o1()" title="Klicken für vollständige A4-Großansicht">
-                    <div class="sc">
-                        <div class="psh" id="t1"></div>
-                    </div>
-                    <div class="to">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 2px;"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                        Druck-Layout
-                    </div>
                 </div>
             </div>
         </div>
@@ -1206,13 +1233,20 @@
             const selectName = document.getElementById('s2_name');
             if (!selectArt || !selectName) return;
 
-            const currentArtNr = document.getElementById('i5').value;
+            // Merke den aktuell ausgewählten Eintrag vor der Neu-Sortierung anhand der ArtNr
+            const currentSelectedIdx = selectArt.value;
+            let currentArtNr = "";
+            if (currentSelectedIdx !== "" && a2[currentSelectedIdx]) {
+                currentArtNr = a2[currentSelectedIdx].artNr;
+            }
 
-            // Getrennt fortlaufend aufwärts sortieren
+            // 1. Erstelle zwei separate Kopien des Arrays für die jeweilige Sortierung
+            // Kopie für Artikelnummern (Numerisch sortiert von niedrig zu hoch)
             const sortedByArt = [...a2].sort((a, b) => {
                 return (parseInt(a.artNr) || 0) - (parseInt(b.artNr) || 0);
             });
 
+            // Kopie für Bezeichnungen (Alphabetisch sortiert von A bis Z)
             const sortedByName = [...a2].sort((a, b) => {
                 return a.bez.localeCompare(b.bez, 'de', { sensitivity: 'base' });
             });
@@ -1220,27 +1254,31 @@
             selectArt.innerHTML = '';
             selectName.innerHTML = '';
 
+            // 2. Befülle das Artikelnummer-Dropdown (jeder Option-Value ist die echte ArtNr)
             sortedByArt.forEach((item) => {
                 const optArt = document.createElement('option');
-                optArt.value = item.artNr;
+                optArt.value = item.artNr; 
                 optArt.textContent = item.artNr;
                 selectArt.appendChild(optArt);
             });
 
+            // 3. Befülle das Bezeichnungs-Dropdown (jeder Option-Value ist die echte ArtNr zur Verknüpfung)
             sortedByName.forEach((item) => {
                 const optName = document.createElement('option');
-                optName.value = item.artNr;
+                optName.value = item.artNr; // Die ArtNr dient hier als Brücke zum Gegenstück
                 optName.textContent = item.bez;
                 selectName.appendChild(optName);
             });
 
-            if (currentArtNr !== "" && a2.some(i => i.artNr === currentArtNr)) {
+            // 4. Auswahlzustand wiederherstellen (oder auf den ersten Eintrag setzen)
+            if (currentArtNr !== "") {
                 selectArt.value = currentArtNr;
                 selectName.value = currentArtNr;
             } else if (sortedByArt.length > 0) {
                 selectArt.value = sortedByArt[0].artNr;
                 selectName.value = sortedByArt[0].artNr;
             }
+
             r1();
             p1();
         }
@@ -1249,8 +1287,36 @@
             const selectArt = document.getElementById('s2_art');
             const selectName = document.getElementById('s2_name');
             
+            // Beide Dropdowns springen synchron auf dieselbe Artikelnummer
             if (selectArt) selectArt.value = selectedArtNr;
             if (selectName) selectName.value = selectedArtNr;
+            
+            p1();
+            s7();
+        }
+
+        function p1() { //mark
+            const selectArt = document.getElementById('s2_art');
+            if (!selectArt || selectArt.value === "") return;
+
+            // Da selectArt.value jetzt die echte ArtNr hält, suchen wir das Objekt im a2-Array
+            const currentArtNr = selectArt.value;
+            const item = a2.find(i => i.artNr === currentArtNr);
+            
+            if (item) {
+                document.getElementById('i5').value = item.artNr;
+                document.getElementById('i6').value = item.geb || "";
+                document.getElementById('i7').value = item.bez;
+                u1();
+            }
+        }
+
+        function syncDropdowns(selectedIndex) {
+            const selectArt = document.getElementById('s2_art');
+            const selectName = document.getElementById('s2_name');
+            
+            if(selectArt) selectArt.value = selectedIndex;
+            if(selectName) selectName.value = selectedIndex;
             
             p1();
             s7();
@@ -1386,12 +1452,12 @@
             const selectArt = document.getElementById('s2_art');
             if (!selectArt || selectArt.value === "") return;
 
-            const currentArtNr = selectArt.value;
-            const item = a2.find(i => i.artNr === currentArtNr);
-            if (item) {
-                document.getElementById('i5').value = item.artNr;
-                document.getElementById('i6').value = item.geb || "";
-                document.getElementById('i7').value = item.bez;
+            const a13 = parseInt(selectArt.value);
+            const a12 = a2[a13];
+            if (a12) {
+                document.getElementById('i5').value = a12.artNr;
+                document.getElementById('i6').value = a12.geb || "";
+                document.getElementById('i7').value = a12.bez;
                 u1();
             }
         }
@@ -1621,9 +1687,9 @@
                     if (a54.artNr !== undefined) document.getElementById('i5').value = a54.artNr;
                     if (a54.suffix !== undefined) document.getElementById('i6').value = a54.suffix;
                     if (a54.bezeichnung !== undefined) document.getElementById('i7').value = a54.bezeichnung;
-                    if (a54.artNr !== undefined) {
+                    if (a54.sortimentIndex !== undefined) {
                         setTimeout(() => {
-                            syncDropdowns(a54.artNr);
+                            syncDropdowns(a54.sortimentIndex);
                         }, 100);
                     }
                     changeFormat(currentFormatKey);
