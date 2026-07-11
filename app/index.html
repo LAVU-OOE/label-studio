@@ -255,7 +255,6 @@
             box-shadow: 0 0 0 3px rgba(26, 75, 96, 0.15);
         }
 
-        /* Angepasste Vorschaubox passend zum realen Screenshot */
         .sb {
             background: #ffffff;
             border: 1px solid #d8e2ec;
@@ -807,6 +806,10 @@
 </head>
 <body>
 
+    <input type="hidden" id="i5" value="" />
+    <input type="hidden" id="i6" value="" />
+    <input type="hidden" id="i7" value="" />
+
     <div class="crd">
         <div class="hdr">
             <div class="hdr-l">
@@ -943,11 +946,11 @@
             <div class="fg" style="margin-bottom: 20px;">
                 <div class="fv">
                     <label for="i2" id="lblCount">Anzahl Etiketten:</label>
-                    <input type="number" id="i2" value="21" min="1" oninput="u1()" />
+                    <input type="number" id="i2" value="21" min="1" oninput="u1(); s7();" />
                 </div>
                 <div class="fv">
                     <label for="i3" id="lblStartPos">Start-Position:</label>
-                    <input type="number" id="i3" value="1" min="1" oninput="u1()" />
+                    <input type="number" id="i3" value="1" min="1" oninput="u1(); s7();" />
                 </div>
             </div>
 
@@ -1197,7 +1200,6 @@
             }
         }, 30000);
 
-        // Befüllt beide getrennten Dropdowns
         function i1() {
             const selectArt = document.getElementById('s2_art');
             const selectName = document.getElementById('s2_name');
@@ -1231,7 +1233,6 @@
             p1();
         }
 
-        // Synchronisiert die beiden Dropdowns miteinander
         function syncDropdowns(selectedIndex) {
             const selectArt = document.getElementById('s2_art');
             const selectName = document.getElementById('s2_name');
@@ -1240,11 +1241,13 @@
             if(selectName) selectName.value = selectedIndex;
             
             p1();
+            s7();
         }
 
         function x1(a15) {
             document.getElementById('i1').value = a15;
             u1();
+            s7();
         }
 
         document.getElementById('s1').addEventListener('change', function() {
@@ -1367,7 +1370,6 @@
             }
         }
 
-        // Liest den Wert aus dem synchronisierten Dropdown aus
         function p1() {
             const selectArt = document.getElementById('s2_art');
             if (!selectArt || selectArt.value === "") return;
