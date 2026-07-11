@@ -83,7 +83,7 @@
             font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 10px;
             background: #e8f8f5;
             padding: 4px 12px;
             border-radius: 8px;
@@ -114,6 +114,30 @@
         .sel-hdr:focus {
             box-shadow: none;
             background-color: transparent;
+        }
+
+        /* Lang Toggle Specific Button */
+        .btn-lang-toggle {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 3px 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(39, 174, 96, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: auto;
+            width: auto;
+        }
+
+        .btn-lang-toggle:hover {
+            background: #219653;
+            transform: scale(1.05);
         }
 
         .db {
@@ -840,13 +864,13 @@
                 <img src="logo.png" alt="LAVU Logo" class="lg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%231a4b60\' stroke-width=\'2\'><circle cx=\'12\' cy=\'12\' r=\'10\'/><path d=\'M8 14s1.5 2 4 2 4-2 4-2\'/><line x1=\'9\' y1=\'9\' x2=\'9.01\' y2=\'9\'/><line x1=\'15\' y1=\'9\' x2=\'15.01\' y2=\'9\'/></svg>'">
                 <div>
                     <div class="hdr-ttl">LAVU OÖ</div>
-                    <div class="hdr-sub">Etiketten-Studio v9</div>
+                    <div class="hdr-sub" id="txt-studio-v9">Etiketten-Studio v9</div>
                 </div>
             </div>
             <div class="hdr-r">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 <select id="s1" class="sel-hdr" onchange="x1(this.value)">
-                    <optgroup label="Linz-Land & Linz Stadt">
+                    <optgroup label="Linz-Land & Linz Stadt" id="opt-linz">
                         <option value="106 - ASZ Asten" selected>106 - ASZ Asten</option>
                         <option value="ASZ Ansfelden">ASZ Ansfelden</option>
                         <option value="ASZ Enns">ASZ Enns</option>
@@ -862,20 +886,21 @@
                         <option value="ASZ Linz-Wiener Straße">ASZ Linz-Wiener Straße</option>
                         <option value="ASZ Linz-Dornach">ASZ Linz-Dornach</option>
                     </optgroup>
-                    <optgroup label="Wels & Wels-Land">
+                    <optgroup label="Wels & Wels-Land" id="opt-wels">
                         <option value="ASZ Wels-Nord">ASZ Wels-Nord</option>
                         <option value="ASZ Wels-Kenten">ASZ Wels-Kenten</option>
                         <option value="ASZ Marchtrenk">ASZ Marchtrenk</option>
                         <option value="ASZ Gunskirchen">ASZ Gunskirchen</option>
                         <option value="ASZ Thalheim">ASZ Thalheim</option>
                     </optgroup>
-                    <optgroup label="Steyr & Steyr-Land">
+                    <optgroup label="Steyr & Steyr-Land" id="opt-steyr">
                         <option value="ASZ Steyr">ASZ Steyr</option>
                         <option value="ASZ Bad Hall">ASZ Bad Hall</option>
                         <option value="ASZ Garsten">ASZ Garsten</option>
                         <option value="ASZ Sierning">ASZ Sierning</option>
                     </optgroup>
                 </select>
+                <button id="langToggleBtn" class="btn-lang-toggle" onclick="toggleLanguage()">EN</button>
             </div>
         </div>
 
@@ -885,11 +910,11 @@
                     Format wird geladen...
                 </div>
                 <div class="ps">
-                    <div class="tw" onclick="o1()" title="Klicken für vollständige A4-Großansicht">
+                    <div class="tw" onclick="o1()" id="layout-title-attr" title="Klicken für vollständige A4-Großansicht">
                         <div class="sc">
                             <div class="psh" id="t1"></div>
                         </div>
-                        <div class="to">
+                        <div class="to" id="txt-print-layout">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 2px;"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
                             Druck-Layout
                         </div>
@@ -901,11 +926,11 @@
                 <div class="fps">
                     <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 12px; width: 100%;">
                         <div>
-                            <span style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 4px; height: 16px; line-height: 16px;">Art.Nr.</span>
+                            <span id="txt-art-nr" style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 4px; height: 16px; line-height: 16px;">Art.Nr.</span>
                             <select id="s2_art" onchange="syncDropdowns(this.value)"></select>
                         </div>
                         <div>
-                            <span style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 4px; height: 16px; line-height: 16px;">Bezeichnung</span>
+                            <span id="txt-bezeichnung" style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 4px; height: 16px; line-height: 16px;">Bezeichnung</span>
                             <select id="s2_name" onchange="syncDropdowns(this.value)"></select>
                         </div>
                     </div>
@@ -917,16 +942,17 @@
                         <div class="lba" id="d2">-</div>
                         <div class="lbs" id="d3">-</div>
                     </div>
+                    <div class="lbt bbb-fake-fix" style="border-bottom:none; font-size:1px; height:1px; line-height:1px;"></div>
                     <div class="lbb" id="d1">-</div>
                     <div style="font-size: 0.75rem; color: #64748b; margin-top: 8px; border-top: 1px dashed #cbd5e1; padding-top: 6px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; visibility: hidden;" id="d4">-</div>
                 </div>
 
                 <div class="ab">
-                    <button class="bp" onclick="window.print()">
+                    <button class="bp" onclick="window.print()" id="btn-print-now">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
                         Jetzt Drucken
                     </button>
-                    <button class="bs" onclick="o2()">
+                    <button class="bs" onclick="o2()" id="btn-options">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                         Optionen
                     </button>
@@ -948,12 +974,12 @@
     <div id="m1" class="mb" onclick="c1(event)">
         <div class="mc">
             <div class="mh">
-                <span>Druck- & Standorteinstellungen</span>
+                <span id="txt-modal1-title">Druck- & Standorteinstellungen</span>
                 <button class="bx" onclick="c2()">&times;</button>
             </div>
 
             <div class="fv" style="margin-bottom: 15px;">
-                <label for="i1">
+                <label for="i1" id="lbl-location">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                     Standort (ASZ Niederlassung OÖ):
                 </label>
@@ -961,7 +987,7 @@
             </div>
 
             <div class="fv" style="margin-bottom: 15px;">
-                <label for="labelFormatSelect">
+                <label for="labelFormatSelect" id="lbl-format">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
                     Etiketten-Hersteller & Format:
                 </label>
@@ -982,23 +1008,23 @@
             <div class="ms">
                 <div id="t2" class="mt a" onclick="m2('select')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-                    Sortiment wählen
+                    <span id="txt-tab-select">Sortiment wählen</span>
                 </div>
                 <div id="t3" class="mt" onclick="m2('input')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-                    Datenbank verwalten
+                    <span id="txt-tab-manage">Datenbank verwalten</span>
                 </div>
             </div>
 
             <div id="s3" class="fs a">
                 <div class="fv" style="margin-bottom: 15px;">
-                    <label for="i4">
+                    <label for="i4" id="lbl-url">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
                         Zentrale Sortiment-URL (GitHub Raw JSON):
                     </label>
                     <div style="display: flex; gap: 8px;">
                         <input type="text" id="i4" placeholder="https://..." style="flex: 1;" />
-                        <button class="bc bsd" style="padding: 11px 16px;" onclick="localStorage.setItem('lavu_sortiment_url', document.getElementById('i4').value.trim()); f2();">Aktualisieren</button>
+                        <button class="bc bsd" style="padding: 11px 16px;" onclick="localStorage.setItem('lavu_sortiment_url', document.getElementById('i4').value.trim()); f2();" id="btn-update">Aktualisieren</button>
                     </div>
                     <span id="n1" style="font-size: 0.8rem; font-weight: bold; margin-top: 6px; display: block;"></span>
                 </div>
@@ -1012,35 +1038,35 @@
                         <input type="text" id="c1" placeholder="z.B. 4040" />
                     </div>
                     <div class="fv">
-                        <label for="c2">Gebinde / Suffix:</label>
+                        <label for="c2" id="lbl-db-suffix">Gebinde / Suffix:</label>
                         <input type="text" id="c2" placeholder="z.B. QR-Box" />
                     </div>
                     <div class="fv fw">
-                        <label for="c3">Bezeichnung:</label>
+                        <label for="c3" id="lbl-db-bez">Bezeichnung:</label>
                         <input type="text" id="c3" placeholder="z.B. Elektro-Kleingeräte" />
                     </div>
                 </div>
 
                 <div style="display: flex; gap: 8px; margin-bottom: 20px;">
                     <button id="b1" class="bc bsd" style="display: none; background: #e67e22;" onclick="s4()">💾 Ändern</button>
-                    <button class="bc bsd" style="background: #27ae60; flex: 1;" onclick="s3()">➕ Neu hinzufügen</button>
-                    <button class="bc bcn" onclick="e1()">Abbrechen</button>
+                    <button class="bc bsd" style="background: #27ae60; flex: 1;" onclick="s3()" id="btn-add-new">➕ Neu hinzufügen</button>
+                    <button class="bc bcn" onclick="e1()" id="btn-cancel">Abbrechen</button>
                 </div>
 
                 <div style="margin-bottom: 15px;">
-                    <button class="bc" style="background: #2c3e50; color: white; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;" onclick="e2()"> 📥 Aktuelle Datenbank als JSON herunterladen </button>
+                    <button class="bc" style="background: #2c3e50; color: white; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;" onclick="e2()" id="btn-download-json"> 📥 Aktuelle Datenbank als JSON herunterladen </button>
                 </div>
 
-                <label>Aktuelle Einträge im lokalen Workspace:</label>
+                <label id="lbl-current-entries">Aktuelle Einträge im lokalen Workspace:</label>
                 <div id="c4" style="max-height: 180px; overflow-y: auto; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc; padding: 5px;"> </div>
             </div>
 
             <div class="mf">
                 <button id="b2" class="bsd" onclick="s6()">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                    Standard sichern
+                    <span id="btn-save-default">Standard sichern</span>
                 </button>
-                <button class="bcn" onclick="c2()">Fertig</button>
+                <button class="bcn" onclick="c2()" id="btn-done">Fertig</button>
             </div>
         </div>
     </div>
@@ -1060,11 +1086,11 @@
                 </div>
             </div>
             <div class="mf">
-                <button class="bp" onclick="window.print()">
+                <button class="bp" onclick="window.print()" id="btn-modal-print">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
                     Drucken
                 </button>
-                <button class="bcn" onclick="c5()">Schließen</button>
+                <button class="bcn" onclick="c5()" id="btn-modal-close">Schließen</button>
             </div>
         </div>
     </div>
@@ -1079,8 +1105,8 @@
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             </div>
             <div>
-                <div style="font-weight: bold; font-size: 0.95rem;">Als App installieren</div>
-                <div style="font-size: 0.8rem; color: #a5cddd; margin-top: 2px;">Schnellerer Zugriff & Offline-Nutzung</div>
+                <div style="font-weight: bold; font-size: 0.95rem;" id="txt-pwa-title">Als App installieren</div>
+                <div style="font-size: 0.8rem; color: #a5cddd; margin-top: 2px;" id="txt-pwa-sub">Schnellerer Zugriff & Offline-Nutzung</div>
             </div>
         </div>
         <button id="b3" style="background: #27ae60; color: white; padding: 8px 16px; font-size: 0.85rem; border-radius: 6px; box-shadow: 0 4px 10px rgba(39,174,96,0.3);">Installieren</button>
@@ -1089,6 +1115,97 @@
     <script>
         let a2 = [];
         let a3 = 'select';
+        let currentLang = localStorage.getItem('lavu_lang') || 'de';
+
+        const i18n = {
+            de: {
+                studioV9: "Etiketten-Studio v9",
+                loadingFormat: "Format wird geladen...",
+                printLayout: "Druck-Layout",
+                artNr: "Art.Nr.",
+                bezeichnung: "Bezeichnung",
+                printNow: "Jetzt Drucken",
+                options: "Optionen",
+                modal1Title: "Druck- & Standorteinstellungen",
+                lblLocation: "Standort (ASZ Niederlassung OÖ):",
+                lblFormat: "Etiketten-Hersteller & Format:",
+                lblCount: "Anzahl Etiketten",
+                lblStartPos: "Start-Position",
+                tabSelect: "Sortiment wählen",
+                tabManage: "Datenbank verwalten",
+                lblUrl: "Zentrale Sortiment-URL (GitHub Raw JSON):",
+                btnUpdate: "Aktualisieren",
+                lblDbSuffix: "Gebinde / Suffix:",
+                lblDbBez: "Bezeichnung:",
+                btnSave: "💾 Ändern",
+                btnAddNew: "➕ Neu hinzufügen",
+                btnCancel: "Abbrechen",
+                btnDownloadJson: "📥 Aktuelle Datenbank als JSON herunterladen",
+                lblCurrentEntries: "Aktuelle Einträge im lokalen Workspace:",
+                btnSaveDefault: "Standard sichern",
+                btnDone: "Fertig",
+                modal2Title: "Interaktiver A4-Druckbogen",
+                btnModalPrint: "Drucken",
+                btnModalClose: "Schließen",
+                txtPwaTitle: "Als App installieren",
+                txtPwaSub: "Schnellerer Zugriff & Offline-Nutzung",
+                btnPwaInstall: "Installieren",
+                layoutTitleAttr: "Klicken für vollständige A4-Großansicht",
+                alertSaved: "Aktuelle Einstellungen wurden als Standard im Browser gespeichert!",
+                confirmDelete: "Möchten Sie diesen Eintrag wirklich löschen?",
+                alertFillForm: "Bitte zumindest Art.Nr. und Bezeichnung ausfüllen.",
+                alertErrorChange: "Fehler beim Ändern.",
+                netLoading: "⏳ Verbinde...",
+                netSuccessLocal: "🟢 Lokale sortiment.json erfolgreich aktiv",
+                netSuccessRemote: "🟢 Verbunden mit externem JSON Repository",
+                netFallbackLocal: "⚠️ Keine lokale sortiment.json gefunden. Cache geladen.",
+                netFallbackRemote: "⚠️ Remote JSON Offline! Lokaler Cache geladen."
+            },
+            en: {
+                studioV9: "Label Studio v9",
+                loadingFormat: "Loading format...",
+                printLayout: "Print Layout",
+                artNr: "Item No.",
+                bezeichnung: "Description",
+                printNow: "Print Now",
+                options: "Options",
+                modal1Title: "Print & Location Settings",
+                lblLocation: "Location (ASZ Branch OÖ):",
+                lblFormat: "Label Manufacturer & Format:",
+                lblCount: "Number of Labels",
+                lblStartPos: "Start Position",
+                tabSelect: "Select Assortment",
+                tabManage: "Manage Database",
+                lblUrl: "Central Assortment URL (GitHub Raw JSON):",
+                btnUpdate: "Update",
+                lblDbSuffix: "Container / Suffix:",
+                lblDbBez: "Description:",
+                btnSave: "💾 Change",
+                btnAddNew: "➕ Add New",
+                btnCancel: "Cancel",
+                btnDownloadJson: "📥 Download Current Database as JSON",
+                lblCurrentEntries: "Current entries in local workspace:",
+                btnSaveDefault: "Save Defaults",
+                btnDone: "Done",
+                modal2Title: "Interactive A4 Print Sheet",
+                btnModalPrint: "Print",
+                btnModalClose: "Close",
+                txtPwaTitle: "Install as App",
+                txtPwaSub: "Faster access & offline usage",
+                btnPwaInstall: "Install",
+                layoutTitleAttr: "Click for full A4 sheet preview",
+                alertSaved: "Current settings saved as defaults in browser!",
+                confirmDelete: "Do you really want to delete this entry?",
+                alertFillForm: "Please fill in at least Item No. and Description.",
+                alertErrorChange: "Error applying changes.",
+                netLoading: "⏳ Connecting...",
+                netSuccessLocal: "🟢 Local sortiment.json active successfully",
+                netSuccessRemote: "🟢 Connected to remote JSON Repository",
+                netFallbackLocal: "⚠️ No local sortiment.json found. Cache loaded.",
+                netFallbackRemote: "⚠️ Remote JSON Offline! Local cache loaded."
+            }
+        };
+
         const formats = {
             "4473": { cols: 3, rows: 8, name: "HERMA 4473 (70 x 36 mm)" },
             "4273": { cols: 3, rows: 8, name: "HERMA 4273 (70 x 36 mm)" },
@@ -1132,6 +1249,7 @@
         window.addEventListener('DOMContentLoaded', async () => {
             initFormatSelects();
             initHeaderSelects();
+            applyLanguage();
             l1();
 
             let a4 = localStorage.getItem('lavu_sortiment_url');
@@ -1140,11 +1258,67 @@
                 localStorage.setItem('lavu_sortiment_url', a4);
             }
             document.getElementById('i4').value = a4;
-            document.getElementById('n1').innerHTML = `⏳ Verbinde...`;
+            
+            const t = i18n[currentLang];
+            document.getElementById('n1').innerHTML = t.netLoading;
             document.getElementById('n1').style.color = '#f39c12';
             await f2();
             u1();
         });
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'de' ? 'en' : 'de';
+            localStorage.setItem('lavu_lang', currentLang);
+            applyLanguage();
+            u1();
+            r1();
+        }
+
+        function applyLanguage() {
+            const t = i18n[currentLang];
+            
+            // Toggle Button label shows next option
+            document.getElementById('langToggleBtn').textContent = currentLang === 'de' ? 'EN' : 'DE';
+            
+            // Text updating elements
+            document.getElementById('txt-studio-v9').textContent = t.studioV9;
+            document.getElementById('txt-print-layout').childNodes[1].nodeValue = " " + t.printLayout;
+            document.getElementById('txt-art-nr').textContent = t.artNr;
+            document.getElementById('txt-bezeichnung').textContent = t.bezeichnung;
+            document.getElementById('btn-print-now').childNodes[1].nodeValue = " " + t.printNow;
+            document.getElementById('btn-options').childNodes[1].nodeValue = " " + t.options;
+            
+            document.getElementById('txt-modal1-title').textContent = t.modal1Title;
+            document.getElementById('lbl-location').childNodes[1].nodeValue = " " + t.lblLocation;
+            document.getElementById('lbl-format').childNodes[1].nodeValue = " " + t.lblFormat;
+            
+            document.getElementById('txt-tab-select').textContent = t.tabSelect;
+            document.getElementById('txt-tab-manage').textContent = t.tabManage;
+            document.getElementById('lbl-url').childNodes[1].nodeValue = " " + t.lblUrl;
+            document.getElementById('btn-update').textContent = t.btnUpdate;
+            document.getElementById('lbl-db-suffix').textContent = t.lblDbSuffix;
+            document.getElementById('lbl-db-bez').textContent = t.lblDbBez;
+            document.getElementById('btn-add-new').textContent = t.btnAddNew;
+            document.getElementById('btn-cancel').textContent = t.btnCancel;
+            document.getElementById('btn-download-json').textContent = t.btnDownloadJson;
+            document.getElementById('lbl-current-entries').textContent = t.lblCurrentEntries;
+            
+            document.getElementById('btn-save-default').childNodes[1].nodeValue = " " + t.btnSaveDefault;
+            document.getElementById('btn-done').textContent = t.btnDone;
+            
+            document.getElementById('modalTitle').textContent = t.modal2Title;
+            document.getElementById('btn-modal-print').childNodes[1].nodeValue = " " + t.btnModalPrint;
+            document.getElementById('btn-modal-close').textContent = t.btnModalClose;
+            
+            document.getElementById('txt-pwa-title').textContent = t.txtPwaTitle;
+            document.getElementById('txt-pwa-sub').textContent = t.txtPwaSub;
+            document.getElementById('b3').textContent = t.btnPwaInstall;
+            
+            document.getElementById('layout-title-attr').setAttribute('title', t.layoutTitleAttr);
+
+            // Re-eval formatting limits text strings
+            changeFormat(currentFormatKey);
+        }
 
         function initFormatSelects() {
             const selectSettings = document.getElementById('labelFormatSelect');
@@ -1173,7 +1347,6 @@
         function changeFormat(key) {
             currentFormatKey = key;
             
-            // Synchronisiere beide Dropdowns
             const selectSettings = document.getElementById('labelFormatSelect');
             const selectModal = document.getElementById('modalLabelFormatSelect');
             if (selectSettings) selectSettings.value = key;
@@ -1183,8 +1356,11 @@
             const maxLabels = f.cols * f.rows;
             const i2 = document.getElementById('i2');
             const i3 = document.getElementById('i3');
-            document.getElementById('lblCount').textContent = `Anzahl Etiketten (max. ${maxLabels}):`;
-            document.getElementById('lblStartPos').textContent = `Start-Position (1-${maxLabels}):`;
+            
+            const t = i18n[currentLang];
+            document.getElementById('lblCount').textContent = `${t.lblCount} (max. ${maxLabels}):`;
+            document.getElementById('lblStartPos').textContent = `${t.lblStartPos} (1-${maxLabels}):`;
+            
             i2.max = maxLabels;
             i3.max = maxLabels;
             if (parseInt(i2.value) > maxLabels) i2.value = maxLabels;
@@ -1194,6 +1370,7 @@
 
         async function f2() {
             let a4 = localStorage.getItem('lavu_sortiment_url') || "sortiment.json";
+            const t = i18n[currentLang];
             try {
                 const a5 = await fetch(a4, { cache: "no-store" });
                 if (!a5.ok) throw new Error("Netzwerkantwort war fehlerhaft");
@@ -1202,9 +1379,9 @@
                     a2 = a6;
                     localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(a2));
                     if (a4 === "sortiment.json") {
-                        document.getElementById('n1').innerHTML = `🟢 Lokale sortiment.json erfolgreich aktiv`;
+                        document.getElementById('n1').innerHTML = t.netSuccessLocal;
                     } else {
-                        document.getElementById('n1').innerHTML = `🟢 Verbunden mit externem JSON Repository`;
+                        document.getElementById('n1').innerHTML = t.netSuccessRemote;
                     }
                     document.getElementById('n1').style.color = '#27ae60';
                     i1();
@@ -1213,9 +1390,9 @@
             } catch (e) {
                 console.warn("Fehler beim Abrufen der JSON-Quelle, weiche auf cache / localStorage aus.", e);
                 if (a4 === "sortiment.json") {
-                    document.getElementById('n1').innerHTML = `⚠️ Keine lokale sortiment.json gefunden. Cache geladen.`;
+                    document.getElementById('n1').innerHTML = t.netFallbackLocal;
                 } else {
-                    document.getElementById('n1').innerHTML = `⚠️ Remote JSON Offline! Lokaler Cache geladen.`;
+                    document.getElementById('n1').innerHTML = t.netFallbackRemote;
                 }
                 document.getElementById('n1').style.color = '#e74c3c';
             }
@@ -1371,7 +1548,8 @@
         }
 
         function d1(a13) {
-            if (confirm("Möchten Sie diesen Eintrag wirklich löschen?")) {
+            const t = i18n[currentLang];
+            if (confirm(t.confirmDelete)) {
                 a2.splice(a13, 1);
                 localStorage.setItem('lavu_studio_sortiment_v8', JSON.stringify(a2));
                 i1();
@@ -1391,9 +1569,10 @@
             const c1 = document.getElementById('c1').value.trim();
             const c2 = document.getElementById('c2').value.trim();
             const c3 = document.getElementById('c3').value.trim();
+            const t = i18n[currentLang];
 
             if (!c1 || !c3) {
-                alert("Bitte zumindest Art.Nr. und Bezeichnung ausfüllen.");
+                alert(t.alertFillForm);
                 return;
             }
 
@@ -1409,9 +1588,10 @@
             const c1 = document.getElementById('c1').value.trim();
             const c2 = document.getElementById('c2').value.trim();
             const c3 = document.getElementById('c3').value.trim();
+            const t = i18n[currentLang];
 
             if (index === "" || !c1 || !c3) {
-                alert("Fehler beim Ändern.");
+                alert(t.alertErrorChange);
                 return;
             }
 
@@ -1466,7 +1646,11 @@
             } else {
                 badge.style.display = 'none';
             }
-            document.getElementById('d4').textContent = `Druck-Layout: ${a29.count}x ab Position ${a29.startPos}`;
+            
+            const t = i18n[currentLang];
+            const layoutTranslationText = currentLang === 'de' ? 'ab Position' : 'from position';
+            document.getElementById('d4').textContent = `${t.printLayout}: ${a29.count}x ${layoutTranslationText} ${a29.startPos}`;
+            
             document.getElementById('s1').value = a29.topText;
             document.getElementById('i1').value = a29.topText;
             document.getElementById('fmt-overlay').innerHTML = `
@@ -1503,6 +1687,7 @@
                             <div class="lba">${a29.artNr || '&nbsp;'}</div>
                             ${a29.suffix ? `<div class="lbs">${a29.suffix}</div>` : ''}
                         </div>
+                        <div class="lbt bbb-fake-fix" style="border-bottom:none; font-size:1px; height:1px; line-height:1px;"></div>
                         <div class="lbb">${a29.bezeichnung || '&nbsp;'}</div>
                     `;
                 } else {
@@ -1627,7 +1812,7 @@
             if (parseInt(i3.value) > maxLabels) i3.value = 1;
 
             s7();
-            alert("Aktuelle Einstellungen wurden als Standard im Browser gespeichert!");
+            alert(i18n[currentLang].alertSaved);
         }
 
         function s7() {
