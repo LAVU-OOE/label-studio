@@ -573,6 +573,33 @@
             padding-right: 10px;
         }
 
+        .sel-modal-hdr {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1a4b60;
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 4px 24px 4px 8px;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231a4b60' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+            background-repeat: no-repeat;
+            background-position: calc(100% - 8px) center;
+            width: auto;
+            max-width: 260px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .sel-modal-hdr:focus {
+            border-color: #6cb4db;
+            box-shadow: 0 0 0 2px rgba(108, 180, 219, 0.15);
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 12px;
@@ -1021,7 +1048,10 @@
     <div id="m2" class="mb" onclick="c4(event)">
         <div class="mc mpc">
             <div class="mh">
-                <span id="modalTitle">Interaktiver A4-Druckbogen</span>
+                <span id="modalTitle" style="display: flex; flex-direction: column; gap: 4px;">
+                    Interaktiver A4-Druckbogen
+                </span>
+                <select id="modalLabelFormatSelect" class="sel-modal-hdr" onchange="changeFormat(this.value)"></select>
                 <button class="bx" onclick="c5()">&times;</button>
             </div>
             <div class="mbs">
@@ -1100,7 +1130,7 @@
         ];
 
         window.addEventListener('DOMContentLoaded', async () => {
-            initFormatSelect();
+            initFormatSelects();
             initHeaderSelects();
             l1();
 
@@ -1116,16 +1146,21 @@
             u1();
         });
 
-        function initFormatSelect() {
-            const select = document.getElementById('labelFormatSelect');
-            select.innerHTML = '';
-            for (const key in formats) {
-                const opt = document.createElement('option');
-                opt.value = key;
-                opt.textContent = formats[key].name;
-                if (key === currentFormatKey) opt.selected = true;
-                select.appendChild(opt);
-            }
+        function initFormatSelects() {
+            const selectSettings = document.getElementById('labelFormatSelect');
+            const selectModal = document.getElementById('modalLabelFormatSelect');
+            
+            [selectSettings, selectModal].forEach(select => {
+                if (!select) return;
+                select.innerHTML = '';
+                for (const key in formats) {
+                    const opt = document.createElement('option');
+                    opt.value = key;
+                    opt.textContent = formats[key].name;
+                    if (key === currentFormatKey) opt.selected = true;
+                    select.appendChild(opt);
+                }
+            });
         }
 
         function initHeaderSelects() {
@@ -1137,6 +1172,13 @@
 
         function changeFormat(key) {
             currentFormatKey = key;
+            
+            // Synchronisiere beide Dropdowns
+            const selectSettings = document.getElementById('labelFormatSelect');
+            const selectModal = document.getElementById('modalLabelFormatSelect');
+            if (selectSettings) selectSettings.value = key;
+            if (selectModal) selectModal.value = key;
+
             const f = formats[key];
             const maxLabels = f.cols * f.rows;
             const i2 = document.getElementById('i2');
@@ -1203,20 +1245,16 @@
             const selectName = document.getElementById('s2_name');
             if (!selectArt || !selectName) return;
 
-            // Merke den aktuell ausgewählten Eintrag vor der Neu-Sortierung anhand der ArtNr
             const currentSelectedIdx = selectArt.value;
             let currentArtNr = "";
             if (currentSelectedIdx !== "" && a2[currentSelectedIdx]) {
                 currentArtNr = a2[currentSelectedIdx].artNr;
             }
 
-            // 1. Erstelle zwei separate Kopien des Arrays für die jeweilige Sortierung
-            // Kopie für Artikelnummern (Numerisch sortiert von niedrig zu hoch)
             const sortedByArt = [...a2].sort((a, b) => {
                 return (parseInt(a.artNr) || 0) - (parseInt(b.artNr) || 0);
             });
 
-            // Kopie für Bezeichnungen (Alphabetisch sortiert von A bis Z)
             const sortedByName = [...a2].sort((a, b) => {
                 return a.bez.localeCompare(b.bez, 'de', { sensitivity: 'base' });
             });
@@ -1224,7 +1262,6 @@
             selectArt.innerHTML = '';
             selectName.innerHTML = '';
 
-            // 2. Befülle das Artikelnummer-Dropdown (jeder Option-Value ist die echte ArtNr)
             sortedByArt.forEach((item) => {
                 const optArt = document.createElement('option');
                 optArt.value = item.artNr; 
@@ -1232,15 +1269,13 @@
                 selectArt.appendChild(optArt);
             });
 
-            // 3. Befülle das Bezeichnungs-Dropdown (jeder Option-Value ist die echte ArtNr zur Verknüpfung)
             sortedByName.forEach((item) => {
                 const optName = document.createElement('option');
-                optName.value = item.artNr; // Die ArtNr dient hier als Brücke zum Gegenstück
+                optName.value = item.artNr; 
                 optName.textContent = item.bez;
                 selectName.appendChild(optName);
             });
 
-            // 4. Auswahlzustand wiederherstellen (oder auf den ersten Eintrag setzen)
             if (currentArtNr !== "") {
                 selectArt.value = currentArtNr;
                 selectName.value = currentArtNr;
@@ -1257,7 +1292,6 @@
             const selectArt = document.getElementById('s2_art');
             const selectName = document.getElementById('s2_name');
             
-            // Beide Dropdowns springen synchron auf dieselbe Artikelnummer
             if (selectArt) selectArt.value = selectedArtNr;
             if (selectName) selectName.value = selectedArtNr;
             
@@ -1265,11 +1299,10 @@
             s7();
         }
 
-        function p1() { //mark
+        function p1() { 
             const selectArt = document.getElementById('s2_art');
             if (!selectArt || selectArt.value === "") return;
 
-            // Da selectArt.value jetzt die echte ArtNr hält, suchen wir das Objekt im a2-Array
             const currentArtNr = selectArt.value;
             const item = a2.find(i => i.artNr === currentArtNr);
             
@@ -1439,7 +1472,7 @@
             document.getElementById('fmt-overlay').innerHTML = `
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> ${f.name}
             `;
-            document.getElementById('modalTitle').innerHTML = `Interaktiver A4-Druckbogen<br/><small style="font-size:0.85rem; font-weight:normal; color:#64748b;">${f.name}</small>`;
+            
             r2('t1', a29);
             r2('mdl', a29);
             r2('d5', a29);
@@ -1620,6 +1653,9 @@
                     if (a54.formatKey !== undefined && formats[a54.formatKey]) {
                         currentFormatKey = a54.formatKey;
                         document.getElementById('labelFormatSelect').value = currentFormatKey;
+                        if (document.getElementById('modalLabelFormatSelect')) {
+                            document.getElementById('modalLabelFormatSelect').value = currentFormatKey;
+                        }
                     }
                     const f = formats[currentFormatKey];
                     const maxLabels = f.cols * f.rows;
@@ -1709,6 +1745,5 @@
             if (a63) a63.style.display = 'none';
         });
     </script>
-    
 </body>
 </html>
