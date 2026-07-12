@@ -3,295 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/assets/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
-    <link rel="shortcut icon" href="/assets/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="LAVU-OOE" />
-    <link rel="manifest" href="/manifest.json" />
     <link rel="canonical" href="https://lavu-ooe.github.io/Etiketten-Druckstudio/app/">
-    <title>Wird geladen...</title>
+    <link rel="manifest" href="site.webmanifest" />
+    <title>LAVU-OÖ - Wird geladen...</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            background: #f0f4f8;
-            color: #1a202c;
+        * { box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 20px; 
+            background-color: #f9f9f9; 
+            color: #333; 
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
         }
-
-        .container {
-            max-width: 820px;
+        .container { 
+            max-width: 800px; 
+            margin: 40px auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
             width: 100%;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 10px 15px rgba(0, 0, 0, 0.05);
-            padding: 40px;
-            transition: all 0.3s ease;
         }
-
-        .loader {
-            text-align: center;
-            padding: 20px 0;
+        .loader { 
+            text-align: center; 
+            padding: 40px 20px;
         }
-
-        .loader h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 8px;
-        }
-
-        .loader p {
-            color: #718096;
-            margin-top: 4px;
-        }
-
-        .spinner-container {
-            display: flex;
-            justify-content: center;
-            margin: 24px 0;
-        }
-
-        .spinner {
-            width: 48px;
-            height: 48px;
-            border: 4px solid #e2e8f0;
-            border-top: 4px solid #3182ce;
+        .loader .spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
             border-radius: 50%;
-            animation: spin 0.9s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
         }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        .dots::after {
-            content: '';
-            animation: dots 1.5s steps(4, end) infinite;
+        .loader .progress-bar {
+            width: 100%;
+            max-width: 300px;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin: 15px auto;
+            overflow: hidden;
         }
-
-        @keyframes dots {
-            0% { content: ''; }
-            25% { content: '.'; }
-            50% { content: '..'; }
-            75% { content: '...'; }
-            100% { content: ''; }
+        .loader .progress-bar .progress {
+            height: 100%;
+            background: #3498db;
+            width: 0%;
+            animation: progress 3s ease-in-out infinite;
         }
-
-        .fallback {
-            animation: fadeIn 0.4s ease-in;
+        @keyframes progress {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fallback h1 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .fallback .subtitle {
-            color: #718096;
-            margin-bottom: 20px;
-        }
-
-        .fallback hr {
-            border: none;
-            border-top: 2px solid #e2e8f0;
-            margin: 20px 0;
-        }
-
-        .fallback pre {
-            background: #f7fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 20px;
-            font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.7;
-            overflow-x: auto;
-            white-space: pre-wrap;
+        pre { 
+            background: #f4f4f4; 
+            padding: 15px; 
+            border-radius: 5px; 
+            overflow-x: auto; 
+            white-space: pre-wrap; 
             word-wrap: break-word;
-            color: #2d3748;
-            max-height: 60vh;
+            max-height: 500px;
             overflow-y: auto;
         }
-
-        .fallback pre::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
-        .fallback pre::-webkit-scrollbar-track {
-            background: #edf2f7;
-            border-radius: 3px;
-        }
-
-        .fallback pre::-webkit-scrollbar-thumb {
-            background: #cbd5e0;
-            border-radius: 3px;
-        }
-
-        .fallback pre::-webkit-scrollbar-thumb:hover {
-            background: #a0aec0;
-        }
-
+        .hidden { display: none !important; }
         .error-message {
-            background: #fff5f5;
-            border: 1px solid #feb2b2;
-            border-radius: 8px;
-            padding: 20px;
-            color: #c53030;
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
-
-        .error-message strong {
-            display: block;
-            font-size: 1.1rem;
-            margin-bottom: 4px;
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
         }
-
-        .hidden {
-            display: none !important;
+        .btn:hover {
+            background: #2980b9;
         }
-
-        @media (max-width: 640px) {
-            .container {
-                padding: 24px 20px;
-            }
-
-            .loader h2 {
-                font-size: 1.25rem;
-            }
-
-            .fallback h1 {
-                font-size: 1.4rem;
-            }
-
-            .fallback pre {
-                font-size: 0.8rem;
-                padding: 14px;
-            }
+        .status-text {
+            color: #666;
+            font-size: 14px;
+        }
+        .retry-count {
+            color: #999;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div id="loader" class="loader" role="status" aria-live="polite">
-            <h2>System wird geprüft<span class="dots"></span></h2>
-            <p>Bitte warten, Sie werden weitergeleitet.</p>
-            <div class="spinner-container">
-                <div class="spinner" aria-hidden="true"></div>
+        <!-- Loader -->
+        <div id="loader" class="loader">
+            <div class="spinner"></div>
+            <h2>System wird gestartet...</h2>
+            <p>Bitte warten Sie, während die Anwendung geladen wird.</p>
+            <div class="progress-bar">
+                <div class="progress"></div>
             </div>
+            <p class="status-text" id="status-text">Verbindung wird hergestellt...</p>
+            <p class="retry-count" id="retry-count"></p>
         </div>
 
-        <div id="fallback" class="fallback hidden" role="document">
-            <h1>📄 System-Dokumentation</h1>
-            <p class="subtitle">Die Hauptanwendung konnte nicht geladen werden. Hier ist die technische Dokumentation:</p>
+        <!-- Fallback -->
+        <div id="readme-fallback" class="hidden">
+            <h1>ℹ️ Dokumentation (Offline-Modus)</h1>
+            <div class="error-message">
+                <strong>⚠️ Die Hauptanwendung konnte nicht geladen werden.</strong><br>
+                Dies kann folgende Gründe haben:
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>Die Anwendung wurde noch nicht installiert</li>
+                    <li>Die Server-Kommunikation ist unterbrochen</li>
+                    <li>Die Datei <code>app/index.html</code> ist nicht vorhanden</li>
+                </ul>
+            </div>
+            <p>Nachfolgend finden Sie die System-Dokumentation als Fallback:</p>
             <hr>
-            <pre id="readme-content" aria-label="Dokumentation Inhalt">Lade Dokumentation...</pre>
+            <pre id="readme-content">Lade Dokumentation...</pre>
+            <div style="margin-top: 20px; text-align: center;">
+                <button class="btn" onclick="tryReload()">🔄 Erneut versuchen</button>
+                <button class="btn" style="background: #6c757d;" onclick="window.location.href='/'">🏠 Zur Startseite</button>
+            </div>
         </div>
     </div>
 
     <script>
-        (function() {
-            'use strict';
+        const targetFile = 'app/index.html';
+        const fallbackFile = 'README.md';
+        let retryCount = 0;
+        const MAX_RETRIES = 3;
+        let timeoutId = null;
 
-            const TARGET = 'app/index.html';
-            const FALLBACK = 'README.md';
-            const TIMEOUT_MS = 3000;
+        function updateStatus(text) {
+            document.getElementById('status-text').textContent = text;
+        }
 
-            let redirected = false;
-            let fallbackLoaded = false;
+        function tryReload() {
+            retryCount = 0;
+            document.getElementById('readme-fallback').classList.add('hidden');
+            document.getElementById('loader').classList.remove('hidden');
+            updateStatus('Neuer Versuch wird gestartet...');
+            checkApp();
+        }
 
-            const loaderEl = document.getElementById('loader');
-            const fallbackEl = document.getElementById('fallback');
-            const readmeContent = document.getElementById('readme-content');
-
-            const timeoutId = setTimeout(() => {
-                if (!redirected && !fallbackLoaded) {
-                    loadFallback('⏱️ Zeitüberschreitung: Die Hauptanwendung antwortet nicht.');
+        function checkApp() {
+            updateStatus(`Prüfe Anwendung (Versuch ${retryCount + 1}/${MAX_RETRIES})...`);
+            
+            fetch(targetFile, { 
+                method: 'GET',
+                headers: {
+                    'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache'
                 }
-            }, TIMEOUT_MS);
-
-            fetch(TARGET, { method: 'HEAD', cache: 'no-cache' })
-                .then(response => {
-                    clearTimeout(timeoutId);
-
-                    if (redirected) return;
-
-                    if (response.ok) {
-                        redirected = true;
-                        const basePath = window.location.pathname.replace(/\/[^/]*$/, '');
-                        const appPath = basePath + (basePath.endsWith('/') ? '' : '/') + 'app/';
-                        window.location.replace(appPath);
-                    } else {
-                        loadFallback('Die Hauptanwendung ist nicht verfügbar (HTTP ' + response.status + ').');
-                    }
-                })
-                .catch(err => {
-                    clearTimeout(timeoutId);
-                    if (!redirected && !fallbackLoaded) {
-                        loadFallback('Netzwerkfehler: ' + err.message);
-                    }
-                });
-
-            function loadFallback(reason) {
-                if (fallbackLoaded || redirected) return;
-                fallbackLoaded = true;
-                clearTimeout(timeoutId);
-
-                loaderEl.classList.add('hidden');
-                fallbackEl.classList.remove('hidden');
-
-                fetch(FALLBACK, { cache: 'no-cache' })
-                    .then(res => {
-                        if (res.ok) return res.text();
-                        throw new Error('README.md nicht gefunden (HTTP ' + res.status + ')');
-                    })
-                    .then(text => {
-                        readmeContent.textContent = text;
-                    })
-                    .catch(() => {
-                        readmeContent.innerHTML = 
-                            '<div class="error-message">' +
-                                '<strong>⚠️ Dokumentation nicht verfügbar</strong>' +
-                                '<p>Die <code>README.md</code> Datei konnte nicht geladen werden.</p>' +
-                                '<p style="margin-top:8px;font-size:0.9rem;color:#718096;">' +
-                                'Bitte versuchen Sie es später erneut oder kontaktieren Sie den Administrator.' +
-                                '</p>' +
-                            '</div>';
-                    });
-
-                if (reason) {
-                    console.warn('[Fallback] ' + reason);
+            })
+            .then(response => {
+                if (response.ok) {
+                    updateStatus('✅ Anwendung gefunden! Weiterleitung...');
+                    // Kleine Verzögerung für UX
+                    setTimeout(() => {
+                        const currentPath = window.location.pathname;
+                        const basePath = currentPath.endsWith('/') ? currentPath : currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+                        window.location.replace(basePath + 'app/index.html');
+                    }, 500);
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
                 }
-            }
-
-            window.addEventListener('beforeunload', function() {
-                clearTimeout(timeoutId);
+            })
+            .catch(error => {
+                console.warn('App nicht gefunden:', error);
+                retryCount++;
+                
+                if (retryCount < MAX_RETRIES) {
+                    const delay = retryCount * 1000;
+                    updateStatus(`⏳ Warte ${delay/1000}s vor erneutem Versuch...`);
+                    clearTimeout(timeoutId);
+                    timeoutId = setTimeout(checkApp, delay);
+                } else {
+                    updateStatus('❌ Anwendung nicht erreichbar');
+                    loadFallback();
+                }
             });
+        }
 
-        })();
+        function loadFallback() {
+            document.getElementById('loader').classList.add('hidden');
+            document.getElementById('readme-fallback').classList.remove('hidden');
+            
+            document.getElementById('readme-content').textContent = 'Lade Dokumentation...';
+            
+            fetch(fallbackFile)
+                .then(res => {
+                    if (res.ok) return res.text();
+                    throw new Error('README nicht gefunden');
+                })
+                .then(text => {
+                    document.getElementById('readme-content').textContent = text;
+                })
+                .catch(() => {
+                    document.getElementById('readme-content').textContent = 
+                        '❌ Die README.md Datei konnte nicht geladen werden.\n\n' +
+                        'Bitte überprüfen Sie:\n' +
+                        '1. Ob die Datei im Root-Verzeichnis existiert\n' +
+                        '2. Ob die Datei lesbar ist\n' +
+                        '3. Ob der Pfad korrekt ist';
+                });
+        }
+
+        // Start the check
+        updateStatus('Initialisiere...');
+        setTimeout(checkApp, 500);
+
+        // Cleanup timeout on page unload
+        window.addEventListener('beforeunload', function() {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+        });
+
+        // Fallback for network issues
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && document.getElementById('loader').classList.contains('hidden') === false) {
+                // Tab wurde wieder sichtbar, prüfe erneut
+                checkApp();
+            }
+        });
     </script>
 </body>
 </html>
