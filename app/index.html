@@ -931,35 +931,6 @@
             font-family: 'Courier New', Courier, monospace;
         }
     </style>
-                            <script>
-                            (function() {
-                                const select = document.getElementById('s2_name');
-                                if (!select) return;
-                                let currentLetter = '';
-                                let alphabetString = '';
-                                for (let i = 0; i < select.options.length; i++) {
-                                    const text = select.options[i].text.trim();
-                                    const firstChar = text.charAt(0).toUpperCase();
-                                    if (firstChar >= 'A' && firstChar <= 'Z') {
-                                        if (firstChar !== currentLetter) {
-                                            if (alphabetString !== '') {
-                                                alphabetString += ' ';
-                                            }
-                                            alphabetString += firstChar;
-                                            currentLetter = firstChar;
-                                        } else {
-                                            alphabetString += ' ·';
-                                        }
-                                    }
-                                }
-                                for (let i = 0; i < select.options.length; i++) {
-                                    const originalText = select.options[i].text;
-                                    if (!originalText.includes(' | ')) { 
-                                        select.options[i].text = alphabetString + ' | ' + originalText;
-                                    }
-                                }
-                            })();
-                        </script>
 </head>
 <body>
 
@@ -1042,6 +1013,35 @@
                             <span id="txt-bezeichnung" style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 4px; height: 16px; line-height: 16px;">Bezeichnung</span>
                             <select id="s2_name" onchange="syncDropdowns(this.value)"></select>
                         </div>
+<script>
+(function() {
+    const select = document.getElementById('s2_name');
+    if (!select) return;
+    let currentLetter = '';
+    let alphabetString = '';
+    for (let i = 0; i < select.options.length; i++) {
+        const text = select.options[i].text.trim();
+        const firstChar = text.charAt(0).toUpperCase();
+        if (firstChar >= 'A' && firstChar <= 'Z') {
+            if (firstChar !== currentLetter) {
+                if (alphabetString !== '') {
+                    alphabetString += ' ';
+                }
+                alphabetString += firstChar;
+                currentLetter = firstChar;
+            } else {
+                alphabetString += ' ·';
+            }
+        }
+    }
+    for (let i = 0; i < select.options.length; i++) {
+        const originalText = select.options[i].text;
+        if (!originalText.includes(' | ')) { 
+            select.options[i].text = alphabetString + ' | ' + originalText;
+        }
+    }
+})();
+</script>
                     </div>
                 </div>
                 <div class="sb">
