@@ -1,0 +1,17 @@
+├── 📄 index.html          (redirector)
+├── 📄 manifest.json       (PWA config)
+├── 📄 site.webmanifest    (PWA config, old format)
+├── 🟨 sw.js               (Service Worker)
+├── 🗂️ locations.json      (standortdaten)
+├── 🗂️ sortiment.json      (artikeldaten)
+├── 📜 README.md           (dokumentation)
+├── 📄 LICENSE             (lizenz)
+└── 📁 app/                (hauptanwendung)
+    ├── 📄 index.html      (die app)
+    └── 📁 assets/         (alle bilder und icons)
+        ├── 🖼️ apple-touch-icon.png
+        ├── 🖼️ favicon-96x96.png
+        ├── 🖼️ favicon.svg
+        ├── 🖼️ logo.png
+        ├── 🖼️ web-app-manifest-192x192.png
+        └── 🖼️ web-app-manifest-512x512.png
