@@ -4,11 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LAVU OÖ - Etiketten-Druckstudio v9</title>
-    <link class="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="manifest" href="manifest.json" />
+    <link class="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#1a4b60" />
     <style>
-        /* ... (all existing styles remain the same) ... */
         * {
             box-sizing: border-box;
         }
@@ -963,7 +962,6 @@
             animation: fdin 0.4s ease;
         }
 
-        /* Loading spinner for dropdown */
         .dropdown-loading {
             color: #94a3b8;
             font-weight: normal;
@@ -980,7 +978,7 @@
     <div class="crd">
         <div class="hdr">
             <div class="hdr-l">
-                <img src="logo.png" alt="LAVU Logo" class="lg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%231a4b60\' stroke-width=\'2\'><circle cx=\'12\' cy=\'12\' r=\'10\'/><path d=\'M8 14s1.5 2 4 2 4-2 4-2\'/><line x1=\'9\' y1=\'9\' x2=\'9.01\' y2=\'9\'/><line x1=\'15\' y1=\'9\' x2=\'15.01\' y2=\'9\'/></svg>'">
+                <img src="/assets/logo.png" alt="LAVU Logo" class="lg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%231a4b60\' stroke-width=\'2\'><circle cx=\'12\' cy=\'12\' r=\'10\'/><path d=\'M8 14s1.5 2 4 2 4-2 4-2\'/><line x1=\'9\' y1=\'9\' x2=\'9.01\' y2=\'9\'/><line x1=\'15\' y1=\'9\' x2=\'15.01\' y2=\'9\'/></svg>'">
                 <div>
                     <div class="hdr-ttl">LAVU OÖ</div>
                     <div class="hdr-sub" id="txt-studio-v9">Etiketten-Studio v9</div>
@@ -1219,159 +1217,10 @@
         let a3 = 'select';
         let currentLang = localStorage.getItem('lavu_lang') || 'de';
         
-// ===== UPDATED: Location data handling =====
-let locationData = [];
-const LOCATION_JSON_URL = "https://raw.githubusercontent.com/LAVU-OOE/Etiketten-Druckstudio/refs/heads/main/locations.json";
+        // Location data
+        let locationData = [];
+        const LOCATION_JSON_URL = "https://raw.githubusercontent.com/LAVU-OOE/Etiketten-Druckstudio/refs/heads/main/locations.json";
 
-// ===== UPDATED: Location dropdown population =====
-function populateLocationDropdowns(locations) {
-    const s1 = document.getElementById('s1');
-    const i1 = document.getElementById('i1');
-    
-    if (!s1 || !i1) return;
-    
-    s1.innerHTML = '';
-    i1.innerHTML = '';
-    
-    if (!locations || locations.length === 0) {
-        const option = document.createElement('option');
-        option.value = '';
-        option.textContent = i18n[currentLang].locationError || 'No locations found';
-        option.disabled = true;
-        option.selected = true;
-        s1.appendChild(option);
-        i1.appendChild(option.cloneNode(true));
-        return;
-    }
-    
-    // Group locations by region
-    const grouped = {};
-    locations.forEach(loc => {
-        const region = loc.region || 'Andere';
-        if (!grouped[region]) {
-            grouped[region] = [];
-        }
-        grouped[region].push(loc);
-    });
-    
-    // Sort region keys
-    const sortedRegions = Object.keys(grouped).sort();
-    
-    sortedRegions.forEach(region => {
-        const optgroupS1 = document.createElement('optgroup');
-        const optgroupI1 = document.createElement('optgroup');
-        optgroupS1.label = region;
-        optgroupI1.label = region;
-        
-        // Sort locations within region by name
-        const sortedLocs = grouped[region].sort((a, b) => a.name.localeCompare(b.name, 'de'));
-        
-        sortedLocs.forEach(loc => {
-            // Use siteCode as value if available, otherwise use name
-            const value = loc.siteCode || loc.name;
-            // Display name with siteCode in parentheses if available
-            const displayName = loc.siteCode ? `${loc.name} (${loc.siteCode})` : loc.name;
-            
-            const optionS1 = document.createElement('option');
-            optionS1.value = value;
-            optionS1.textContent = displayName;
-            optgroupS1.appendChild(optionS1);
-            
-            const optionI1 = document.createElement('option');
-            optionI1.value = value;
-            optionI1.textContent = displayName;
-            optgroupI1.appendChild(optionI1);
-        });
-        
-        s1.appendChild(optgroupS1);
-        i1.appendChild(optgroupI1);
-    });
-    
-    // Set default selection if there's a saved value or first option
-    const savedLocation = localStorage.getItem('lavu_location') || '';
-    if (savedLocation && s1.querySelector('option[value="' + savedLocation + '"]')) {
-        s1.value = savedLocation;
-        i1.value = savedLocation;
-    } else if (s1.options.length > 0) {
-        // Select first non-disabled option
-        for (let opt of s1.options) {
-            if (!opt.disabled && opt.value) {
-                s1.value = opt.value;
-                i1.value = opt.value;
-                break;
-            }
-        }
-    }
-}
-
-// ===== UPDATED: Load locations from external JSON =====
-function loadLocations() {
-    const s1 = document.getElementById('s1');
-    const i1 = document.getElementById('i1');
-    const t = i18n[currentLang];
-    
-    // Show loading state
-    if (s1) {
-        s1.innerHTML = '';
-        const loadingOpt = document.createElement('option');
-        loadingOpt.value = '';
-        loadingOpt.textContent = t.locationLoading || 'Loading locations...';
-        loadingOpt.disabled = true;
-        loadingOpt.selected = true;
-        s1.appendChild(loadingOpt);
-    }
-    if (i1) {
-        i1.innerHTML = '';
-        const loadingOpt = document.createElement('option');
-        loadingOpt.value = '';
-        loadingOpt.textContent = t.locationLoading || 'Loading locations...';
-        loadingOpt.disabled = true;
-        loadingOpt.selected = true;
-        i1.appendChild(loadingOpt);
-    }
-    
-    // Try to load from cache first for speed
-    const cachedLocations = localStorage.getItem('lavu_locations_cache');
-    if (cachedLocations) {
-        try {
-            const parsed = JSON.parse(cachedLocations);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-                locationData = parsed;
-                populateLocationDropdowns(locationData);
-            }
-        } catch (e) {
-            // Ignore cache parse errors
-        }
-    }
-    
-    // Fetch fresh data
-    fetch(LOCATION_JSON_URL, { cache: "no-store" })
-        .then(response => {
-            if (!response.ok) throw new Error("Network response was not ok");
-            return response.json();
-        })
-        .then(data => {
-            if (Array.isArray(data) && data.length > 0) {
-                locationData = data;
-                localStorage.setItem('lavu_locations_cache', JSON.stringify(locationData));
-                populateLocationDropdowns(locationData);
-            } else {
-                throw new Error("Invalid location data format");
-            }
-        })
-        .catch(err => {
-            console.warn("Error loading locations from URL, using fallback:", err);
-            // Fallback to default locations if fetch fails and no cache
-            if (!locationData || locationData.length === 0) {
-                locationData = [
-                    { siteCode: "106", name: "ASZ Asten", zipCode: "4481", region: "Linz-Land & Linz Stadt" },
-                    { siteCode: "N/G", name: "ASZ Ansfelden", zipCode: "4053", region: "Linz-Land & Linz Stadt" },
-                    // ... (rest of your fallback data would go here)
-                ];
-                populateLocationDropdowns(locationData);
-            }
-        });
-}
         // Sortiment mit Art.Nr. und Bezeichnung
         const sortimentData = [
             { artNr: "1000", bez: "Textilen" },
@@ -1593,7 +1442,7 @@ function loadLocations() {
             { artNr: "5530", bez: "Baustellenabfälle gemischt", geb: "Großcontainer" }
         ];
 
-        // ===== NEW: Location dropdown population =====
+        // ===== Location dropdown population =====
         function populateLocationDropdowns(locations) {
             const s1 = document.getElementById('s1');
             const i1 = document.getElementById('i1');
@@ -1614,7 +1463,7 @@ function loadLocations() {
                 return;
             }
             
-            // Group locations by region/category
+            // Group locations by region
             const grouped = {};
             locations.forEach(loc => {
                 const region = loc.region || 'Andere';
@@ -1637,14 +1486,19 @@ function loadLocations() {
                 const sortedLocs = grouped[region].sort((a, b) => a.name.localeCompare(b.name, 'de'));
                 
                 sortedLocs.forEach(loc => {
+                    // Use siteCode as value if available, otherwise use name
+                    const value = loc.siteCode || loc.name;
+                    // Display name with siteCode in parentheses if available
+                    const displayName = loc.siteCode ? `${loc.name} (${loc.siteCode})` : loc.name;
+                    
                     const optionS1 = document.createElement('option');
-                    optionS1.value = loc.value || loc.name;
-                    optionS1.textContent = loc.name;
+                    optionS1.value = value;
+                    optionS1.textContent = displayName;
                     optgroupS1.appendChild(optionS1);
                     
                     const optionI1 = document.createElement('option');
-                    optionI1.value = loc.value || loc.name;
-                    optionI1.textContent = loc.name;
+                    optionI1.value = value;
+                    optionI1.textContent = displayName;
                     optgroupI1.appendChild(optionI1);
                 });
                 
@@ -1669,7 +1523,7 @@ function loadLocations() {
             }
         }
 
-        // ===== NEW: Load locations from external JSON =====
+        // ===== Load locations from external JSON =====
         function loadLocations() {
             const s1 = document.getElementById('s1');
             const i1 = document.getElementById('i1');
@@ -1729,29 +1583,29 @@ function loadLocations() {
                     // Fallback to default locations if fetch fails and no cache
                     if (!locationData || locationData.length === 0) {
                         locationData = [
-                            { name: "106 - ASZ Asten", value: "106 - ASZ Asten", region: "Linz-Land & Linz Stadt" },
-                            { name: "ASZ Ansfelden", value: "ASZ Ansfelden", region: "Linz-Land & Linz Stadt" },
-                            { name: "ASZ Enns", value: "ASZ Enns", region: "Linz-Land & Linz Stadt" },
-                            { name: "ASZ Hörsching", value: "ASZ Hörsching", region: "Linz-Land & Linz Stadt" },
-                            { name: "ASZ Leonding", value: "ASZ Leonding", region: "Linz-Land & Linz Stadt" },
-                            { name: "ASZ Neuhofen", value: "ASZ Neuhofen", region: "Linz-Land & Linz Stadt" },
-                            { name: "ASZ Pasching", value: "ASZ Pasching", region: "Linz-Land & Linz Stadt" },
-                            { name: "ASZ St. Florian", value: "ASZ St. Florian", region: "Linz-Land & Linz Stadt" },
-                            { name: "ASZ Traun", value: "ASZ Traun", region: "Linz-Land & Linz Stadt" },
-                            { name: "ASZ Wilhering", value: "ASZ Wilhering", region: "Linz-Land & Linz Stadt" },
-                            { name: "ASZ Linz-Nebingerstraße", value: "ASZ Linz-Nebingerstraße", region: "Linz-Land & Linz Stadt" },
-                            { name: "ASZ Linz-Mostnnystraße", value: "ASZ Linz-Mostnnystraße", region: "Linz-Land & Linz Stadt" },
-                            { name: "ASZ Linz-Wiener Straße", value: "ASZ Linz-Wiener Straße", region: "Linz-Land & Linz Stadt" },
-                            { name: "ASZ Linz-Dornach", value: "ASZ Linz-Dornach", region: "Linz-Land & Linz Stadt" },
-                            { name: "ASZ Wels-Nord", value: "ASZ Wels-Nord", region: "Wels & Wels-Land" },
-                            { name: "ASZ Wels-Kenten", value: "ASZ Wels-Kenten", region: "Wels & Wels-Land" },
-                            { name: "ASZ Marchtrenk", value: "ASZ Marchtrenk", region: "Wels & Wels-Land" },
-                            { name: "ASZ Gunskirchen", value: "ASZ Gunskirchen", region: "Wels & Wels-Land" },
-                            { name: "ASZ Thalheim", value: "ASZ Thalheim", region: "Wels & Wels-Land" },
-                            { name: "ASZ Steyr", value: "ASZ Steyr", region: "Steyr & Steyr-Land" },
-                            { name: "ASZ Bad Hall", value: "ASZ Bad Hall", region: "Steyr & Steyr-Land" },
-                            { name: "ASZ Garsten", value: "ASZ Garsten", region: "Steyr & Steyr-Land" },
-                            { name: "ASZ Sierning", value: "ASZ Sierning", region: "Steyr & Steyr-Land" }
+                            { siteCode: "106", name: "ASZ Asten", zipCode: "4481", region: "Linz-Land & Linz Stadt" },
+                            { siteCode: "N/G", name: "ASZ Ansfelden", zipCode: "4053", region: "Linz-Land & Linz Stadt" },
+                            { siteCode: "N/G", name: "ASZ Enns", zipCode: "4470", region: "Linz-Land & Linz Stadt" },
+                            { siteCode: "N/G", name: "ASZ Hörsching", zipCode: "4063", region: "Linz-Land & Linz Stadt" },
+                            { siteCode: "N/G", name: "ASZ Leonding", zipCode: "4060", region: "Linz-Land & Linz Stadt" },
+                            { siteCode: "N/G", name: "ASZ Neuhofen", zipCode: "4501", region: "Linz-Land & Linz Stadt" },
+                            { siteCode: "N/G", name: "ASZ Pasching", zipCode: "4061", region: "Linz-Land & Linz Stadt" },
+                            { siteCode: "N/G", name: "ASZ St. Florian", zipCode: "4490", region: "Linz-Land & Linz Stadt" },
+                            { siteCode: "N/G", name: "ASZ Traun", zipCode: "4050", region: "Linz-Land & Linz Stadt" },
+                            { siteCode: "N/G", name: "ASZ Wilhering", zipCode: "4073", region: "Linz-Land & Linz Stadt" },
+                            { siteCode: "N/G", name: "ASZ Linz-Nebingerstraße", zipCode: "4020", region: "Linz-Land & Linz Stadt" },
+                            { siteCode: "N/G", name: "ASZ Linz-Mostnnystraße", zipCode: "4040", region: "Linz-Land & Linz Stadt" },
+                            { siteCode: "N/G", name: "ASZ Linz-Wiener Straße", zipCode: "4030", region: "Linz-Land & Linz Stadt" },
+                            { siteCode: "N/G", name: "ASZ Linz-Dornach", zipCode: "4040", region: "Linz-Land & Linz Stadt" },
+                            { siteCode: "N/G", name: "ASZ Wels-Nord", zipCode: "4600", region: "Wels & Wels-Land" },
+                            { siteCode: "N/G", name: "ASZ Wels-Kenten", zipCode: "4600", region: "Wels & Wels-Land" },
+                            { siteCode: "N/G", name: "ASZ Marchtrenk", zipCode: "4614", region: "Wels & Wels-Land" },
+                            { siteCode: "N/G", name: "ASZ Gunskirchen", zipCode: "4623", region: "Wels & Wels-Land" },
+                            { siteCode: "N/G", name: "ASZ Thalheim", zipCode: "4600", region: "Wels & Wels-Land" },
+                            { siteCode: "N/G", name: "ASZ Steyr", zipCode: "4400", region: "Steyr & Steyr-Land" },
+                            { siteCode: "N/G", name: "ASZ Bad Hall", zipCode: "4540", region: "Steyr & Steyr-Land" },
+                            { siteCode: "N/G", name: "ASZ Garsten", zipCode: "4451", region: "Steyr & Steyr-Land" },
+                            { siteCode: "N/G", name: "ASZ Sierning", zipCode: "4522", region: "Steyr & Steyr-Land" }
                         ];
                         populateLocationDropdowns(locationData);
                     }
@@ -2624,11 +2478,12 @@ function loadLocations() {
         let deferredPrompt;
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                navigator.serviceWorker.register('sw.js').then(function(registration) {
-                    console.log('LAVU ServiceWorker erfolgreich registriert mit Scope: ', registration.scope);
-                }).catch(function(error) {
-                    console.log('LAVU ServiceWorker Registrierung fehlgeschlagen: ', error);
-                });
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('LAVU ServiceWorker registered with scope:', registration.scope);
+                    }).catch(function(error) {
+                        console.log('LAVU ServiceWorker registration failed:', error);
+                    });
             });
         }
 
