@@ -4,20 +4,20 @@ const CACHE_NAME = `lavu-studio-${CACHE_VERSION}`;
 
 // Static assets that are part of the app
 const STATIC_ASSETS = [
-    '/app/',
-    '/app/index.html',
-    '/app/assets/icons/favicon.svg',
-    '/app/assets/icons/logo.png',
-    '/app/assets/icons/favicon-96x96.png',
-    '/app/assets/icons/apple-touch-icon.png',
-    '/app/assets/icons/web-app-manifest-192x192.png',
-    '/app/assets/icons/web-app-manifest-512x512.png'
+    '/',
+    '/index.html',
+    '/assets/icons/favicon.svg',
+    '/assets/icons/logo.png',
+    '/assets/icons/favicon-96x96.png',
+    '/assets/icons/apple-touch-icon.png',
+    '/assets/icons/web-app-manifest-192x192.png',
+    '/assets/icons/web-app-manifest-512x512.png'
 ];
 
 // External JSON databases
 const DYNAMIC_JSON_URLS = [
-    'https://raw.githubusercontent.com/LAVU-OOE/Etiketten-Druckstudio/refs/heads/main/app/assets/js/locations.json',
-    'https://raw.githubusercontent.com/LAVU-OOE/Etiketten-Druckstudio/refs/heads/main/app/assets/js/sortiment.json'
+    'https://raw.githubusercontent.com/LAVU-OOE/Etiketten-Druckstudio/refs/heads/main/locations.json',
+    'https://raw.githubusercontent.com/LAVU-OOE/Etiketten-Druckstudio/refs/heads/main/sortiment.json'
 ];
 
 // Install event - cache static assets
@@ -111,7 +111,7 @@ self.addEventListener('fetch', event => {
                     return response;
                 })
                 .catch(() => {
-                    return caches.match('/app/index.html')
+                    return caches.match('/index.html')
                         .then(cachedResponse => {
                             if (cachedResponse) {
                                 console.log('[SW] Serving offline fallback page');

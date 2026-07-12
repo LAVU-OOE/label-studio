@@ -85,11 +85,6 @@
     "geb": "Gestell"
   },
   {
-    "artNr": "4250",
-    "bez": "Altöl",
-    "geb": "Tank"
-  },
-  {
     "artNr": "4260",
     "bez": "Lösemittel-Wassergemische",
     "geb": "Fass"
@@ -142,7 +137,7 @@
   },
   {
     "artNr": "4340",
-    "bez": "Altmedikamente (ungsortierte Arzneien)",
+    "bez": "Altmedikamente (unsortierte Arzneien)",
     "geb": "Karton"
   },
   {
@@ -248,7 +243,7 @@
   },
   {
     "artNr": "3315",
-    "bez": "Altfenste PVC",
+    "bez": "Altfenster PVC",
     "geb": "RUP"
   },
   {
