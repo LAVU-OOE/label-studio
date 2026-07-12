@@ -1,9 +1,9 @@
-# Betriebssystem-spezifische Dateien
+# OS related
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# IDEs und Editoren
+# IDEs
 .vscode/
 .idea/
 #.dev/
@@ -11,15 +11,18 @@ desktop.ini
 *.ntvs*
 *.njsproj
 *.sln
+*.code-workspace
 
-# Zukünftige Server-Erweiterungen (falls Node.js/Python genutzt wird)
+# Node.js/Python
 node_modules/
 __pycache__/
 *.log
 .env
 
-# Lokale Datenbanken (Sicherheitskopien/Live-Daten nicht mit-committen)
+# Local databases (Do not commit backups/live data.)
 *.db
 *.sqlite
 
-*.code-workspace
+# Organization Projects
+Etiketten-Druckstudio/
+labelStudio/
