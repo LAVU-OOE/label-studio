@@ -2492,11 +2492,12 @@
         let deferredPrompt;
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(function(registration) {
-                        console.log('LAVU ServiceWorker registered with scope:', registration.scope);
-                    }).catch(function(error) {
-                        console.log('LAVU ServiceWorker registration failed:', error);
+                navigator.serviceWorker.register('../sw.js', { scope: '/Etiketten-Druckstudio/app/' })
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
                     });
             });
         }
