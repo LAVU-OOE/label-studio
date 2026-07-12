@@ -1219,10 +1219,159 @@
         let a3 = 'select';
         let currentLang = localStorage.getItem('lavu_lang') || 'de';
         
-        // ===== NEW: Location data =====
-        let locationData = [];
-        const LOCATION_JSON_URL = "https://raw.githubusercontent.com/LAVU-OOE/Etiketten-Druckstudio/refs/heads/main/locations.json";
+// ===== UPDATED: Location data handling =====
+let locationData = [];
+const LOCATION_JSON_URL = "https://raw.githubusercontent.com/LAVU-OOE/Etiketten-Druckstudio/refs/heads/main/locations.json";
 
+// ===== UPDATED: Location dropdown population =====
+function populateLocationDropdowns(locations) {
+    const s1 = document.getElementById('s1');
+    const i1 = document.getElementById('i1');
+    
+    if (!s1 || !i1) return;
+    
+    s1.innerHTML = '';
+    i1.innerHTML = '';
+    
+    if (!locations || locations.length === 0) {
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = i18n[currentLang].locationError || 'No locations found';
+        option.disabled = true;
+        option.selected = true;
+        s1.appendChild(option);
+        i1.appendChild(option.cloneNode(true));
+        return;
+    }
+    
+    // Group locations by region
+    const grouped = {};
+    locations.forEach(loc => {
+        const region = loc.region || 'Andere';
+        if (!grouped[region]) {
+            grouped[region] = [];
+        }
+        grouped[region].push(loc);
+    });
+    
+    // Sort region keys
+    const sortedRegions = Object.keys(grouped).sort();
+    
+    sortedRegions.forEach(region => {
+        const optgroupS1 = document.createElement('optgroup');
+        const optgroupI1 = document.createElement('optgroup');
+        optgroupS1.label = region;
+        optgroupI1.label = region;
+        
+        // Sort locations within region by name
+        const sortedLocs = grouped[region].sort((a, b) => a.name.localeCompare(b.name, 'de'));
+        
+        sortedLocs.forEach(loc => {
+            // Use siteCode as value if available, otherwise use name
+            const value = loc.siteCode || loc.name;
+            // Display name with siteCode in parentheses if available
+            const displayName = loc.siteCode ? `${loc.name} (${loc.siteCode})` : loc.name;
+            
+            const optionS1 = document.createElement('option');
+            optionS1.value = value;
+            optionS1.textContent = displayName;
+            optgroupS1.appendChild(optionS1);
+            
+            const optionI1 = document.createElement('option');
+            optionI1.value = value;
+            optionI1.textContent = displayName;
+            optgroupI1.appendChild(optionI1);
+        });
+        
+        s1.appendChild(optgroupS1);
+        i1.appendChild(optgroupI1);
+    });
+    
+    // Set default selection if there's a saved value or first option
+    const savedLocation = localStorage.getItem('lavu_location') || '';
+    if (savedLocation && s1.querySelector('option[value="' + savedLocation + '"]')) {
+        s1.value = savedLocation;
+        i1.value = savedLocation;
+    } else if (s1.options.length > 0) {
+        // Select first non-disabled option
+        for (let opt of s1.options) {
+            if (!opt.disabled && opt.value) {
+                s1.value = opt.value;
+                i1.value = opt.value;
+                break;
+            }
+        }
+    }
+}
+
+// ===== UPDATED: Load locations from external JSON =====
+function loadLocations() {
+    const s1 = document.getElementById('s1');
+    const i1 = document.getElementById('i1');
+    const t = i18n[currentLang];
+    
+    // Show loading state
+    if (s1) {
+        s1.innerHTML = '';
+        const loadingOpt = document.createElement('option');
+        loadingOpt.value = '';
+        loadingOpt.textContent = t.locationLoading || 'Loading locations...';
+        loadingOpt.disabled = true;
+        loadingOpt.selected = true;
+        s1.appendChild(loadingOpt);
+    }
+    if (i1) {
+        i1.innerHTML = '';
+        const loadingOpt = document.createElement('option');
+        loadingOpt.value = '';
+        loadingOpt.textContent = t.locationLoading || 'Loading locations...';
+        loadingOpt.disabled = true;
+        loadingOpt.selected = true;
+        i1.appendChild(loadingOpt);
+    }
+    
+    // Try to load from cache first for speed
+    const cachedLocations = localStorage.getItem('lavu_locations_cache');
+    if (cachedLocations) {
+        try {
+            const parsed = JSON.parse(cachedLocations);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+                locationData = parsed;
+                populateLocationDropdowns(locationData);
+            }
+        } catch (e) {
+            // Ignore cache parse errors
+        }
+    }
+    
+    // Fetch fresh data
+    fetch(LOCATION_JSON_URL, { cache: "no-store" })
+        .then(response => {
+            if (!response.ok) throw new Error("Network response was not ok");
+            return response.json();
+        })
+        .then(data => {
+            if (Array.isArray(data) && data.length > 0) {
+                locationData = data;
+                localStorage.setItem('lavu_locations_cache', JSON.stringify(locationData));
+                populateLocationDropdowns(locationData);
+            } else {
+                throw new Error("Invalid location data format");
+            }
+        })
+        .catch(err => {
+            console.warn("Error loading locations from URL, using fallback:", err);
+            // Fallback to default locations if fetch fails and no cache
+            if (!locationData || locationData.length === 0) {
+                locationData = [
+                    { siteCode: "106", name: "ASZ Asten", zipCode: "4481", region: "Linz-Land & Linz Stadt" },
+                    { siteCode: "N/G", name: "ASZ Ansfelden", zipCode: "4053", region: "Linz-Land & Linz Stadt" },
+                    // ... (rest of your fallback data would go here)
+                ];
+                populateLocationDropdowns(locationData);
+            }
+        });
+}
         // Sortiment mit Art.Nr. und Bezeichnung
         const sortimentData = [
             { artNr: "1000", bez: "Textilen" },
