@@ -1165,7 +1165,7 @@ function s3() {
 let deferredPrompt;
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
-        navigator.serviceWorker.register('../sw.js', { scope: '/Etiketten-Druckstudio/' })
+        navigator.serviceWorker.register('sw.js', { scope: '/Etiketten-Druckstudio/' })
             .then(registration => {
                 console.log('ServiceWorker registration successful with scope: ', registration.scope);
             })
