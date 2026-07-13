@@ -2,15 +2,15 @@ const CACHE_VERSION = 'lavu-studio-v9';
 const CACHE_NAME = `lavu-studio-${CACHE_VERSION}`;
 const STATIC_ASSETS = [
     '.',
-    './index.html',
-    './manifest.json',
-    './site.webmanifest',
-    './assets/icons/favicon.svg',
-    './assets/icons/logo.png',
-    './assets/icons/favicon-96x96.png',
-    './assets/icons/apple-touch-icon.png',
-    './assets/icons/web-app-manifest-192x192.png',
-    './assets/icons/web-app-manifest-512x512.png'
+    'index.html',
+    'manifest.json',
+    'site.webmanifest',
+    'assets/icons/favicon.svg',
+    'assets/icons/logo.png',
+    'assets/icons/favicon-96x96.png',
+    'assets/icons/apple-touch-icon.png',
+    'assets/icons/web-app-manifest-192x192.png',
+    'assets/icons/web-app-manifest-512x512.png'
 ];
 const DYNAMIC_JSON_URLS = [
     'https://raw.githubusercontent.com/LAVU-OOE/Etiketten-Druckstudio/refs/heads/main/assets/js/locations.json',
